@@ -17,6 +17,9 @@ class Persons extends Model
         'status', 'valid', 'edited_by', 'created_by',
     ];
 
+    public function Kunjungan(){
+        return $this->hasMany(Kunjungans::class, 'person_id');
+    }
     public function kelurahan(){
         return $this->belongsTo(Kelurahans::class, 'kelurahan_id');
     }

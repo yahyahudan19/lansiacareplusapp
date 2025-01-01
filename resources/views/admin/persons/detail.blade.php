@@ -82,9 +82,16 @@
                             Kembali
                         </a>
                         <!--end::Button-->
-                    @else
+                    @elseif(Auth::user()->role == "Dinkes")
                         <!--begin::Button-->
                         <a href="/dinkes/penduduk" class="btn btn-success">
+                            <i class="ki-duotone ki-left-square"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                            Kembali
+                        </a>
+                        <!--end::Button-->
+                    @else
+                        <!--begin::Button-->
+                        <a href="/puskesmas/penduduk" class="btn btn-success">
                             <i class="ki-duotone ki-left-square"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
                             Kembali
                         </a>

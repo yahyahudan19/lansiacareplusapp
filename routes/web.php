@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\KunjungansController;
 use App\Http\Controllers\PersonsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -36,6 +37,7 @@ Route::middleware(['role:System Administrator,Puskesmas'])->group(function (){
     Route::post('/admin/update/profile', [UserController::class, 'update_profile'])->name('user.update_profile');
     Route::post('/admin/update/password', [UserController::class, 'update_password'])->name('user.update_password');
     Route::post('/admin/update/role', [UserController::class, 'update_role'])->name('user.update_role');
+    
 
 
 });
@@ -64,8 +66,9 @@ Route::middleware(['role:System Administrator'])->group(function (){
     Route::get('/admin/penduduk/{id}', [PersonsController::class, 'detail_view'])->name('persons.detail_view');
     Route::get('/admin/penduduk/edit/{id}', [PersonsController::class, 'edit_view'])->name('persons.edit_view');
     Route::post('/admin/penduduk/update/{id}', [PersonsController::class, 'update'])->name('persons.update');
-
-
+    
+    Route::get('/admin/kunjungan', [KunjungansController::class, 'index'])->name('kunjungans.index');
+    
 });
 
 // Dinkes Routes ------------------------------------------------------
@@ -98,6 +101,8 @@ Route::middleware(['role:Puskesmas'])->group(function (){
     Route::get('/puskesmas/penduduk', [PersonsController::class, 'index_puskesmas'])->name('persons.index_puskesmas');
     Route::get('/puskesmas/penduduk/lansia', [PersonsController::class, 'index_lansia_puskesmas'])->name('persons.index_lansia_puskesmas');
     Route::get('/puskesmas/penduduk/pra-lansia', [PersonsController::class, 'index_pra_lansia_puskesmas'])->name('persons.index_pra_lansia_puskesmas');
+    Route::get('/puskesmas/penduduk/{id}', [PersonsController::class, 'detail_view'])->name('persons.detail_view');
+
 
 
 });

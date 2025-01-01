@@ -1,7 +1,7 @@
 @extends('components.layout')
 
 @section('title')
-    Penduduk
+    Kunjungans
 @endsection
 
 @section('plugins-head')
@@ -21,7 +21,7 @@
                 <!--begin::Page title-->
                 <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
                     <!--begin::Title-->
-                    <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Data Semua Penduduk</h1>
+                    <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Data Semua Kunjungan</h1>
                     <!--end::Title-->
                     <!--begin::Breadcrumb-->
                     <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
@@ -36,7 +36,7 @@
                         </li>
                         <!--end::Item-->
                         <!--begin::Item-->
-                        <li class="breadcrumb-item text-muted">Penduduk</li>
+                        <li class="breadcrumb-item text-muted">Kunjungan</li>
                         <!--end::Item-->
                         <!--begin::Item-->
                         <li class="breadcrumb-item">
@@ -44,7 +44,7 @@
                         </li>
                         <!--end::Item-->
                         <!--begin::Item-->
-                        <li class="breadcrumb-item text-muted">Semua Penduduk</li>
+                        <li class="breadcrumb-item text-muted">Semua Kunjungan</li>
                         <!--end::Item-->
                     </ul>
                     <!--end::Breadcrumb-->
@@ -67,7 +67,7 @@
         <!--begin::Content container-->
         <div id="kt_app_content_container" class="app-container container-fluid">
             <div>
-                <form action="/penduduk/find" method="GET">
+                <form action="/kunjungan/find" method="GET">
                     <!--begin::Card-->
                     <div class="card mb-7">
                         <!--begin::Card body-->
@@ -103,14 +103,14 @@
                             <!--begin::Title-->
                             <div class="d-flex align-items-center position-relative my-1">
                                 <button type="button" class="btn btn-outline btn-outline-dashed me-2 mb-2" disabled>
-                                <i class="ki-outline ki-filter fs-2"></i>Filter Penduduk </button>
+                                <i class="ki-outline ki-filter fs-2"></i>Filter Kunjungan </button>
                             </div>
                             <!--end::Title-->
                         </div>
                         <!--end::Card title-->
                         <!--begin::Card toolbar-->
                         <div class="card-toolbar">
-                            <form action="/penduduk/cari" method="GET">
+                            <form action="/kunjungan/cari" method="GET">
                                 {{-- @csrf --}}
                                 <!--begin::Toolbar-->
                                 <div class="d-flex">
@@ -265,7 +265,7 @@
                         <!--begin::Search-->
                         <div class="d-flex align-items-center position-relative my-1">
                             <i class="ki-outline ki-magnifier fs-3 position-absolute ms-5"></i>
-                            <input type="text" data-kt-user-table-filter="search" class="form-control form-control-solid w-250px ps-13" placeholder="Cari Penduduk" />
+                            <input type="text" data-kt-user-table-filter="search" class="form-control form-control-solid w-250px ps-13" placeholder="Cari Kunjungan" />
                         </div>
                         <!--end::Search-->
                     </div>
@@ -324,9 +324,10 @@
                             <!--end::Filter-->
                             @if (in_array(auth()->user()->role, ['System Administrator', 'Puskesmas', 'Kader']))
                                <!--begin::Add user-->
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user">
-                                <i class="ki-outline ki-plus fs-2"></i>Tambah Penduduk</button>
+                                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_users_search">
+                                <i class="ki-outline ki-plus fs-2"></i>Tambah Kunjungan</a>
                                 <!--end::Add user--> 
+                                
                             @endif
                             
                         </div>
@@ -339,165 +340,6 @@
                         </div>
                         <!--end::Group actions-->
                         
-                        <!--begin::Modal - Add Penduduk-->
-                        <div class="modal fade" id="kt_modal_add_user" tabindex="-1" aria-hidden="true">
-                            <!--begin::Modal dialog-->
-                            <div class="modal-dialog modal-dialog-centered mw-650px">
-                                <!--begin::Modal content-->
-                                <div class="modal-content">
-                                    <!--begin::Modal header-->
-                                    <div class="modal-header" id="kt_modal_add_user_header">
-                                        <!--begin::Modal title-->
-                                        <h2 class="fw-bold">Tambah Penduduk </h2>
-                                        <!--end::Modal title-->
-                                        <!--begin::Close-->
-                                        <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-users-modal-action="close">
-                                            <i class="ki-outline ki-cross fs-1"></i>
-                                        </div>
-                                        <!--end::Close-->
-                                    </div>
-                                    <!--end::Modal header-->
-                                    <!--begin::Modal body-->
-                                    <div class="modal-body px-5 my-7">
-                                        <!--begin::Form-->
-                                        <form id="kt_modal_add_user_form" class="form" action="/admin/penduduk/store" method="POST">
-                                            @csrf
-                                            <!--begin::Scroll-->
-                                            <div class="d-flex flex-column scroll-y px-5 px-lg-10" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px">
-                                                
-                                                <!--begin::Input group-->
-                                                <div class="fv-row mb-7">
-                                                    <!--begin::Label-->
-                                                    <label class="required fw-semibold fs-6 mb-2">Nama Lengkap</label>
-                                                    <!--end::Label-->
-                                                    <!--begin::Input-->
-                                                    <input type="text" name="person_name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Nama Lengkap" value="User Test" />
-                                                    <!--end::Input-->
-                                                </div>
-                                                <!--end::Input group-->
-                                                <!--begin::Input group-->
-                                                <div class="fv-row mb-7">
-                                                    <!--begin::Label-->
-                                                    <label class="required fw-semibold fs-6 mb-2">NIK</label>
-                                                    <!--end::Label-->
-                                                    <!--begin::Input-->
-                                                    <input type="text" name="person_nik" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="NIK" value="35730439090000004" />
-                                                    <!--end::Input-->
-                                                </div>
-                                                <!--end::Input group-->
-
-                                                <!--end::begin group-->
-                                                <div class="row g-9 mb-7">
-                                                    <!--begin::Col-->
-                                                    <div class="col-md-6 fv-row fv-plugins-icon-container">
-                                                        <!--begin::Label-->
-                                                        <label class="required fw-semibold fs-6 mb-2">No. Telp</label>
-                                                        <!--end::Label-->
-                                                        <!--begin::Input-->
-                                                        <input type="text" name="person_telp" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="No. Telp" value="6281259224380" />
-                                                        <!--end::Input-->
-                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
-                                                    <!--end::Col-->
-                                                    <!--begin::Col-->
-                                                    <div class="col-md-6 fv-row fv-plugins-icon-container">
-                                                        <!--begin::Label-->
-                                                        <label class="form-label required">Tanggal Lahir</label>
-                                                    <!--end::Label-->
-                                                    <!--begin::Input-->
-                                                    <div class="input-group" id="kt_td_picker_date_only" data-td-target-input="nearest" data-td-target-toggle="nearest">
-                                                        <input id="kt_td_picker_date_only_input" type="text" class="form-control" data-td-target="#kt_td_picker_date_only" name="person_tl"/>
-                                                        <span class="input-group-text" data-td-target="#kt_td_picker_date_only" data-td-toggle="datetimepicker">
-                                                            <i class="ki-duotone ki-calendar fs-2"><span class="path1"></span><span class="path2"></span></i>
-                                                        </span>
-                                                    </div>
-                                                        <!--end::Input-->
-                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
-                                                    <!--end::Col-->
-                                                </div>
-                                                <!--end::Input group-->
-
-                                              
-                                                <!--begin::Input group-->
-                                                <div class="fv-row mb-7">
-                                                    <!--begin::Label-->
-                                                    <label class="fw-semibold fs-6 mb-2">No. BPJS</label>
-                                                    <!--end::Label-->
-                                                    <!--begin::Input-->
-                                                    <input type="text" name="person_bpjs" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="No. BPJS" value="1234561235" />
-                                                    <!--end::Input-->
-                                                </div>
-                                                <!--end::Input group-->
-                                              
-                                                <!--begin::Input group-->
-                                                <div class="fv-row mb-7">
-                                                    <!--begin::Label-->
-                                                    <label class="fw-semibold fs-6 mb-2 required">Alamat Lengkap</label>
-                                                    <!--end::Label-->
-                                                    <!--begin::Input-->
-                                                    <input type="text" name="person_alamat" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Alamat" value="Jl. Malang" />
-                                                    <!--end::Input-->
-                                                </div>
-                                                <!--end::Input group-->
-                                                <!--begin::Input group-->
-                                                <div class="row g-9 mb-7">
-                                                    <!--begin::Col-->
-                                                    <div class="col-md-6 fv-row fv-plugins-icon-container">
-                                                        <!--begin::Label-->
-                                                        <label class="required fs-6 fw-semibold mb-2">RT</label>
-                                                        <!--end::Label-->
-                                                        <!--begin::Input-->
-                                                        <input class="form-control form-control-solid" placeholder="" name="person_rt" value="01">
-                                                        <!--end::Input-->
-                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
-                                                    <!--end::Col-->
-                                                    <!--begin::Col-->
-                                                    <div class="col-md-6 fv-row fv-plugins-icon-container">
-                                                        <!--begin::Label-->
-                                                        <label class="required fs-6 fw-semibold mb-2">RW</label>
-                                                        <!--end::Label-->
-                                                        <!--begin::Input-->
-                                                        <input class="form-control form-control-solid" placeholder="" name="person_rw" value="02">
-                                                        <!--end::Input-->
-                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
-                                                    <!--end::Col-->
-                                                </div>
-                                                <!--begin::Input group-->
-                                                <div class="fv-row mb-7">
-                                                    <!--begin::Label-->
-                                                    <label class="form-label required">Kelurahan</label>
-                                                    <!--end::Label-->
-                                                    <!--begin::Input-->
-                                                    <select name="person_kelurahan" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
-                                                        <option></option>
-                                                        @foreach ($kelurahans as $kel)
-                                                            <option value="{{$kel->id}}">{{$kel->nama}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    <!--end::Input-->
-                                                </div>
-                                                <!--end::Input group-->
-                                            </div>
-                                            <!--end::Scroll-->
-                                            <!--begin::Actions-->
-                                            <div class="text-center pt-10">
-                                                <button type="reset" class="btn btn-light me-3" data-kt-users-modal-action="cancel">Discard</button>
-                                                <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
-                                                    <span class="indicator-label">Submit</span>
-                                                    <span class="indicator-progress">Please wait... 
-                                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                                                </button>
-                                            </div>
-                                            <!--end::Actions-->
-                                        </form>
-                                        <!--end::Form-->
-                                    </div>
-                                    <!--end::Modal body-->
-                                </div>
-                                <!--end::Modal content-->
-                            </div>
-                            <!--end::Modal dialog-->
-                        </div>
-                        <!--end::Modal - Add Penduduk-->
                         
                     </div>
                     <!--end::Card toolbar-->
@@ -515,7 +357,7 @@
                                     </div>
                                 </th>
                                 <th class="min-w-125px">Nama dan NIK</th>
-                                <th class="min-w-125px">Jenis Kelamin</th>
+                                <th class="min-w-125px">Tanggal Kunjungan</th>
                                 <th class="min-w-125px">Kelurahan</th>
                                 <th class="min-w-125px">Kategori</th>
                                 <th class="min-w-125px">Usia</th>
@@ -523,8 +365,8 @@
                             </tr>
                         </thead>
                         <tbody class="text-gray-600 fw-semibold">
-                            @foreach ($data_person as $person)
-                                <tr data-person-id="{{ $person->id }}">
+                            @foreach ($data_kunjungans as $kj)
+                                <tr data-kj-id="{{ $kj->id }}">
                                     <td>
                                         <div class="form-check form-check-sm form-check-custom form-check-solid">
                                             <input class="form-check-input" type="checkbox" value="1" />
@@ -533,37 +375,28 @@
                                     <td class="d-flex align-items-center">
                                         <!--begin::User details-->
                                         <div class="d-flex flex-column">
-                                            <a href="/persons/{{$person->id}}" class="text-gray-800 text-hover-primary mb-1">{{$person->nama}}</a>
-                                            <span>{{$person->nik}}</span>
+                                            <a href="/penduduk/{{$kj->id}}" class="text-gray-800 text-hover-primary mb-1">{{$kj->person->nama}}</a>
+                                            <span>{{$kj->person->nik}}</span>
                                         </div>
                                         <!--begin::User details-->
                                     </td>
                                     <td>
-                                        @if ($person->jenis_kelamin == "P")
-                                            <div class="text-gray-800 text-hover-primary mb-1">Perempuan</div>
+                                        <div class="text-gray-800 text-hover-primary mb-1">{{ \Illuminate\Support\Carbon::parse($kj->tanggal_kj)->translatedFormat('d F Y') }}</div>
+                                    </td>
+                                    <td>
+                                        <div class="text-gray-800 text-hover-primary mb-1">{{$kj->person->kelurahan->nama}}</div>
+                                    </td>
+                                    <td>
+                                        @if ($kj->person->category == "Lansia")
+                                            <div class="badge badge-danger fw-bold">{{$kj->person->category}}</div>
+                                        @elseif($kj->person->category == "Pra-Lansia")
+                                            <div class="badge badge-warning fw-bold">{{$kj->person->category}}</div>
                                         @else
-                                            <div class="text-gray-800 text-hover-primary mb-1">Laki-Laki</div>
+                                            <div class="badge badge-primary  fw-bold">{{$kj->person->category}}</div>
                                         @endif
                                     </td>
                                     <td>
-                                        @if ($person->kelurahan->nama == NULL)
-                                            <div class="badge badge-warning fw-bold">Tidak Diketahui</div>
-                                        @else
-                                            <div class="text-gray-800 text-hover-primary mb-1">{{$person->kelurahan->nama}}</div>
-                                        @endif
-                                    
-                                    </td>
-                                    <td>
-                                        @if ($person->category == "Lansia")
-                                            <div class="badge badge-danger fw-bold">{{$person->category}}</div>
-                                        @elseif($person->category == "Pra-Lansia")
-                                            <div class="badge badge-warning fw-bold">{{$person->category}}</div>
-                                        @else
-                                            <div class="badge badge-primary  fw-bold">{{$person->category}}</div>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <div class="badge badge-success fw-bold">{{$person->age}} Tahun</div>
+                                        <div class="badge badge-success fw-bold">{{$kj->person->age}} Tahun</div>
                                     </td>
                                     <td class="text-end">
                                         <a href="#" class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions 
@@ -573,39 +406,39 @@
                                             @if (Auth::user()->role == "System Administrator")
                                                 <!--begin::Menu item-->
                                                 <div class="menu-item px-3">
-                                                    <a href="/admin/penduduk/{{$person->id}}" class="menu-link px-3">Detail</a>
+                                                    <a href="/admin/penduduk/{{$kj->id}}" class="menu-link px-3">Detail</a>
                                                 </div>
                                                 <!--end::Menu item-->
                                                 <!--begin::Menu item-->
                                                 <div class="menu-item px-3">
-                                                    <a href="/admin/penduduk/edit/{{$person->id}}" class="menu-link px-3">Edit</a>
+                                                    <a href="/admin/penduduk/edit/{{$kj->id}}" class="menu-link px-3">Edit</a>
                                                 </div>
                                                 <!--end::Menu item-->
                                             @elseif(Auth::user()->role == "Dinkes")
                                                 <!--begin::Menu item-->
                                                 <div class="menu-item px-3">
-                                                    <a href="/dinkes/penduduk/{{$person->id}}" class="menu-link px-3">Detail</a>
+                                                    <a href="/dinkes/penduduk/{{$kj->id}}" class="menu-link px-3">Detail</a>
                                                 </div>
                                             @else
                                                 <!--begin::Menu item-->
                                                 <div class="menu-item px-3">
-                                                    <a href="/puskesmas/penduduk/{{$person->id}}" class="menu-link px-3">Detail</a>
+                                                    <a href="/puskesmas/penduduk/{{$kj->id}}" class="menu-link px-3">Detail</a>
                                                 </div>
                                                 <!--end::Menu item-->
                                             @endif
 
-                                            @if ($person->created_by == Auth::user()->id )
+                                            @if ($kj->created_by == Auth::user()->id )
 
                                                 @if (Auth::user()->role == "Dinkes")
                                                     <!--begin::Menu item-->
                                                     <div class="menu-item px-3">
-                                                        <a href="/dinkes/penduduk/edit/{{$person->id}}" class="menu-link px-3">Edit</a>
+                                                        <a href="/dinkes/penduduk/edit/{{$kj->id}}" class="menu-link px-3">Edit</a>
                                                     </div>
                                                     <!--end::Menu item-->
                                                 @else
                                                     <!--begin::Menu item-->
                                                     <div class="menu-item px-3">
-                                                        <a href="/dinkes/penduduk/edit/{{$person->id}}" class="menu-link px-3">Edit</a>
+                                                        <a href="/dinkes/penduduk/edit/{{$kj->id}}" class="menu-link px-3">Edit</a>
                                                     </div>
                                                     <!--end::Menu item-->
                                                 @endif
@@ -629,6 +462,141 @@
                 </div>
                 <!--end::Card body-->
             </div>
+            <!--begin::Modal - Users Search-->
+            <div class="modal fade" id="kt_modal_users_search" tabindex="-1" aria-hidden="true">
+                <!--begin::Modal dialog-->
+                <div class="modal-dialog modal-dialog-centered mw-650px">
+                    <!--begin::Modal content-->
+                    <div class="modal-content">
+                        <!--begin::Modal header-->
+                        <div class="modal-header pb-0 border-0 justify-content-end">
+                            <!--begin::Close-->
+                            <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                                <i class="ki-outline ki-cross fs-1"></i>
+                            </div>
+                            <!--end::Close-->
+                        </div>
+                        <!--begin::Modal header-->
+                        <!--begin::Modal body-->
+                        <div class="modal-body scroll-y mx-5 mx-xl-18 pt-0 pb-15">
+                            <!--begin::Content-->
+                            <div class="text-center mb-13">
+                                <h1 class="mb-3">Search Users</h1>
+                                <div class="text-muted fw-semibold fs-5">Invite Collaborators To Your Project</div>
+                            </div>
+                            <!--end::Content-->
+                            <!--begin::Search-->
+                            <div id="kt_modal_users_search_handler" data-kt-search-keypress="true" data-kt-search-min-length="2" data-kt-search-enter="enter" data-kt-search-layout="inline">
+                                <!--begin::Form-->
+                                <form data-kt-search-element="form" class="w-100 position-relative mb-5" autocomplete="off">
+                                    <!--begin::Hidden input(Added to disable form autocomplete)-->
+                                    <input type="hidden" />
+                                    <!--end::Hidden input-->
+                                    <!--begin::Icon-->
+                                    <i class="ki-outline ki-magnifier fs-2 fs-lg-1 text-gray-500 position-absolute top-50 ms-5 translate-middle-y"></i>
+                                    <!--end::Icon-->
+                                    <!--begin::Input-->
+                                    <input type="text" class="form-control form-control-lg form-control-solid px-15" name="search" value="" placeholder="Search by username, full name or email..." data-kt-search-element="input" />
+                                    <!--end::Input-->
+                                    <!--begin::Spinner-->
+                                    <span class="position-absolute top-50 end-0 translate-middle-y lh-0 d-none me-5" data-kt-search-element="spinner">
+                                        <span class="spinner-border h-15px w-15px align-middle text-muted"></span>
+                                    </span>
+                                    <!--end::Spinner-->
+                                    <!--begin::Reset-->
+                                    <span class="btn btn-flush btn-active-color-primary position-absolute top-50 end-0 translate-middle-y lh-0 me-5 d-none" data-kt-search-element="clear">
+                                        <i class="ki-outline ki-cross fs-2 fs-lg-1 me-0"></i>
+                                    </span>
+                                    <!--end::Reset-->
+                                </form>
+                                <!--end::Form-->
+                                <!--begin::Wrapper-->
+                                <div class="py-5">
+                                    <!--begin::Suggestions-->
+                                    <div data-kt-search-element="suggestions">
+                                        <!--begin::Heading-->
+                                        <h3 class="fw-semibold mb-5">Recently searched:</h3>
+                                        <!--end::Heading-->
+                                        <!--begin::Users-->
+                                        
+                                        <!--end::Users-->
+                                    </div>
+                                    <!--end::Suggestions-->
+                                    <!--begin::Results(add d-none to below element to hide the users list by default)-->
+                                    <div data-kt-search-element="results" class="d-none">
+                                        <!--begin::Users-->
+                                        <div class="mh-375px scroll-y me-n7 pe-7">
+                                            <!--begin::User-->
+                                            <div class="rounded d-flex flex-stack bg-active-lighten p-4" data-user-id="0">
+                                                <!--begin::Details-->
+                                                <div class="d-flex align-items-center">
+                                                    <!--begin::Checkbox-->
+                                                    <label class="form-check form-check-custom form-check-solid me-5">
+                                                        <input class="form-check-input" type="checkbox" name="users" data-kt-check="true" data-kt-check-target="[data-user-id='0']" value="0" />
+                                                    </label>
+                                                    <!--end::Checkbox-->
+                                                    <!--begin::Avatar-->
+                                                    <div class="symbol symbol-35px symbol-circle">
+                                                        <img alt="Pic" src="{{ asset('template/assets/media/avatars/300-6.jpg')}}" />
+                                                    </div>
+                                                    <!--end::Avatar-->
+                                                    <!--begin::Details-->
+                                                    <div class="ms-5">
+                                                        <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary mb-2">Emma Smith</a>
+                                                        <div class="fw-semibold text-muted">smith@kpmg.com</div>
+                                                    </div>
+                                                    <!--end::Details-->
+                                                </div>
+                                                <!--end::Details-->
+                                                <!--begin::Access menu-->
+                                                <div class="ms-2 w-100px">
+                                                    <select class="form-select form-select-solid form-select-sm" data-control="select2" data-hide-search="true">
+                                                        <option value="1">Guest</option>
+                                                        <option value="2" selected="selected">Owner</option>
+                                                        <option value="3">Can Edit</option>
+                                                    </select>
+                                                </div>
+                                                <!--end::Access menu-->
+                                            </div>
+                                            <!--end::User-->
+                                            
+                                        </div>
+                                        <!--end::Users-->
+                                        <!--begin::Actions-->
+                                        <div class="d-flex flex-center mt-15">
+                                            <button type="reset" id="kt_modal_users_search_reset" data-bs-dismiss="modal" class="btn btn-active-light me-3">Cancel</button>
+                                            <button type="submit" id="kt_modal_users_search_submit" class="btn btn-primary">Add Selected Users</button>
+                                        </div>
+                                        <!--end::Actions-->
+                                    </div>
+                                    <!--end::Results-->
+                                    <!--begin::Empty-->
+                                    <div data-kt-search-element="empty" class="text-center d-none">
+                                        <!--begin::Message-->
+                                        <div class="fw-semibold py-10">
+                                            <div class="text-gray-600 fs-3 mb-2">No users found</div>
+                                            <div class="text-muted fs-6">Try to search by username, full name or email...</div>
+                                        </div>
+                                        <!--end::Message-->
+                                        <!--begin::Illustration-->
+                                        <div class="text-center px-5">
+                                            <img src="{{ asset('template/assets/media/illustrations/sketchy-1/1.png')}}" alt="" class="w-100 h-200px h-sm-325px" />
+                                        </div>
+                                        <!--end::Illustration-->
+                                    </div>
+                                    <!--end::Empty-->
+                                </div>
+                                <!--end::Wrapper-->
+                            </div>
+                            <!--end::Search-->
+                        </div>
+                        <!--end::Modal body-->
+                    </div>
+                    <!--end::Modal content-->
+                </div>
+                <!--end::Modal dialog-->
+            </div>
+            <!--end::Modal - Users Search-->
             <!--end::Card-->
         </div>
         <!--end::Content container-->
@@ -645,7 +613,7 @@
     
     <!--end::Custom Javascript-->
 
-    <!--begin::Filter Person-->
+    <!--begin::Filter Kunjungans-->
     <script>
         var start = moment().subtract(29, "days");
         var end = moment();
@@ -669,238 +637,10 @@
 
         cb(start, end);
     </script>
-    <!--end::Filter Person-->
+    <!--end::Filter Kunjungans-->
 
-    <!--begin::Add Person Javascript-->
-    <script>
-        "use strict";
-        // Class definition
-        var KTUsersAddUser = function () {
-            // Shared variables
-            const element = document.getElementById('kt_modal_add_user');
-            const form = element.querySelector('#kt_modal_add_user_form');
-            const modal = new bootstrap.Modal(element);
 
-            // Init add schedule modal
-            var initAddUser = () => {
-
-                // Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
-                var validator = FormValidation.formValidation(
-                    form,
-                    {
-                        fields: {
-                            'person_name': {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'Nama Lengkap is required'
-                                    }
-                                }
-                            },
-                            'person_nik': {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'Valid NIK is required'
-                                    }
-                                }
-                            },
-                            'person_tl': {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'Valid Tanggal Lahir is required'
-                                    }
-                                }
-                            },
-                            'person_alamat': {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'Valid Alamat is required'
-                                    }
-                                }
-                            },
-                            'person_telp': {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'Valid No. Telp is required'
-                                    }
-                                }
-                            },
-                            'person_rt': {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'Valid RT is required'
-                                    }
-                                }
-                            },
-                            'person_rw': {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'Valid RW is required'
-                                    }
-                                }
-                            },
-                            'person_kelurahan': {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'Valid Kelurahan is required'
-                                    }
-                                }
-                            },
-                        },
-
-                        plugins: {
-                            trigger: new FormValidation.plugins.Trigger(),
-                            bootstrap: new FormValidation.plugins.Bootstrap5({
-                                rowSelector: '.fv-row',
-                                eleInvalidClass: '',
-                                eleValidClass: ''
-                            })
-                        }
-                    }
-                );
-
-                // Submit button handler
-                const submitButton = element.querySelector('[data-kt-users-modal-action="submit"]');
-                submitButton.addEventListener('click', e => {
-                    e.preventDefault();
-
-                    // Validate form before submit
-                    if (validator) {
-                        validator.validate().then(function (status) {
-                            console.log('validated!');
-
-                            if (status == 'Valid') {
-                                // Show loading indication
-                                submitButton.setAttribute('data-kt-indicator', 'on');
-
-                                // Disable button to avoid multiple click 
-                                submitButton.disabled = true;
-
-                                // Simulate form submission. For more info check the plugin's official documentation: https://sweetalert2.github.io/
-                                setTimeout(function () {
-                                    // Remove loading indication
-                                    submitButton.removeAttribute('data-kt-indicator');
-
-                                    // Enable button
-                                    submitButton.disabled = false;
-
-                                    // Show popup confirmation 
-                                    Swal.fire({
-                                        text: "Form has been successfully submitted!",
-                                        icon: "success",
-                                        buttonsStyling: false,
-                                        confirmButtonText: "Ok, got it!",
-                                        customClass: {
-                                            confirmButton: "btn btn-primary"
-                                        }
-                                    }).then(function (result) {
-                                        if (result.isConfirmed) {
-                                            modal.hide();
-                                        }
-                                    });
-
-                                    form.submit(); // Submit form
-
-                                }, 2000);
-                            } else {
-                                // Show popup warning. For more info check the plugin's official documentation: https://sweetalert2.github.io/
-                                Swal.fire({
-                                    text: "Sorry, looks like there are some errors detected, please try again.",
-                                    icon: "error",
-                                    buttonsStyling: false,
-                                    confirmButtonText: "Ok, got it!",
-                                    customClass: {
-                                        confirmButton: "btn btn-primary"
-                                    }
-                                });
-                            }
-                        });
-                    }
-                });
-
-                // Cancel button handler
-                const cancelButton = element.querySelector('[data-kt-users-modal-action="cancel"]');
-                cancelButton.addEventListener('click', e => {
-                    e.preventDefault();
-
-                    Swal.fire({
-                        text: "Are you sure you would like to cancel?",
-                        icon: "warning",
-                        showCancelButton: true,
-                        buttonsStyling: false,
-                        confirmButtonText: "Yes, cancel it!",
-                        cancelButtonText: "No, return",
-                        customClass: {
-                            confirmButton: "btn btn-primary",
-                            cancelButton: "btn btn-active-light"
-                        }
-                    }).then(function (result) {
-                        if (result.value) {
-                            form.reset(); // Reset form			
-                            modal.hide();	
-                        } else if (result.dismiss === 'cancel') {
-                            Swal.fire({
-                                text: "Your form has not been cancelled!.",
-                                icon: "error",
-                                buttonsStyling: false,
-                                confirmButtonText: "Ok, got it!",
-                                customClass: {
-                                    confirmButton: "btn btn-primary",
-                                }
-                            });
-                        }
-                    });
-                });
-
-                // Close button handler
-                const closeButton = element.querySelector('[data-kt-users-modal-action="close"]');
-                closeButton.addEventListener('click', e => {
-                    e.preventDefault();
-
-                    Swal.fire({
-                        text: "Are you sure you would like to cancel?",
-                        icon: "warning",
-                        showCancelButton: true,
-                        buttonsStyling: false,
-                        confirmButtonText: "Yes, cancel it!",
-                        cancelButtonText: "No, return",
-                        customClass: {
-                            confirmButton: "btn btn-primary",
-                            cancelButton: "btn btn-active-light"
-                        }
-                    }).then(function (result) {
-                        if (result.value) {
-                            form.reset(); // Reset form			
-                            modal.hide();	
-                        } else if (result.dismiss === 'cancel') {
-                            Swal.fire({
-                                text: "Your form has not been cancelled!.",
-                                icon: "error",
-                                buttonsStyling: false,
-                                confirmButtonText: "Ok, got it!",
-                                customClass: {
-                                    confirmButton: "btn btn-primary",
-                                }
-                            });
-                        }
-                    });
-                });
-            }
-
-            return {
-                // Public functions
-                init: function () {
-                    initAddUser();
-                }
-            };
-        }();
-        // On document ready
-        KTUtil.onDOMContentLoaded(function () {
-            KTUsersAddUser.init();
-        });
-    </script>
-    <!--end::Add Person Javascript-->
-
-    <!--begin::Table Person Javascript-->
+    <!--begin::Table Kunjungans Javascript-->
     <script>
         "use strict";
 
@@ -1250,7 +990,7 @@
             KTUsersList.init();
         });
     </script>
-    <!--end::Table Person Javascript-->
+    <!--end::Table Kunjungan Javascript-->
 
     <!--begin::Ajax Kelurahans Javascript-->
     <script>
@@ -1284,18 +1024,100 @@
     <!--begin::datepick Javascript-->
     <script>
         new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_date_only"), {
-        display: {
-            viewMode: "calendar",
-            components: {
-                decades: true,
-                year: true,
-                month: true,
-                date: true,
+            display: {
+                viewMode: "calendar",
+                components: {
+                    decades: true,
+                    year: true,
+                    month: true,
+                    date: true,
+                }
             }
-        }
-    });
+        });
     </script>
     <!--end::datepick Javascript-->
+
+    <!--begin::Seacrh Persons Javascript-->
+    <script>
+        "use strict";
+
+        // Class definition
+        var KTModalUserSearch = function () {
+            // Private variables
+            var element;
+            var suggestionsElement;
+            var resultsElement;
+            var wrapperElement;
+            var emptyElement;
+            var searchObject;
+
+            // Private functions
+            var processs = function (search) {
+                var timeout = setTimeout(function () {
+                    var number = KTUtil.getRandomInt(1, 3);
+
+                    // Hide recently viewed
+                    suggestionsElement.classList.add('d-none');
+
+                    if (number === 3) {
+                        // Hide results
+                        resultsElement.classList.add('d-none');
+                        // Show empty message 
+                        emptyElement.classList.remove('d-none');
+                    } else {
+                        // Show results
+                        resultsElement.classList.remove('d-none');
+                        // Hide empty message 
+                        emptyElement.classList.add('d-none');
+                    }
+
+                    // Complete search
+                    search.complete();
+                }, 1500);
+            }
+
+            var clear = function (search) {
+                // Show recently viewed
+                suggestionsElement.classList.remove('d-none');
+                // Hide results
+                resultsElement.classList.add('d-none');
+                // Hide empty message 
+                emptyElement.classList.add('d-none');
+            }
+
+            // Public methods
+            return {
+                init: function () {
+                    // Elements
+                    element = document.querySelector('#kt_modal_users_search_handler');
+
+                    if (!element) {
+                        return;
+                    }
+
+                    wrapperElement = element.querySelector('[data-kt-search-element="wrapper"]');
+                    suggestionsElement = element.querySelector('[data-kt-search-element="suggestions"]');
+                    resultsElement = element.querySelector('[data-kt-search-element="results"]');
+                    emptyElement = element.querySelector('[data-kt-search-element="empty"]');
+
+                    // Initialize search handler
+                    searchObject = new KTSearch(element);
+
+                    // Search handler
+                    searchObject.on('kt.search.process', processs);
+
+                    // Clear handler
+                    searchObject.on('kt.search.clear', clear);
+                }
+            };
+        }();
+
+        // On document ready
+        KTUtil.onDOMContentLoaded(function () {
+            KTModalUserSearch.init();
+        });
+    </script>
+    <!--end::Seacrh Persons Javascript-->
 
     <!-- begin sessions -->
     @if(session('status') && session('message'))

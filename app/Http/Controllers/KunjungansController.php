@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kecamatans;
+use App\Models\Kelurahans;
 use App\Models\Kunjungans;
 use Illuminate\Http\Request;
 
@@ -11,8 +13,11 @@ class KunjungansController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        //
+    {   $kecamatans = Kecamatans::all();
+        $kelurahans = Kelurahans::all();
+        $data_kunjungans = Kunjungans::orderBy('tanggal_kj', 'desc')->latest()->take(10)->get();
+
+        return view('admin.kunjungan.index',compact('data_kunjungans','kecamatans','kelurahans'));
     }
 
     /**

@@ -46,12 +46,13 @@ class PersonsController extends Controller
 
     public function index_puskesmas()
     {
-        $kecamatans = Kecamatans::all();
-        $kelurahans = Kelurahans::all();
+       
+        $kelurahans = Kelurahans::where('puskesmas_kd', auth()->user()->puskesmas->kode)->get()->all();
         // $data_person = Persons::take(10)->get();
         // $data_person = Persons::whereHas('kelurahan', function($query) {
         //     $query->where('puskesmas_kd', auth()->user()->puskesmas->kode);
         // })->take(1000)->get();
+        // dd($kelurahans);
         $kelurahan_puskesmas_ids = Kelurahans::where('puskesmas_kd', auth()->user()->puskesmas->kode)
                             ->pluck('id'); // Dapatkan ID dari kelurahan yang sesuai
 
@@ -59,27 +60,38 @@ class PersonsController extends Controller
 
         // dd($data_person);
 
-        return view('admin.persons', compact('data_person','kecamatans','kelurahans'));
+        return view('admin.persons', compact('data_person','kelurahans'));
     }
     public function index_lansia_puskesmas()
     {
         $kecamatans = Kecamatans::all();
-        $kelurahans = Kelurahans::all();
-        $data_person = Persons::where('tanggal_lahir', '<=', Carbon::now()->subYears(60))->latest()->take(10)->get();
+        $kelurahans = Kelurahans::where('puskesmas_kd', auth()->user()->puskesmas->kode)->get()->all();
+
+        $data_person = Persons::whereHas('kelurahan', function ($query) {
+            $query->where('puskesmas_kd', auth()->user()->puskesmas->kode);
+        })
+        ->where('tanggal_lahir', '<=', Carbon::now()->subYears(60))  // Filter untuk usia lansia
+        ->latest()
+        ->take(10)
+        ->get();
+        
         // $data_person = Persons::get()->all();
         return view('admin.persons', compact('data_person','kecamatans','kelurahans'));
     }
     public function index_pra_lansia_puskesmas()
     {
         $kecamatans = Kecamatans::all();
-        $kelurahans = Kelurahans::all();
+        $kelurahans = Kelurahans::where('puskesmas_kd', auth()->user()->puskesmas->kode)->get()->all();
+
 
         // Filter persons who are Pra-Lansia (aged between 45 and 59 years)
         $data_person = Persons::whereBetween('tanggal_lahir', [
-            Carbon::now()->subYears(59),  // Maximum 59 years old
-            Carbon::now()->subYears(45)   // Minimum 45 years old
-        ])->latest()->take(10)->get();
-
+            Carbon::now()->subYears(59),  // Maksimum 59 tahun
+            Carbon::now()->subYears(45)   // Minimum 45 tahun
+        ])->whereHas('kelurahan', function ($query) {
+            $query->where('puskesmas_kd', auth()->user()->puskesmas->kode);
+        })->latest()->take(10)->get();
+        
         return view('admin.persons', compact('data_person', 'kecamatans', 'kelurahans'));
     }
 
@@ -267,7 +279,14 @@ class PersonsController extends Controller
     public function searchPersons(Request $request)
     {
         $kecamatans = Kecamatans::all();
-        $kelurahans = Kelurahans::all();
+
+        if (auth()->user()->role == "Puskesmas") {
+            $kelurahans = Kelurahans::where('puskesmas_kd', auth()->user()->puskesmas->kode)->get()->all();
+        } else {
+            $kelurahans = Kelurahans::all();
+        }
+        
+        
         
         // Ambil kecamatan_id, kelurahan_id, range date dari request
         $kecamatan_id = $request->input('kecamatan');
