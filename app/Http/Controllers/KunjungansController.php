@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kecamatans;
 use App\Models\Kelurahans;
 use App\Models\Kunjungans;
+use App\Models\Persons;
 use Illuminate\Http\Request;
 
 class KunjungansController extends Controller
@@ -23,9 +24,13 @@ class KunjungansController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create_view(Request $request)
     {
-        //
+        $dapen = Persons::where('nik',$request->nik)->first();
+
+        // dd($dapen);
+        
+        return view('admin.kunjungan.create', compact('dapen'));
     }
 
     /**

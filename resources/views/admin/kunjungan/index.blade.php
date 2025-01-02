@@ -153,7 +153,7 @@
                                         </div>
                                         <!--begin::Filter Date-->
                                         <div class="col-lg-6 mb-5">
-                                            <label class="fs-6 form-label fw-bold text-gray-900">Tanggal</label>
+                                            <label class="fs-6 form-label fw-bold text-gray-900">Tanggal Kunjungan</label>
                                             <br>
                                             <input class="btn btn-primary me-3" placeholder="Pick date rage" id="kt_daterangepicker_4" name="date_range"/>
                                         </div>
@@ -232,7 +232,7 @@
                                         </div>
                                         <!--begin::Filter Date-->
                                         <div class="col-lg-6 mb-5">
-                                            <label class="fs-6 form-label fw-bold text-gray-900">Tanggal</label>
+                                            <label class="fs-6 form-label fw-bold text-gray-900">Tanggal Kunjungan</label>
                                             <br>
                                             <input class="btn btn-primary me-3" placeholder="Pick date rage" id="kt_daterangepicker_4" name="date_range"/>
                                         </div>
@@ -324,10 +324,9 @@
                             <!--end::Filter-->
                             @if (in_array(auth()->user()->role, ['System Administrator', 'Puskesmas', 'Kader']))
                                <!--begin::Add user-->
-                                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_users_search">
+                                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_1">
                                 <i class="ki-outline ki-plus fs-2"></i>Tambah Kunjungan</a>
                                 <!--end::Add user--> 
-                                
                             @endif
                             
                         </div>
@@ -340,7 +339,55 @@
                         </div>
                         <!--end::Group actions-->
                         
-                        
+                        <!--begin::Modal Search Person-->
+                        <div class="modal fade" tabindex="-1" id="kt_modal_1">
+                            <div class="modal-dialog modal-dialog-centered modal-lg">
+                                <div class="modal-content">
+                                    <form id="kt_docs_formvalidation_text" class="form" action="/admin/kunjungan/tambah" autocomplete="off" method="POST">
+                                        @csrf
+                                        <div class="modal-header">
+                                            <h3 class="modal-title">Cari Data Penduduk</h3>
+                            
+                                            <!--begin::Close-->
+                                            <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                                                <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                                            </div>
+                                            <!--end::Close-->
+                                        </div>
+                            
+                                        <div class="modal-body">
+                                            <!--begin::Input group-->
+                                            <div class="fv-row mb-10">
+                                                <!--begin::Label-->
+                                                <center><label class="required fw-semibold fs-6 mb-2 ">Masukkan NIK untuk Menambahkan Data Kunjungan !</label></center>
+                                                <!--end::Label-->
+
+                                                <!--begin::Input-->
+                                                <input type="text" name="nik" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="" value="" />
+                                                <!--end::Input-->
+                                            </div>
+                                            <!--end::Input group-->
+                                        </div>
+                            
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                            <!--begin::Actions-->
+                                            <button id="kt_docs_formvalidation_text_submit" type="submit" class="btn btn-primary">
+                                                <span class="indicator-label">
+                                                    Cari Penduduk
+                                                </span>
+                                                <span class="indicator-progress">
+                                                    Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                                </span>
+                                            </button>
+                                            <!--end::Actions-->
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!--begin::Modal Search Person-->
+
                     </div>
                     <!--end::Card toolbar-->
                 </div>
@@ -406,23 +453,23 @@
                                             @if (Auth::user()->role == "System Administrator")
                                                 <!--begin::Menu item-->
                                                 <div class="menu-item px-3">
-                                                    <a href="/admin/penduduk/{{$kj->id}}" class="menu-link px-3">Detail</a>
+                                                    <a href="/admin/kunjungan/{{$kj->id}}" class="menu-link px-3">Detail</a>
                                                 </div>
                                                 <!--end::Menu item-->
                                                 <!--begin::Menu item-->
                                                 <div class="menu-item px-3">
-                                                    <a href="/admin/penduduk/edit/{{$kj->id}}" class="menu-link px-3">Edit</a>
+                                                    <a href="/admin/kunjungan/edit/{{$kj->id}}" class="menu-link px-3">Edit</a>
                                                 </div>
                                                 <!--end::Menu item-->
                                             @elseif(Auth::user()->role == "Dinkes")
                                                 <!--begin::Menu item-->
                                                 <div class="menu-item px-3">
-                                                    <a href="/dinkes/penduduk/{{$kj->id}}" class="menu-link px-3">Detail</a>
+                                                    <a href="/dinkes/kunjungan/{{$kj->id}}" class="menu-link px-3">Detail</a>
                                                 </div>
                                             @else
                                                 <!--begin::Menu item-->
                                                 <div class="menu-item px-3">
-                                                    <a href="/puskesmas/penduduk/{{$kj->id}}" class="menu-link px-3">Detail</a>
+                                                    <a href="/puskesmas/kunjungan/{{$kj->id}}" class="menu-link px-3">Detail</a>
                                                 </div>
                                                 <!--end::Menu item-->
                                             @endif
@@ -432,13 +479,13 @@
                                                 @if (Auth::user()->role == "Dinkes")
                                                     <!--begin::Menu item-->
                                                     <div class="menu-item px-3">
-                                                        <a href="/dinkes/penduduk/edit/{{$kj->id}}" class="menu-link px-3">Edit</a>
+                                                        <a href="/dinkes/kunjungan/edit/{{$kj->id}}" class="menu-link px-3">Edit</a>
                                                     </div>
                                                     <!--end::Menu item-->
                                                 @else
                                                     <!--begin::Menu item-->
                                                     <div class="menu-item px-3">
-                                                        <a href="/dinkes/penduduk/edit/{{$kj->id}}" class="menu-link px-3">Edit</a>
+                                                        <a href="/dinkes/kunjungan/edit/{{$kj->id}}" class="menu-link px-3">Edit</a>
                                                     </div>
                                                     <!--end::Menu item-->
                                                 @endif
@@ -462,141 +509,7 @@
                 </div>
                 <!--end::Card body-->
             </div>
-            <!--begin::Modal - Users Search-->
-            <div class="modal fade" id="kt_modal_users_search" tabindex="-1" aria-hidden="true">
-                <!--begin::Modal dialog-->
-                <div class="modal-dialog modal-dialog-centered mw-650px">
-                    <!--begin::Modal content-->
-                    <div class="modal-content">
-                        <!--begin::Modal header-->
-                        <div class="modal-header pb-0 border-0 justify-content-end">
-                            <!--begin::Close-->
-                            <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
-                                <i class="ki-outline ki-cross fs-1"></i>
-                            </div>
-                            <!--end::Close-->
-                        </div>
-                        <!--begin::Modal header-->
-                        <!--begin::Modal body-->
-                        <div class="modal-body scroll-y mx-5 mx-xl-18 pt-0 pb-15">
-                            <!--begin::Content-->
-                            <div class="text-center mb-13">
-                                <h1 class="mb-3">Search Users</h1>
-                                <div class="text-muted fw-semibold fs-5">Invite Collaborators To Your Project</div>
-                            </div>
-                            <!--end::Content-->
-                            <!--begin::Search-->
-                            <div id="kt_modal_users_search_handler" data-kt-search-keypress="true" data-kt-search-min-length="2" data-kt-search-enter="enter" data-kt-search-layout="inline">
-                                <!--begin::Form-->
-                                <form data-kt-search-element="form" class="w-100 position-relative mb-5" autocomplete="off">
-                                    <!--begin::Hidden input(Added to disable form autocomplete)-->
-                                    <input type="hidden" />
-                                    <!--end::Hidden input-->
-                                    <!--begin::Icon-->
-                                    <i class="ki-outline ki-magnifier fs-2 fs-lg-1 text-gray-500 position-absolute top-50 ms-5 translate-middle-y"></i>
-                                    <!--end::Icon-->
-                                    <!--begin::Input-->
-                                    <input type="text" class="form-control form-control-lg form-control-solid px-15" name="search" value="" placeholder="Search by username, full name or email..." data-kt-search-element="input" />
-                                    <!--end::Input-->
-                                    <!--begin::Spinner-->
-                                    <span class="position-absolute top-50 end-0 translate-middle-y lh-0 d-none me-5" data-kt-search-element="spinner">
-                                        <span class="spinner-border h-15px w-15px align-middle text-muted"></span>
-                                    </span>
-                                    <!--end::Spinner-->
-                                    <!--begin::Reset-->
-                                    <span class="btn btn-flush btn-active-color-primary position-absolute top-50 end-0 translate-middle-y lh-0 me-5 d-none" data-kt-search-element="clear">
-                                        <i class="ki-outline ki-cross fs-2 fs-lg-1 me-0"></i>
-                                    </span>
-                                    <!--end::Reset-->
-                                </form>
-                                <!--end::Form-->
-                                <!--begin::Wrapper-->
-                                <div class="py-5">
-                                    <!--begin::Suggestions-->
-                                    <div data-kt-search-element="suggestions">
-                                        <!--begin::Heading-->
-                                        <h3 class="fw-semibold mb-5">Recently searched:</h3>
-                                        <!--end::Heading-->
-                                        <!--begin::Users-->
-                                        
-                                        <!--end::Users-->
-                                    </div>
-                                    <!--end::Suggestions-->
-                                    <!--begin::Results(add d-none to below element to hide the users list by default)-->
-                                    <div data-kt-search-element="results" class="d-none">
-                                        <!--begin::Users-->
-                                        <div class="mh-375px scroll-y me-n7 pe-7">
-                                            <!--begin::User-->
-                                            <div class="rounded d-flex flex-stack bg-active-lighten p-4" data-user-id="0">
-                                                <!--begin::Details-->
-                                                <div class="d-flex align-items-center">
-                                                    <!--begin::Checkbox-->
-                                                    <label class="form-check form-check-custom form-check-solid me-5">
-                                                        <input class="form-check-input" type="checkbox" name="users" data-kt-check="true" data-kt-check-target="[data-user-id='0']" value="0" />
-                                                    </label>
-                                                    <!--end::Checkbox-->
-                                                    <!--begin::Avatar-->
-                                                    <div class="symbol symbol-35px symbol-circle">
-                                                        <img alt="Pic" src="{{ asset('template/assets/media/avatars/300-6.jpg')}}" />
-                                                    </div>
-                                                    <!--end::Avatar-->
-                                                    <!--begin::Details-->
-                                                    <div class="ms-5">
-                                                        <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary mb-2">Emma Smith</a>
-                                                        <div class="fw-semibold text-muted">smith@kpmg.com</div>
-                                                    </div>
-                                                    <!--end::Details-->
-                                                </div>
-                                                <!--end::Details-->
-                                                <!--begin::Access menu-->
-                                                <div class="ms-2 w-100px">
-                                                    <select class="form-select form-select-solid form-select-sm" data-control="select2" data-hide-search="true">
-                                                        <option value="1">Guest</option>
-                                                        <option value="2" selected="selected">Owner</option>
-                                                        <option value="3">Can Edit</option>
-                                                    </select>
-                                                </div>
-                                                <!--end::Access menu-->
-                                            </div>
-                                            <!--end::User-->
-                                            
-                                        </div>
-                                        <!--end::Users-->
-                                        <!--begin::Actions-->
-                                        <div class="d-flex flex-center mt-15">
-                                            <button type="reset" id="kt_modal_users_search_reset" data-bs-dismiss="modal" class="btn btn-active-light me-3">Cancel</button>
-                                            <button type="submit" id="kt_modal_users_search_submit" class="btn btn-primary">Add Selected Users</button>
-                                        </div>
-                                        <!--end::Actions-->
-                                    </div>
-                                    <!--end::Results-->
-                                    <!--begin::Empty-->
-                                    <div data-kt-search-element="empty" class="text-center d-none">
-                                        <!--begin::Message-->
-                                        <div class="fw-semibold py-10">
-                                            <div class="text-gray-600 fs-3 mb-2">No users found</div>
-                                            <div class="text-muted fs-6">Try to search by username, full name or email...</div>
-                                        </div>
-                                        <!--end::Message-->
-                                        <!--begin::Illustration-->
-                                        <div class="text-center px-5">
-                                            <img src="{{ asset('template/assets/media/illustrations/sketchy-1/1.png')}}" alt="" class="w-100 h-200px h-sm-325px" />
-                                        </div>
-                                        <!--end::Illustration-->
-                                    </div>
-                                    <!--end::Empty-->
-                                </div>
-                                <!--end::Wrapper-->
-                            </div>
-                            <!--end::Search-->
-                        </div>
-                        <!--end::Modal body-->
-                    </div>
-                    <!--end::Modal content-->
-                </div>
-                <!--end::Modal dialog-->
-            </div>
-            <!--end::Modal - Users Search-->
+            
             <!--end::Card-->
         </div>
         <!--end::Content container-->
@@ -1037,87 +950,120 @@
     </script>
     <!--end::datepick Javascript-->
 
-    <!--begin::Seacrh Persons Javascript-->
+    <!--begin::Search Persons Form Javascript-->
     <script>
-        "use strict";
-
-        // Class definition
-        var KTModalUserSearch = function () {
-            // Private variables
-            var element;
-            var suggestionsElement;
-            var resultsElement;
-            var wrapperElement;
-            var emptyElement;
-            var searchObject;
-
-            // Private functions
-            var processs = function (search) {
-                var timeout = setTimeout(function () {
-                    var number = KTUtil.getRandomInt(1, 3);
-
-                    // Hide recently viewed
-                    suggestionsElement.classList.add('d-none');
-
-                    if (number === 3) {
-                        // Hide results
-                        resultsElement.classList.add('d-none');
-                        // Show empty message 
-                        emptyElement.classList.remove('d-none');
-                    } else {
-                        // Show results
-                        resultsElement.classList.remove('d-none');
-                        // Hide empty message 
-                        emptyElement.classList.add('d-none');
-                    }
-
-                    // Complete search
-                    search.complete();
-                }, 1500);
-            }
-
-            var clear = function (search) {
-                // Show recently viewed
-                suggestionsElement.classList.remove('d-none');
-                // Hide results
-                resultsElement.classList.add('d-none');
-                // Hide empty message 
-                emptyElement.classList.add('d-none');
-            }
-
-            // Public methods
-            return {
-                init: function () {
-                    // Elements
-                    element = document.querySelector('#kt_modal_users_search_handler');
-
-                    if (!element) {
-                        return;
-                    }
-
-                    wrapperElement = element.querySelector('[data-kt-search-element="wrapper"]');
-                    suggestionsElement = element.querySelector('[data-kt-search-element="suggestions"]');
-                    resultsElement = element.querySelector('[data-kt-search-element="results"]');
-                    emptyElement = element.querySelector('[data-kt-search-element="empty"]');
-
-                    // Initialize search handler
-                    searchObject = new KTSearch(element);
-
-                    // Search handler
-                    searchObject.on('kt.search.process', processs);
-
-                    // Clear handler
-                    searchObject.on('kt.search.clear', clear);
+        // Define form element
+        const form = document.getElementById('kt_docs_formvalidation_text');
+    
+        // Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
+        var validator = FormValidation.formValidation(
+            form,
+            {
+                fields: {
+                    'nik': {
+                        validators: {
+                            notEmpty: {
+                                message: 'NIK is required'
+                            },
+                            stringLength: {
+                                min: 16,
+                                max: 16,
+                                message: 'NIK harus 16 digit'
+                            }
+                        }
+                    },
+                },
+    
+                plugins: {
+                    trigger: new FormValidation.plugins.Trigger(),
+                    bootstrap: new FormValidation.plugins.Bootstrap5({
+                        rowSelector: '.fv-row',
+                        eleInvalidClass: '',
+                        eleValidClass: ''
+                    })
                 }
-            };
-        }();
-
-        // On document ready
-        KTUtil.onDOMContentLoaded(function () {
-            KTModalUserSearch.init();
+            }
+        );
+    
+        // Submit button handler
+        const submitButton = document.getElementById('kt_docs_formvalidation_text_submit');
+        submitButton.addEventListener('click', function (e) {
+            // Prevent default button action
+            e.preventDefault();
+    
+            // Validate form before submit
+            if (validator) {
+                validator.validate().then(function (status) {
+                    console.log('validated!');
+    
+                    if (status == 'Valid') {
+                        let nik = document.querySelector('input[name="nik"]').value;
+    
+                        // Show loading indication
+                        submitButton.setAttribute('data-kt-indicator', 'on');
+    
+                        // Disable button to avoid multiple click
+                        submitButton.disabled = true;
+    
+                        // AJAX request to check NIK
+                        $.ajax({
+                            url: '/getPendudukByNIK',
+                            type: 'GET',
+                            data: { nik: nik },
+                            success: function(response) {
+                                // Remove loading indication
+                                submitButton.removeAttribute('data-kt-indicator');
+                                // Enable button
+                                submitButton.disabled = false;
+    
+                                if (response.status === 'success') {
+                                    // NIK found
+                                    Swal.fire({
+                                        text: "NIK Berhasil ditemukan !",
+                                        icon: "success",
+                                        buttonsStyling: false,
+                                        confirmButtonText: "Ok, got it!",
+                                        customClass: {
+                                            confirmButton: "btn btn-primary"
+                                        }
+                                    }).then(function () {
+                                        form.submit(); // Submit form
+                                    });
+                                } else {
+                                    // NIK not found
+                                    Swal.fire({
+                                        text: "NIK Tidak tersedia, silahkan tambahkan di menu Penduduk",
+                                        icon: "error",
+                                        buttonsStyling: false,
+                                        confirmButtonText: "Ok, got it!",
+                                        customClass: {
+                                            confirmButton: "btn btn-danger"
+                                        }
+                                    });
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                // Handle error
+                                submitButton.removeAttribute('data-kt-indicator');
+                                submitButton.disabled = false;
+                                Swal.fire({
+                                    text: "Terjadi kesalahan, silahkan coba lagi nanti.",
+                                    icon: "error",
+                                    buttonsStyling: false,
+                                    confirmButtonText: "Ok, got it!",
+                                    customClass: {
+                                        confirmButton: "btn btn-danger"
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            }
         });
     </script>
-    <!--end::Seacrh Persons Javascript-->
+    <!--end::Search Persons Form Javascript-->
+
 
     <!-- begin sessions -->
     @if(session('status') && session('message'))

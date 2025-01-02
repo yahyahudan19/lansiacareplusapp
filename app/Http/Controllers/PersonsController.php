@@ -95,15 +95,6 @@ class PersonsController extends Controller
         return view('admin.persons', compact('data_person', 'kecamatans', 'kelurahans'));
     }
 
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      */
@@ -190,14 +181,6 @@ class PersonsController extends Controller
         $tanggal_lahir = Carbon::parse($persons->tanggal_lahir)->format('m/d/Y g:i A');
 
         return view('admin.persons.edit',compact('persons','kelurahans','tanggal_lahir'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Persons $persons)
-    {
-        //
     }
 
     /**
@@ -367,4 +350,18 @@ class PersonsController extends Controller
         return view('admin.persons', compact('data_person','kecamatans','kelurahans'));
 
     }
+    public function getPendudukByNIK(Request $request)
+    {
+        $nik = $request->get('nik');
+        $person = Persons::where('nik', $nik)->first();
+
+        if ($person) {
+            return response()->json(['status' => 'success', 'data' => $person]);
+        } else {
+            return response()->json(['status' => 'error']);
+        }
+    }
+
+
+    
 }

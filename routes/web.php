@@ -66,8 +66,16 @@ Route::middleware(['role:System Administrator'])->group(function (){
     Route::get('/admin/penduduk/{id}', [PersonsController::class, 'detail_view'])->name('persons.detail_view');
     Route::get('/admin/penduduk/edit/{id}', [PersonsController::class, 'edit_view'])->name('persons.edit_view');
     Route::post('/admin/penduduk/update/{id}', [PersonsController::class, 'update'])->name('persons.update');
+    Route::get('/getPendudukByNIK', [PersonsController::class, 'getPendudukByNIK']);
+
     
     Route::get('/admin/kunjungan', [KunjungansController::class, 'index'])->name('kunjungans.index');
+    Route::post('/admin/kunjungan/tambah', [KunjungansController::class, 'create_view'])->name('kunjungans.create');
+    Route::get('/admin/kunjungan/store', [KunjungansController::class, 'store'])->name('kunjungans.store');
+    Route::get('/admin/kunjungan/{id}', [KunjungansController::class, 'detail_view'])->name('kunjungans.detail_view');
+    Route::get('/admin/kunjungan/edit/{id}', [KunjungansController::class, 'edit'])->name('kunjungans.edit');
+    Route::post('/admin/kunjungan/update/{id}', [KunjungansController::class, 'update'])->name('kunjungans.update');
+    
     
 });
 
