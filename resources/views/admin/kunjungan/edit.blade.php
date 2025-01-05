@@ -1,7 +1,7 @@
 @extends('components.layout')
 
 @section('title')
-    Tambah Kunjungan
+    Update Kunjungan
 @endsection
 
 @section('plugins-head')
@@ -22,7 +22,7 @@
                     <!--begin::Page title-->
                     <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
                         <!--begin::Title-->
-                        <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Tambah Kunjungan</h1>
+                        <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Update Kunjungan #{{$kunjungan->id}}</h1>
                         <!--end::Title-->
                         <!--begin::Breadcrumb-->
                         <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
@@ -45,7 +45,14 @@
                             </li>
                             <!--end::Item-->
                             <!--begin::Item-->
-                            <li class="breadcrumb-item text-muted">Tambah</li>
+                            <li class="breadcrumb-item text-muted">Update</li>
+                            <!--end::Item-->
+                            <li class="breadcrumb-item">
+                                <span class="bullet bg-gray-500 w-5px h-2px"></span>
+                            </li>
+                            <!--end::Item-->
+                            <!--begin::Item-->
+                            <li class="breadcrumb-item text-muted">{{$kunjungan->id}}</li>
                             <!--end::Item-->
                         </ul>
                         <!--end::Breadcrumb-->
@@ -104,7 +111,7 @@
                             </div>
                             <!--end::Nav-->
                             <!--begin::Form-->
-                            <form class="mx-auto mw-600px w-100 pt-15 pb-10" novalidate="novalidate" id="kt_create_account_form" method="POST" action="/admin/kunjungan/store">
+                            <form class="mx-auto mw-600px w-100 pt-15 pb-10" novalidate="novalidate" id="kt_create_account_form" method="POST" action="/admin/kunjungan/update/{{$kunjungan->id}}">
                                 <!--begin::Step 1-->
                                 <div class="current" data-kt-stepper-element="content">
                                     @csrf
@@ -190,7 +197,7 @@
                                                 <!--begin::Input wrapper-->
                                                 <div class="position-relative">
                                                     <!--begin::Input-->
-                                                    <input type="text" class="form-control form-control-solid" minlength="3" maxlength="4" value="{{$dapen->category}}" name="kategori" readonly />
+                                                    <input type="text" class="form-control form-control-solid" minlength="3" maxlength="4" value="{{$dapen->category}}" name="card_cvv" readonly />
                                                     <!--end::Input-->
                                                     <!--begin::CVV icon-->
                                                     <div class="position-absolute translate-middle-y top-50 end-0 me-3">
@@ -283,7 +290,7 @@
                                                     <!--end::Decrease control-->
 
                                                     <!--begin::Input control-->
-                                                    <input type="text" class="form-control form-control-solid border-0 ps-12" data-kt-dialer-control="input" placeholder="Amount" name="tinggi_bdn" value="100" />
+                                                    <input type="text" class="form-control form-control-solid border-0 ps-12" data-kt-dialer-control="input" placeholder="Amount" name="tinggi_bdn" value="{{$kunjungan->tinggi_bdn}}" />
                                                     <!--end::Input control-->
 
                                                     <!--begin::Increase control-->
@@ -325,7 +332,7 @@
                                                     <!--end::Decrease control-->
 
                                                     <!--begin::Input control-->
-                                                    <input type="text" class="form-control form-control-solid border-0 ps-12" data-kt-dialer-control="input" placeholder="Amount" name="berat_bdn" value="30" />
+                                                    <input type="text" class="form-control form-control-solid border-0 ps-12" data-kt-dialer-control="input" placeholder="Amount" name="berat_bdn" value="{{$kunjungan->berat_bdn}}" />
                                                     <!--end::Input control-->
 
                                                     <!--begin::Increase control-->
@@ -365,7 +372,7 @@
                                                     <!--end::Decrease control-->
 
                                                     <!--begin::Input control-->
-                                                    <input type="text" class="form-control form-control-solid border-0 ps-12" data-kt-dialer-control="input" placeholder="Amount" name="lingkar_prt" value="1" />
+                                                    <input type="text" class="form-control form-control-solid border-0 ps-12" data-kt-dialer-control="input" placeholder="Amount" name="lingkar_prt" value="{{$kunjungan->lingkar_prt}}" />
                                                     <!--end::Input control-->
 
                                                     <!--begin::Increase control-->
@@ -407,7 +414,7 @@
                                                         <!--end::Decrease control-->
 
                                                         <!--begin::Input control-->
-                                                        <input type="text" class="form-control form-control-solid border-0 ps-12" data-kt-dialer-control="input" placeholder="Amount" name="diastole" value="100" />
+                                                        <input type="text" class="form-control form-control-solid border-0 ps-12" data-kt-dialer-control="input" placeholder="Amount" name="diastole" value="{{$kunjungan->diastole}}" />
                                                         <!--end::Input control-->
 
                                                         <!--begin::Increase control-->
@@ -438,7 +445,7 @@
                                                     <!--begin::Dialer-->
                                                     <div class="position-relative"
                                                     data-kt-dialer="true"
-                                                    data-kt-dialer-min="0"
+                                                    data-kt-dialer-min="30"
                                                     data-kt-dialer-max="200"
                                                     data-kt-dialer-step="1">
 
@@ -449,7 +456,7 @@
                                                     <!--end::Decrease control-->
 
                                                     <!--begin::Input control-->
-                                                    <input type="text" class="form-control form-control-solid border-0 ps-12" data-kt-dialer-control="input" placeholder="Amount" name="sistole" value="30" />
+                                                    <input type="text" class="form-control form-control-solid border-0 ps-12" data-kt-dialer-control="input" placeholder="Amount" name="sistole" value="{{$kunjungan->sistole}}" />
                                                     <!--end::Input control-->
 
                                                     <!--begin::Increase control-->
@@ -488,7 +495,7 @@
                                             <!--end::Decrease control-->
 
                                             <!--begin::Input control-->
-                                            <input type="text" class="form-control form-control-solid border-0 ps-12" data-kt-dialer-control="input" placeholder="Amount" name="gula_drh" value="100" />
+                                            <input type="text" class="form-control form-control-solid border-0 ps-12" data-kt-dialer-control="input" placeholder="Amount" name="gula_drh" value="{{$kunjungan->gula_drh}}" />
                                             <!--end::Input control-->
 
                                             <!--begin::Increase control-->
@@ -526,7 +533,7 @@
                                             <!--end::Decrease control-->
 
                                             <!--begin::Input control-->
-                                            <input type="text" class="form-control form-control-solid border-0 ps-12" data-kt-dialer-control="input" placeholder="Amount" name="kolesterol" value="0" />
+                                            <input type="text" class="form-control form-control-solid border-0 ps-12" data-kt-dialer-control="input" placeholder="Amount" name="kolesterol" value="{{$kunjungan->kolesterol}}" />
                                             <!--end::Input control-
 
                                             <!- begin::Increase control-->
@@ -561,7 +568,7 @@
                                             <!--end::Decrease control-->
 
                                             <!--begin::Input control-->
-                                            <input type="text" class="form-control form-control-solid border-0 ps-12" data-kt-dialer-control="input" placeholder="Amount" name="asam_urat" value="0" />
+                                            <input type="text" class="form-control form-control-solid border-0 ps-12" data-kt-dialer-control="input" placeholder="Amount" name="asam_urat" value="{{$kunjungan->asam_urat}}" />
                                             <!--end::Input control-->
 
                                             <!--begin::Increase control-->
@@ -576,16 +583,16 @@
                                         <!--end::Input group-->
                                         <!--begin::Input group-->
                                         <div class="fv-row mb-5">
-                                             <!--begin::Label-->
-                                             <label class="d-flex align-items-center form-label">
-                                                <span class="required">Tanggal Kunjungan</span>
-                                            </label>
-                                            <!--end::Label-->
-                                            <div class="mb-10">
-                                                <input class="form-control" placeholder="Pick a date" name="tanggal_kj" id="kt_datepicker_1"/>
-                                            </div>
-                                        </div>
-                                        <!--end::Input group-->
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center form-label">
+                                               <span class="required">Tanggal Kunjungan</span>
+                                           </label>
+                                           <!--end::Label-->
+                                           <div class="mb-10">
+                                               <input class="form-control" placeholder="Pick a date" name="tanggal_kj" id="kt_datepicker_1" value="{{$kunjungan->tanggal_kj}}"/>
+                                           </div>
+                                       </div>
+                                       <!--end::Input group-->
                                         
                                     </div>
                                     <!--end::Wrapper-->
@@ -615,10 +622,11 @@
                                             <!--end::Label-->
                                             <select class="form-select" data-control="select2" data-placeholder="Select an option" name="merokok">
                                                 <option></option>
-                                                <option value="Y" selected>Iya</option>
-                                                <option value="TSB">Tidak, Sudah Berhenti</option>
-                                                <option value="TPS">Tidak Pernah Sama Sekali</option>
+                                                <option value="Y" {{ $skrining->merokok == 'Y' ? 'selected' : '' }}>Iya</option>
+                                                <option value="TSB" {{ $skrining->merokok == 'TSB' ? 'selected' : '' }}>Tidak, Sudah Berhenti</option>
+                                                <option value="TPS" {{ $skrining->merokok == 'TPS' ? 'selected' : '' }}>Tidak Pernah Sama Sekali</option>
                                             </select>
+                                            
                                             
                                         </div>
                                         <!--end::Input group-->
@@ -631,9 +639,10 @@
                                             <!--end::Label-->
                                             <select class="form-select" data-control="select2" data-placeholder="Select an option" name="ginjal">
                                                 <option></option>
-                                                <option value="Y" selected>Iya</option>
-                                                <option value="N">Tidak</option>
+                                                <option value="Y" {{ $skrining->ginjal == 'Y' ? 'selected' : '' }}>Iya</option>
+                                                <option value="N" {{ $skrining->ginjal == 'N' ? 'selected' : '' }}>Tidak</option>
                                             </select>
+                                            
                                             
                                         </div>
                                         <!--end::Input group-->
@@ -646,8 +655,8 @@
                                             <!--end::Label-->
                                             <select class="form-select" data-control="select2" data-placeholder="Select an option" name="penglihatan">
                                                 <option></option>
-                                                <option value="Y" selected>Iya</option>
-                                                <option value="N">Tidak</option>
+                                                <option value="Y" {{ $skrining->penglihatan == 'Y' ? 'selected' : '' }}>Iya</option>
+                                                <option value="N" {{ $skrining->penglihatan == 'N' ? 'selected' : '' }}>Tidak</option>
                                             </select>
                                             
                                         </div>
@@ -661,8 +670,8 @@
                                             <!--end::Label-->
                                             <select class="form-select" data-control="select2" data-placeholder="Select an option" name="pendengaran">
                                                 <option></option>
-                                                <option value="Y" selected>Iya</option>
-                                                <option value="N">Tidak</option>
+                                                <option value="Y" {{ $skrining->pendengaran == 'Y' ? 'selected' : '' }}>Iya</option>
+                                                <option value="N" {{ $skrining->pendengaran == 'N' ? 'selected' : '' }}>Tidak</option>
                                             </select>
                                             
                                         </div>
@@ -687,9 +696,9 @@
                                             <!--end::Label-->
                                             <select class="form-select" data-control="select2" data-placeholder="Select an option" name="adl">
                                                 <option></option>
-                                                <option value="A" selected>Mandiri (A) : Dapat melakukan aktivitas sendiri tanpa bantuan orang lain</option>
-                                                <option value="B">Ketergantungan Ringan (B) : Membutuhkan bantuan orang lain dalam melakukan aktivitas tertentu/memakai kursi roda</option>
-                                                <option value="C">Ketergantungan Berat (C) : Hanya bisa beraktivitas diatas tempat tidur</option>
+                                                <option value="A" {{ $skrining->adl == 'A' ? 'selected' : '' }}>Mandiri (A) : Dapat melakukan aktivitas sendiri tanpa bantuan orang lain</option>
+                                                <option value="B" {{ $skrining->adl == 'B' ? 'selected' : '' }}>Ketergantungan Ringan (B) : Membutuhkan bantuan orang lain dalam melakukan aktivitas tertentu/memakai kursi roda</option>
+                                                <option value="C" {{ $skrining->adl == 'C' ? 'selected' : '' }}>Ketergantungan Berat (C) : Hanya bisa beraktivitas diatas tempat tidur</option>
                                             </select>
                                             
                                         </div>
@@ -703,9 +712,9 @@
                                             <!--end::Label-->
                                             <select class="form-select" data-control="select2" data-placeholder="Select an option" name="gds">
                                                 <option></option>
-                                                <option value="A" selected>Sudah puas dengan kehidupan, bersemangat, merasa bahagia, menyenangkan</option>
-                                                <option value="B">Merasa bosan, lebih senang dirumah, meninggalkan banyak kesenangan, cemas, memiliki masalah daya ingat</option>
-                                                <option value="C">Merasa kehidupan hampa, tidak berdaya, tidak berharga, tidak ada harapan, keadaan orang lain lebih baik</option>
+                                                <option value="A"{{ $skrining->gds == 'A' ? 'selected' : '' }}>Sudah puas dengan kehidupan, bersemangat, merasa bahagia, menyenangkan</option>
+                                                <option value="B"{{ $skrining->gds == 'B' ? 'selected' : '' }}>Merasa bosan, lebih senang dirumah, meninggalkan banyak kesenangan, cemas, memiliki masalah daya ingat</option>
+                                                <option value="C"{{ $skrining->gds == 'C' ? 'selected' : '' }}>Merasa kehidupan hampa, tidak berdaya, tidak berharga, tidak ada harapan, keadaan orang lain lebih baik</option>
                                             </select>
                                             
                                         </div>
@@ -804,8 +813,22 @@
     <script src="{{ asset('template/assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
     <!--end::Vendors Javascript-->
 
+   
 
     <!--begin::datepick Javascript-->
+    <script>
+        new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_date_only"), {
+            display: {
+                viewMode: "calendar",
+                components: {
+                    decades: true,
+                    year: true,
+                    month: true,
+                    date: true,
+                }
+            }
+        });
+    </script>
     <script>
         $("#kt_datepicker_1").flatpickr();
     </script>

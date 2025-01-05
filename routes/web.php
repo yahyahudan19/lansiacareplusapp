@@ -71,10 +71,17 @@ Route::middleware(['role:System Administrator'])->group(function (){
     
     Route::get('/admin/kunjungan', [KunjungansController::class, 'index'])->name('kunjungans.index');
     Route::post('/admin/kunjungan/tambah', [KunjungansController::class, 'create_view'])->name('kunjungans.create');
-    Route::get('/admin/kunjungan/store', [KunjungansController::class, 'store'])->name('kunjungans.store');
+    Route::post('/admin/kunjungan/store', [KunjungansController::class, 'store'])->name('kunjungans.store');
     Route::get('/admin/kunjungan/{id}', [KunjungansController::class, 'detail_view'])->name('kunjungans.detail_view');
     Route::get('/admin/kunjungan/edit/{id}', [KunjungansController::class, 'edit'])->name('kunjungans.edit');
     Route::post('/admin/kunjungan/update/{id}', [KunjungansController::class, 'update'])->name('kunjungans.update');
+    Route::get('/kunjungan/find', [KunjungansController::class, 'searchPersonsByName'])->name('kunjungans.search_name');
+    Route::get('/kunjungan/cari', [KunjungansController::class, 'searchKunjungans'])->name('kunjungans.search');
+    Route::delete('/destroy/kunjungan/{id}', [KunjungansController::class, 'destroy'])->name('kunjungans.destroy');
+
+
+
+    
     
     
 });
