@@ -152,22 +152,40 @@ class KunjungansController extends Controller
             } else {
                 $kategoriKolesterol = 'Berbahaya (High Risk)';
             }
+
+            // Hitung Gula Darah
+            if ($request->gula_drh < 140) {
+                $kategoriGulaDarah = 1;
+                $keteranganGulaDarah = 'Normal';
+            } elseif ($request->gula_drh >= 140 && $request->gula_drh <= 199) {
+                $kategoriGulaDarah = 2;
+                $keterangan = 'Prediabetes';
+            } else {
+                $kategoriGulaDarah = 3;
+                $keterangan = 'Diabetes';
+            }
+            // Konversi Format Tanggal Kunjungan
+            $tanggal = Carbon::parse($request->tanggal_kj)->translatedFormat('d F Y');
+
             // Ambil API Key, No WhatsApp dan Pesan Analisa
             $apiKey = 'gOTgxLIWg3u3oFoXvy6rUSTxdh7wTz';
             $sender = '6289517972735';
             $number = '6281259224380';
             $message = "Halo, Bapak/Ibu {$person->nama},\n\n".
-                        "Hasil Skrining Anda pada tanggal: {$request->tanggal_kj} adalah sebagai berikut:\n\n".
-                        "1. **Indeks Massa Tubuh (IMT)**\n".
+                        "Hasil Skrining Anda pada tanggal: {$tanggal} adalah sebagai berikut:\n\n".
+                        "1. *Indeks Massa Tubuh (IMT)*\n".
                         "- Klasifikasi: $imtKlasifikasi\n".
                         "- Kategori: $imtKategori\n".
                         "- Nilai IMT: " . number_format($imt, 2) . "\n\n".
-                        "2. **Tekanan Darah**\n".
+                        "2. *Tekanan Darah*\n".
                         "- Nilai Tekanan Darah: $nilaiTekananDarah mmHg\n".
                         "- Kategori: $kategoriTekananDarah\n\n".
-                        "3. **Kolesterol**\n".
+                        "3. *Kolesterol*\n".
                         "- Kolesterol: {$request->kolesterol} mg/dL\n".
                         "- Kategori: $kategoriKolesterol\n\n".
+                        "4. *Gula Darah*\n".
+                        "- Kategori: $kategoriGulaDarah\n".
+                        "- Keterangan: $keteranganGulaDarah\n\n".
                         "Tetap jaga kesehatan dan lakukan pemeriksaan rutin.\n\n".
                         "Terima kasih.";
             // Kirim Notifikasi WhatsApp
