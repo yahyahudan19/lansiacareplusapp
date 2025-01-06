@@ -168,9 +168,9 @@ class KunjungansController extends Controller
             $tanggal = Carbon::parse($request->tanggal_kj)->translatedFormat('d F Y');
 
             // Ambil API Key, No WhatsApp dan Pesan Analisa
-            $apiKey = 'gOTgxLIWg3u3oFoXvy6rUSTxdh7wTz';
-            $sender = '6289517972735';
-            $number = '6281259224380';
+            $apiKey = 'xx';
+            $sender = 'x';
+            $number = 'x';
             $message = "Halo, Bapak/Ibu {$person->nama},\n\n".
                         "Hasil Skrining Anda pada tanggal: {$tanggal} adalah sebagai berikut:\n\n".
                         "1. *Indeks Massa Tubuh (IMT)*\n".
