@@ -136,17 +136,17 @@
                             </span>
                             <span class="menu-title">Kunjungan</span>
                         </a>
-                        <a href="/admin/skrining" class="menu-link {{ Request::is('admin/skrining*') ? 'active' : '' }}">
+                        {{-- <a href="/admin/skrining" class="menu-link {{ Request::is('admin/skrining*') ? 'active' : '' }}">
                             <span class="menu-icon">
                                 <i class="ki-outline ki-fingerprint-scanning fs-2"></i>
                             </span>
                             <span class="menu-title">Skrining</span>
-                        </a>
+                        </a> --}}
                         <!--end:Menu link-->
                     </div>
                     <!--end:Menu item-->
                     <!--begin:Menu item-->
-                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                    <div data-kt-menu-trigger="click" class="menu-item {{ Request::is('admin/laporan/*') ? 'here show' : '' }} menu-accordion">
                         <!--begin:Menu link-->
                         <span class="menu-link">
                             <span class="menu-icon">

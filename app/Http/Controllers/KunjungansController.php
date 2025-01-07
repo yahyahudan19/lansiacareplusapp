@@ -168,33 +168,33 @@ class KunjungansController extends Controller
             $tanggal = Carbon::parse($request->tanggal_kj)->translatedFormat('d F Y');
 
             // Ambil API Key, No WhatsApp dan Pesan Analisa
-            $apiKey = 'xx';
-            $sender = 'x';
-            $number = 'x';
-            $message = "Halo, Bapak/Ibu {$person->nama},\n\n".
-                        "Hasil Skrining Anda pada tanggal: {$tanggal} adalah sebagai berikut:\n\n".
-                        "1. *Indeks Massa Tubuh (IMT)*\n".
-                        "- Klasifikasi: $imtKlasifikasi\n".
-                        "- Kategori: $imtKategori\n".
-                        "- Nilai IMT: " . number_format($imt, 2) . "\n\n".
-                        "2. *Tekanan Darah*\n".
-                        "- Nilai Tekanan Darah: $nilaiTekananDarah mmHg\n".
-                        "- Kategori: $kategoriTekananDarah\n\n".
-                        "3. *Kolesterol*\n".
-                        "- Kolesterol: {$request->kolesterol} mg/dL\n".
-                        "- Kategori: $kategoriKolesterol\n\n".
-                        "4. *Gula Darah*\n".
-                        "- Kategori: $kategoriGulaDarah\n".
-                        "- Keterangan: $keteranganGulaDarah\n\n".
-                        "Tetap jaga kesehatan dan lakukan pemeriksaan rutin.\n\n".
-                        "Terima kasih.";
-            // Kirim Notifikasi WhatsApp
-            $response = Http::get("https://wagw.yahyahud.my.id/send-message", [
-                            'api_key' => $apiKey,
-                            'sender' => $sender,
-                            'number' => $number,
-                            'message' => $message,
-                        ]);
+            // $apiKey = 'xx';
+            // $sender = 'x';
+            // $number = 'x';
+            // $message = "Halo, Bapak/Ibu {$person->nama},\n\n".
+            //             "Hasil Skrining Anda pada tanggal: {$tanggal} adalah sebagai berikut:\n\n".
+            //             "1. *Indeks Massa Tubuh (IMT)*\n".
+            //             "- Klasifikasi: $imtKlasifikasi\n".
+            //             "- Kategori: $imtKategori\n".
+            //             "- Nilai IMT: " . number_format($imt, 2) . "\n\n".
+            //             "2. *Tekanan Darah*\n".
+            //             "- Nilai Tekanan Darah: $nilaiTekananDarah mmHg\n".
+            //             "- Kategori: $kategoriTekananDarah\n\n".
+            //             "3. *Kolesterol*\n".
+            //             "- Kolesterol: {$request->kolesterol} mg/dL\n".
+            //             "- Kategori: $kategoriKolesterol\n\n".
+            //             "4. *Gula Darah*\n".
+            //             "- Kategori: $kategoriGulaDarah\n".
+            //             "- Keterangan: $keteranganGulaDarah\n\n".
+            //             "Tetap jaga kesehatan dan lakukan pemeriksaan rutin.\n\n".
+            //             "Terima kasih.";
+            // // Kirim Notifikasi WhatsApp
+            // $response = Http::get("https://wagw.yahyahud.my.id/send-message", [
+            //                 'api_key' => $apiKey,
+            //                 'sender' => $sender,
+            //                 'number' => $number,
+            //                 'message' => $message,
+            //             ]);
             // Kirim pesan sukses
             return redirect('admin/kunjungan')
             ->with('status', 'success')

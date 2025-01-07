@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\KunjungansController;
+use App\Http\Controllers\LaporansController;
 use App\Http\Controllers\PersonsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -78,7 +79,8 @@ Route::middleware(['role:System Administrator'])->group(function (){
     Route::get('/kunjungan/find', [KunjungansController::class, 'searchPersonsByName'])->name('kunjungans.search_name');
     Route::get('/kunjungan/cari', [KunjungansController::class, 'searchKunjungans'])->name('kunjungans.search');
     Route::delete('/destroy/kunjungan/{id}', [KunjungansController::class, 'destroy'])->name('kunjungans.destroy');
-
+    
+    Route::get('/admin/laporan/puskesmas', [LaporansController::class, 'index'])->name('laporan.index');
 
 
     
