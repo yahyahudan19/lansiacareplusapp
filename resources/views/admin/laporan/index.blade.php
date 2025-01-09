@@ -27,7 +27,7 @@
                 <!--begin::Page title-->
                 <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
                     <!--begin::Title-->
-                    <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Customer Orders Report</h1>
+                    <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Laporan Puskesmas</h1>
                     <!--end::Title-->
                     <!--begin::Breadcrumb-->
                     <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
@@ -42,7 +42,7 @@
                         </li>
                         <!--end::Item-->
                         <!--begin::Item-->
-                        <li class="breadcrumb-item text-muted">Apps</li>
+                        <li class="breadcrumb-item text-muted">Laporan</li>
                         <!--end::Item-->
                         <!--begin::Item-->
                         <li class="breadcrumb-item">
@@ -50,16 +50,9 @@
                         </li>
                         <!--end::Item-->
                         <!--begin::Item-->
-                        <li class="breadcrumb-item text-muted">eCommerce</li>
+                        <li class="breadcrumb-item text-muted">Puskesmas</li>
                         <!--end::Item-->
-                        <!--begin::Item-->
-                        <li class="breadcrumb-item">
-                            <span class="bullet bg-gray-500 w-5px h-2px"></span>
-                        </li>
-                        <!--end::Item-->
-                        <!--begin::Item-->
-                        <li class="breadcrumb-item text-muted">Reports</li>
-                        <!--end::Item-->
+                        
                     </ul>
                     <!--end::Breadcrumb-->
                 </div>
@@ -98,7 +91,7 @@
                     </div>
                     <!--end::Card title==
 
-<!==begin::Card toolbar-->
+                    <!==begin::Card toolbar-->
                     <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
                         <!--begin::Daterangepicker-->
                         <input class="form-control form-control-solid w-100 mw-250px" placeholder="Pick date range" id="kt_ecommerce_report_customer_orders_daterangepicker" />
@@ -155,766 +148,20 @@
                     <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_ecommerce_report_customer_orders_table">
                         <thead>
                             <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
-                                <th class="min-w-100px">Customer Name</th>
-                                <th class="min-w-100px">Email</th>
-                                <th class="min-w-100px">Status</th>
-                                <th class="min-w-100px">Date Joined</th>
-                                <th class="text-end min-w-75px">No. Orders</th>
-                                <th class="text-end min-w-75px">No. Products</th>
-                                <th class="text-end min-w-100px">Total</th>
-                            </tr>
+                                <th class="min-w-100px">Kelompok</th>
+                                <th class="min-w-100px">Indikator</th>
                         </thead>
                         <tbody class="fw-semibold text-gray-600">
+                            @foreach ($data_indikator as $indikator)
                             <tr>
                                 <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Emma Smith</a>
+                                    <a href="#" class="text-gray-900 text-hover-primary">{{$indikator->kelompok->nama}}</a>
                                 </td>
                                 <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">smith@kpmg.com</a>
+                                    <a href="#" class="text-gray-900 text-hover-primary">{{$indikator->nama}}</a>
                                 </td>
-                                <td>
-                                    <div class="badge badge-light-danger">Banned</div>
-                                </td>
-                                <td>22 Sep 2024, 5:20 pm</td>
-                                <td class="text-end pe-0">83</td>
-                                <td class="text-end pe-0">98</td>
-                                <td class="text-end">$354.00</td>
                             </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Melody Macy</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">melody@altbox.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-success">Active</div>
-                                </td>
-                                <td>25 Oct 2024, 5:30 pm</td>
-                                <td class="text-end pe-0">92</td>
-                                <td class="text-end pe-0">105</td>
-                                <td class="text-end">$3673.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Max Smith</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">max@kt.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-info">Disabled</div>
-                                </td>
-                                <td>25 Oct 2024, 5:30 pm</td>
-                                <td class="text-end pe-0">73</td>
-                                <td class="text-end pe-0">85</td>
-                                <td class="text-end">$4588.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Sean Bean</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">sean@dellito.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-success">Active</div>
-                                </td>
-                                <td>19 Aug 2024, 5:20 pm</td>
-                                <td class="text-end pe-0">82</td>
-                                <td class="text-end pe-0">96</td>
-                                <td class="text-end">$2987.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Brian Cox</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">brian@exchange.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-success">Active</div>
-                                </td>
-                                <td>25 Jul 2024, 6:43 am</td>
-                                <td class="text-end pe-0">17</td>
-                                <td class="text-end pe-0">29</td>
-                                <td class="text-end">$2803.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Mikaela Collins</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">mik@pex.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-success">Active</div>
-                                </td>
-                                <td>10 Nov 2024, 8:43 pm</td>
-                                <td class="text-end pe-0">70</td>
-                                <td class="text-end pe-0">79</td>
-                                <td class="text-end">$3101.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Francis Mitcham</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">f.mit@kpmg.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-success">Active</div>
-                                </td>
-                                <td>20 Jun 2024, 11:30 am</td>
-                                <td class="text-end pe-0">24</td>
-                                <td class="text-end pe-0">39</td>
-                                <td class="text-end">$699.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Olivia Wild</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">olivia@corpmail.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-success">Active</div>
-                                </td>
-                                <td>20 Dec 2024, 2:40 pm</td>
-                                <td class="text-end pe-0">93</td>
-                                <td class="text-end pe-0">98</td>
-                                <td class="text-end">$252.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Neil Owen</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">owen.neil@gmail.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-success">Active</div>
-                                </td>
-                                <td>22 Sep 2024, 5:20 pm</td>
-                                <td class="text-end pe-0">36</td>
-                                <td class="text-end pe-0">45</td>
-                                <td class="text-end">$545.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Dan Wilson</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">dam@consilting.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-success">Active</div>
-                                </td>
-                                <td>21 Feb 2024, 6:05 pm</td>
-                                <td class="text-end pe-0">100</td>
-                                <td class="text-end pe-0">109</td>
-                                <td class="text-end">$1722.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Emma Bold</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">emma@intenso.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-success">Active</div>
-                                </td>
-                                <td>25 Jul 2024, 11:05 am</td>
-                                <td class="text-end pe-0">89</td>
-                                <td class="text-end pe-0">102</td>
-                                <td class="text-end">$3337.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Ana Crown</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">ana.cf@limtel.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-success">Active</div>
-                                </td>
-                                <td>20 Dec 2024, 5:20 pm</td>
-                                <td class="text-end pe-0">46</td>
-                                <td class="text-end pe-0">60</td>
-                                <td class="text-end">$3828.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Robert Doe</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">robert@benko.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-success">Active</div>
-                                </td>
-                                <td>05 May 2024, 10:10 pm</td>
-                                <td class="text-end pe-0">79</td>
-                                <td class="text-end pe-0">87</td>
-                                <td class="text-end">$2346.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">John Miller</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">miller@mapple.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-success">Active</div>
-                                </td>
-                                <td>05 May 2024, 9:23 pm</td>
-                                <td class="text-end pe-0">43</td>
-                                <td class="text-end pe-0">50</td>
-                                <td class="text-end">$1411.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Lucy Kunic</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">lucy.m@fentech.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-success">Active</div>
-                                </td>
-                                <td>21 Feb 2024, 11:30 am</td>
-                                <td class="text-end pe-0">56</td>
-                                <td class="text-end pe-0">64</td>
-                                <td class="text-end">$223.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Ethan Wilder</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">ethan@loop.com.au</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-success">Active</div>
-                                </td>
-                                <td>25 Jul 2024, 11:05 am</td>
-                                <td class="text-end pe-0">70</td>
-                                <td class="text-end pe-0">81</td>
-                                <td class="text-end">$2670.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Sean Bean</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">sean@dellito.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-success">Active</div>
-                                </td>
-                                <td>22 Sep 2024, 11:05 am</td>
-                                <td class="text-end pe-0">86</td>
-                                <td class="text-end pe-0">91</td>
-                                <td class="text-end">$369.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Emma Smith</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">smith@kpmg.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-success">Active</div>
-                                </td>
-                                <td>19 Aug 2024, 6:05 pm</td>
-                                <td class="text-end pe-0">40</td>
-                                <td class="text-end pe-0">47</td>
-                                <td class="text-end">$3057.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Melody Macy</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">melody@altbox.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-info">Disabled</div>
-                                </td>
-                                <td>21 Feb 2024, 8:43 pm</td>
-                                <td class="text-end pe-0">38</td>
-                                <td class="text-end pe-0">51</td>
-                                <td class="text-end">$4545.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Max Smith</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">max@kt.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-success">Active</div>
-                                </td>
-                                <td>19 Aug 2024, 6:43 am</td>
-                                <td class="text-end pe-0">65</td>
-                                <td class="text-end pe-0">78</td>
-                                <td class="text-end">$962.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Sean Bean</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">sean@dellito.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-success">Active</div>
-                                </td>
-                                <td>20 Dec 2024, 10:30 am</td>
-                                <td class="text-end pe-0">5</td>
-                                <td class="text-end pe-0">17</td>
-                                <td class="text-end">$2987.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Brian Cox</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">brian@exchange.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-success">Active</div>
-                                </td>
-                                <td>20 Dec 2024, 9:23 pm</td>
-                                <td class="text-end pe-0">46</td>
-                                <td class="text-end pe-0">58</td>
-                                <td class="text-end">$3016.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Mikaela Collins</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">mik@pex.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-success">Active</div>
-                                </td>
-                                <td>19 Aug 2024, 11:30 am</td>
-                                <td class="text-end pe-0">59</td>
-                                <td class="text-end pe-0">64</td>
-                                <td class="text-end">$4238.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Francis Mitcham</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">f.mit@kpmg.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-success">Active</div>
-                                </td>
-                                <td>22 Sep 2024, 2:40 pm</td>
-                                <td class="text-end pe-0">74</td>
-                                <td class="text-end pe-0">86</td>
-                                <td class="text-end">$1600.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Olivia Wild</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">olivia@corpmail.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-info">Disabled</div>
-                                </td>
-                                <td>15 Apr 2024, 6:43 am</td>
-                                <td class="text-end pe-0">84</td>
-                                <td class="text-end pe-0">89</td>
-                                <td class="text-end">$506.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Neil Owen</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">owen.neil@gmail.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-success">Active</div>
-                                </td>
-                                <td>21 Feb 2024, 5:30 pm</td>
-                                <td class="text-end pe-0">32</td>
-                                <td class="text-end pe-0">39</td>
-                                <td class="text-end">$3184.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Dan Wilson</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">dam@consilting.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-success">Active</div>
-                                </td>
-                                <td>20 Dec 2024, 5:30 pm</td>
-                                <td class="text-end pe-0">17</td>
-                                <td class="text-end pe-0">23</td>
-                                <td class="text-end">$3570.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Emma Bold</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">emma@intenso.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-danger">Banned</div>
-                                </td>
-                                <td>21 Feb 2024, 10:30 am</td>
-                                <td class="text-end pe-0">83</td>
-                                <td class="text-end pe-0">94</td>
-                                <td class="text-end">$4631.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Ana Crown</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">ana.cf@limtel.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-success">Active</div>
-                                </td>
-                                <td>25 Oct 2024, 9:23 pm</td>
-                                <td class="text-end pe-0">78</td>
-                                <td class="text-end pe-0">83</td>
-                                <td class="text-end">$4609.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Robert Doe</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">robert@benko.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-info">Disabled</div>
-                                </td>
-                                <td>21 Feb 2024, 10:30 am</td>
-                                <td class="text-end pe-0">43</td>
-                                <td class="text-end pe-0">52</td>
-                                <td class="text-end">$3786.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">John Miller</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">miller@mapple.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-success">Active</div>
-                                </td>
-                                <td>20 Dec 2024, 5:20 pm</td>
-                                <td class="text-end pe-0">36</td>
-                                <td class="text-end pe-0">51</td>
-                                <td class="text-end">$3585.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Lucy Kunic</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">lucy.m@fentech.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-success">Active</div>
-                                </td>
-                                <td>15 Apr 2024, 8:43 pm</td>
-                                <td class="text-end pe-0">100</td>
-                                <td class="text-end pe-0">109</td>
-                                <td class="text-end">$4212.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Ethan Wilder</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">ethan@loop.com.au</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-success">Active</div>
-                                </td>
-                                <td>15 Apr 2024, 11:30 am</td>
-                                <td class="text-end pe-0">24</td>
-                                <td class="text-end pe-0">32</td>
-                                <td class="text-end">$3881.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Emma Smith</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">smith@kpmg.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-success">Active</div>
-                                </td>
-                                <td>15 Apr 2024, 5:30 pm</td>
-                                <td class="text-end pe-0">68</td>
-                                <td class="text-end pe-0">74</td>
-                                <td class="text-end">$3227.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Emma Smith</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">smith@kpmg.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-success">Active</div>
-                                </td>
-                                <td>25 Jul 2024, 10:10 pm</td>
-                                <td class="text-end pe-0">79</td>
-                                <td class="text-end pe-0">86</td>
-                                <td class="text-end">$1375.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Melody Macy</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">melody@altbox.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-success">Active</div>
-                                </td>
-                                <td>25 Jul 2024, 6:43 am</td>
-                                <td class="text-end pe-0">38</td>
-                                <td class="text-end pe-0">50</td>
-                                <td class="text-end">$4952.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Max Smith</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">max@kt.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-success">Active</div>
-                                </td>
-                                <td>24 Jun 2024, 8:43 pm</td>
-                                <td class="text-end pe-0">55</td>
-                                <td class="text-end pe-0">66</td>
-                                <td class="text-end">$2298.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Sean Bean</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">sean@dellito.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-success">Active</div>
-                                </td>
-                                <td>05 May 2024, 5:20 pm</td>
-                                <td class="text-end pe-0">54</td>
-                                <td class="text-end pe-0">62</td>
-                                <td class="text-end">$2340.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Brian Cox</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">brian@exchange.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-danger">Banned</div>
-                                </td>
-                                <td>10 Mar 2024, 11:05 am</td>
-                                <td class="text-end pe-0">74</td>
-                                <td class="text-end pe-0">82</td>
-                                <td class="text-end">$3284.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Mikaela Collins</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">mik@pex.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-success">Active</div>
-                                </td>
-                                <td>20 Jun 2024, 10:10 pm</td>
-                                <td class="text-end pe-0">16</td>
-                                <td class="text-end pe-0">23</td>
-                                <td class="text-end">$3066.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Francis Mitcham</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">f.mit@kpmg.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-danger">Banned</div>
-                                </td>
-                                <td>21 Feb 2024, 10:30 am</td>
-                                <td class="text-end pe-0">26</td>
-                                <td class="text-end pe-0">38</td>
-                                <td class="text-end">$791.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Olivia Wild</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">olivia@corpmail.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-success">Active</div>
-                                </td>
-                                <td>10 Mar 2024, 11:30 am</td>
-                                <td class="text-end pe-0">76</td>
-                                <td class="text-end pe-0">90</td>
-                                <td class="text-end">$3984.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Neil Owen</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">owen.neil@gmail.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-success">Active</div>
-                                </td>
-                                <td>22 Sep 2024, 6:43 am</td>
-                                <td class="text-end pe-0">4</td>
-                                <td class="text-end pe-0">16</td>
-                                <td class="text-end">$4301.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Dan Wilson</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">dam@consilting.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-success">Active</div>
-                                </td>
-                                <td>25 Jul 2024, 10:10 pm</td>
-                                <td class="text-end pe-0">70</td>
-                                <td class="text-end pe-0">77</td>
-                                <td class="text-end">$2507.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Emma Bold</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">emma@intenso.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-warning">Locked</div>
-                                </td>
-                                <td>20 Dec 2024, 10:10 pm</td>
-                                <td class="text-end pe-0">21</td>
-                                <td class="text-end pe-0">26</td>
-                                <td class="text-end">$4242.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Ana Crown</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">ana.cf@limtel.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-warning">Locked</div>
-                                </td>
-                                <td>19 Aug 2024, 2:40 pm</td>
-                                <td class="text-end pe-0">60</td>
-                                <td class="text-end pe-0">66</td>
-                                <td class="text-end">$4573.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Robert Doe</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">robert@benko.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-danger">Banned</div>
-                                </td>
-                                <td>05 May 2024, 5:20 pm</td>
-                                <td class="text-end pe-0">39</td>
-                                <td class="text-end pe-0">52</td>
-                                <td class="text-end">$2563.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">John Miller</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">miller@mapple.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-success">Active</div>
-                                </td>
-                                <td>19 Aug 2024, 11:30 am</td>
-                                <td class="text-end pe-0">27</td>
-                                <td class="text-end pe-0">38</td>
-                                <td class="text-end">$4735.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Lucy Kunic</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">lucy.m@fentech.com</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-success">Active</div>
-                                </td>
-                                <td>24 Jun 2024, 2:40 pm</td>
-                                <td class="text-end pe-0">95</td>
-                                <td class="text-end pe-0">103</td>
-                                <td class="text-end">$2085.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="apps/ecommerce/customers/details.html" class="text-gray-900 text-hover-primary">Ethan Wilder</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">ethan@loop.com.au</a>
-                                </td>
-                                <td>
-                                    <div class="badge badge-light-success">Active</div>
-                                </td>
-                                <td>10 Mar 2024, 6:05 pm</td>
-                                <td class="text-end pe-0">27</td>
-                                <td class="text-end pe-0">37</td>
-                                <td class="text-end">$1056.00</td>
-                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                     <!--end::Table-->
@@ -936,7 +183,7 @@
     <!--begin::Vendors Javascript(used for this page only)-->
     
 	<!--begin::Custom Javascript(used for this page only)-->
-	<script src="{{ asset('template/assets/js/custom/apps/ecommerce/reports/customer-orders/customer-orders.js')}}"></script>
+	
 	<script src="{{ asset('template/assets/js/widgets.bundle.js')}}"></script>
 	<script src="{{ asset('template/assets/js/custom/widgets.js')}}"></script>
 	<script src="{{ asset('template/assets/js/custom/apps/chat/chat.js')}}"></script>
@@ -946,6 +193,258 @@
 	<!--end::Custom Javascript-->
 	<!--end::Javascript-->
     <!--end::Vendors Javascript-->
+
+    <!--begin::Datatables Javascript-->
+    <script>
+        "use strict";
+
+        // Class definition
+        var KTAppEcommerceReportCustomerOrders = function () {
+            // Shared variables
+            var table;
+            var datatable;
+
+            // Private functions
+            var initDatatable = function () {
+                // Init datatable
+                datatable = $(table).DataTable({
+                    "info": false,
+                    'order': [],
+                    'pageLength': 10,
+                    'drawCallback': function (settings) {
+                        // Merge cells for 'Kelompok' column after each draw
+                        var api = this.api();
+                        var rows = api.rows({ page: 'current' }).nodes();
+                        var last = null;
+                        var rowspan = 1;
+
+                        // Column index for 'Kelompok' (assuming it's the first column, index 0)
+                        api.column(0, { page: 'current' }).data().each(function (group, i) {
+                            if (last !== group) {
+                                // New group encountered
+                                if (rowspan > 1) {
+                                    // Set rowspan for previous group
+                                    for (var j = i - rowspan; j < i; j += rowspan) {
+                                        $(rows[j]).find('td:first-child').attr('rowspan', rowspan);
+                                    }
+                                }
+                                last = group;
+                                rowspan = 1;
+                            } else {
+                                // Same group
+                                $(rows[i]).find('td:first-child').remove();
+                                rowspan++;
+                            }
+
+                            // Handle the last group
+                            if (i === api.column(0, { page: 'current' }).data().length - 1 && rowspan > 1) {
+                                for (var j = i - rowspan + 1; j <= i; j += rowspan) {
+                                    $(rows[j]).find('td:first-child').attr('rowspan', rowspan);
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+
+            // Hook export buttons
+            var exportButtons = () => {
+                const documentTitle = 'Laporan Skrining Puskesmas X';
+                
+                // Helper function untuk mendapatkan group data
+                function processData(data) {
+                    let result = [];
+                    let currentGroup = '';
+                    let groupStartIndex = 0;
+                    
+                    data.forEach((row, index) => {
+                        if (currentGroup !== row[0]) {
+                            if (index > 0) {
+                                result.push({
+                                    group: currentGroup,
+                                    startIndex: groupStartIndex,
+                                    rowspan: index - groupStartIndex
+                                });
+                            }
+                            currentGroup = row[0];
+                            groupStartIndex = index;
+                        }
+                    });
+                    
+                    // Handle grup terakhir
+                    result.push({
+                        group: currentGroup,
+                        startIndex: groupStartIndex,
+                        rowspan: data.length - groupStartIndex
+                    });
+                    
+                    return result;
+                }
+
+                var buttons = new $.fn.dataTable.Buttons(table, {
+                    buttons: [
+                        {
+                            extend: 'excelHtml5',
+                            title: documentTitle,
+                            autoFilter: true,
+                            sheetName: 'Laporan Skrining',
+                            className: 'btn btn-sm btn-light-primary',
+                            exportOptions: {
+                                columns: ':visible',
+                                format: {
+                                    header: function(data, columnIdx) {
+                                        return data.replace(/<[^>]*>/g, '').trim();
+                                    },
+                                    body: function(data, row, column, node) {
+                                        // Bersihkan HTML tags dan whitespace
+                                        return data.replace(/<[^>]*>/g, '').trim();
+                                    }
+                                }
+                            },
+                            customizeData: function(data) {
+                                // Proses data sebelum export
+                                var rows = data.body;
+                                var processedRows = [];
+                                var currentGroup = '';
+                                var firstInGroup = true;
+                                
+                                rows.forEach(function(row) {
+                                    if (currentGroup !== row[0]) {
+                                        currentGroup = row[0];
+                                        firstInGroup = true;
+                                    }
+                                    
+                                    // Hanya tampilkan nilai kelompok pada baris pertama dalam group
+                                    if (!firstInGroup) {
+                                        row[0] = ''; // Kosongkan cell untuk baris berikutnya dalam group yang sama
+                                    }
+                                    firstInGroup = false;
+                                    processedRows.push(row);
+                                });
+                                
+                                data.body = processedRows;
+                            }
+                        },
+                        {
+                            extend: 'pdfHtml5',
+                            title: documentTitle,
+                            customize: function(doc) {
+                                var data = datatable.rows().data().toArray();
+                                var groupInfo = processData(data);
+                                var body = [];
+                                
+                                data.forEach((row, index) => {
+                                    let group = groupInfo.find(g => 
+                                        index >= g.startIndex && 
+                                        index < (g.startIndex + g.rowspan)
+                                    );
+                                    
+                                    if (index === group.startIndex) {
+                                        // Baris pertama dalam group
+                                        body.push([
+                                            { 
+                                                text: row[0].replace(/<[^>]*>/g, ''),
+                                                rowSpan: group.rowspan
+                                            },
+                                            { text: row[1].replace(/<[^>]*>/g, '') }
+                                        ]);
+                                    } else {
+                                        // Baris selanjutnya dalam group
+                                        body.push([
+                                            '', // Cell kosong karena di-rowspan
+                                            { text: row[1].replace(/<[^>]*>/g, '') }
+                                        ]);
+                                    }
+                                });
+                                
+                                // Update table body
+                                doc.content[1].table.body = body;
+                                
+                                // Styling
+                                doc.styles.tableHeader = {
+                                    bold: true,
+                                    fontSize: 11,
+                                    color: 'black',
+                                    fillColor: '#eeeeee'
+                                };
+                            },
+                            pageSize: 'A4',
+                            orientation: 'portrait',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                        {
+                            extend: 'csvHtml5',
+                            title: documentTitle,
+                            exportOptions: {
+                                columns: ':visible',
+                                format: {
+                                    body: function(data, row, column) {
+                                        return data.replace(/<[^>]*>/g, '');
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }).container().appendTo($('#kt_ecommerce_report_customer_orders_export'));
+
+                // Hook dropdown menu click event to datatable export buttons
+                const exportButtons = document.querySelectorAll('#kt_ecommerce_report_customer_orders_export_menu [data-kt-ecommerce-export]');
+                exportButtons.forEach(exportButton => {
+                    exportButton.addEventListener('click', e => {
+                        e.preventDefault();
+                        const exportValue = e.target.getAttribute('data-kt-ecommerce-export');
+                        const target = document.querySelector('.dt-buttons .buttons-' + exportValue);
+                        target.click();
+                    });
+                });
+            }
+
+            // Search Datatable
+            var handleSearchDatatable = () => {
+                const filterSearch = document.querySelector('[data-kt-ecommerce-order-filter="search"]');
+                filterSearch.addEventListener('keyup', function (e) {
+                    datatable.search(e.target.value).draw();
+                });
+            }
+
+            // Handle status filter
+            var handleStatusFilter = () => {
+                const filterStatus = document.querySelector('[data-kt-ecommerce-order-filter="status"]');
+                $(filterStatus).on('change', e => {
+                    let value = e.target.value;
+                    if (value === 'all') {
+                        value = '';
+                    }
+                    datatable.column(2).search(value).draw();
+                });
+            }
+
+            // Public methods
+            return {
+                init: function () {
+                    table = document.querySelector('#kt_ecommerce_report_customer_orders_table');
+
+                    if (!table) {
+                        return;
+                    }
+
+                    initDatatable();
+                    exportButtons();
+                    handleSearchDatatable();
+                    handleStatusFilter();
+                }
+            };
+        }();
+
+        // On document ready
+        KTUtil.onDOMContentLoaded(function () {
+            KTAppEcommerceReportCustomerOrders.init();
+        });
+
+    </script>
+    <!--end::Datatables Javascript-->
     
     <!--begin::Ajax Kelurahans Javascript-->
     <script>
