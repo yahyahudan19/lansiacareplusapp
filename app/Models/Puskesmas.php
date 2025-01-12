@@ -14,7 +14,7 @@ class Puskesmas extends Model
         'alamat', 'longitude', 'latitude',
     ];
 
-    public function kelurahans()
+    public function kelurahan()
     {
         return $this->hasMany(Kelurahans::class, 'puskesmas_id');
     }

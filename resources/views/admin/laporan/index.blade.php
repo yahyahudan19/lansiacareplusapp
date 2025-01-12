@@ -60,7 +60,7 @@
                 <!--begin::Actions-->
                 <div class="d-flex align-items-center gap-2 gap-lg-3">
                     <a href="#" class="btn btn-flex btn-outline btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold" data-bs-toggle="modal" data-bs-target="#kt_modal_view_users">Add Member</a>
-                    <a href="#" class="btn btn-flex btn-primary h-40px fs-7 fw-bold" data-bs-toggle="modal" data-bs-target="#kt_modal_create_campaign">New Campaign</a>
+                    <a href="#" class="btn btn-flex btn-primary h-40px fs-7 fw-bold" >Export Data</a>
                 </div>
                 <!--end::Actions-->
             </div>
@@ -75,97 +75,41 @@
         <div id="kt_app_content_container" class="app-container container-fluid">
             <!--begin::Products-->
             <div class="card card-flush">
-                <!--begin::Card header-->
-                <div class="card-header align-items-center py-5 gap-2 gap-md-5">
-                    <!--begin::Card title-->
-                    <div class="card-title">
-                        <!--begin::Search-->
-                        <div class="d-flex align-items-center position-relative my-1">
-                            <i class="ki-outline ki-magnifier fs-3 position-absolute ms-4"></i>
-                            <input type="text" data-kt-ecommerce-order-filter="search" class="form-control form-control-solid w-250px ps-12" placeholder="Search Report" />
-                        </div>
-                        <!--end::Search-->
-                        <!--begin::Export buttons-->
-                        <div id="kt_ecommerce_report_customer_orders_export" class="d-none"></div>
-                        <!--end::Export buttons-->
-                    </div>
-                    <!--end::Card title==
-
-                    <!==begin::Card toolbar-->
-                    <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
-                        <!--begin::Daterangepicker-->
-                        <input class="form-control form-control-solid w-100 mw-250px" placeholder="Pick date range" id="kt_ecommerce_report_customer_orders_daterangepicker" />
-                        <!--end::Daterangepicker-->
-                        <!--begin::Filter-->
-                        <div class="w-150px">
-                            <!--begin::Select2-->
-                            <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Status" data-kt-ecommerce-order-filter="status">
-                                <option></option>
-                                <option value="all">All</option>
-                                <option value="active">Active</option>
-                                <option value="locked">Locked</option>
-                                <option value="disabled">Disabled</option>
-                                <option value="banned">Banned</option>
-                            </select>
-                            <!--end::Select2-->
-                        </div>
-                        <!--end::Filter-->
-                        <!--begin::Export dropdown-->
-                        <button type="button" class="btn btn-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                        <i class="ki-outline ki-exit-up fs-2"></i>Export Report</button>
-                        <!--begin::Menu-->
-                        <div id="kt_ecommerce_report_customer_orders_export_menu" class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-200px py-4" data-kt-menu="true">
-                            <!--begin::Menu item-->
-                            <div class="menu-item px-3">
-                                <a href="#" class="menu-link px-3" data-kt-ecommerce-export="copy">Copy to clipboard</a>
-                            </div>
-                            <!--end::Menu item-->
-                            <!--begin::Menu item-->
-                            <div class="menu-item px-3">
-                                <a href="#" class="menu-link px-3" data-kt-ecommerce-export="excel">Export as Excel</a>
-                            </div>
-                            <!--end::Menu item-->
-                            <!--begin::Menu item-->
-                            <div class="menu-item px-3">
-                                <a href="#" class="menu-link px-3" data-kt-ecommerce-export="csv">Export as CSV</a>
-                            </div>
-                            <!--end::Menu item-->
-                            <!--begin::Menu item-->
-                            <div class="menu-item px-3">
-                                <a href="#" class="menu-link px-3" data-kt-ecommerce-export="pdf">Export as PDF</a>
-                            </div>
-                            <!--end::Menu item-->
-                        </div>
-                        <!--end::Menu-->
-                        <!--end::Export dropdown-->
-                    </div>
-                    <!--end::Card toolbar-->
-                </div>
-                <!--end::Card header-->
                 <!--begin::Card body-->
-                <div class="card-body pt-0">
-                    <!--begin::Table-->
-                    <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_ecommerce_report_customer_orders_table">
-                        <thead>
-                            <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
-                                <th class="min-w-100px">Kelompok</th>
-                                <th class="min-w-100px">Indikator</th>
-                        </thead>
-                        <tbody class="fw-semibold text-gray-600">
-                            @foreach ($data_indikator as $indikator)
-                            <tr>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">{{$indikator->kelompok->nama}}</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">{{$indikator->nama}}</a>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    <!--end::Table-->
-                </div>
+                {{-- <div class="card-body pt-0"> --}}
+                    <div class="table-responsive">
+                        <table id="kt_datatable_zero_configuration" class="table table-striped table-row-bordered gy-5 gs-7">
+                            <thead>
+                                <tr class="fw-bold fs-6 text-gray-800 px-7">
+                                    <th class="text-center align-middle min-w-300px">Kelompok</th>
+                                    <th class="text-center align-middle min-w-300px">Indikator</th>
+                                    @foreach ($kelurahans as $kelurahan)
+                                        <th class="text-center align-middle min-w-300px">{{$kelurahan->nama}}</th>
+                                    @endforeach
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($indicators as $indikator)
+                                    <tr>
+                                        <td class="text-center align-middle fw-bold fs-6 text-gray-800">
+                                            {{$indikator->kelompok->nama}}
+                                        </td>
+                                        <td class="text-left align-middle fw-bold fs-6 text-gray-800">
+                                            {{$indikator->nama}}
+                                        </td>
+                                        @foreach ($kelurahans as $kelurahan)
+                                            <td class="text-center align-middle fw-bold fs-6 text-gray-800 px-7">
+                                                {{ $dataCounts[$indikator->id][$kelurahan->id] ?? 0 }}
+                                            </td>
+                                        @endforeach
+                                       
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                {{-- </div> --}}
+                
                 <!--end::Card body-->
             </div>
             <!--end::Products-->
@@ -180,271 +124,58 @@
 @section('plugins-last')
     <!--begin::Vendors Javascript(used for this page only)-->
     <script src="{{ asset('template/assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
-    <!--begin::Vendors Javascript(used for this page only)-->
-    
-	<!--begin::Custom Javascript(used for this page only)-->
+	<!--end::Vendors Javascript(used for this page only)-->
 	
 	<script src="{{ asset('template/assets/js/widgets.bundle.js')}}"></script>
 	<script src="{{ asset('template/assets/js/custom/widgets.js')}}"></script>
-	<script src="{{ asset('template/assets/js/custom/apps/chat/chat.js')}}"></script>
-	<script src="{{ asset('template/assets/js/custom/utilities/modals/upgrade-plan.js')}}"></script>
-	<script src="{{ asset('template/assets/js/custom/utilities/modals/create-campaign.js')}}"></script>
-	<script src="{{ asset('template/assets/js/custom/utilities/modals/users-search.js')}}"></script>
 	<!--end::Custom Javascript-->
 	<!--end::Javascript-->
     <!--end::Vendors Javascript-->
 
     <!--begin::Datatables Javascript-->
     <script>
-        "use strict";
-
-        // Class definition
-        var KTAppEcommerceReportCustomerOrders = function () {
-            // Shared variables
-            var table;
-            var datatable;
-
-            // Private functions
-            var initDatatable = function () {
-                // Init datatable
-                datatable = $(table).DataTable({
-                    "info": false,
-                    'order': [],
-                    'pageLength': 10,
-                    'drawCallback': function (settings) {
-                        // Merge cells for 'Kelompok' column after each draw
-                        var api = this.api();
-                        var rows = api.rows({ page: 'current' }).nodes();
-                        var last = null;
-                        var rowspan = 1;
-
-                        // Column index for 'Kelompok' (assuming it's the first column, index 0)
-                        api.column(0, { page: 'current' }).data().each(function (group, i) {
-                            if (last !== group) {
-                                // New group encountered
-                                if (rowspan > 1) {
-                                    // Set rowspan for previous group
-                                    for (var j = i - rowspan; j < i; j += rowspan) {
-                                        $(rows[j]).find('td:first-child').attr('rowspan', rowspan);
-                                    }
-                                }
-                                last = group;
-                                rowspan = 1;
-                            } else {
-                                // Same group
-                                $(rows[i]).find('td:first-child').remove();
-                                rowspan++;
-                            }
-
-                            // Handle the last group
-                            if (i === api.column(0, { page: 'current' }).data().length - 1 && rowspan > 1) {
-                                for (var j = i - rowspan + 1; j <= i; j += rowspan) {
-                                    $(rows[j]).find('td:first-child').attr('rowspan', rowspan);
-                                }
-                            }
-                        });
-                    }
-                });
-            }
-
-            // Hook export buttons
-            var exportButtons = () => {
-                const documentTitle = 'Laporan Skrining Puskesmas X';
-                
-                // Helper function untuk mendapatkan group data
-                function processData(data) {
-                    let result = [];
-                    let currentGroup = '';
-                    let groupStartIndex = 0;
-                    
-                    data.forEach((row, index) => {
-                        if (currentGroup !== row[0]) {
-                            if (index > 0) {
-                                result.push({
-                                    group: currentGroup,
-                                    startIndex: groupStartIndex,
-                                    rowspan: index - groupStartIndex
-                                });
-                            }
-                            currentGroup = row[0];
-                            groupStartIndex = index;
-                        }
-                    });
-                    
-                    // Handle grup terakhir
-                    result.push({
-                        group: currentGroup,
-                        startIndex: groupStartIndex,
-                        rowspan: data.length - groupStartIndex
-                    });
-                    
-                    return result;
-                }
-
-                var buttons = new $.fn.dataTable.Buttons(table, {
-                    buttons: [
-                        {
-                            extend: 'excelHtml5',
-                            title: documentTitle,
-                            autoFilter: true,
-                            sheetName: 'Laporan Skrining',
-                            className: 'btn btn-sm btn-light-primary',
-                            exportOptions: {
-                                columns: ':visible',
-                                format: {
-                                    header: function(data, columnIdx) {
-                                        return data.replace(/<[^>]*>/g, '').trim();
-                                    },
-                                    body: function(data, row, column, node) {
-                                        // Bersihkan HTML tags dan whitespace
-                                        return data.replace(/<[^>]*>/g, '').trim();
-                                    }
-                                }
-                            },
-                            customizeData: function(data) {
-                                // Proses data sebelum export
-                                var rows = data.body;
-                                var processedRows = [];
-                                var currentGroup = '';
-                                var firstInGroup = true;
-                                
-                                rows.forEach(function(row) {
-                                    if (currentGroup !== row[0]) {
-                                        currentGroup = row[0];
-                                        firstInGroup = true;
-                                    }
-                                    
-                                    // Hanya tampilkan nilai kelompok pada baris pertama dalam group
-                                    if (!firstInGroup) {
-                                        row[0] = ''; // Kosongkan cell untuk baris berikutnya dalam group yang sama
-                                    }
-                                    firstInGroup = false;
-                                    processedRows.push(row);
-                                });
-                                
-                                data.body = processedRows;
-                            }
-                        },
-                        {
-                            extend: 'pdfHtml5',
-                            title: documentTitle,
-                            customize: function(doc) {
-                                var data = datatable.rows().data().toArray();
-                                var groupInfo = processData(data);
-                                var body = [];
-                                
-                                data.forEach((row, index) => {
-                                    let group = groupInfo.find(g => 
-                                        index >= g.startIndex && 
-                                        index < (g.startIndex + g.rowspan)
-                                    );
-                                    
-                                    if (index === group.startIndex) {
-                                        // Baris pertama dalam group
-                                        body.push([
-                                            { 
-                                                text: row[0].replace(/<[^>]*>/g, ''),
-                                                rowSpan: group.rowspan
-                                            },
-                                            { text: row[1].replace(/<[^>]*>/g, '') }
-                                        ]);
-                                    } else {
-                                        // Baris selanjutnya dalam group
-                                        body.push([
-                                            '', // Cell kosong karena di-rowspan
-                                            { text: row[1].replace(/<[^>]*>/g, '') }
-                                        ]);
-                                    }
-                                });
-                                
-                                // Update table body
-                                doc.content[1].table.body = body;
-                                
-                                // Styling
-                                doc.styles.tableHeader = {
-                                    bold: true,
-                                    fontSize: 11,
-                                    color: 'black',
-                                    fillColor: '#eeeeee'
-                                };
-                            },
-                            pageSize: 'A4',
-                            orientation: 'portrait',
-                            exportOptions: {
-                                columns: ':visible'
-                            }
-                        },
-                        {
-                            extend: 'csvHtml5',
-                            title: documentTitle,
-                            exportOptions: {
-                                columns: ':visible',
-                                format: {
-                                    body: function(data, row, column) {
-                                        return data.replace(/<[^>]*>/g, '');
-                                    }
-                                }
+        $("#kt_datatable_zero_configuration").DataTable({
+            "scrollX": true,
+            "info": false,
+            'order': [],
+            'pageLength': 100,
+            'drawCallback': function(settings) {
+                // Merge cells untuk kolom 'Kelompok'
+                var api = this.api();
+                var rows = api.rows({ page: 'current' }).nodes();
+                var last = null;
+                var rowspan = 1;
+    
+                // Column index 0 adalah kolom 'Kelompok'
+                api.column(0, { page: 'current' }).data().each(function(group, i) {
+                    if (last !== group) {
+                        // New group encountered
+                        if (rowspan > 1) {
+                            // Set rowspan untuk group sebelumnya
+                            for (var j = i - rowspan; j < i; j += rowspan) {
+                                $(rows[j]).find('td:first-child').attr('rowspan', rowspan);
                             }
                         }
-                    ]
-                }).container().appendTo($('#kt_ecommerce_report_customer_orders_export'));
-
-                // Hook dropdown menu click event to datatable export buttons
-                const exportButtons = document.querySelectorAll('#kt_ecommerce_report_customer_orders_export_menu [data-kt-ecommerce-export]');
-                exportButtons.forEach(exportButton => {
-                    exportButton.addEventListener('click', e => {
-                        e.preventDefault();
-                        const exportValue = e.target.getAttribute('data-kt-ecommerce-export');
-                        const target = document.querySelector('.dt-buttons .buttons-' + exportValue);
-                        target.click();
-                    });
-                });
-            }
-
-            // Search Datatable
-            var handleSearchDatatable = () => {
-                const filterSearch = document.querySelector('[data-kt-ecommerce-order-filter="search"]');
-                filterSearch.addEventListener('keyup', function (e) {
-                    datatable.search(e.target.value).draw();
-                });
-            }
-
-            // Handle status filter
-            var handleStatusFilter = () => {
-                const filterStatus = document.querySelector('[data-kt-ecommerce-order-filter="status"]');
-                $(filterStatus).on('change', e => {
-                    let value = e.target.value;
-                    if (value === 'all') {
-                        value = '';
+                        last = group;
+                        rowspan = 1;
+                    } else {
+                        // Group yang sama
+                        $(rows[i]).find('td:first-child').remove();
+                        rowspan++;
                     }
-                    datatable.column(2).search(value).draw();
+    
+                    // Handle group terakhir
+                    if (i === api.column(0, { page: 'current' }).data().length - 1 && rowspan > 1) {
+                        for (var j = i - rowspan + 1; j <= i; j += rowspan) {
+                            $(rows[j]).find('td:first-child').attr('rowspan', rowspan);
+                        }
+                    }
                 });
             }
-
-            // Public methods
-            return {
-                init: function () {
-                    table = document.querySelector('#kt_ecommerce_report_customer_orders_table');
-
-                    if (!table) {
-                        return;
-                    }
-
-                    initDatatable();
-                    exportButtons();
-                    handleSearchDatatable();
-                    handleStatusFilter();
-                }
-            };
-        }();
-
-        // On document ready
-        KTUtil.onDOMContentLoaded(function () {
-            KTAppEcommerceReportCustomerOrders.init();
         });
-
     </script>
     <!--end::Datatables Javascript-->
+  
     
     <!--begin::Ajax Kelurahans Javascript-->
     <script>
@@ -475,24 +206,9 @@
     </script>
     <!--end::Ajax Kelurahans Javascript-->
 
-    <!--begin::datepick Javascript-->
-    <script>
-        new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_date_only"), {
-            display: {
-                viewMode: "calendar",
-                components: {
-                    decades: true,
-                    year: true,
-                    month: true,
-                    date: true,
-                }
-            }
-        });
-    </script>
-    <!--end::datepick Javascript-->
 
     <!--begin:: Page Loader Javascript-->
-    <script>
+    {{-- <script>
         // Toggle
         const button = document.querySelector("#kt_page_loading_message");
 
@@ -519,7 +235,7 @@
                 loadingEl.remove();
             }, 10000);
         });
-    </script>
+    </script> --}}
     <!--end:: Page Loader Javascript-->
 
 

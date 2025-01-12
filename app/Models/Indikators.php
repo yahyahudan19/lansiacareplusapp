@@ -10,7 +10,7 @@ class Indikators extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nama', 'kelompok_id'
+        'nama', 'kelompok_id', 'jenis_kelamin', 'age_min', 'age_max'
     ];
 
     public function kelompok(){
