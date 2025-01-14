@@ -20,7 +20,7 @@ class LaporansController extends Controller
     
         // Ambil date range dari request, sementara hardcode
         $startDate = '2024-01-01';
-        $endDate = '2024-01-10';
+        $endDate = '2024-01-01';
     
         // Hitung data penduduk untuk setiap indikator
         $dataCounts = [];

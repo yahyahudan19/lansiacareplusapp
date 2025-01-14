@@ -30,7 +30,5 @@ class Kelurahans extends Model
     {
         return $this->belongsTo(Persons::class, 'kelurahan_id');
     }
-
-    
     
 }
