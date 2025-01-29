@@ -7,6 +7,7 @@ use App\Models\Kelurahans;
 use App\Models\Kunjungans;
 use App\Models\Persons;
 use App\Models\Skrinings;
+use App\Services\WhatsAppService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -29,12 +30,22 @@ class KunjungansController extends Controller
      */
     public function create_view(Request $request)
     {
-        $dapen = Persons::where('nik',$request->nik)->first();
-
-        // dd($dapen);
-        
-        return view('admin.kunjungan.create', compact('dapen'));
+        $dapen = Persons::with('lastKunjungan') // Eager load kunjungan terakhir
+            ->where('nik', $request->nik)
+            ->first();
+    
+        if (auth()->user()->role === 'System Administrator') {
+            return view('admin.kunjungan.create', compact('dapen'));
+        } elseif (auth()->user()->role === 'Puskesmas') {
+            return view('kader.kunjungan.create', compact('dapen'));
+        } elseif (auth()->user()->role === 'Kader') {
+            return view('kader.kunjungan.create', compact('dapen'));
+        } else {
+            abort(403, 'Unauthorized action.');
+        }
     }
+    
+
     /**
      * Show the form for detail resource.
      */
@@ -63,28 +74,27 @@ class KunjungansController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-
         // Cari data Person
-        $person = Persons::where('nik',$request->nik)->first();
-        
-        // Extract year from 'tanggal_kj'
-        $tahun_kunjungan = Carbon::parse($request->tanggal_kj)->year;
+        $person = Persons::where('nik', $request->nik)->first();
+
+        // Redirect berdasarkan role
+        $role = auth()->user()->role;
+        $redirectRoutes = [
+            'Puskesmas' => '/puskesmas/kunjungan',
+            'Dinkes' => '/dinkes/kunjungan',
+            'Admin' => '/admin/kunjungan',
+        ];
+ 
+        $redirectUrl = $redirectRoutes[$role] ?? '/dashboard';
 
         // Cek apakah sudah ada kunjungan di tahun yang sama
-        $existingKunjungan = Kunjungans::where('person_id', $person->id)
-            ->whereYear('tanggal_kj', $tahun_kunjungan)
-            ->first();
-
-        if ($existingKunjungan) {
-            // Jika kunjungan di tahun yang sama sudah ada, return error message
-            return redirect('admin/kunjungan')
-            ->with('status', 'error')
-            ->with('message', 'Kunjungan untuk tahun ini sudah ada. Tidak bisa melakukan skrining di tahun yang sama.');
+        $tahun_kunjungan = Carbon::parse($request->tanggal_kj)->year;
+        if (Kunjungans::where('person_id', $person->id)->whereYear('tanggal_kj', $tahun_kunjungan)->exists()) {
+            return redirect($redirectUrl)->with('status', 'error')->with('message', 'Kunjungan untuk tahun ini sudah ada.');
         }
 
         try {
-            // Jika tidak ada kunjungan di tahun yang sama, buat kunjungan baru
+            // Simpan data kunjungan
             $kunjungan = Kunjungans::create([
                 'tinggi_bdn' => $request->tinggi_bdn,
                 'berat_bdn' => $request->berat_bdn,
@@ -96,9 +106,10 @@ class KunjungansController extends Controller
                 'asam_urat' => $request->asam_urat,
                 'person_id' => $person->id,
                 'tanggal_kj' => $request->tanggal_kj,
+                'created_by' => auth()->user()->id,
             ]);
 
-            // Buat skrining terkait kunjungan baru
+            // Simpan data skrining
             Skrinings::create([
                 'ginjal' => $request->ginjal,
                 'penglihatan' => $request->penglihatan,
@@ -106,107 +117,103 @@ class KunjungansController extends Controller
                 'merokok' => $request->merokok,
                 'adl' => $request->adl,
                 'gds' => $request->gds,
-                'kunjungan_id' => $kunjungan->id, // Relasi ke kunjungan yang baru dibuat
+                'kunjungan_id' => $kunjungan->id,
             ]);
 
-            // Hitung IMT
-            $tinggi_m = $request->tinggi_bdn / 100; // konversi ke meter
-            $imt = $request->berat_bdn / ($tinggi_m * $tinggi_m);
-            $imtKlasifikasi = '';
-            $imtKategori = '';
+            // // Hitung indikator
+            // $indicators = $this->calculateIndicators($request->all());
 
-            if ($imt < 18.5) {
-                $imtKlasifikasi = 'Kurus';
-                $imtKategori = 'Kekurangan berat badan tingkat ringan';
-            } elseif ($imt >= 18.5 && $imt < 24.9) {
-                $imtKlasifikasi = 'Normal';
-                $imtKategori = 'Sehat';
-            } elseif ($imt >= 25 && $imt < 29.9) {
-                $imtKlasifikasi = 'Overweight';
-                $imtKategori = 'Kelebihan berat badan tingkat ringan';
-            } else {
-                $imtKlasifikasi = 'Obesitas';
-                $imtKategori = 'Kelebihan berat badan tingkat berat';
-            }
+            // // Buat pesan WhatsApp
+            // $message = $this->generateWhatsappMessage($person, $indicators, Carbon::parse($request->tanggal_kj)->translatedFormat('d F Y'));
 
-            // Hitung kategori tekanan darah
-            $kategoriTekananDarah = '';
-            $nilaiTekananDarah = $request->sistole . '/' . $request->diastole;
+            // // Kirim notifikasi WhatsApp melalui service
+            // WhatsAppService::sendMessage($person->telp, $message);
 
-            if ($request->sistole < 120 && $request->diastole < 80) {
-                $kategoriTekananDarah = '1 (Normal)';
-            } elseif ($request->sistole >= 120 && $request->sistole < 140 || $request->diastole >= 80 && $request->diastole < 90) {
-                $kategoriTekananDarah = '2 (Pre-Hypertension)';
-            } elseif ($request->sistole >= 140 && $request->sistole < 160 || $request->diastole >= 90 && $request->diastole < 100) {
-                $kategoriTekananDarah = '3 (Hypertension Grade 1)';
-            } else {
-                $kategoriTekananDarah = '4 (Hypertension Grade 2)';
-            }
 
-            // Kategori Kolesterol
-            $kategoriKolesterol = '';
-            if ($request->kolesterol < 200) {
-                $kategoriKolesterol = 'Sehat';
-            } elseif ($request->kolesterol >= 200 && $request->kolesterol < 239) {
-                $kategoriKolesterol = 'Batas Risiko (Borderline Risky)';
-            } else {
-                $kategoriKolesterol = 'Berbahaya (High Risk)';
-            }
-
-            // Hitung Gula Darah
-            if ($request->gula_drh < 140) {
-                $kategoriGulaDarah = 1;
-                $keteranganGulaDarah = 'Normal';
-            } elseif ($request->gula_drh >= 140 && $request->gula_drh <= 199) {
-                $kategoriGulaDarah = 2;
-                $keterangan = 'Prediabetes';
-            } else {
-                $kategoriGulaDarah = 3;
-                $keterangan = 'Diabetes';
-            }
-            // Konversi Format Tanggal Kunjungan
-            $tanggal = Carbon::parse($request->tanggal_kj)->translatedFormat('d F Y');
-
-            // Ambil API Key, No WhatsApp dan Pesan Analisa
-            // $apiKey = 'xx';
-            // $sender = 'x';
-            // $number = 'x';
-            // $message = "Halo, Bapak/Ibu {$person->nama},\n\n".
-            //             "Hasil Skrining Anda pada tanggal: {$tanggal} adalah sebagai berikut:\n\n".
-            //             "1. *Indeks Massa Tubuh (IMT)*\n".
-            //             "- Klasifikasi: $imtKlasifikasi\n".
-            //             "- Kategori: $imtKategori\n".
-            //             "- Nilai IMT: " . number_format($imt, 2) . "\n\n".
-            //             "2. *Tekanan Darah*\n".
-            //             "- Nilai Tekanan Darah: $nilaiTekananDarah mmHg\n".
-            //             "- Kategori: $kategoriTekananDarah\n\n".
-            //             "3. *Kolesterol*\n".
-            //             "- Kolesterol: {$request->kolesterol} mg/dL\n".
-            //             "- Kategori: $kategoriKolesterol\n\n".
-            //             "4. *Gula Darah*\n".
-            //             "- Kategori: $kategoriGulaDarah\n".
-            //             "- Keterangan: $keteranganGulaDarah\n\n".
-            //             "Tetap jaga kesehatan dan lakukan pemeriksaan rutin.\n\n".
-            //             "Terima kasih.";
-            // // Kirim Notifikasi WhatsApp
-            // $response = Http::get("https://wagw.yahyahud.my.id/send-message", [
-            //                 'api_key' => $apiKey,
-            //                 'sender' => $sender,
-            //                 'number' => $number,
-            //                 'message' => $message,
-            //             ]);
-            // Kirim pesan sukses
-            return redirect('admin/kunjungan')
-            ->with('status', 'success')
-            ->with('message', 'Kunjungan berhasil ditambahkan !');
-
+            return redirect($redirectUrl)->with('status', 'success')->with('message', 'Kunjungan berhasil ditambahkan!');
         } catch (\Exception $e) {
-            return redirect()->back()
-            ->with('status', 'error')
-            ->with('message', 'Terjadi kesalahan saat menambahkan kunjungan.'. $e->getMessage());
+
+            // Redirect berdasarkan role
+            $role = auth()->user()->role;
+            $redirectRoutes = [
+                'Puskesmas' => '/puskesmas/kunjungan',
+                'Dinkes' => '/dinkes/kunjungan',
+                'Admin' => '/admin/kunjungan',
+            ];
+
+            $redirectUrl = $redirectRoutes[$role] ?? '/dashboard';
+            return redirect($redirectUrl)->with('status', 'error')->with('message', 'Terjadi kesalahan: ' . $e->getMessage());
         }
-        
     }
+
+    private function calculateIndicators($data)
+    {
+        $results = [];
+
+        // Perhitungan IMT
+        if (!empty($data['tinggi_bdn']) && !empty($data['berat_bdn'])) {
+            $tinggi_m = $data['tinggi_bdn'] / 100;
+            $imt = $data['berat_bdn'] / ($tinggi_m * $tinggi_m);
+            $results['imt'] = [
+                'nilai' => $imt,
+                'klasifikasi' => $imt < 18.5 ? 'Kurus' : ($imt < 25 ? 'Normal' : ($imt < 30 ? 'Kelebihan Berat Badan' : 'Obesitas')),
+            ];
+        } else {
+            $results['imt'] = 'Data tidak tersedia';
+        }
+
+        // Perhitungan Tekanan Darah
+        if (!empty($data['sistole']) && !empty($data['diastole'])) {
+            $results['tekanan_darah'] = [
+                'nilai' => "{$data['sistole']}/{$data['diastole']}",
+                'klasifikasi' => $data['sistole'] < 120 && $data['diastole'] < 80 ? 'Normal' : 'Pra-Hipertensi',
+            ];
+        } else {
+            $results['tekanan_darah'] = 'Data tidak tersedia';
+        }
+
+        // Perhitungan Kolesterol
+        if (!empty($data['kolesterol'])) {
+            $results['kolesterol'] = $data['kolesterol'] < 200 ? 'Baik' : ($data['kolesterol'] < 240 ? 'Batas Tinggi' : 'Tinggi');
+        } else {
+            $results['kolesterol'] = 'Data tidak tersedia';
+        }
+
+        // Perhitungan Gula Darah
+        if (!empty($data['gula_drh'])) {
+            $results['gula_darah'] = $data['gula_drh'] < 140 ? 'Normal' : ($data['gula_drh'] <= 199 ? 'Pra-Diabetes' : 'Diabetes');
+        } else {
+            $results['gula_darah'] = 'Data tidak tersedia';
+        }
+
+        return $results;
+    }
+
+    private function generateWhatsappMessage($person, $indicators, $tanggal)
+    {
+        $message = "Halo, Bapak/Ibu {$person->nama},\n\nHasil Skrining Anda pada tanggal: {$tanggal} adalah sebagai berikut:\n\n";
+        $counter = 1;
+
+        foreach ($indicators as $key => $indicator) {
+            if (is_array($indicator)) {
+                $message .= "{$counter}. *" . ucfirst(str_replace('_', ' ', $key)) . "*\n";
+                foreach ($indicator as $subKey => $subValue) {
+                    $message .= "- " . ucfirst(str_replace('_', ' ', $subKey)) . ": {$subValue}\n";
+                }
+            } else {
+                $message .= "{$counter}. *" . ucfirst(str_replace('_', ' ', $key)) . "*\n- {$indicator}\n";
+            }
+            $message .= "\n";
+            $counter++;
+        }
+
+        $message .= "Tetap jaga kesehatan dan lakukan pemeriksaan rutin.\n\nTerima kasih.";
+
+        return $message;
+    }
+
+
+
     public function searchKunjungans(Request $request) {
         $kecamatans = Kecamatans::all();
         $kelurahans = Kelurahans::all();

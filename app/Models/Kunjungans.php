@@ -8,7 +8,7 @@ class Kunjungans extends Model
 {
     protected $fillable = [
         'tinggi_bdn', 'berat_bdn', 'lingkar_prt', 'sistole', 'diastole', 'gula_drh', 'kolesterol', 'asam_urat',
-        'person_id','tanggal_kj'
+        'person_id','tanggal_kj','created_by'
     ];
 
     public function person(){
@@ -17,5 +17,9 @@ class Kunjungans extends Model
 
     public function skrinings(){
         return $this->hasMany(Skrinings::class, 'kunjungan_id');
+    }
+
+    public function createdBy(){
+        return $this->belongsTo(User::class, 'created_by');
     }
 }

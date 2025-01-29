@@ -20,6 +20,12 @@ class Persons extends Model
     public function Kunjungan(){
         return $this->hasMany(Kunjungans::class, 'person_id');
     }
+
+    public function lastKunjungan()
+    {
+        return $this->hasOne(Kunjungans::class, 'person_id')->latestOfMany(); // Ambil kunjungan terakhir
+    }
+    
     public function kelurahan(){
         return $this->belongsTo(Kelurahans::class, 'kelurahan_id');
     }

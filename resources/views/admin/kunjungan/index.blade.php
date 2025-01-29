@@ -17,6 +17,7 @@
     <span class="text-muted fs-6 fw-semibold mt-5">Loading...</span>
 </div>
 <!--end::Page loading-->
+
 <div class="d-flex flex-column flex-column-fluid">
     <!--begin::Toolbar-->
     <div id="kt_app_toolbar" class="app-toolbar pt-7 pt-lg-10">
@@ -262,54 +263,106 @@
                         </div>
                         <!--end::Group actions-->
                         
-                        <!--begin::Modal Search Person-->
-                        <div class="modal fade" tabindex="-1" id="kt_modal_1">
-                            <div class="modal-dialog modal-dialog-centered modal-lg">
-                                <div class="modal-content">
-                                    <form id="kt_docs_formvalidation_text" class="form" action="/admin/kunjungan/tambah" autocomplete="off" method="POST">
-                                        @csrf
-                                        <div class="modal-header">
-                                            <h3 class="modal-title">Cari Data Penduduk</h3>
-                            
-                                            <!--begin::Close-->
-                                            <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
-                                                <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                        @if (Auth::user()->role == "System Administrator")
+                            <!--begin::Modal Search Person-->
+                            <div class="modal fade" tabindex="-1" id="kt_modal_1">
+                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                    <div class="modal-content">
+                                        <form id="kt_docs_formvalidation_text" class="form" action="/admin/kunjungan/tambah" autocomplete="off" method="POST">
+                                            @csrf
+                                            <div class="modal-header">
+                                                <h3 class="modal-title">Cari Data Penduduk</h3>
+                                
+                                                <!--begin::Close-->
+                                                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                                                    <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                                                </div>
+                                                <!--end::Close-->
                                             </div>
-                                            <!--end::Close-->
-                                        </div>
-                            
-                                        <div class="modal-body">
-                                            <!--begin::Input group-->
-                                            <div class="fv-row mb-10">
-                                                <!--begin::Label-->
-                                                <center><label class="required fw-semibold fs-6 mb-2 ">Masukkan NIK untuk Menambahkan Data Kunjungan !</label></center>
-                                                <!--end::Label-->
+                                
+                                            <div class="modal-body">
+                                                <!--begin::Input group-->
+                                                <div class="fv-row mb-10">
+                                                    <!--begin::Label-->
+                                                    <center><label class="required fw-semibold fs-6 mb-2 ">Masukkan NIK untuk Menambahkan Data Kunjungan !</label></center>
+                                                    <!--end::Label-->
 
-                                                <!--begin::Input-->
-                                                <input type="text" name="nik" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="" value="" />
-                                                <!--end::Input-->
+                                                    <!--begin::Input-->
+                                                    <input type="text" name="nik" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="" value="" />
+                                                    <!--end::Input-->
+                                                </div>
+                                                <!--end::Input group-->
                                             </div>
-                                            <!--end::Input group-->
-                                        </div>
-                            
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                            <!--begin::Actions-->
-                                            <button id="kt_docs_formvalidation_text_submit" type="submit" class="btn btn-primary">
-                                                <span class="indicator-label">
-                                                    Cari Penduduk
-                                                </span>
-                                                <span class="indicator-progress">
-                                                    Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
-                                                </span>
-                                            </button>
-                                            <!--end::Actions-->
-                                        </div>
-                                    </form>
+                                
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                                <!--begin::Actions-->
+                                                <button id="kt_docs_formvalidation_text_submit" type="submit" class="btn btn-primary">
+                                                    <span class="indicator-label">
+                                                        Cari Penduduk
+                                                    </span>
+                                                    <span class="indicator-progress">
+                                                        Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                                    </span>
+                                                </button>
+                                                <!--end::Actions-->
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <!--begin::Modal Search Person-->
+                            <!--begin::Modal Search Person-->
+                        @elseif(Auth::user()->role == "Puskesmas")
+                            <!--begin::Modal Search Person-->
+                            <div class="modal fade" tabindex="-1" id="kt_modal_1">
+                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                    <div class="modal-content">
+                                        <form id="kt_docs_formvalidation_text" class="form" action="/puskesmas/kunjungan/tambah" autocomplete="off" method="POST">
+                                            @csrf
+                                            <div class="modal-header">
+                                                <h3 class="modal-title">Cari Data Penduduk</h3>
+                                
+                                                <!--begin::Close-->
+                                                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                                                    <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                                                </div>
+                                                <!--end::Close-->
+                                            </div>
+                                
+                                            <div class="modal-body">
+                                                <!--begin::Input group-->
+                                                <div class="fv-row mb-10">
+                                                    <!--begin::Label-->
+                                                    <center><label class="required fw-semibold fs-6 mb-2 ">Masukkan NIK untuk Menambahkan Data Kunjungan !</label></center>
+                                                    <!--end::Label-->
+
+                                                    <!--begin::Input-->
+                                                    <input type="text" name="nik" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="" value="" />
+                                                    <!--end::Input-->
+                                                </div>
+                                                <!--end::Input group-->
+                                            </div>
+                                
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                                <!--begin::Actions-->
+                                                <button id="kt_docs_formvalidation_text_submit" type="submit" class="btn btn-primary">
+                                                    <span class="indicator-label">
+                                                        Cari Penduduk
+                                                    </span>
+                                                    <span class="indicator-progress">
+                                                        Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                                    </span>
+                                                </button>
+                                                <!--end::Actions-->
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--begin::Modal Search Person-->
+                        @endif
+                        
 
                     </div>
                     <!--end::Card toolbar-->
@@ -384,24 +437,32 @@
                                                     <a href="/admin/kunjungan/edit/{{$kj->id}}" class="menu-link px-3">Edit</a>
                                                 </div>
                                                 <!--end::Menu item-->
+                                                 <!--begin::Menu item-->
+                                                <div class="menu-item px-3">
+                                                    <meta name="csrf-token" content="{{ csrf_token() }}">
+                                                    <a href="#" class="menu-link px-3" data-kt-users-table-filter="delete_row">Delete</a>
+                                                </div>
+                                                <!--end::Menu item-->
                                             @elseif(Auth::user()->role == "Dinkes")
                                                 <!--begin::Menu item-->
                                                 <div class="menu-item px-3">
-                                                    <a href="/dinkes/kunjungan/{{$kj->id}}" class="menu-link px-3">Detail</a>
+                                                    <a href="/dinkes/kunjungan/{{$kj->person_id}}" class="menu-link px-3">Detail</a>
                                                 </div>
                                             @else
                                                 <!--begin::Menu item-->
                                                 <div class="menu-item px-3">
-                                                    <a href="/puskesmas/kunjungan/{{$kj->id}}" class="menu-link px-3">Detail</a>
+                                                    <a href="/puskesmas/kunjungan/{{$kj->person_id}}" class="menu-link px-3">Detail</a>
                                                 </div>
                                                 <!--end::Menu item-->
                                             @endif
+                                            @if ($kj->created_by == Auth::user()->id )
                                             <!--begin::Menu item-->
                                             <div class="menu-item px-3">
                                                 <meta name="csrf-token" content="{{ csrf_token() }}">
                                                 <a href="#" class="menu-link px-3" data-kt-users-table-filter="delete_row">Delete</a>
                                             </div>
                                             <!--end::Menu item-->
+                                            @endif
                                         </div>
                                         <!--end::Menu-->
                                     </td>

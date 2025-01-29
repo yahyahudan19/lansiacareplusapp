@@ -391,7 +391,7 @@
 												<label class="form-label required">Dinas</label>
 												<!--end::Label-->
 												<!--begin::Input-->
-												<select name="puskesmas_id" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
+												<select name="puskesmas_id" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select..." data-allow-clear="true" data-hide-search="false">
 													@foreach ($data_puskesmas as $puskesmas)
 													<option value="{{$puskesmas->id}}" 
 															{{ $puskesmas->id == $data_user->puskesmas_id ? 'selected' : '' }}>

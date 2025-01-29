@@ -136,17 +136,12 @@
                             </span>
                             <span class="menu-title">Kunjungan</span>
                         </a>
-                        {{-- <a href="/admin/skrining" class="menu-link {{ Request::is('admin/skrining*') ? 'active' : '' }}">
-                            <span class="menu-icon">
-                                <i class="ki-outline ki-fingerprint-scanning fs-2"></i>
-                            </span>
-                            <span class="menu-title">Skrining</span>
-                        </a> --}}
+                     
                         <!--end:Menu link-->
                     </div>
                     <!--end:Menu item-->
                     <!--begin:Menu item-->
-                    <div data-kt-menu-trigger="click" class="menu-item {{ Request::is('admin/laporan/*') ? 'here show' : '' }} menu-accordion">
+                    <div data-kt-menu-trigger="click" class="menu-item {{ Request::is('admin/laporan/*') ? 'here show' : '' }} accordion">
                         <!--begin:Menu link-->
                         <span class="menu-link">
                             <span class="menu-icon">
@@ -187,6 +182,7 @@
                     </div>
                     <br>
                     <!--end:Menu item-->
+
                     <!--begin::Heading-->
                     <div class="menu-item mb-2">
                         <div class="menu-heading text-uppercase fs-7 fw-bold">Manajemen</div>
@@ -214,6 +210,12 @@
                                 <i class="ki-outline ki-whatsapp fs-2"></i>
                             </span>
                             <span class="menu-title">Whatsapp</span>
+                        </a>
+                        <a href="/admin/log" class="menu-link {{ Request::is('admin/log*') ? 'active' : '' }}">
+                            <span class="menu-icon">
+                                <i class="ki-outline ki-questionnaire-tablet fs-2"></i>
+                            </span>
+                            <span class="menu-title">Log</span>
                         </a>
                         <!--end:Menu link-->
                     </div>
@@ -260,7 +262,7 @@
                             <!--begin:Menu item-->
                             <div class="menu-item">
                                 <!--begin:Menu link-->
-                                <a href="dinkes/puskesmas" class="menu-link {{ Request::is('dinkes/puskesmas') ? 'active' : '' }}">
+                                <a href="/puskesmas" class="menu-link {{ Request::is('dinkes/puskesmas') ? 'active' : '' }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
@@ -340,12 +342,6 @@
                                 <i class="ki-outline ki-safe-home fs-2"></i>
                             </span>
                             <span class="menu-title">Kunjungan</span>
-                        </a>
-                        <a href="/dinkes/skrining" class="menu-link {{ Request::is('dinkes/skrining') ? 'active' : '' }}">
-                            <span class="menu-icon">
-                                <i class="ki-outline ki-fingerprint-scanning fs-2"></i>
-                            </span>
-                            <span class="menu-title">Skrining</span>
                         </a>
                         <!--end:Menu link-->
                     </div>
@@ -516,18 +512,13 @@
                             </span>
                             <span class="menu-title">Penduduk</span>
                         </a> --}}
-                        <a href="/puskesmas/kunjungan" class="menu-link {{ Request::is('puskesmas/kunjungan') ? 'active' : '' }}">
+                        <a href="/puskesmas/kunjungan" class="menu-link {{ Request::is('puskesmas/kunjungan*') || Request::is('kunjungan*') ? 'active' : '' }}">
                             <span class="menu-icon">
                                 <i class="ki-outline ki-safe-home fs-2"></i>
                             </span>
                             <span class="menu-title">Kunjungan</span>
                         </a>
-                        <a href="/puskesmas/skrining" class="menu-link {{ Request::is('puskesmas/skrining') ? 'active' : '' }}">
-                            <span class="menu-icon">
-                                <i class="ki-outline ki-fingerprint-scanning fs-2"></i>
-                            </span>
-                            <span class="menu-title">Skrining</span>
-                        </a>
+                       
                         <!--end:Menu link-->
                     </div>
                     <!--end:Menu item-->
@@ -638,12 +629,6 @@
                             </span>
                             <span class="menu-title">Kunjungan</span>
                         </a>
-                        <a href="/kader/skrining" class="menu-link {{ Request::is('kader/skrining') ? 'active' : '' }}">
-                            <span class="menu-icon">
-                                <i class="ki-outline ki-fingerprint-scanning fs-2"></i>
-                            </span>
-                            <span class="menu-title">Skrining</span>
-                        </a>
                         <!--end:Menu link-->
                     </div>
                     <!--end:Menu item-->
@@ -653,4 +638,5 @@
         </div>
     </div>
     <!--end::Navs-->
+    
 </div>

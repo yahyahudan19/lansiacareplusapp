@@ -61,4 +61,8 @@ class User extends Authenticatable
     public function puskesmas(){
         return $this->belongsTo(Puskesmas::class);
     }
+
+    public function kunjungans(){
+        return $this->hasMany(Kunjungans::class, 'created_by');
+    }
 }

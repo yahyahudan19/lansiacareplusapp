@@ -94,7 +94,6 @@
                     <!--end::Card-->
                 </form>
             </div>
-            @if (auth()->user()->role == "System Administrator")
                 <!--begin::Card Filter-->
                 <div class="card">
                     <div class="card-header border-0 pt-6">
@@ -173,88 +172,6 @@
                     <br>
                 </div>
                 <!--end::Card Filter-->
-            @else
-                <!--begin::Card Filter-->
-                <div class="card">
-                    <div class="card-header border-0 pt-6">
-                        <!--begin::Card title-->
-                        <div class="card-title">
-                            <!--begin::Title-->
-                            <div class="d-flex align-items-center position-relative my-1">
-                                <button type="button" class="btn btn-outline btn-outline-dashed me-2 mb-2" disabled>
-                                <i class="ki-outline ki-filter fs-2"></i>Filter Penduduk </button>
-                            </div>
-                            <!--end::Title-->
-                        </div>
-                        <!--end::Card title-->
-                        <!--begin::Card toolbar-->
-                        <div class="card-toolbar">
-                            <form action="/penduduk/cari" method="GET">
-                                {{-- @csrf --}}
-                                <!--begin::Toolbar-->
-                                <div class="d-flex">
-                                    <div class="row">
-                                        <!--begin::Filter Kecamatan-->
-                                        <div class="col-lg-6 mb-2 ">
-                                            {{-- <div class="w-200px"> --}}
-                                                <label class="fs-6 form-label fw-bold text-gray-900">Puskesmas</label>
-                                                <select class="btn btn-light me-3" data-control="select2" data-placeholder="Pilih Kecamatan" name="kecamatan" id="kecamatan" data-allow-clear="true" disabled>
-                                                    <option value="{{Auth::user()->puskesmas->kode}}">{{auth()->user()->puskesmas->nama}}</option>
-                                                </select>
-                                            {{-- </div> --}}
-                                        </div>
-                                        <!--end::Filter Kecamatan-->
-                                        
-                                        <!--begin::Filter kelurahan-->
-                                        <div class="col-lg-6 mb-2 ">
-                                            {{-- <div class="w-200px"> --}}
-                                                <label class="fs-6 form-label fw-bold text-gray-900">Kelurahan</label>
-                                                <select class="btn btn-light me-3" data-control="select2" data-placeholder="Pilih Kelurahan" name="kelurahan" id="kelurahan" data-allow-clear="true">
-                                                    <option></option>
-                                                    @foreach ($kelurahans as $kel)
-                                                        <option value="{{$kel->id}}">{{$kel->nama}}</option>
-                                                    @endforeach
-                                                </select>
-                                            {{-- </div> --}}
-                                        <!--end::Filter kelurahan-->
-                                        </div>
-                                        <!--begin::Filter kelurahan-->
-                                        <div class="col-lg-6 mb-2 ">
-                                            {{-- <div class="w-200px"> --}}
-                                                <label class="fs-6 form-label fw-bold text-gray-900">Kategori</label>
-                                                <select class="btn btn-light me-3" data-control="select2" data-placeholder="Pilih Kategori" name="kategori" id="kategori">
-                                                    <option value="Semua" {{ request()->is('puskesmas/penduduk') ? 'selected' : '' }}>Semua</option>
-                                                    <option value="Lansia" {{ request()->is('puskesmas/penduduk/lansia') ? 'selected' : '' }}>Lansia</option>
-                                                    <option value="Pra-Lansia" {{ request()->is('puskesmas/penduduk/pra-lansia') ? 'selected' : '' }}>Pra-Lansia</option>
-                                                </select>
-                                            {{-- </div> --}}
-                                        <!--end::Filter kelurahan-->
-                                        </div>
-                                        <!--begin::Filter Date-->
-                                        <div class="col-lg-6 mb-5">
-                                            <label class="fs-6 form-label fw-bold text-gray-900">Tanggal</label>
-                                            <br>
-                                            <input class="btn btn-primary me-3" placeholder="Pick date rage" id="kt_daterangepicker_4" name="date_range"/>
-                                        </div>
-                                        <!--end::Filter Date-->
-                                        <!--begin::Cari Button -->
-                                        <div class="col-lg-6 mb-2">
-                                            <button type="submit" class="btn btn-success me-3"> <i class="ki-outline ki-search-list fs-2"></i>Cari Penduduk</button>
-                                        </div>
-                                        <!--end::Cari Button -->
-                                    </div>
-                                </div>
-                                <!--end::Toolbar-->
-                            </form>
-                        </div>
-                        <!--end::Card toolbar-->
-                    </div>
-                    <br>
-                </div>
-                <!--end::Card Filter-->
-            @endif
-            
-
             <br>
             <!--begin::Card-->
             <div class="card">
@@ -467,7 +384,7 @@
                                                     <label class="form-label required">Kelurahan</label>
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
-                                                    <select name="person_kelurahan" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
+                                                    <select name="person_kelurahan" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select..." data-allow-clear="true" data-hide-search="false">
                                                         <option></option>
                                                         @foreach ($kelurahans as $kel)
                                                             <option value="{{$kel->id}}">{{$kel->nama}}</option>
@@ -592,17 +509,28 @@
                                                     <a href="/puskesmas/penduduk/{{$person->id}}" class="menu-link px-3">Detail</a>
                                                 </div>
                                                 <!--end::Menu item-->
+                                                <!--begin::Menu item-->
+                                                <div class="menu-item px-3">
+                                                    <a href="javascript:void(0);" class="menu-link px-3" onclick="submitForm()">Kunjungan</a>
+                                                </div>
+                                                
+                                                <form id="kunjunganForm" action="/puskesmas/kunjungan/tambah" method="POST" style="display: none;">
+                                                    @csrf
+                                                    <input type="hidden" name="nik" value="{{$person->nik}}"> <!-- NIK dapat diubah secara dinamis -->
+                                                </form>
+                                                
+                                                <script>
+                                                    function submitForm() {
+                                                        document.getElementById('kunjunganForm').submit();
+                                                    }
+                                                </script>
+                                                
+                                                <!--end::Menu item-->
                                             @endif
 
                                             @if ($person->created_by == Auth::user()->id )
 
                                                 @if (Auth::user()->role == "Dinkes")
-                                                    <!--begin::Menu item-->
-                                                    <div class="menu-item px-3">
-                                                        <a href="/dinkes/penduduk/edit/{{$person->id}}" class="menu-link px-3">Edit</a>
-                                                    </div>
-                                                    <!--end::Menu item-->
-                                                @else
                                                     <!--begin::Menu item-->
                                                     <div class="menu-item px-3">
                                                         <a href="/dinkes/penduduk/edit/{{$person->id}}" class="menu-link px-3">Edit</a>

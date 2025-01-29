@@ -54,12 +54,29 @@
                     <!--end::Page title-->
                     <!--begin::Actions-->
                     <div class="d-flex align-items-center gap-2 gap-lg-3">
-                        <!--begin::Button-->
-                        <a href="/admin/kunjungan" class="btn btn-success">
-                            <i class="ki-duotone ki-left-square"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
-                            Kembali
-                        </a>
-                        <!--end::Button-->
+                        @if (Auth::user()->role == "System Administrator")
+                            <!--begin::Button-->
+                            <a href="/admin/kunjungan" class="btn btn-success">
+                                <i class="ki-duotone ki-left-square"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                                Kembali
+                            </a>
+                            <!--end::Button-->
+                        @elseif(Auth::user()->role == "Puskesmas")
+                            <!--begin::Button-->
+                            <a href="/puskesmas/kunjungan" class="btn btn-success">
+                                <i class="ki-duotone ki-left-square"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                                Kembali
+                            </a>
+                            <!--end::Button-->
+                        @else
+                            <!--begin::Button-->
+                            <a href="/kader/kunjungan" class="btn btn-success">
+                                <i class="ki-duotone ki-left-square"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                                Kembali
+                            </a>
+                            <!--end::Button-->
+                        @endif
+                        
                     </div>
                     <!--end::Actions-->
                 </div>
@@ -139,12 +156,12 @@
                         <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-8">
                             <!--begin:::Tab item-->
                             <li class="nav-item">
-                                <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab" href="#kt_ecommerce_customer_overview">Overview</a>
+                                <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab" href="#kt_overview">Overview</a>
                             </li>
                             <!--end:::Tab item-->
                             <!--begin:::Tab item-->
                             <li class="nav-item">
-                                <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#kt_ecommerce_customer_advanced">Hasil Skrining</a>
+                                <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#kt_hasil_skrining">Hasil Skrining</a>
                             </li>
                             <!--end:::Tab item-->
                         </ul>
@@ -152,7 +169,7 @@
                         <!--begin:::Tab content-->
                         <div class="tab-content" id="myTabContent">
                             <!--begin:::Tab pane-->
-                            <div class="tab-pane fade show active" id="kt_ecommerce_customer_overview" role="tabpanel">
+                            <div class="tab-pane fade show active" id="kt_overview" role="tabpanel">
                                 <div class="row row-cols-1 row-cols-md-2 mb-6 mb-xl-9">
                                     
                                     <div class="col">
@@ -216,7 +233,7 @@
                             <!--end:::Tab pane-->
                            
                             <!--begin:::Tab pane-->
-                            <div class="tab-pane fade" id="kt_ecommerce_customer_advanced" role="tabpanel">
+                            <div class="tab-pane fade" id="kt_hasil_skrining" role="tabpanel">
                                 <!--begin::Card-->
                                 <div class="card pt-4 mb-6 mb-xl-9">
                                     <!--begin::Card header-->
@@ -226,16 +243,19 @@
                                             <h2 class="fw-bold mb-0">Riwayat Skrining</h2>
                                         </div>
                                         <!--end::Card title-->
-                                        <!--begin::Card toolbar-->
-                                        <div class="card-toolbar">
-                                            <form action="/admin/kunjungan/tambah" method="POST">
-                                                @csrf
-                                                <input type="text" name="nik" value="{{$dakun->person->nik}}" hidden />
-                                                <button type="submit" class="btn btn-sm btn-flex btn-light-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_new_card">
-                                                <i class="ki-outline ki-plus-square fs-3"></i>Tambah Skrining</button>
-                                            </form>
-                                        </div>
-                                        <!--end::Card toolbar-->
+                                        @if (Auth::user()->role == "System Administrator")
+                                             <!--begin::Card toolbar-->
+                                            <div class="card-toolbar">
+                                                <form action="/admin/kunjungan/tambah" method="POST">
+                                                    @csrf
+                                                    <input type="text" name="nik" value="{{$dakun->person->nik}}" hidden />
+                                                    <button type="submit" class="btn btn-sm btn-flex btn-light-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_new_card">
+                                                    <i class="ki-outline ki-plus-square fs-3"></i>Tambah Skrining</button>
+                                                </form>
+                                            </div>
+                                            <!--end::Card toolbar-->
+                                        @endif
+                                       
                                     </div>
                                     <!--end::Card header-->
                                     <!--begin::Card body-->

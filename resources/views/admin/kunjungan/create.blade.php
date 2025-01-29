@@ -243,6 +243,7 @@
                                     <!--end::Wrapper-->
                                 </div>
                                 <!--end::Step 1-->
+
                                 <!--begin::Step 2-->
                                 <div data-kt-stepper-element="content">
                                     <!--begin::Wrapper-->
@@ -258,6 +259,7 @@
                                             <!--end::Notice-->
                                         </div>
                                         <!--end::Heading-->
+
                                         <!--begin::Input group-->
                                         <div class="row mb-5">
                                             <!--begin::Col-->
@@ -606,6 +608,7 @@
                                             <!--end::Notice-->
                                         </div>
                                         <!--end::Heading-->
+                                        
                                         <!--begin::Input group-->
                                         <div class="d-flex flex-column mb-7 fv-row">
                                             <!--begin::Label-->
