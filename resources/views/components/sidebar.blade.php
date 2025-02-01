@@ -262,7 +262,7 @@
                             <!--begin:Menu item-->
                             <div class="menu-item">
                                 <!--begin:Menu link-->
-                                <a href="/puskesmas" class="menu-link {{ Request::is('dinkes/puskesmas') ? 'active' : '' }}">
+                                <a href="/puskesmas/dashboard" class="menu-link {{ Request::is('puskesmas/dashboard') ? 'active' : '' }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
@@ -337,7 +337,7 @@
                             </span>
                             <span class="menu-title">Penduduk</span>
                         </a> --}}
-                        <a href="/dinkes/kunjungan" class="menu-link {{ Request::is('dinkes/kunjungan') ? 'active' : '' }}">
+                        <a href="/dinkes/kunjungan" class="menu-link {{ Request::is('dinkes/kunjungan*') ? 'active' : '' }}">
                             <span class="menu-icon">
                                 <i class="ki-outline ki-safe-home fs-2"></i>
                             </span>
@@ -347,7 +347,7 @@
                     </div>
                     <!--end:Menu item-->
                     <!--begin:Menu item-->
-                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                    <div data-kt-menu-trigger="click" class="menu-item {{ Request::is('dinkes/laporan/*') ? 'here show' : '' }} accordion">
                         <!--begin:Menu link-->
                         <span class="menu-link">
                             <span class="menu-icon">
@@ -506,12 +506,6 @@
                     <!--begin:Menu item-->
                     <div class="menu-item menu-accordion">
                         <!--begin:Menu link-->
-                        {{-- <a href="/puskesmas/penduduk" class="menu-link {{ Request::is('puskesmas/penduduk') ? 'active' : '' }}">
-                            <span class="menu-icon">
-                                <i class="ki-outline ki-people fs-2"></i>
-                            </span>
-                            <span class="menu-title">Penduduk</span>
-                        </a> --}}
                         <a href="/puskesmas/kunjungan" class="menu-link {{ Request::is('puskesmas/kunjungan*') || Request::is('kunjungan*') ? 'active' : '' }}">
                             <span class="menu-icon">
                                 <i class="ki-outline ki-safe-home fs-2"></i>
@@ -523,7 +517,7 @@
                     </div>
                     <!--end:Menu item-->
                     <!--begin:Menu item-->
-                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                    <div data-kt-menu-trigger="click" class="menu-item {{ Request::is('puskesmas/laporan*') ? 'here show' : '' }} accordion">
                         <!--begin:Menu link-->
                         <span class="menu-link">
                             <span class="menu-icon">
@@ -538,7 +532,7 @@
                             <!--begin:Menu item-->
                             <div class="menu-item">
                                 <!--begin:Menu link-->
-                                <a href="/puskesmas/laporan"  class="menu-link {{ Request::is('puskesmas/laporan') ? 'active' : '' }}">
+                                <a href="/puskesmas/laporan"  class="menu-link {{ Request::is('puskesmas/laporan*') ? 'active' : '' }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>

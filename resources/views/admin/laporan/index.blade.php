@@ -88,20 +88,32 @@
                                         <!--begin::Toolbar-->
                                         <div class="d-flex">
                                             <div class="row">
-                                                <!--begin::Filter Puskesmas-->
-                                                <div class="col-lg-8 mb-2 ">
-                                                    <label class="fs-6 form-label fw-bold text-gray-900">Puskesmas</label>
-                                                    <select class="btn btn-light me-3" data-control="select2"
-                                                        data-placeholder="Pilih Puskesmas" name="puskesmas" id="puskesmas"
-                                                        data-allow-clear="true">
-                                                        <option></option>
-                                                        @foreach ($puskesmas as $pus)
-                                                            <option value="{{ $pus->kode }}">{{ $pus->nama }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                <!--end::Filter Puskesmas-->
-        
+                                                @if (auth()->user()->role == "System Administrator" || auth()->user()->role == "Dinkes")
+                                                    <!--begin::Filter Puskesmas-->
+                                                    <div class="col-lg-8 mb-2 ">
+                                                        <label class="fs-6 form-label fw-bold text-gray-900">Puskesmas</label>
+                                                        <select class="btn btn-light me-3" data-control="select2"
+                                                            data-placeholder="Pilih Puskesmas" name="puskesmas" id="puskesmas"
+                                                            data-allow-clear="true">
+                                                            <option></option>
+                                                            @foreach ($puskesmas as $pus)
+                                                                <option value="{{ $pus->kode }}">{{ $pus->nama }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <!--end::Filter Puskesmas-->
+                                                @elseif (auth()->user()->role == "Puskesmas")
+                                                    <!--begin::Filter Puskesmas-->
+                                                    <div class="col-lg-8 mb-2 ">
+                                                        <label class="fs-6 form-label fw-bold text-gray-900">Puskesmas</label>
+                                                        <select class="btn btn-light me-3" data-control="select2"
+                                                            data-placeholder="Pilih Puskesmas" name="puskesmas" id="puskesmas"
+                                                            data-allow-clear="true" @readonly(true)>
+                                                            <option value="{{ auth()->user()->puskesmas->kode }}" selected>{{ auth()->user()->puskesmas->nama }}</option>
+                                                        </select>
+                                                    </div>
+                                                    <!--end::Filter Puskesmas-->
+                                                @endif
                                                 <!--begin::Filter Date-->
                                                 <div class="col-lg-4 mb-5">
                                                     <label class="fs-6 form-label fw-bold text-gray-900">Tanggal</label>

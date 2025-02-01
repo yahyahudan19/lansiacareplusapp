@@ -49,6 +49,13 @@ Route::middleware(['role:System Administrator,Puskesmas'])->group(function (){
 
 });
 
+Route::middleware(['role:System Administrator,Dinkes'])->group(function (){
+
+    Route::post('/admin/puskesmas/store', [PuskesmasController::class, 'store'])->name('puskesmas.store');
+    Route::delete('/destroy/puskesmas/{id}', [PuskesmasController::class, 'destroy'])->name('puskesmas.destroy');
+    Route::get('/admin/puskesmas/{id}/edit', [PuskesmasController::class, 'edit'])->name('puskesmas.edit');
+    Route::put('/admin/puskesmas/{id}', [PuskesmasController::class, 'update'])->name('puskesmas.update');
+});
 // System Administrator Routes ------------------------------------------------------
 Route::middleware(['role:System Administrator'])->group(function (){
     Route::get('/layout', function () {
@@ -82,12 +89,6 @@ Route::middleware(['role:System Administrator'])->group(function (){
     
     
     Route::get('/admin/laporan/puskesmas', [LaporansController::class, 'index'])->name('laporan.index');
-    
-    Route::get('/admin/puskesmas', [PuskesmasController::class, 'index'])->name('puskesmas.index');
-    Route::post('/admin/puskesmas/store', [PuskesmasController::class, 'store'])->name('puskesmas.store');
-    Route::delete('/destroy/puskesmas/{id}', [PuskesmasController::class, 'destroy'])->name('puskesmas.destroy');
-    Route::get('/admin/puskesmas/{id}/edit', [PuskesmasController::class, 'edit'])->name('puskesmas.edit');
-    Route::put('/admin/puskesmas/{id}', [PuskesmasController::class, 'update'])->name('puskesmas.update');
 
     
 });
@@ -105,6 +106,16 @@ Route::middleware(['role:Dinkes'])->group(function (){
     Route::delete('/destroy/penduduk/{id}', [PersonsController::class, 'destroy'])->name('persons.destroy');
     Route::get('/dinkes/penduduk/{id}', [PersonsController::class, 'detail_view'])->name('persons.detail_view');
     Route::get('/dinkes/penduduk/edit/{id}', [PersonsController::class, 'edit_view'])->name('persons.edit_view');
+
+    Route::get('/dinkes/puskesmas', [PuskesmasController::class, 'index'])->name('puskesmas.index');
+    
+    Route::get('/dinkes/laporan/puskesmas', [LaporansController::class, 'index'])->name('dinkes.laporan.index');
+
+    Route::get('/dinkes/kunjungan', [KunjungansController::class, 'index'])->name('kunjungans.index');
+    Route::get('/dinkes/kunjungan/{id}', [KunjungansController::class, 'detail_view'])->name('kunjungans.detail_view');
+
+
+
 
 });
 
@@ -125,6 +136,8 @@ Route::middleware(['role:Puskesmas'])->group(function (){
     Route::post('/puskesmas/kunjungan/tambah', [KunjungansController::class, 'create_view'])->name('kunjungans.create');
     Route::get('/puskesmas/kunjungan/{id}', [KunjungansController::class, 'detail_view'])->name('kunjungans.detail_view');
     Route::post('/puskesmas/kunjungan/store', [KunjungansController::class, 'store'])->name('kunjungans.store');
+
+    Route::get('/puskesmas/laporan/', [LaporansController::class, 'index'])->name('puskesmas.laporan.index');
 
 
 });

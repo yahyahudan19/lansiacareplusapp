@@ -11,6 +11,7 @@ use App\Models\Puskesmas;
 use App\Models\Skrinings;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class LaporansController extends Controller
@@ -99,13 +100,14 @@ class LaporansController extends Controller
 
     public function index(Request $request)
     {
+        $user = Auth::user()->load('puskesmas');
         $puskesmas = Puskesmas::all();
 
         // Ambil data kelurahan sesuai filter puskesmas
         $puskesmasId = $request->input('puskesmas', null);
         $kelurahans = Kelurahans::with('puskesmas')->where('puskesmas_kd', $puskesmasId)->get();
 
-        // dd($kelurahans);
+        // dd($puskesmasId);
 
         // Ambil date range dari request dan format ulang
         $dateRange = $request->input('date_range', null);
@@ -122,6 +124,13 @@ class LaporansController extends Controller
         if (!$puskesmasId || !$dateRange) {
             return view('admin.laporan.index', compact('kelurahans', 'puskesmasId', 'puskesmas'))
                 ->with('message', 'Silakan lakukan filter terlebih dahulu untuk melihat laporan.');
+        }
+
+         // Cek apakah user memiliki akses ke puskesmas yang diminta berdasarkan puskesmas_kd
+         if ($user->role === 'Puskesmas') {
+            if ($puskesmasId != $user->puskesmas->kode) {
+                abort(403, 'Anda tidak memiliki akses ke laporan ini.');
+            }
         }
 
         // Ambil semua indikator

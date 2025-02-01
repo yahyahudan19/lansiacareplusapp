@@ -56,21 +56,21 @@
                     <div class="d-flex align-items-center gap-2 gap-lg-3">
                         @if (Auth::user()->role == "System Administrator")
                             <!--begin::Button-->
-                            <a href="/admin/kunjungan" class="btn btn-success">
+                            <a href="{{ url()->previous() }}" class="btn btn-success">
                                 <i class="ki-duotone ki-left-square"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
                                 Kembali
                             </a>
                             <!--end::Button-->
                         @elseif(Auth::user()->role == "Puskesmas")
                             <!--begin::Button-->
-                            <a href="/puskesmas/kunjungan" class="btn btn-success">
+                            <a href="{{ url()->previous() }}" class="btn btn-success">
                                 <i class="ki-duotone ki-left-square"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
                                 Kembali
                             </a>
                             <!--end::Button-->
                         @else
                             <!--begin::Button-->
-                            <a href="/kader/kunjungan" class="btn btn-success">
+                            <a href="{{ url()->previous() }}" class="btn btn-success">
                                 <i class="ki-duotone ki-left-square"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
                                 Kembali
                             </a>
@@ -286,6 +286,7 @@
                                                         <!--end::Summary-->
                                                     </div>
                                                     <!--end::Toggle-->
+                                                    @if (Auth::user()->role == "System Administrator")
                                                     <!--begin::Toolbar-->
                                                     <div class="d-flex my-3 ms-9">
                                                         <!--begin::Edit-->
@@ -303,6 +304,7 @@
                                                         
                                                     </div>
                                                     <!--end::Toolbar-->
+                                                    @endif
                                                 </div>
                                                 <!--end::Header-->
                                                 <!--begin::Body-->
@@ -459,23 +461,25 @@
                                                             <!--end::Summary-->
                                                         </div>
                                                         <!--end::Toggle-->
-                                                        <!--begin::Toolbar-->
-                                                        <div class="d-flex my-3 ms-9">
-                                                            <!--begin::Edit-->
-                                                            <a href="/admin/kunjungan/edit/{{$riw->id}}" class="btn btn-icon btn-active-light-primary w-30px h-30px me-3" >
-                                                                <span data-bs-toggle="tooltip" data-bs-trigger="hover" title="Edit">
-                                                                    <i class="ki-outline ki-pencil fs-3"></i>
-                                                                </span>
-                                                            </a>
-                                                            <!--end::Edit-->
-                                                            <!--begin::Delete-->
-                                                            <a href="#" class="btn btn-icon btn-active-light-primary w-30px h-30px me-3" data-bs-toggle="tooltip" title="Delete" data-kt-customer-payment-method="delete">
-                                                                <i class="ki-outline ki-trash fs-3"></i>
-                                                            </a>
-                                                            <!--end::Delete-->
-                                                            
-                                                        </div>
-                                                        <!--end::Toolbar-->
+                                                        @if (Auth::user()->role == "System Administrator")
+                                                            <!--begin::Toolbar-->
+                                                            <div class="d-flex my-3 ms-9">
+                                                                <!--begin::Edit-->
+                                                                <a href="/admin/kunjungan/edit/{{$riw->id}}" class="btn btn-icon btn-active-light-primary w-30px h-30px me-3" >
+                                                                    <span data-bs-toggle="tooltip" data-bs-trigger="hover" title="Edit">
+                                                                        <i class="ki-outline ki-pencil fs-3"></i>
+                                                                    </span>
+                                                                </a>
+                                                                <!--end::Edit-->
+                                                                <!--begin::Delete-->
+                                                                <a href="#" class="btn btn-icon btn-active-light-primary w-30px h-30px me-3" data-bs-toggle="tooltip" title="Delete" data-kt-customer-payment-method="delete">
+                                                                    <i class="ki-outline ki-trash fs-3"></i>
+                                                                </a>
+                                                                <!--end::Delete-->
+                                                                
+                                                            </div>
+                                                            <!--end::Toolbar-->
+                                                        @endif
                                                     </div>
                                                     <!--end::Header-->
                                                     <!--begin::Body-->
