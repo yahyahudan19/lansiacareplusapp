@@ -103,9 +103,11 @@ class LaporansController extends Controller
 
         // Ambil data kelurahan sesuai filter puskesmas
         $puskesmasId = $request->input('puskesmas', null);
-        $kelurahans = Kelurahans::where('puskesmas_kd', $puskesmasId)->get();
+        $kelurahans = Kelurahans::with('puskesmas')->where('puskesmas_kd', $puskesmasId)->get();
 
-         // Ambil date range dari request dan format ulang
+        // dd($kelurahans);
+
+        // Ambil date range dari request dan format ulang
         $dateRange = $request->input('date_range', null);
         if ($dateRange) {
             $dates = explode(' - ', $dateRange);
@@ -118,14 +120,16 @@ class LaporansController extends Controller
 
         // Jika tidak ada filter, tampilkan halaman kosong
         if (!$puskesmasId || !$dateRange) {
-            return view('admin.laporan.index', compact('kelurahans', 'puskesmasId','puskesmas'))
+            return view('admin.laporan.index', compact('kelurahans', 'puskesmasId', 'puskesmas'))
                 ->with('message', 'Silakan lakukan filter terlebih dahulu untuk melihat laporan.');
         }
 
         // Ambil semua indikator
-        $indicators = Indikators::with('kelompok')->get();
-        $results = [];
+        $indicators = Indikators::with('kelompok')->orderBy('kelompok_id')->get();
 
+        $results = [];
+        $totals = [];
+        
         foreach ($kelurahans as $kelurahan) {
             foreach ($indicators as $indicator) {
                 $count = $this->calculateCount(
@@ -137,12 +141,20 @@ class LaporansController extends Controller
                     $indicator->age_min,
                     $indicator->age_max
                 );
+        
+                // Simpan hasil per kelurahan
                 $results[$kelurahan->nama][$indicator->kelompok->nama][$indicator->nama] = $count;
+        
+                // Hitung total per indikator di semua kelurahan
+                if (!isset($totals[$indicator->kelompok->nama][$indicator->nama])) {
+                    $totals[$indicator->kelompok->nama][$indicator->nama] = 0;
+                }
+                $totals[$indicator->kelompok->nama][$indicator->nama] += $count;
             }
         }
 
-        return response()->json($results);
-        return view('admin.laporan.index', compact('results', 'kelurahans', 'puskesmasId', 'indicators','puskesmas'));
+        // return response()->json($totals);
+        return view('admin.laporan.index', compact('results', 'totals', 'kelurahans', 'puskesmasId', 'indicators', 'puskesmas','startDate','endDate'));
     }
 
     // private function calculateCount($indicator, $kelurahan, $startDate, $endDate, $jenisKelamin, $ageMin, $ageMax)
@@ -344,7 +356,7 @@ class LaporansController extends Controller
     //                     $q->where('asam_urat', '>', 7)->orWhere('asam_urat', '>', 6);
     //                 })
     //                 ->count();
-                    
+
     //         default:
     //             return 0;
     //     }
@@ -379,6 +391,73 @@ class LaporansController extends Controller
                 return Skrinings::whereHas('kunjungan', function ($q) use ($filterPerson, $startDate, $endDate) {
                     $q->whereBetween('tanggal_kj', [$startDate, $endDate])->whereHas('person', $filterPerson);
                 })->count();
+
+            case 4: // GGN ME (Gula Darah Sewaktu/GDS)
+                return Skrinings::whereHas('kunjungan', function ($q) use ($filterPerson, $startDate, $endDate) {
+                    $q->whereBetween('tanggal_kj', [$startDate, $endDate])->whereHas('person', $filterPerson);
+                })->where('gds', $indicator->target_value)->count();
+
+            case 5: // IMT (Indeks Massa Tubuh)
+                return Kunjungans::whereBetween('tanggal_kj', [$startDate, $endDate])
+                    ->whereHas('person', $filterPerson)
+                    ->where(function ($q) use ($indicator) {
+                        $q->whereRaw('berat_bdn / (tinggi_bdn * tinggi_bdn / 10000) >= 25')
+                            ->when($indicator->target_value === 'LEBIH', function ($q) {
+                                return $q->whereRaw('berat_bdn / (tinggi_bdn * tinggi_bdn / 10000) > 25');
+                            })
+                            ->when($indicator->target_value === 'NORMAL', function ($q) {
+                                return $q->whereRaw('berat_bdn / (tinggi_bdn * tinggi_bdn / 10000) BETWEEN 18.5 AND 24.9');
+                            })
+                            ->when($indicator->target_value === 'KURANG', function ($q) {
+                                return $q->whereRaw('berat_bdn / (tinggi_bdn * tinggi_bdn / 10000) < 18.5');
+                            });
+                    })
+                    ->count();
+
+            case 6: // HIPERTENSI
+                return Kunjungans::whereBetween('tanggal_kj', [$startDate, $endDate])
+                    ->whereHas('person', $filterPerson)
+                    ->where('sistole', '>=', 140)
+                    ->where('diastole', '>=', 90)
+                    ->count();
+
+            case 7: // KOLESTEROL TINGGI
+                return Kunjungans::whereBetween('tanggal_kj', [$startDate, $endDate])
+                    ->whereHas('person', $filterPerson)
+                    ->where('kolesterol', '>', 200)
+                    ->count();
+
+            case 8: // DIABETES MELITUS (Gula Darah > 200)
+                return Kunjungans::whereBetween('tanggal_kj', [$startDate, $endDate])
+                    ->whereHas('person', $filterPerson)
+                    ->where('gula_drh', '>', 200)
+                    ->count();
+
+            case 9: // ASAM URAT TINGGI (Laki-laki >7, Perempuan >6)
+                return Kunjungans::whereBetween('tanggal_kj', [$startDate, $endDate])
+                    ->whereHas('person', $filterPerson)
+                    ->whereHas('person', function ($q) {
+                        $q->where(function ($query) {
+                            $query->where('jenis_kelamin', 'L')->where('asam_urat', '>', 7);
+                        })->orWhere(function ($query) {
+                            $query->where('jenis_kelamin', 'P')->where('asam_urat', '>', 6);
+                        });
+                    })
+                    ->count();
+            case 10: // GANGGUAN PENGLIHATAN
+                return Skrinings::whereHas('kunjungan', function ($q) use ($filterPerson, $startDate, $endDate) {
+                    $q->whereBetween('tanggal_kj', [$startDate, $endDate])->whereHas('person', $filterPerson);
+                })->where('penglihatan', $indicator->target_value)->count();
+
+            case 11: // GANGGUAN PENDENGARAN
+                return Skrinings::whereHas('kunjungan', function ($q) use ($filterPerson, $startDate, $endDate) {
+                    $q->whereBetween('tanggal_kj', [$startDate, $endDate])->whereHas('person', $filterPerson);
+                })->where('pendengaran', $indicator->target_value)->count();
+
+            case 12: // GANGGUAN GINJAL
+                return Skrinings::whereHas('kunjungan', function ($q) use ($filterPerson, $startDate, $endDate) {
+                    $q->whereBetween('tanggal_kj', [$startDate, $endDate])->whereHas('person', $filterPerson);
+                })->where('ginjal', $indicator->target_value)->count();
 
             default:
                 return 0;

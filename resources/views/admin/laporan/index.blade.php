@@ -61,12 +61,75 @@
                     <!--begin::Actions-->
                     <div class="d-flex align-items-center gap-2 gap-lg-3">
                         <a href="#" class="btn btn-info btn-sm">
-                            <i class="ki-duotone ki-file-sheet"><span class="path1"></span><span
-                                    class="path2"></span><span class="path3"></span><span class="path4"></span></i>
-                            Export Data
+                            <i class="ki-solid ki-file-sheet"></i>
+                            Export Laporan
                         </a>
+                        <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#kt_modal_generate">
+                            <i class="ki-solid ki-setting-2"></i>
+                            Generate Laporan
+                        </button>
                     </div>
                     <!--end::Actions-->
+
+                    <!--begin::Generate Modal-->
+                    <div class="modal fade" tabindex="-1" id="kt_modal_generate">
+                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <div class="modal-content">
+                                <form action="#" method="GET">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title">Generate Laporan</h3>
+                                        <!--begin::Close-->
+                                        <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                                            <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                                        </div>
+                                        <!--end::Close-->
+                                    </div>
+                                    <div class="modal-body">
+                                        <!--begin::Toolbar-->
+                                        <div class="d-flex">
+                                            <div class="row">
+                                                <!--begin::Filter Puskesmas-->
+                                                <div class="col-lg-8 mb-2 ">
+                                                    <label class="fs-6 form-label fw-bold text-gray-900">Puskesmas</label>
+                                                    <select class="btn btn-light me-3" data-control="select2"
+                                                        data-placeholder="Pilih Puskesmas" name="puskesmas" id="puskesmas"
+                                                        data-allow-clear="true">
+                                                        <option></option>
+                                                        @foreach ($puskesmas as $pus)
+                                                            <option value="{{ $pus->kode }}">{{ $pus->nama }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <!--end::Filter Puskesmas-->
+        
+                                                <!--begin::Filter Date-->
+                                                <div class="col-lg-4 mb-5">
+                                                    <label class="fs-6 form-label fw-bold text-gray-900">Tanggal</label>
+                                                    <br>
+                                                    <input class="btn btn-primary me-3" placeholder="Pick date rage"
+                                                        id="kt_datefilter_puskesmas" name="date_range" />
+                                                </div>
+                                                <!--end::Filter Date-->
+                                                <!--begin::Cari Button -->
+                                                {{-- <div class="col-lg-6 mb-2">
+                                                    <button type="submit" class="btn btn-success me-3"> <i
+                                                            class="ki-outline ki-search-list fs-2"></i>Generate Laporan</button>
+                                                </div> --}}
+                                                <!--end::Cari Button -->
+                                            </div>
+                                        </div>
+                                        <!--end::Toolbar-->
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-info">Generate</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end::Generate Modal-->
+
                 </div>
                 <!--end::Toolbar wrapper-->
             </div>
@@ -78,7 +141,7 @@
             <!--begin::Content container-->
             <div id="kt_app_content_container" class="app-container container-fluid">
                 <!--begin::Card Filter-->
-                <div class="card mb-5">
+                {{-- <div class="card mb-5">
                     <div class="card-header border-0 pt-6">
                         <!--begin::Card title-->
                         <div class="card-title">
@@ -93,13 +156,11 @@
                         <!--begin::Card toolbar-->
                         <div class="card-toolbar">
                             <form action="#" method="GET">
-                                {{-- @csrf --}}
                                 <!--begin::Toolbar-->
                                 <div class="d-flex">
                                     <div class="row">
                                         <!--begin::Filter Puskesmas-->
                                         <div class="col-lg-6 mb-2 ">
-                                            {{-- <div class="w-200px"> --}}
                                             <label class="fs-6 form-label fw-bold text-gray-900">Puskesmas</label>
                                             <select class="btn btn-light me-3" data-control="select2"
                                                 data-placeholder="Pilih Puskesmas" name="puskesmas" id="puskesmas"
@@ -109,7 +170,6 @@
                                                     <option value="{{ $pus->kode }}">{{ $pus->nama }}</option>
                                                 @endforeach
                                             </select>
-                                            {{-- </div> --}}
                                         </div>
                                         <!--end::Filter Puskesmas-->
 
@@ -135,44 +195,77 @@
                         <!--end::Card toolbar-->
                     </div>
                     <br>
-                </div>
+                </div> --}}
                 <!--end::Card Filter-->
 
                 <!--begin::Products-->
                 @if (request()->has('puskesmas') && request()->has('date_range'))
+                <div class="alert alert-success mb-2" role="alert">
+                    Data Laporan Puskesmas : <strong>{{$kelurahans->first()->puskesmas->nama}}</strong>, Periode : <strong>{{ \Illuminate\Support\Carbon::parse($startDate)->translatedFormat('d F Y') }} - {{ \Illuminate\Support\Carbon::parse($endDate)->translatedFormat('d F Y') }}</strong>.
+                </div>
+
                 <div class="card card-flush">
                     <!--begin::Card body-->
                     <div class="table-responsive">
-                        <table id="kt_datatable_zero_configuration"
-                            class="table table-striped table-row-bordered gy-5 gs-7">
+                        <table class="table table-bordered gs-4 gy-4 gx-4">
                             <thead>
                                 <tr class="fw-bold fs-6 text-gray-800 px-7">
-                                    <th class="text-center align-middle min-w-300px">Kelompok</th>
+                                    <th class="text-center align-middle min-w-200px">Kelompok</th>
                                     <th class="text-center align-middle min-w-300px">Indikator</th>
                                     @foreach ($kelurahans as $kelurahan)
-                                        <th class="text-center align-middle min-w-300px">{{ $kelurahan->nama }}</th>
+                                        <th class="text-center align-middle">{{ $kelurahan->nama }}</th>
                                     @endforeach
+                                    <th class="text-center align-middle">Total</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @php
+                                    $lastKelompok = null;
+                                    $rowspanCounts = [];
+                                @endphp
+                    
                                 @foreach ($indicators as $indikator)
-                                    <tr>
-                                        <td class="text-center align-middle fw-bold fs-6 text-gray-800">
-                                            {{ $indikator->kelompok->nama }}
-                                        </td>
-                                        <td class="text-left align-middle fw-bold fs-6 text-gray-800">
+                                    @php
+                                        $kelompokNama = $indikator->kelompok->nama;
+                                        if (!isset($rowspanCounts[$kelompokNama])) {
+                                            $rowspanCounts[$kelompokNama] = collect($indicators)
+                                                ->where('kelompok.nama', $kelompokNama)
+                                                ->count();
+                                        }
+                                        // Tentukan apakah baris ini harus di-highlight
+                                        $highlightClass = Str::contains($indikator->nama, '(L+P)') ? 'highlight-lp' : '';
+                                    @endphp
+                    
+                                    <tr class="{{ $highlightClass }}">
+                                        @if ($lastKelompok !== $kelompokNama)
+                                            <td class="text-center align-middle fw-bold fs-6" rowspan="{{ $rowspanCounts[$kelompokNama] }}">
+                                                {{ $kelompokNama }}
+                                            </td>
+                                            @php $lastKelompok = $kelompokNama; @endphp
+                                        @endif
+                                        <td class="text-left align-middle fw-bold fs-6">
                                             {{ $indikator->nama }}
                                         </td>
                                         @foreach ($kelurahans as $kelurahan)
-                                            <td class="text-center align-middle fw-bold fs-6 text-gray-800 px-7">
-                                                {{ $results[$kelurahan->nama][$indikator->kelompok->nama][$indikator->nama] ?? 0 }}
+                                            <td class="text-center align-middle fw-bold fs-6 px-7">
+                                                {{ $results[$kelurahan->nama][$kelompokNama][$indikator->nama] ?? 0 }}
                                             </td>
                                         @endforeach
+                                        <td class="text-center align-middle fw-bold fs-6 px-7">
+                                            {{ $totals[$kelompokNama][$indikator->nama] ?? 0 }}
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
                     </div>
+                    
+                    <style>
+                        .highlight-lp td {
+                            background-color: #FFC107 !important; /* Warna kuning seperti pada gambar */
+                            font-weight: bold;
+                        }
+                    </style>
                     <!--end::Card body-->
                 </div>
                 @else
@@ -202,7 +295,7 @@
     <!--end::Vendors Javascript-->
 
     <!--begin::Datatables Javascript-->
-    <script>
+    {{-- <script>
         $("#kt_datatable_zero_configuration").DataTable({
             "scrollX": true,
             "info": false,
@@ -248,7 +341,7 @@
                 });
             }
         });
-    </script>
+    </script> --}}
     <!--end::Datatables Javascript-->
 
     <!--begin:: Page Loader Javascript-->

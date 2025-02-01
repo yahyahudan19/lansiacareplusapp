@@ -20,8 +20,9 @@ class Kelurahans extends Model
 
     public function puskesmas()
     {
-        return $this->belongsTo(Puskesmas::class, 'puskesmas_id');
+        return $this->belongsTo(Puskesmas::class, 'puskesmas_kd', 'kode');
     }
+
     public function user()
     {
         return $this->belongsTo(User::class, 'kelurahan_id');

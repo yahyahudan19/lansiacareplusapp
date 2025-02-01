@@ -4,7 +4,9 @@ use App\Http\Controllers\KunjungansController;
 use App\Http\Controllers\LaporansController;
 use App\Http\Controllers\PersonsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PuskesmasController;
 use App\Http\Controllers\UserController;
+use App\Models\Puskesmas;
 use Illuminate\Support\Facades\Route;
 
 
@@ -71,7 +73,6 @@ Route::middleware(['role:System Administrator'])->group(function (){
     Route::get('/admin/penduduk/edit/{id}', [PersonsController::class, 'edit_view'])->name('persons.edit_view');
     Route::post('/admin/penduduk/update/{id}', [PersonsController::class, 'update'])->name('persons.update');
 
-    
     Route::get('/admin/kunjungan', [KunjungansController::class, 'index'])->name('kunjungans.index');
     Route::post('/admin/kunjungan/tambah', [KunjungansController::class, 'create_view'])->name('kunjungans.create');
     Route::post('/admin/kunjungan/store', [KunjungansController::class, 'store'])->name('kunjungans.store');
@@ -81,6 +82,13 @@ Route::middleware(['role:System Administrator'])->group(function (){
     
     
     Route::get('/admin/laporan/puskesmas', [LaporansController::class, 'index'])->name('laporan.index');
+    
+    Route::get('/admin/puskesmas', [PuskesmasController::class, 'index'])->name('puskesmas.index');
+    Route::post('/admin/puskesmas/store', [PuskesmasController::class, 'store'])->name('puskesmas.store');
+    Route::delete('/destroy/puskesmas/{id}', [PuskesmasController::class, 'destroy'])->name('puskesmas.destroy');
+    Route::get('/admin/puskesmas/{id}/edit', [PuskesmasController::class, 'edit'])->name('puskesmas.edit');
+    Route::put('/admin/puskesmas/{id}', [PuskesmasController::class, 'update'])->name('puskesmas.update');
+
     
 });
 

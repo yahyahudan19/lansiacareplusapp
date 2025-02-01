@@ -15,6 +15,11 @@ class Kunjungans extends Model
         return $this->belongsTo(Persons::class, 'person_id');
     }
 
+    public function latestKunjungan()
+    {
+        return $this->hasOne(Kunjungans::class, 'person_id')->orderByDesc('tanggal_kj');
+    }
+
     public function skrinings(){
         return $this->hasMany(Skrinings::class, 'kunjungan_id');
     }

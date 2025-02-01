@@ -55,7 +55,7 @@
                     <!--begin::Actions-->
                     <div class="d-flex align-items-center gap-2 gap-lg-3">
                         <!--begin::Button-->
-                        <a href="/puskesmas/kunjungan" class="btn btn-success btn-sm">
+                        <a href="{{ url()->previous() }}" class="btn btn-success btn-sm">
                             <i class="ki-duotone ki-left-square"><span class="path1"></span><span
                                     class="path2"></span><span class="path3"></span><span class="path4"></span></i>
                             Kembali
@@ -775,41 +775,55 @@
                                     <h5 class="mb-3">Terakhir Kunjungan</h5>
                                     <!--end::Title-->
                                     <!--begin::Details-->
-                                    <div class="mb-0">
-                                        <!--begin::Plan-->
-                                        <span class="badge badge-light-info me-2">
-                                            @php
-                                                $lastVisitYear = \Illuminate\Support\Carbon::parse(
-                                                    $dapen->lastKunjungan->tanggal_kj,
-                                                )->year;
-                                                $currentYear = now()->year;
-                                                $difference = $currentYear - $lastVisitYear;
+                                    @if ($dapen->lastKunjungan == null)
+                                        <div class="mb-0">
+                                            <!--begin::Plan-->
+                                            <span class="badge badge-light-info me-2">Belum Pernah Kunjungan</span>
+                                            <!--end::Plan-->
+                                            <!--begin::Price-->
+                                            <span class="fw-semibold text-gray-600">-</span>
+                                            <!--end::Price-->
+                                        </div>
+                                        
+                                    @else
+                                        <div class="mb-0">
+                                            <!--begin::Plan-->
+                                            <span class="badge badge-light-info me-2">
+                                                @php
+                                                    $lastVisitYear = \Illuminate\Support\Carbon::parse(
+                                                        $dapen->lastKunjungan->tanggal_kj,
+                                                    )->year;
+                                                    $currentYear = now()->year;
+                                                    $difference = $currentYear - $lastVisitYear;
 
-                                                if ($difference === 0) {
-                                                    echo 'Tahun Ini';
-                                                } elseif ($difference === 1) {
-                                                    echo 'Tahun Kemarin';
-                                                } else {
-                                                    echo $difference . ' Tahun Lalu';
-                                                }
-                                            @endphp
-                                        </span>
-                                        <!--end::Plan-->
-                                        <!--begin::Price-->
-                                        <span class="fw-semibold text-gray-600">
-                                            {{ \Illuminate\Support\Carbon::parse($dapen->lastKunjungan->tanggal_kj)->translatedFormat('d F Y') }}
-                                        </span>
-                                        <!--end::Price-->
-                                    </div>
+                                                    if ($difference === 0) {
+                                                        echo 'Tahun Ini';
+                                                    } elseif ($difference === 1) {
+                                                        echo 'Tahun Kemarin';
+                                                    } else {
+                                                        echo $difference . ' Tahun Lalu';
+                                                    }
+                                                @endphp
+                                            </span>
+                                            <!--end::Plan-->
+                                            <!--begin::Price-->
+                                            <span class="fw-semibold text-gray-600">
+                                                {{ \Illuminate\Support\Carbon::parse($dapen->lastKunjungan->tanggal_kj)->translatedFormat('d F Y') }}
+                                            </span>
+                                            <!--end::Price-->
+                                        </div>
+                                    @endif
                                     <!--end::Details-->
                                 </div>
                                 <!--end::Section-->
 
                                 <!--begin::Actions-->
-                                <div class="mb-0">
-                                    <a href="/puskesmas/kunjungan/{{ $dapen->lastKunjungan->id }}"
-                                        class="btn btn-primary btn-sm">Detail Kunjungan</a>
-                                </div>
+                                @if ($dapen->lastKunjungan)
+                                    <div class="mb-0">
+                                        <a href="/puskesmas/kunjungan/{{ $dapen->lastKunjungan->id }}"
+                                            class="btn btn-primary btn-sm">Detail Kunjungan</a>
+                                    </div>
+                                @endif
                                 <!--end::Actions-->
                             </div>
                             <!--end::Card body-->

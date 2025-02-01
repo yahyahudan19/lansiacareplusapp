@@ -199,7 +199,7 @@
                             </span>
                             <span class="menu-title">Users</span>
                         </a>
-                        <a href="/admin/puskesmas" class="menu-link {{ Request::is('admin/puskemas*') ? 'active' : '' }}">
+                        <a href="/admin/puskesmas" class="menu-link {{ Request::is('admin/puskesmas*') ? 'active' : '' }}">
                             <span class="menu-icon">
                                 <i class="ki-outline ki-home-1 fs-2"></i>
                             </span>

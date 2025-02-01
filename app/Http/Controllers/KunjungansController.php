@@ -33,7 +33,8 @@ class KunjungansController extends Controller
         $dapen = Persons::with('lastKunjungan') // Eager load kunjungan terakhir
             ->where('nik', $request->nik)
             ->first();
-    
+        // dd($dapen);
+        
         if (auth()->user()->role === 'System Administrator') {
             return view('admin.kunjungan.create', compact('dapen'));
         } elseif (auth()->user()->role === 'Puskesmas') {

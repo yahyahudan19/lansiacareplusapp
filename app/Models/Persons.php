@@ -23,9 +23,9 @@ class Persons extends Model
 
     public function lastKunjungan()
     {
-        return $this->hasOne(Kunjungans::class, 'person_id')->latestOfMany(); // Ambil kunjungan terakhir
+        return $this->hasOne(Kunjungans::class, 'person_id')->latestOfMany('tanggal_kj');
     }
-    
+
     public function kelurahan(){
         return $this->belongsTo(Kelurahans::class, 'kelurahan_id');
     }

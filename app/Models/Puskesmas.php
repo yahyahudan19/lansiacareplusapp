@@ -16,7 +16,7 @@ class Puskesmas extends Model
 
     public function kelurahan()
     {
-        return $this->hasMany(Kelurahans::class, 'puskesmas_id');
+        return $this->hasMany(Kelurahans::class, 'puskesmas_kd', 'kode');
     }
 
     public function users(){

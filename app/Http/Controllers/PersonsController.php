@@ -265,7 +265,7 @@ class PersonsController extends Controller
 
     public function searchPersonsByName(Request $request){
 
-        dd($request->all());
+        // dd($request->all());
 
         $kecamatans = Kecamatans::all();
         $kelurahans = Kelurahans::all();
