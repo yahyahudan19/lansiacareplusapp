@@ -211,7 +211,7 @@
                             </span>
                             <span class="menu-title">Whatsapp</span>
                         </a>
-                        <a href="/admin/log" class="menu-link {{ Request::is('admin/log*') ? 'active' : '' }}">
+                        <a href="#" class="menu-link {{ Request::is('admin/log*') ? 'active' : '' }}">
                             <span class="menu-icon">
                                 <i class="ki-outline ki-questionnaire-tablet fs-2"></i>
                             </span>
@@ -608,16 +608,68 @@
                         <!--end:Menu sub-->
                     </div>
                     <!--end:Menu item-->
-                    <!--begin:Menu item-->
-                    <div class="menu-item menu-accordion">
+                     <!--begin:Menu item-->
+                     <div data-kt-menu-trigger="click" class="menu-item here {{ Request::is('kader/penduduk*') || Request::is('penduduk*') ? 'show' : '' }} accordion">
                         <!--begin:Menu link-->
-                        <a href="/kader/penduduk" class="menu-link {{ Request::is('kader/penduduk') ? 'active' : '' }}">
+                        <span class="menu-link">
                             <span class="menu-icon">
                                 <i class="ki-outline ki-people fs-2"></i>
                             </span>
                             <span class="menu-title">Penduduk</span>
-                        </a>
-                        <a href="/kader/kunjungan" class="menu-link {{ Request::is('kader/kunjungan') ? 'active' : '' }}">
+                            <span class="menu-arrow"></span>
+                        </span>
+                        <!--end:Menu link-->
+                        <!--begin:Menu sub-->
+                        <div class="menu-sub menu-sub-accordion">
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a href="/kader/penduduk" class="menu-link {{ Request::is('kader/penduduk') ? 'active' : '' }}" >
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Semua</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a href="/kader/penduduk/lansia" class="menu-link {{ Request::is('kader/penduduk/lansia*') ? 'active' : '' }}" >
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Lansia</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a href="/kader/penduduk/pra-lansia" class="menu-link {{ Request::is('kader/penduduk/pra-lansia*') ? 'active' : '' }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Pra-Lansia</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                        </div>
+                        <!--end:Menu sub-->
+                    </div>
+                    <!--begin:Menu item-->
+                    <div class="menu-item menu-accordion">
+                        <!--begin:Menu link-->
+                        {{-- <a href="/kader/penduduk" class="menu-link {{ Request::is('kader/penduduk') ? 'active' : '' }}">
+                            <span class="menu-icon">
+                                <i class="ki-outline ki-people fs-2"></i>
+                            </span>
+                            <span class="menu-title">Penduduk</span>
+                        </a> --}}
+                        <a href="/kader/kunjungan" class="menu-link {{ Request::is('kader/kunjungan*') || Request::is('kunjungan*') ? 'active' : '' }}">
                             <span class="menu-icon">
                                 <i class="ki-outline ki-safe-home fs-2"></i>
                             </span>

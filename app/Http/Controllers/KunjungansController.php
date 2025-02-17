@@ -38,7 +38,7 @@ class KunjungansController extends Controller
         if (auth()->user()->role === 'System Administrator') {
             return view('admin.kunjungan.create', compact('dapen'));
         } elseif (auth()->user()->role === 'Puskesmas') {
-            return view('kader.kunjungan.create', compact('dapen'));
+            return view('admin.kunjungan.create', compact('dapen'));
         } elseif (auth()->user()->role === 'Kader') {
             return view('kader.kunjungan.create', compact('dapen'));
         } else {
@@ -75,6 +75,7 @@ class KunjungansController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         // Cari data Person
         $person = Persons::where('nik', $request->nik)->first();
 
@@ -83,7 +84,8 @@ class KunjungansController extends Controller
         $redirectRoutes = [
             'Puskesmas' => '/puskesmas/kunjungan',
             'Dinkes' => '/dinkes/kunjungan',
-            'Admin' => '/admin/kunjungan',
+            'System Administrator' => '/admin/kunjungan',
+            'Kader' => '/kader/kunjungan',
         ];
  
         $redirectUrl = $redirectRoutes[$role] ?? '/dashboard';
@@ -121,17 +123,39 @@ class KunjungansController extends Controller
                 'kunjungan_id' => $kunjungan->id,
             ]);
 
-            // // Hitung indikator
-            // $indicators = $this->calculateIndicators($request->all());
+            if ($person->notifikasi == "Y") {
+                // Hitung indikator
+                $indicators = $this->calculateIndicators($request->all());
+            
+                // Buat pesan WhatsApp
+                $message = $this->generateWhatsappMessage($person, $indicators, Carbon::parse($request->tanggal_kj)->translatedFormat('d F Y'));
+            
+                // Kirim notifikasi WhatsApp melalui service
+                $response = WhatsAppService::sendMessage($person->telp, $message);
+            
+                \Log::info("WhatsApp Notification Response", ['response' => $response]);
+            
+                if ($response === true) {
+                    return redirect($redirectUrl)
+                        ->with('status', 'success')
+                        ->with('message', 'Kunjungan berhasil ditambahkan, pesan berhasil dikirim!');
+                } elseif (is_array($response) && isset($response['status']) && $response['status'] === 400) {
+                    return redirect($redirectUrl)
+                        ->with('status', 'success')
+                        ->with('message', 'Kunjungan berhasil ditambahkan, namun terjadi kesalahan dalam mengirim pesan.');
+                } else {
+                    return redirect($redirectUrl)
+                        ->with('status', 'success')
+                        ->with('message', 'Kunjungan berhasil ditambahkan, tetapi pesan gagal dikirim.');
+                }
+            } else {
+                return redirect($redirectUrl)
+                    ->with('status', 'success')
+                    ->with('message', 'Kunjungan berhasil ditambahkan');
+            }
+            
 
-            // // Buat pesan WhatsApp
-            // $message = $this->generateWhatsappMessage($person, $indicators, Carbon::parse($request->tanggal_kj)->translatedFormat('d F Y'));
-
-            // // Kirim notifikasi WhatsApp melalui service
-            // WhatsAppService::sendMessage($person->telp, $message);
-
-
-            return redirect($redirectUrl)->with('status', 'success')->with('message', 'Kunjungan berhasil ditambahkan!');
+            
         } catch (\Exception $e) {
 
             // Redirect berdasarkan role
@@ -139,10 +163,11 @@ class KunjungansController extends Controller
             $redirectRoutes = [
                 'Puskesmas' => '/puskesmas/kunjungan',
                 'Dinkes' => '/dinkes/kunjungan',
-                'Admin' => '/admin/kunjungan',
+                'System Administrator' => '/admin/kunjungan',
+                'Kader' => '/kader/kunjungan',
             ];
 
-            $redirectUrl = $redirectRoutes[$role] ?? '/dashboard';
+            // $redirectUrl = $redirectRoutes[$role] ?? '/dashboard';
             return redirect($redirectUrl)->with('status', 'error')->with('message', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
@@ -151,48 +176,105 @@ class KunjungansController extends Controller
     {
         $results = [];
 
-        // Perhitungan IMT
+        // Perhitungan Index Masa Tubuh (IMT) berdasarkan WHO terbaru
         if (!empty($data['tinggi_bdn']) && !empty($data['berat_bdn'])) {
             $tinggi_m = $data['tinggi_bdn'] / 100;
-            $imt = $data['berat_bdn'] / ($tinggi_m * $tinggi_m);
-            $results['imt'] = [
+            $imt = round($data['berat_bdn'] / ($tinggi_m * $tinggi_m), 2); // Hanya 2 digit desimal
+            
+            if ($imt < 18.5) {
+                $klasifikasi = 'Berat badan kurang (Underweight)';
+                $kategori = 'Kurus';
+            } elseif ($imt >= 18.5 && $imt <= 22.9) {
+                $klasifikasi = 'Berat badan normal';
+                $kategori = 'Normal';
+            } elseif ($imt >= 23 && $imt <= 24.9) {
+                $klasifikasi = 'Kelebihan berat badan (Overweight) dengan risiko';
+                $kategori = 'Gemuk ringan';
+            } elseif ($imt >= 25 && $imt <= 29.9) {
+                $klasifikasi = 'Obesitas I';
+                $kategori = 'Gemuk berat';
+            } else {
+                $klasifikasi = 'Obesitas II';
+                $kategori = 'Obesitas';
+            }
+
+            $results['Index Masa Tubuh (IMT)'] = [
                 'nilai' => $imt,
-                'klasifikasi' => $imt < 18.5 ? 'Kurus' : ($imt < 25 ? 'Normal' : ($imt < 30 ? 'Kelebihan Berat Badan' : 'Obesitas')),
+                'klasifikasi' => $klasifikasi,
+                'kategori' => $kategori,
             ];
         } else {
-            $results['imt'] = 'Data tidak tersedia';
+            $results['Index Masa Tubuh (IMT)'] = 'Data tidak tersedia';
         }
 
         // Perhitungan Tekanan Darah
         if (!empty($data['sistole']) && !empty($data['diastole'])) {
-            $results['tekanan_darah'] = [
-                'nilai' => "{$data['sistole']}/{$data['diastole']}",
-                'klasifikasi' => $data['sistole'] < 120 && $data['diastole'] < 80 ? 'Normal' : 'Pra-Hipertensi',
+            $nilai = "{$data['sistole']}/{$data['diastole']} mmHg";
+            
+            if ($data['sistole'] < 120 && $data['diastole'] < 80) {
+                $klasifikasi = 'Normal';
+            } elseif ($data['sistole'] < 140 || $data['diastole'] < 90) {
+                $klasifikasi = 'Pra-Hipertensi';
+            } else {
+                $klasifikasi = 'Hipertensi';
+            }
+
+            $results['Tekanan Darah'] = [
+                'nilai' => $nilai,
+                'klasifikasi' => $klasifikasi,
             ];
         } else {
-            $results['tekanan_darah'] = 'Data tidak tersedia';
+            $results['Tekanan Darah'] = 'Data tidak tersedia';
         }
 
         // Perhitungan Kolesterol
         if (!empty($data['kolesterol'])) {
-            $results['kolesterol'] = $data['kolesterol'] < 200 ? 'Baik' : ($data['kolesterol'] < 240 ? 'Batas Tinggi' : 'Tinggi');
+            $nilai = "{$data['kolesterol']} mg/dL";
+            
+            if ($data['kolesterol'] < 200) {
+                $kategori = 'Normal';
+            } elseif ($data['kolesterol'] < 240) {
+                $kategori = 'Batas Tinggi';
+            } else {
+                $kategori = 'Tinggi';
+            }
+
+            $results['Kolesterol'] = [
+                'hasil' => $nilai,
+                'kategori' => $kategori,
+            ];
         } else {
-            $results['kolesterol'] = 'Data tidak tersedia';
+            $results['Kolesterol'] = 'Data tidak tersedia';
         }
 
         // Perhitungan Gula Darah
         if (!empty($data['gula_drh'])) {
-            $results['gula_darah'] = $data['gula_drh'] < 140 ? 'Normal' : ($data['gula_drh'] <= 199 ? 'Pra-Diabetes' : 'Diabetes');
+            $nilai = "{$data['gula_drh']} mg/dL";
+            
+            if ($data['gula_drh'] < 140) {
+                $kategori = 'Normal';
+            } elseif ($data['gula_drh'] <= 199) {
+                $kategori = 'Pra-Diabetes';
+            } else {
+                $kategori = 'Diabetes';
+            }
+
+            $results['Gula Darah'] = [
+                'hasil' => $nilai,
+                'kategori' => $kategori,
+            ];
         } else {
-            $results['gula_darah'] = 'Data tidak tersedia';
+            $results['Gula Darah'] = 'Data tidak tersedia';
         }
 
         return $results;
     }
 
+
     private function generateWhatsappMessage($person, $indicators, $tanggal)
     {
-        $message = "Halo, Bapak/Ibu {$person->nama},\n\nHasil Skrining Anda pada tanggal: {$tanggal} adalah sebagai berikut:\n\n";
+        $puskesmas = auth()->user()->puskesmas->nama;
+        $message = "Halo, Bapak/Ibu {$person->nama},\n\nHasil Skrining Anda pada tanggal: *{$tanggal}* di Puskesmas : *{$puskesmas}* adalah sebagai berikut:\n\n";
         $counter = 1;
 
         foreach ($indicators as $key => $indicator) {

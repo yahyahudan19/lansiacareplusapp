@@ -82,6 +82,7 @@ class PersonsController extends Controller
                 'telp' => $request->person_rw,
                 'status' => "Hidup",
                 'valid' => "Y",
+                'notifikasi' => $request->person_notifikasi,
                 'created_by' => auth()->user()->id,
                 'kelurahan_id' => $request->person_kelurahan,
             ]);
@@ -161,6 +162,7 @@ class PersonsController extends Controller
                 'rt' => $request->rt,
                 'rw' => $request->rw,
                 'kelurahan_id' => $request->kelurahan_id,
+                'notifikasi' => $request->notifikasi,
                 'edited_by' => auth()->user()->id,
                 'valid' => "Y",
 
@@ -183,6 +185,7 @@ class PersonsController extends Controller
     public function destroy($id)
     {
         //
+        
         try {
             //code...
             $persons = Persons::findOrFail($id);

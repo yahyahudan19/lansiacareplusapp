@@ -60,10 +60,10 @@
                     <!--end::Page title-->
                     <!--begin::Actions-->
                     <div class="d-flex align-items-center gap-2 gap-lg-3">
-                        <a href="#" class="btn btn-info btn-sm">
+                        <button href="#" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#kt_modal_export">
                             <i class="ki-solid ki-file-sheet"></i>
                             Export Laporan
-                        </a>
+                        </button>
                         <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#kt_modal_generate">
                             <i class="ki-solid ki-setting-2"></i>
                             Generate Laporan
@@ -78,6 +78,77 @@
                                 <form action="#" method="GET">
                                     <div class="modal-header">
                                         <h3 class="modal-title">Generate Laporan</h3>
+                                        <!--begin::Close-->
+                                        <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                                            <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                                        </div>
+                                        <!--end::Close-->
+                                    </div>
+                                    <div class="modal-body">
+                                        <!--begin::Toolbar-->
+                                        <div class="d-flex">
+                                            <div class="row">
+                                                @if (auth()->user()->role == "System Administrator" || auth()->user()->role == "Dinkes")
+                                                    <!--begin::Filter Puskesmas-->
+                                                    <div class="col-lg-8 mb-2 ">
+                                                        <label class="fs-6 form-label fw-bold text-gray-900">Puskesmas</label>
+                                                        <select class="btn btn-light me-3" data-control="select2"
+                                                            data-placeholder="Pilih Puskesmas" name="puskesmas" id="puskesmas_ex"
+                                                            data-allow-clear="true">
+                                                            <option></option>
+                                                            @foreach ($puskesmas as $pus)
+                                                                <option value="{{ $pus->kode }}">{{ $pus->nama }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <!--end::Filter Puskesmas-->
+                                                @elseif (auth()->user()->role == "Puskesmas")
+                                                    <!--begin::Filter Puskesmas-->
+                                                    <div class="col-lg-8 mb-2 ">
+                                                        <label class="fs-6 form-label fw-bold text-gray-900">Puskesmas</label>
+                                                        <select class="btn btn-light me-3" data-control="select2"
+                                                            data-placeholder="Pilih Puskesmas" name="puskesmas" id="puskesmas_ex"
+                                                            data-allow-clear="true" @readonly(true)>
+                                                            <option value="{{ auth()->user()->puskesmas->kode }}" selected>{{ auth()->user()->puskesmas->nama }}</option>
+                                                        </select>
+                                                    </div>
+                                                    <!--end::Filter Puskesmas-->
+                                                @endif
+                                                <!--begin::Filter Date-->
+                                                <div class="col-lg-4 mb-5">
+                                                    <label class="fs-6 form-label fw-bold text-gray-900">Tanggal</label>
+                                                    <br>
+                                                    <input class="btn btn-primary me-3" placeholder="Pick date rage"
+                                                        id="kt_datefilter_generate" name="date_range" />
+                                                </div>
+                                                <!--end::Filter Date-->
+                                                <!--begin::Cari Button -->
+                                                {{-- <div class="col-lg-6 mb-2">
+                                                    <button type="submit" class="btn btn-success me-3"> <i
+                                                            class="ki-outline ki-search-list fs-2"></i>Generate Laporan</button>
+                                                </div> --}}
+                                                <!--end::Cari Button -->
+                                            </div>
+                                        </div>
+                                        <!--end::Toolbar-->
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-info">Generate</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end::Generate Modal-->
+                    
+                    <!--begin::Export Modal-->
+                    <div class="modal fade" tabindex="-1" id="kt_modal_export">
+                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <div class="modal-content">
+                                <form action="/admin/laporan/exportExcel" method="GET">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title">Export Laporan</h3>
                                         <!--begin::Close-->
                                         <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
                                             <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
@@ -119,7 +190,7 @@
                                                     <label class="fs-6 form-label fw-bold text-gray-900">Tanggal</label>
                                                     <br>
                                                     <input class="btn btn-primary me-3" placeholder="Pick date rage"
-                                                        id="kt_datefilter_puskesmas" name="date_range" />
+                                                        id="kt_datefilter_export" name="date_range" />
                                                 </div>
                                                 <!--end::Filter Date-->
                                                 <!--begin::Cari Button -->
@@ -134,13 +205,13 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-info">Generate</button>
+                                        <button type="submit" class="btn btn-info">Export</button>
                                     </div>
                                 </form>
                             </div>
                         </div>
                     </div>
-                    <!--end::Generate Modal-->
+                    <!--end::Export Modal-->
 
                 </div>
                 <!--end::Toolbar wrapper-->
@@ -387,16 +458,16 @@
     </script> --}}
     <!--end:: Page Loader Javascript-->
 
-    <!--begin::Filter Puskemsas-->
+    <!--begin::Filter Puskemsas Generate-->
     <script>
         var start = moment().subtract(29, "days");
         var end = moment();
 
         function cb(start, end) {
-            $("#kt_datefilter_puskesmas").html(start.format("MMMM D, YYYY") + " - " + end.format("MMMM D, YYYY"));
+            $("#kt_datefilter_generate").html(start.format("MMMM D, YYYY") + " - " + end.format("MMMM D, YYYY"));
         }
 
-        $("#kt_datefilter_puskesmas").daterangepicker({
+        $("#kt_datefilter_generate").daterangepicker({
             startDate: start,
             endDate: end,
             ranges: {
@@ -412,7 +483,34 @@
 
         cb(start, end);
     </script>
-    <!--end::Filter Puskemsas-->
+    <!--end::Filter Puskemsas Generate-->
+
+    <!--begin::Filter Puskemsas Export-->
+    <script>
+        var start = moment().subtract(29, "days");
+        var end = moment();
+
+        function cb(start, end) {
+            $("#kt_datefilter_export").html(start.format("MMMM D, YYYY") + " - " + end.format("MMMM D, YYYY"));
+        }
+
+        $("#kt_datefilter_export").daterangepicker({
+            startDate: start,
+            endDate: end,
+            ranges: {
+                "Hari Ini": [moment(), moment()],
+                "Kemarin": [moment().subtract(1, "days"), moment().subtract(1, "days")],
+                "7 Hari Terakhir": [moment().subtract(6, "days"), moment()],
+                "30 Hari Terakhir": [moment().subtract(29, "days"), moment()],
+                "Bulan Ini": [moment().startOf("month"), moment().endOf("month")],
+                "Bulan Lalu": [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf(
+                    "month")]
+            }
+        }, cb);
+
+        cb(start, end);
+    </script>
+    <!--end::Filter Puskemsas Export-->
 
     <!-- begin sessions -->
     @if (session('status') && session('message'))

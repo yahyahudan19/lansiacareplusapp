@@ -104,7 +104,11 @@
                             </div>
                             <!--end::Nav-->
                             <!--begin::Form-->
-                            <form class="mx-auto mw-600px w-100 pt-15 pb-10" novalidate="novalidate" id="kt_create_account_form" method="POST" action="/admin/kunjungan/store">
+                            @if (Auth::user()->role == "System Administrator")
+                                <form class="mx-auto mw-600px w-100 pt-15 pb-10" novalidate="novalidate" id="kt_create_account_form" method="POST" action="/admin/kunjungan/store">
+                            @else
+                                <form class="mx-auto mw-600px w-100 pt-15 pb-10" novalidate="novalidate" id="kt_create_account_form" method="POST" action="/puskesmas/kunjungan/store">
+                            @endif
                                 <!--begin::Step 1-->
                                 <div class="current" data-kt-stepper-element="content">
                                     @csrf
@@ -541,41 +545,21 @@
                                             <!--end::Input-->
                                         </div>
                                         <!--end::Input group-->
+
                                         <!--begin::Input group-->
-                                        <div class="fv-row mb-5">
+                                        <div class="fv-row mb-10">
                                             <!--begin::Label-->
-                                            <label class="d-flex align-items-center form-label">
-                                                <span class="required">Asam Urat</span>
-                                            </label>
+                                            <label class="required fw-semibold fs-6 mb-2">Asam Urat</label>
                                             <!--end::Label-->
+
                                             <!--begin::Input-->
-                                            <!--begin::Dialer-->
-                                            <div class="position-relative"
-                                            data-kt-dialer="true"
-                                            data-kt-dialer-min="0"
-                                            data-kt-dialer-max="300"
-                                            data-kt-dialer-step="1">
-
-                                            <!--begin::Decrease control-->
-                                            <button type="button" class="btn btn-icon btn-active-color-gray-700 position-absolute translate-middle-y top-50 start-0" data-kt-dialer-control="decrease">
-                                                <i class="ki-duotone ki-minus-square fs-2"><span class="path1"></span><span class="path2"></span></i>
-                                            </button>
-                                            <!--end::Decrease control-->
-
-                                            <!--begin::Input control-->
-                                            <input type="text" class="form-control form-control-solid border-0 ps-12" data-kt-dialer-control="input" placeholder="Amount" name="asam_urat" value="0" />
-                                            <!--end::Input control-->
-
-                                            <!--begin::Increase control-->
-                                            <button type="button" class="btn btn-icon btn-active-color-gray-700 position-absolute translate-middle-y top-50 end-0" data-kt-dialer-control="increase">
-                                                <i class="ki-duotone ki-plus-square fs-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                                            </button>
-                                            <!--end::Increase control-->
-                                            </div>
-                                            <!--end::Dialer-->
+                                            <input type="text" name="asam_urat" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="" value="00.00" />
                                             <!--end::Input-->
+                                            <div class="form-text">Ganti tanda koma (,) dengan tanda titik(.) <b>Misalkan 10.7</b></div>
+
                                         </div>
                                         <!--end::Input group-->
+
                                         <!--begin::Input group-->
                                         <div class="fv-row mb-5">
                                              <!--begin::Label-->
@@ -692,7 +676,9 @@
                                                 <option></option>
                                                 <option value="A" selected>Mandiri (A) : Dapat melakukan aktivitas sendiri tanpa bantuan orang lain</option>
                                                 <option value="B">Ketergantungan Ringan (B) : Membutuhkan bantuan orang lain dalam melakukan aktivitas tertentu/memakai kursi roda</option>
+                                                <option value="B1">Ketergantungan Sedang (B) : XX</option>
                                                 <option value="C">Ketergantungan Berat (C) : Hanya bisa beraktivitas diatas tempat tidur</option>
+                                                <option value="D">Ketergantungan Total (D) : XX</option>
                                             </select>
                                             
                                         </div>
@@ -1015,6 +1001,11 @@
                                 validators: {
                                     notEmpty: {
                                         message: 'Field is required'
+                                    },
+                                    stringLength: {
+                                        min: 3,
+                                        max: 3,
+                                        message: 'Tinggi harus 3 digit'
                                     }
                                 }
                             },
@@ -1022,6 +1013,11 @@
                                 validators: {
                                     notEmpty: {
                                         message: 'Field is required'
+                                    },
+                                    stringLength: {
+                                        min: 2,
+                                        max: 3,
+                                        message: 'Nilai minimal 2 digit'
                                     }
                                 }
                             },
@@ -1029,6 +1025,11 @@
                                 validators: {
                                     notEmpty: {
                                         message: 'Field is required'
+                                    },
+                                    stringLength: {
+                                        min: 2,
+                                        max: 3,
+                                        message: 'Nilai minimal 2 digit'
                                     }
                                 }
                             },
@@ -1036,6 +1037,11 @@
                                 validators: {
                                     notEmpty: {
                                         message: 'Field is required'
+                                    },
+                                    stringLength: {
+                                        min: 2,
+                                        max: 3,
+                                        message: 'Nilai minimal 2 digit'
                                     }
                                 }
                             },
@@ -1043,6 +1049,11 @@
                                 validators: {
                                     notEmpty: {
                                         message: 'Field is required'
+                                    },
+                                    stringLength: {
+                                        min: 2,
+                                        max: 3,
+                                        message: 'Nilai minimal 2 digit'
                                     }
                                 }
                             },
@@ -1050,10 +1061,27 @@
                                 validators: {
                                     notEmpty: {
                                         message: 'Field is required'
+                                    },
+                                    stringLength: {
+                                        min: 3,
+                                        max: 3,
+                                        message: 'Nilai minimal 2 digit'
                                     }
                                 }
                             },
                             'kolesterol': {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Field is required'
+                                    }
+                                },
+                                    stringLength: {
+                                        min: 3,
+                                        max: 3,
+                                        message: 'Nilai minimal 2 digit'
+                                    }
+                            },
+                            'tanggal_kj': {
                                 validators: {
                                     notEmpty: {
                                         message: 'Field is required'
@@ -1064,8 +1092,16 @@
                                 validators: {
                                     notEmpty: {
                                         message: 'Field is required'
+                                    },
+                                    numeric: {
+                                        message: 'The value must be a decimal number'
                                     }
-                                }
+                                },
+                                stringLength: {
+                                        min: 3,
+                                        max: 3,
+                                        message: 'Nilai minimal 2 digit'
+                                    }
                             }
                             
                         },

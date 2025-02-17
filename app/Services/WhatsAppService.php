@@ -19,23 +19,37 @@ class WhatsAppService
         $apiKey = $whatsappConfig->api_key;
         $sender = $whatsappConfig->nomor_whatsapp;
         $endpoint = $whatsappConfig->endpoint;
+        $type_message = $whatsappConfig->type_message;
 
         // Format nomor telepon agar menggunakan kode negara +62
-        if (substr($phoneNumber, 0, 1) === "0") {
-            $phoneNumber = "62" . substr($phoneNumber, 1);
+        $phoneNumber = ltrim($phoneNumber, '0'); // Hilangkan angka 0 di depan
+        if (substr($phoneNumber, 0, 2) !== "62") {
+            $phoneNumber = "62" . $phoneNumber;
         }
 
         // Kirim pesan
-        $response = Http::get($endpoint, [
+        $response = Http::get($endpoint . $type_message, [
             'api_key' => $apiKey,
             'sender' => $sender,
             'number' => $phoneNumber,
             'message' => $message,
         ]);
 
-        return $response->successful();
+        // Debugging respons API
+        \Log::info("WhatsApp API Response", ['body' => $response->body()]);
+
+        // Decode respons API secara manual jika diperlukan
+        $responseBody = json_decode($response->body(), true);
+
+        if ($response->successful() && isset($responseBody['status']) && $responseBody['status'] === true) {
+            return true;
+        }
+
+        return [
+            'success' => false,
+            'status' => $response->status(),
+            'body' => $responseBody
+        ];
     }
 }
-
-
 ?>

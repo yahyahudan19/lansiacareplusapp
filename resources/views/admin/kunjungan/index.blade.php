@@ -361,6 +361,55 @@
                                 </div>
                             </div>
                             <!--begin::Modal Search Person-->
+                        @else
+                            <!--begin::Modal Search Person-->
+                            <div class="modal fade" tabindex="-1" id="kt_modal_1">
+                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                    <div class="modal-content">
+                                        <form id="kt_docs_formvalidation_text" class="form" action="/kader/kunjungan/tambah" autocomplete="off" method="POST">
+                                            @csrf
+                                            <div class="modal-header">
+                                                <h3 class="modal-title">Cari Data Penduduk</h3>
+                                
+                                                <!--begin::Close-->
+                                                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                                                    <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                                                </div>
+                                                <!--end::Close-->
+                                            </div>
+                                
+                                            <div class="modal-body">
+                                                <!--begin::Input group-->
+                                                <div class="fv-row mb-10">
+                                                    <!--begin::Label-->
+                                                    <center><label class="required fw-semibold fs-6 mb-2 ">Masukkan NIK untuk Menambahkan Data Kunjungan !</label></center>
+                                                    <!--end::Label-->
+
+                                                    <!--begin::Input-->
+                                                    <input type="text" name="nik" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="" value="" />
+                                                    <!--end::Input-->
+                                                </div>
+                                                <!--end::Input group-->
+                                            </div>
+                                
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                                <!--begin::Actions-->
+                                                <button id="kt_docs_formvalidation_text_submit" type="submit" class="btn btn-primary">
+                                                    <span class="indicator-label">
+                                                        Cari Penduduk
+                                                    </span>
+                                                    <span class="indicator-progress">
+                                                        Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                                    </span>
+                                                </button>
+                                                <!--end::Actions-->
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--begin::Modal Search Person-->
                         @endif
                         
 
@@ -448,10 +497,16 @@
                                                 <div class="menu-item px-3">
                                                     <a href="/dinkes/kunjungan/{{$kj->person_id}}" class="menu-link px-3">Detail</a>
                                                 </div>
-                                            @else
+                                            @elseif(Auth::user()->role == "Puskesmas")
                                                 <!--begin::Menu item-->
                                                 <div class="menu-item px-3">
                                                     <a href="/puskesmas/kunjungan/{{$kj->person_id}}" class="menu-link px-3">Detail</a>
+                                                </div>
+                                                <!--end::Menu item-->
+                                            @else
+                                                <!--begin::Menu item-->
+                                                <div class="menu-item px-3">
+                                                    <a href="/kader/kunjungan/{{$kj->person_id}}" class="menu-link px-3">Detail</a>
                                                 </div>
                                                 <!--end::Menu item-->
                                             @endif
@@ -934,6 +989,10 @@
                                 min: 16,
                                 max: 16,
                                 message: 'NIK harus 16 digit'
+                            },
+                            regexp: {
+                                regexp: /^[0-9]+$/,
+                                message: 'NIK harus berupa angka'
                             }
                         }
                     },

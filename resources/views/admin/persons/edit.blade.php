@@ -223,6 +223,22 @@
                                                     <!--end::Description-->
                                                 </div>
                                                 <!--end::Input group-->
+                                                <!--begin::Input group-->
+                                                <div class="fv-row w-100 flex-md-root">
+                                                    <!--begin::Label-->
+                                                    <label class="required form-label">Notifikasi</label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Select2-->
+                                                    <select class="form-select mb-2" name="notifikasi" data-control="select2" data-placeholder="Select a Notifikasi">
+                                                        <option value="Y" {{ $persons->notifikasi == 'Y' ? 'selected' : '' }}>Iya</option>
+                                                        <option value="N" {{ $persons->notifikasi == 'N' ? 'selected' : '' }}>Tidak</option>
+                                                    </select>
+                                                    <!--end::Select2-->
+                                                    <!--begin::Description-->
+                                                    {{-- <div class="text-muted fs-7">Set the product tax class.</div> --}}
+                                                    <!--end::Description-->
+                                                </div>
+                                                <!--end::Input group-->
                                             </div>
                                             <!--end::Input group-->
 
@@ -371,6 +387,15 @@
                                 validators: {
                                     notEmpty: {
                                         message: 'NIK is required'
+                                    },
+                                    stringLength: {
+                                        min: 16,
+                                        max: 16,
+                                        message: 'NIK harus 16 digit'
+                                    },
+                                    regexp: {
+                                        regexp: /^[0-9]+$/,
+                                        message: 'NIK harus berupa angka'
                                     }
                                 }
                             },

@@ -78,89 +78,45 @@
                     <!--begin::Content-->
                     <div class="flex-lg-row-fluid me-lg-15 order-2 order-lg-1 mb-10 mb-lg-0">
                         <!--begin::Form-->
-                        <form id="kt_docs_formvalidation_text" class="form" action="/puskesmas/kunjungan/store" autocomplete="off" method="POST" >
-                            @csrf
-                            <!--begin::Skrining-->
-                            <div class="card card-flush pt-3 mb-5 mb-lg-10">
-                                <!--begin::Card header-->
-                                <div class="card-header">
-                                    <!--begin::Card title-->
-                                    <div class="card-title">
-                                        <h2 class="fw-bold">Data Skrining</h2>
-                                    </div>
-                                    <!--begin::Card title-->
+                        @if (Auth::user()->role == 'Kader')
+                            <form id="kt_docs_formvalidation_text" class="form" action="/kader/kunjungan/store"
+                                autocomplete="off" method="POST">
+                            @else
+                                <form id="kt_docs_formvalidation_text" class="form" action="/puskesmas/kunjungan/store"
+                                    autocomplete="off" method="POST">
+                        @endif
+                        @csrf
+                        <!--begin::Skrining-->
+                        <div class="card card-flush pt-3 mb-5 mb-lg-10">
+                            <!--begin::Card header-->
+                            <div class="card-header">
+                                <!--begin::Card title-->
+                                <div class="card-title">
+                                    <h2 class="fw-bold">Data Skrining</h2>
                                 </div>
-                                <!--end::Card header-->
-                                <!--begin::Card body-->
-                                <div class="card-body pt-0">
-                                    <!--begin::Description-->
-                                    {{-- <div class="text-gray-500 fw-semibold fs-5 mb-5">:</div> --}}
-                                    <!--end::Description-->
+                                <!--begin::Card title-->
+                            </div>
+                            <!--end::Card header-->
+                            <!--begin::Card body-->
+                            <div class="card-body pt-0">
+                                <!--begin::Description-->
+                                {{-- <div class="text-gray-500 fw-semibold fs-5 mb-5">:</div> --}}
+                                <!--end::Description-->
 
-                                    <!--begin::Input group-->
-                                    <div class="row mb-5">
-                                        <!--begin::Col-->
-                                        <div class="col-md-4 fv-row">
-                                            <!--begin::Label-->
-                                            <label class="required fs-6 fw-semibold mb-2">Tinggi Badan (cm)</label>
-                                            <!--end::Label-->
-                                            <!--begin::Row-->
-                                            <div class="row fv-row">
-                                                <!--begin::Col-->
-                                                <div class="col-12">
-                                                    <!--begin::Dialer-->
-                                                    <div class="position-relative" data-kt-dialer="true"
-                                                        data-kt-dialer-min="0" data-kt-dialer-max="300"
-                                                        data-kt-dialer-step="1">
-
-                                                        <!--begin::Decrease control-->
-                                                        <button type="button"
-                                                            class="btn btn-icon btn-active-color-gray-700 position-absolute translate-middle-y top-50 start-0"
-                                                            data-kt-dialer-control="decrease">
-                                                            <i class="ki-duotone ki-minus-square fs-2"><span
-                                                                    class="path1"></span><span class="path2"></span></i>
-                                                        </button>
-                                                        <!--end::Decrease control-->
-
-                                                        <!--begin::Input control-->
-                                                        <input type="text"
-                                                            class="form-control form-control-solid border-0 ps-12"
-                                                            data-kt-dialer-control="input" placeholder="Amount"
-                                                            name="tinggi_bdn" value="100" />
-                                                        <!--end::Input control-->
-
-                                                        <!--begin::Increase control-->
-                                                        <button type="button"
-                                                            class="btn btn-icon btn-active-color-gray-700 position-absolute translate-middle-y top-50 end-0"
-                                                            data-kt-dialer-control="increase">
-                                                            <i class="ki-duotone ki-plus-square fs-2"><span
-                                                                    class="path1"></span><span class="path2"></span><span
-                                                                    class="path3"></span></i>
-                                                        </button>
-                                                        <!--end::Increase control-->
-                                                    </div>
-                                                    <!--end::Dialer-->
-                                                </div>
-                                                <!--end::Col-->
-                                            </div>
-                                            <!--end::Row-->
-                                        </div>
-                                        <!--end::Col-->
-                                        <!--begin::Col-->
-                                        <div class="col-md-4 fv-row">
-                                            <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                                <span class="required">Berat Badan (Kg)</span>
-                                                <span class="ms-1" data-bs-toggle="tooltip" title="Enter a card CVV code">
-                                                    <i class="ki-outline ki-information-5 text-gray-500 fs-6"></i>
-                                                </span>
-                                            </label>
-                                            <!--end::Label-->
-                                            <!--begin::Input wrapper-->
-                                            <div class="position-relative">
+                                <!--begin::Input group-->
+                                <div class="row mb-5">
+                                    <!--begin::Col-->
+                                    <div class="col-md-4 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="required fs-6 fw-semibold mb-2">Tinggi Badan (cm)</label>
+                                        <!--end::Label-->
+                                        <!--begin::Row-->
+                                        <div class="row fv-row">
+                                            <!--begin::Col-->
+                                            <div class="col-12">
                                                 <!--begin::Dialer-->
                                                 <div class="position-relative" data-kt-dialer="true" data-kt-dialer-min="0"
-                                                    data-kt-dialer-max="200" data-kt-dialer-step="1">
+                                                    data-kt-dialer-max="300" data-kt-dialer-step="1">
 
                                                     <!--begin::Decrease control-->
                                                     <button type="button"
@@ -174,8 +130,8 @@
                                                     <!--begin::Input control-->
                                                     <input type="text"
                                                         class="form-control form-control-solid border-0 ps-12"
-                                                        data-kt-dialer-control="input" placeholder="Amount" name="berat_bdn"
-                                                        value="30" />
+                                                        data-kt-dialer-control="input" placeholder="Amount"
+                                                        name="tinggi_bdn" value="100" />
                                                     <!--end::Input control-->
 
                                                     <!--begin::Increase control-->
@@ -190,25 +146,121 @@
                                                 </div>
                                                 <!--end::Dialer-->
                                             </div>
-                                            <!--end::Input wrapper-->
+                                            <!--end::Col-->
                                         </div>
-                                        <!--end::Col-->
-                                        <!--begin::Col-->
-                                        <div class="col-md-4 fv-row">
-                                            <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                                <span class="required">Lingkar Perut (cm)</span>
-                                                <span class="ms-1" data-bs-toggle="tooltip"
-                                                    title="Enter a card CVV code">
-                                                    <i class="ki-outline ki-information-5 text-gray-500 fs-6"></i>
-                                                </span>
-                                            </label>
-                                            <!--end::Label-->
-                                            <!--begin::Input wrapper-->
-                                            <div class="position-relative">
+                                        <!--end::Row-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-4 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                            <span class="required">Berat Badan (Kg)</span>
+                                            <span class="ms-1" data-bs-toggle="tooltip" title="Enter a card CVV code">
+                                                <i class="ki-outline ki-information-5 text-gray-500 fs-6"></i>
+                                            </span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input wrapper-->
+                                        <div class="position-relative">
+                                            <!--begin::Dialer-->
+                                            <div class="position-relative" data-kt-dialer="true" data-kt-dialer-min="0"
+                                                data-kt-dialer-max="200" data-kt-dialer-step="1">
+
+                                                <!--begin::Decrease control-->
+                                                <button type="button"
+                                                    class="btn btn-icon btn-active-color-gray-700 position-absolute translate-middle-y top-50 start-0"
+                                                    data-kt-dialer-control="decrease">
+                                                    <i class="ki-duotone ki-minus-square fs-2"><span
+                                                            class="path1"></span><span class="path2"></span></i>
+                                                </button>
+                                                <!--end::Decrease control-->
+
+                                                <!--begin::Input control-->
+                                                <input type="text" class="form-control form-control-solid border-0 ps-12"
+                                                    data-kt-dialer-control="input" placeholder="Amount" name="berat_bdn"
+                                                    value="30" />
+                                                <!--end::Input control-->
+
+                                                <!--begin::Increase control-->
+                                                <button type="button"
+                                                    class="btn btn-icon btn-active-color-gray-700 position-absolute translate-middle-y top-50 end-0"
+                                                    data-kt-dialer-control="increase">
+                                                    <i class="ki-duotone ki-plus-square fs-2"><span
+                                                            class="path1"></span><span class="path2"></span><span
+                                                            class="path3"></span></i>
+                                                </button>
+                                                <!--end::Increase control-->
+                                            </div>
+                                            <!--end::Dialer-->
+                                        </div>
+                                        <!--end::Input wrapper-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-4 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                            <span class="required">Lingkar Perut (cm)</span>
+                                            <span class="ms-1" data-bs-toggle="tooltip" title="Enter a card CVV code">
+                                                <i class="ki-outline ki-information-5 text-gray-500 fs-6"></i>
+                                            </span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input wrapper-->
+                                        <div class="position-relative">
+                                            <!--begin::Dialer-->
+                                            <div class="position-relative" data-kt-dialer="true" data-kt-dialer-min="0"
+                                                data-kt-dialer-max="200" data-kt-dialer-step="1">
+
+                                                <!--begin::Decrease control-->
+                                                <button type="button"
+                                                    class="btn btn-icon btn-active-color-gray-700 position-absolute translate-middle-y top-50 start-0"
+                                                    data-kt-dialer-control="decrease">
+                                                    <i class="ki-duotone ki-minus-square fs-2"><span
+                                                            class="path1"></span><span class="path2"></span></i>
+                                                </button>
+                                                <!--end::Decrease control-->
+
+                                                <!--begin::Input control-->
+                                                <input type="text"
+                                                    class="form-control form-control-solid border-0 ps-12"
+                                                    data-kt-dialer-control="input" placeholder="Amount"
+                                                    name="lingkar_prt" value="1" />
+                                                <!--end::Input control-->
+
+                                                <!--begin::Increase control-->
+                                                <button type="button"
+                                                    class="btn btn-icon btn-active-color-gray-700 position-absolute translate-middle-y top-50 end-0"
+                                                    data-kt-dialer-control="increase">
+                                                    <i class="ki-duotone ki-plus-square fs-2"><span
+                                                            class="path1"></span><span class="path2"></span><span
+                                                            class="path3"></span></i>
+                                                </button>
+                                                <!--end::Increase control-->
+                                            </div>
+                                            <!--end::Dialer-->
+
+                                        </div>
+                                        <!--end::Input wrapper-->
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row mb-5">
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="required fs-6 fw-semibold form-label mb-2">Diastole</label>
+                                        <!--end::Label-->
+                                        <!--begin::Row-->
+                                        <div class="row fv-row">
+                                            <!--begin::Col-->
+                                            <div class="col-12">
                                                 <!--begin::Dialer-->
                                                 <div class="position-relative" data-kt-dialer="true"
-                                                    data-kt-dialer-min="0" data-kt-dialer-max="200"
+                                                    data-kt-dialer-min="0" data-kt-dialer-max="300"
                                                     data-kt-dialer-step="1">
 
                                                     <!--begin::Decrease control-->
@@ -224,108 +276,7 @@
                                                     <input type="text"
                                                         class="form-control form-control-solid border-0 ps-12"
                                                         data-kt-dialer-control="input" placeholder="Amount"
-                                                        name="lingkar_prt" value="1" />
-                                                    <!--end::Input control-->
-
-                                                    <!--begin::Increase control-->
-                                                    <button type="button"
-                                                        class="btn btn-icon btn-active-color-gray-700 position-absolute translate-middle-y top-50 end-0"
-                                                        data-kt-dialer-control="increase">
-                                                        <i class="ki-duotone ki-plus-square fs-2"><span
-                                                                class="path1"></span><span class="path2"></span><span
-                                                                class="path3"></span></i>
-                                                    </button>
-                                                    <!--end::Increase control-->
-                                                </div>
-                                                <!--end::Dialer-->
-
-                                            </div>
-                                            <!--end::Input wrapper-->
-                                        </div>
-                                        <!--end::Col-->
-                                    </div>
-                                    <!--end::Input group-->
-                                    <!--begin::Input group-->
-                                    <div class="row mb-5">
-                                        <!--begin::Col-->
-                                        <div class="col-md-6 fv-row">
-                                            <!--begin::Label-->
-                                            <label class="required fs-6 fw-semibold form-label mb-2">Diastole</label>
-                                            <!--end::Label-->
-                                            <!--begin::Row-->
-                                            <div class="row fv-row">
-                                                <!--begin::Col-->
-                                                <div class="col-12">
-                                                    <!--begin::Dialer-->
-                                                    <div class="position-relative" data-kt-dialer="true"
-                                                        data-kt-dialer-min="0" data-kt-dialer-max="300"
-                                                        data-kt-dialer-step="1">
-
-                                                        <!--begin::Decrease control-->
-                                                        <button type="button"
-                                                            class="btn btn-icon btn-active-color-gray-700 position-absolute translate-middle-y top-50 start-0"
-                                                            data-kt-dialer-control="decrease">
-                                                            <i class="ki-duotone ki-minus-square fs-2"><span
-                                                                    class="path1"></span><span class="path2"></span></i>
-                                                        </button>
-                                                        <!--end::Decrease control-->
-
-                                                        <!--begin::Input control-->
-                                                        <input type="text"
-                                                            class="form-control form-control-solid border-0 ps-12"
-                                                            data-kt-dialer-control="input" placeholder="Amount"
-                                                            name="diastole" value="100" />
-                                                        <!--end::Input control-->
-
-                                                        <!--begin::Increase control-->
-                                                        <button type="button"
-                                                            class="btn btn-icon btn-active-color-gray-700 position-absolute translate-middle-y top-50 end-0"
-                                                            data-kt-dialer-control="increase">
-                                                            <i class="ki-duotone ki-plus-square fs-2"><span
-                                                                    class="path1"></span><span
-                                                                    class="path2"></span><span class="path3"></span></i>
-                                                        </button>
-                                                        <!--end::Increase control-->
-                                                    </div>
-                                                    <!--end::Dialer-->
-                                                </div>
-                                                <!--end::Col-->
-                                            </div>
-                                            <!--end::Row-->
-                                        </div>
-                                        <!--end::Col-->
-                                        <!--begin::Col-->
-                                        <div class="col-md-6 fv-row">
-                                            <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                                <span class="required">Sistole</span>
-                                                <span class="ms-1" data-bs-toggle="tooltip"
-                                                    title="Enter a card CVV code">
-                                                    <i class="ki-outline ki-information-5 text-gray-500 fs-6"></i>
-                                                </span>
-                                            </label>
-                                            <!--end::Label-->
-                                            <!--begin::Input wrapper-->
-                                            <div class="position-relative">
-                                                <!--begin::Dialer-->
-                                                <div class="position-relative" data-kt-dialer="true"
-                                                    data-kt-dialer-min="0" data-kt-dialer-max="200"
-                                                    data-kt-dialer-step="1">
-
-                                                    <!--begin::Decrease control-->
-                                                    <button type="button"
-                                                        class="btn btn-icon btn-active-color-gray-700 position-absolute translate-middle-y top-50 start-0"
-                                                        data-kt-dialer-control="decrease">
-                                                        <i class="ki-duotone ki-minus-square fs-2"><span
-                                                                class="path1"></span><span class="path2"></span></i>
-                                                    </button>
-                                                    <!--end::Decrease control-->
-
-                                                    <!--begin::Input control-->
-                                                    <input type="text"
-                                                        class="form-control form-control-solid border-0 ps-12"
-                                                        data-kt-dialer-control="input" placeholder="Amount"
-                                                        name="sistole" value="30" />
+                                                        name="diastole" value="100" />
                                                     <!--end::Input control-->
 
                                                     <!--begin::Increase control-->
@@ -340,153 +291,173 @@
                                                 </div>
                                                 <!--end::Dialer-->
                                             </div>
-                                            <!--end::Input wrapper-->
+                                            <!--end::Col-->
                                         </div>
-                                        <!--end::Col-->
-
+                                        <!--end::Row-->
                                     </div>
-                                    <!--end::Input group-->
-                                    <!--begin::Input group-->
-                                    <div class="fv-row mb-5">
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
                                         <!--begin::Label-->
-                                        <label class="d-flex align-items-center form-label">
-                                            <span class="required">Gula Darah</span>
+                                        <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                            <span class="required">Sistole</span>
+                                            <span class="ms-1" data-bs-toggle="tooltip" title="Enter a card CVV code">
+                                                <i class="ki-outline ki-information-5 text-gray-500 fs-6"></i>
+                                            </span>
                                         </label>
                                         <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <!--begin::Dialer-->
-                                        <div class="position-relative" data-kt-dialer="true" data-kt-dialer-min="0"
-                                            data-kt-dialer-max="300" data-kt-dialer-step="1">
+                                        <!--begin::Input wrapper-->
+                                        <div class="position-relative">
+                                            <!--begin::Dialer-->
+                                            <div class="position-relative" data-kt-dialer="true" data-kt-dialer-min="0"
+                                                data-kt-dialer-max="200" data-kt-dialer-step="1">
 
-                                            <!--begin::Decrease control-->
-                                            <button type="button"
-                                                class="btn btn-icon btn-active-color-gray-700 position-absolute translate-middle-y top-50 start-0"
-                                                data-kt-dialer-control="decrease">
-                                                <i class="ki-duotone ki-minus-square fs-2"><span
-                                                        class="path1"></span><span class="path2"></span></i>
-                                            </button>
-                                            <!--end::Decrease control-->
+                                                <!--begin::Decrease control-->
+                                                <button type="button"
+                                                    class="btn btn-icon btn-active-color-gray-700 position-absolute translate-middle-y top-50 start-0"
+                                                    data-kt-dialer-control="decrease">
+                                                    <i class="ki-duotone ki-minus-square fs-2"><span
+                                                            class="path1"></span><span class="path2"></span></i>
+                                                </button>
+                                                <!--end::Decrease control-->
 
-                                            <!--begin::Input control-->
-                                            <input type="text" class="form-control form-control-solid border-0 ps-12"
-                                                data-kt-dialer-control="input" placeholder="Amount" name="gula_drh"
-                                                value="100" />
-                                            <!--end::Input control-->
+                                                <!--begin::Input control-->
+                                                <input type="text"
+                                                    class="form-control form-control-solid border-0 ps-12"
+                                                    data-kt-dialer-control="input" placeholder="Amount" name="sistole"
+                                                    value="30" />
+                                                <!--end::Input control-->
 
-                                            <!--begin::Increase control-->
-                                            <button type="button"
-                                                class="btn btn-icon btn-active-color-gray-700 position-absolute translate-middle-y top-50 end-0"
-                                                data-kt-dialer-control="increase">
-                                                <i class="ki-duotone ki-plus-square fs-2"><span
-                                                        class="path1"></span><span class="path2"></span><span
-                                                        class="path3"></span></i>
-                                            </button>
-                                            <!--end::Increase control-->
+                                                <!--begin::Increase control-->
+                                                <button type="button"
+                                                    class="btn btn-icon btn-active-color-gray-700 position-absolute translate-middle-y top-50 end-0"
+                                                    data-kt-dialer-control="increase">
+                                                    <i class="ki-duotone ki-plus-square fs-2"><span
+                                                            class="path1"></span><span class="path2"></span><span
+                                                            class="path3"></span></i>
+                                                </button>
+                                                <!--end::Increase control-->
+                                            </div>
+                                            <!--end::Dialer-->
                                         </div>
-                                        <!--end::Dialer-->
-                                        <!--end::Input-->
-                                        <!--begin::Hint-->
-                                        <div class="form-text">Sewaktu Puasa atau Tidak Puasa</div>
-                                        <!--end::Hint-->
+                                        <!--end::Input wrapper-->
                                     </div>
-                                    <!--end::Input group-->
-                                    <!--begin::Input group-->
-                                    <div class="fv-row mb-5">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center form-label">
-                                            <span class="required">Kolesterol</span>
-                                        </label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <!--begin::Dialer-->
-                                        <div class="position-relative" data-kt-dialer="true" data-kt-dialer-min="0"
-                                            data-kt-dialer-max="300" data-kt-dialer-step="1">
+                                    <!--end::Col-->
 
-                                            <!--begin::Decrease control-->
-                                            <button type="button"
-                                                class="btn btn-icon btn-active-color-gray-700 position-absolute translate-middle-y top-50 start-0"
-                                                data-kt-dialer-control="decrease">
-                                                <i class="ki-duotone ki-minus-square fs-2"><span
-                                                        class="path1"></span><span class="path2"></span></i>
-                                            </button>
-                                            <!--end::Decrease control-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="fv-row mb-5">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center form-label">
+                                        <span class="required">Gula Darah</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <!--begin::Dialer-->
+                                    <div class="position-relative" data-kt-dialer="true" data-kt-dialer-min="0"
+                                        data-kt-dialer-max="300" data-kt-dialer-step="1">
 
-                                            <!--begin::Input control-->
-                                            <input type="text" class="form-control form-control-solid border-0 ps-12"
-                                                data-kt-dialer-control="input" placeholder="Amount" name="kolesterol"
-                                                value="0" />
-                                            <!--end::Input control-
+                                        <!--begin::Decrease control-->
+                                        <button type="button"
+                                            class="btn btn-icon btn-active-color-gray-700 position-absolute translate-middle-y top-50 start-0"
+                                            data-kt-dialer-control="decrease">
+                                            <i class="ki-duotone ki-minus-square fs-2"><span class="path1"></span><span
+                                                    class="path2"></span></i>
+                                        </button>
+                                        <!--end::Decrease control-->
 
-                                                            <!- begin::Increase control-->
-                                            <button type="button"
-                                                class="btn btn-icon btn-active-color-gray-700 position-absolute translate-middle-y top-50 end-0"
-                                                data-kt-dialer-control="increase">
-                                                <i class="ki-duotone ki-plus-square fs-2"><span
-                                                        class="path1"></span><span class="path2"></span><span
-                                                        class="path3"></span></i>
-                                            </button>
-                                            <!--end::Increase control-->
-                                        </div>
-                                        <!--end::Dialer-->
-                                        <!--end::Input-->
+                                        <!--begin::Input control-->
+                                        <input type="text" class="form-control form-control-solid border-0 ps-12"
+                                            data-kt-dialer-control="input" placeholder="Amount" name="gula_drh"
+                                            value="100" />
+                                        <!--end::Input control-->
+
+                                        <!--begin::Increase control-->
+                                        <button type="button"
+                                            class="btn btn-icon btn-active-color-gray-700 position-absolute translate-middle-y top-50 end-0"
+                                            data-kt-dialer-control="increase">
+                                            <i class="ki-duotone ki-plus-square fs-2"><span class="path1"></span><span
+                                                    class="path2"></span><span class="path3"></span></i>
+                                        </button>
+                                        <!--end::Increase control-->
                                     </div>
-                                    <!--end::Input group-->
-                                    <!--begin::Input group-->
-                                    <div class="fv-row mb-5">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center form-label">
-                                            <span class="required">Asam Urat</span>
-                                        </label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <!--begin::Dialer-->
-                                        <div class="position-relative" data-kt-dialer="true" data-kt-dialer-min="0"
-                                            data-kt-dialer-max="300" data-kt-dialer-step="1">
+                                    <!--end::Dialer-->
+                                    <!--end::Input-->
+                                    <!--begin::Hint-->
+                                    <div class="form-text">Sewaktu Puasa atau Tidak Puasa</div>
+                                    <!--end::Hint-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="fv-row mb-5">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center form-label">
+                                        <span class="required">Kolesterol</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <!--begin::Dialer-->
+                                    <div class="position-relative" data-kt-dialer="true" data-kt-dialer-min="0"
+                                        data-kt-dialer-max="300" data-kt-dialer-step="1">
 
-                                            <!--begin::Decrease control-->
-                                            <button type="button"
-                                                class="btn btn-icon btn-active-color-gray-700 position-absolute translate-middle-y top-50 start-0"
-                                                data-kt-dialer-control="decrease">
-                                                <i class="ki-duotone ki-minus-square fs-2"><span
-                                                        class="path1"></span><span class="path2"></span></i>
-                                            </button>
-                                            <!--end::Decrease control-->
+                                        <!--begin::Decrease control-->
+                                        <button type="button"
+                                            class="btn btn-icon btn-active-color-gray-700 position-absolute translate-middle-y top-50 start-0"
+                                            data-kt-dialer-control="decrease">
+                                            <i class="ki-duotone ki-minus-square fs-2"><span class="path1"></span><span
+                                                    class="path2"></span></i>
+                                        </button>
+                                        <!--end::Decrease control-->
 
-                                            <!--begin::Input control-->
-                                            <input type="text" class="form-control form-control-solid border-0 ps-12"
-                                                data-kt-dialer-control="input" placeholder="Amount" name="asam_urat"
-                                                value="0" />
-                                            <!--end::Input control-->
+                                        <!--begin::Input control-->
+                                        <input type="text" class="form-control form-control-solid border-0 ps-12"
+                                            data-kt-dialer-control="input" placeholder="Amount" name="kolesterol"
+                                            value="0" />
+                                        <!--end::Input control-
 
-                                            <!--begin::Increase control-->
-                                            <button type="button"
-                                                class="btn btn-icon btn-active-color-gray-700 position-absolute translate-middle-y top-50 end-0"
-                                                data-kt-dialer-control="increase">
-                                                <i class="ki-duotone ki-plus-square fs-2"><span
-                                                        class="path1"></span><span class="path2"></span><span
-                                                        class="path3"></span></i>
-                                            </button>
-                                            <!--end::Increase control-->
-                                        </div>
-                                        <!--end::Dialer-->
-                                        <!--end::Input-->
+                                                                <!- begin::Increase control-->
+                                        <button type="button"
+                                            class="btn btn-icon btn-active-color-gray-700 position-absolute translate-middle-y top-50 end-0"
+                                            data-kt-dialer-control="increase">
+                                            <i class="ki-duotone ki-plus-square fs-2"><span class="path1"></span><span
+                                                    class="path2"></span><span class="path3"></span></i>
+                                        </button>
+                                        <!--end::Increase control-->
                                     </div>
-                                    <!--end::Input group-->
-                                    <!--begin::Input group-->
-                                    <div class="fv-row mb-5">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center form-label">
-                                            <span class="required">Tanggal Kunjungan</span>
-                                        </label>
-                                        <!--end::Label-->
-                                        <div class="mb-10">
-                                            <input class="form-control" placeholder="Pick a date" name="tanggal_kj"
-                                                id="kt_datepicker_1" />
-                                        </div>
-                                    </div>
-                                    <!--end::Input group-->
+                                    <!--end::Dialer-->
+                                    <!--end::Input-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="fv-row mb-5">
+                                    <!--begin::Label-->
+                                    <label class="required fw-semibold fs-6 mb-2">Asam Urat</label>
+                                    <!--end::Label-->
 
-                                    {{-- <!--begin::Notice-->
+                                    <!--begin::Input-->
+                                    <input type="text" name="asam_urat" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="" value="00.00" />
+                                    <!--end::Input-->
+                                    <div class="form-text">Ganti tanda koma (,) dengan tanda titik(.) <b>Misalkan 10.7</b></div>
+
+                                </div>
+                                <!--end::Input group-->
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="fv-row mb-5">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center form-label">
+                                        <span class="required">Tanggal Kunjungan</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <div class="mb-10">
+                                        <input class="form-control" placeholder="Pick a date" name="tanggal_kj"
+                                            id="kt_datepicker_1" />
+                                    </div>
+                                </div>
+                                <!--end::Input group-->
+
+                                {{-- <!--begin::Notice-->
                                     <div class="notice d-flex bg-light-primary rounded border-primary border border-dashed rounded-3 p-6">
                                         <!--begin::Wrapper-->
                                         <div class="d-flex flex-stack flex-grow-1">
@@ -502,179 +473,181 @@
                                     </div>
                                     <!--end::Notice--> --}}
 
-                                </div>
-                                <!--end::Card body-->
                             </div>
-                            <!--end::Skrining-->
+                            <!--end::Card body-->
+                        </div>
+                        <!--end::Skrining-->
 
-                            <!--begin::Kesehatan-->
-                            <div class="card card-flush pt-3 mb-5 mb-lg-10">
-                                <!--begin::Card header-->
-                                <div class="card-header">
-                                    <!--begin::Card title-->
-                                    <div class="card-title">
-                                        <h2 class="fw-bold">Data Kesehatan</h2>
-                                    </div>
-                                    <!--begin::Card title-->
+                        <!--begin::Kesehatan-->
+                        <div class="card card-flush pt-3 mb-5 mb-lg-10">
+                            <!--begin::Card header-->
+                            <div class="card-header">
+                                <!--begin::Card title-->
+                                <div class="card-title">
+                                    <h2 class="fw-bold">Data Kesehatan</h2>
                                 </div>
-                                <!--end::Card header-->
-                                <!--begin::Card body-->
-                                <div class="card-body pt-0">
-                                    <!--begin::Description-->
-                                    {{-- <div class="text-gray-500 fw-semibold fs-5 mb-5">:</div> --}}
-                                    <!--end::Description-->
-                                    <input type="text" name="nik" value="{{ $dapen->nik }}" hidden>
-                                    <!--begin::Input group-->
-                                    <div class="d-flex flex-column mb-7 fv-row">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                            <span class="required">Apakah anda merokok ?</span>
-                                        </label>
-                                        <!--end::Label-->
-                                        <select class="form-select" data-control="select2" data-placeholder="Select an option" name="merokok">
-                                            <option></option>
-                                            <option value="Y" selected>Iya</option>
-                                            <option value="TSB">Tidak, Sudah Berhenti</option>
-                                            <option value="TPS">Tidak Pernah Sama Sekali</option>
-                                        </select>
-                                        
-                                    </div>
-                                    <!--end::Input group-->
-                                    <!--begin::Input group-->
-                                    <div class="d-flex flex-column mb-7 fv-row">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                            <span class="required">Apakah anda memiliki riwayat atau sedang mengalami
-                                                gangguan ginjal ?</span>
-                                        </label>
-                                        <!--end::Label-->
-                                        <select class="form-select" data-control="select2"
-                                            data-placeholder="Select an option" name="ginjal">
-                                            <option></option>
-                                            <option value="Y" selected>Iya</option>
-                                            <option value="N">Tidak</option>
-                                        </select>
-
-                                    </div>
-                                    <!--end::Input group-->
-                                    <!--begin::Input group-->
-                                    <div class="d-flex flex-column mb-7 fv-row">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                            <span class="required">Apakah anda memiliki gangguan penglihatan (menggunakan
-                                                kacamata/tidak jelas ketika melihat benda jauh atau dekat/ tidak jelas
-                                                ketika membaca tanpa kacamata)?</span>
-                                        </label>
-                                        <!--end::Label-->
-                                        <select class="form-select" data-control="select2"
-                                            data-placeholder="Select an option" name="penglihatan">
-                                            <option></option>
-                                            <option value="Y" selected>Iya</option>
-                                            <option value="N">Tidak</option>
-                                        </select>
-
-                                    </div>
-                                    <!--end::Input group-->
-                                    <!--begin::Input group-->
-                                    <div class="d-flex flex-column mb-7 fv-row">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                            <span class="required">Apakah anda memiliki gangguan pendengaran (menggunakan
-                                                alat bantu dengar/ membutuhkan suara keras bila berbicara dengan orang
-                                                lain)?</span>
-                                        </label>
-                                        <!--end::Label-->
-                                        <select class="form-select" data-control="select2"
-                                            data-placeholder="Select an option" name="pendengaran">
-                                            <option></option>
-                                            <option value="Y" selected>Iya</option>
-                                            <option value="N">Tidak</option>
-                                        </select>
-
-                                    </div>
-                                    <!--end::Input group-->
-                                </div>
-                                <!--end::Card body-->
+                                <!--begin::Card title-->
                             </div>
-                            <!--end::Kesehatan-->
-
-                            <!--begin::Lain-->
-                            <div class="card card-flush pt-3 mb-5 mb-lg-10">
-                                <!--begin::Card header-->
-                                <div class="card-header">
-                                    <!--begin::Card title-->
-                                    <div class="card-title">
-                                        <h2 class="fw-bold">Data Lain</h2>
-                                    </div>
-                                    <!--begin::Card title-->
-                                </div>
-                                <!--end::Card header-->
-                                <!--begin::Card body-->
-                                <div class="card-body pt-0">
-                                    <!--begin::Description-->
-                                    {{-- <div class="text-gray-500 fw-semibold fs-5 mb-5">:</div> --}}
-                                    <!--end::Description-->
-                                    
-                                    <!--end::Heading-->
-                                    <!--begin::Input group-->
-                                    <div class="d-flex flex-column mb-7 fv-row">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                            <span class="required">Bagaimana tingkat kemandirian anda ?</span>
-                                        </label>
-                                        <!--end::Label-->
-                                        <select class="form-select" data-control="select2"
-                                            data-placeholder="Select an option" name="adl">
-                                            <option></option>
-                                            <option value="A" selected>Mandiri (A) : Dapat melakukan aktivitas sendiri
-                                                tanpa bantuan orang lain</option>
-                                            <option value="B">Ketergantungan Ringan (B) : Membutuhkan bantuan orang
-                                                lain dalam melakukan aktivitas tertentu/memakai kursi roda</option>
-                                            <option value="C">Ketergantungan Berat (C) : Hanya bisa beraktivitas
-                                                diatas tempat tidur</option>
-                                        </select>
-
-                                    </div>
-                                    <!--end::Input group-->
-                                    <!--begin::Input group-->
-                                    <div class="d-flex flex-column mb-7 fv-row">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                            <span class="required">Bagaimana gambaran mental emosional pada diri
-                                                anda?</span>
-                                        </label>
-                                        <!--end::Label-->
-                                        <select class="form-select" data-control="select2"
-                                            data-placeholder="Select an option" name="gds">
-                                            <option></option>
-                                            <option value="A" selected>Sudah puas dengan kehidupan, bersemangat,
-                                                merasa bahagia, menyenangkan</option>
-                                            <option value="B">Merasa bosan, lebih senang dirumah, meninggalkan banyak
-                                                kesenangan, cemas, memiliki masalah daya ingat</option>
-                                            <option value="C">Merasa kehidupan hampa, tidak berdaya, tidak berharga,
-                                                tidak ada harapan, keadaan orang lain lebih baik</option>
-                                        </select>
-
-                                    </div>
-                                    <!--end::Input group-->
-
-                                    <!--begin::Actions-->
-                                    <button id="kt_docs_formvalidation_text_submit" type="submit"
-                                        class="btn btn-primary">
-                                        <span class="indicator-label">
-                                            Submit
-                                        </span>
-                                        <span class="indicator-progress">
-                                            Please wait... <span
-                                                class="spinner-border spinner-border-sm align-middle ms-2"></span>
-                                        </span>
-                                    </button>
-                                    <!--end::Actions-->
+                            <!--end::Card header-->
+                            <!--begin::Card body-->
+                            <div class="card-body pt-0">
+                                <!--begin::Description-->
+                                {{-- <div class="text-gray-500 fw-semibold fs-5 mb-5">:</div> --}}
+                                <!--end::Description-->
+                                <input type="text" name="nik" value="{{ $dapen->nik }}" hidden>
+                                <!--begin::Input group-->
+                                <div class="d-flex flex-column mb-7 fv-row">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                        <span class="required">Apakah anda merokok ?</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <select class="form-select" data-control="select2"
+                                        data-placeholder="Select an option" name="merokok">
+                                        <option></option>
+                                        <option value="Y" selected>Iya</option>
+                                        <option value="TSB">Tidak, Sudah Berhenti</option>
+                                        <option value="TPS">Tidak Pernah Sama Sekali</option>
+                                    </select>
 
                                 </div>
-                                <!--end::Card body-->
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="d-flex flex-column mb-7 fv-row">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                        <span class="required">Apakah anda memiliki riwayat atau sedang mengalami
+                                            gangguan ginjal ?</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <select class="form-select" data-control="select2"
+                                        data-placeholder="Select an option" name="ginjal">
+                                        <option></option>
+                                        <option value="Y" selected>Iya</option>
+                                        <option value="N">Tidak</option>
+                                    </select>
+
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="d-flex flex-column mb-7 fv-row">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                        <span class="required">Apakah anda memiliki gangguan penglihatan (menggunakan
+                                            kacamata/tidak jelas ketika melihat benda jauh atau dekat/ tidak jelas
+                                            ketika membaca tanpa kacamata)?</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <select class="form-select" data-control="select2"
+                                        data-placeholder="Select an option" name="penglihatan">
+                                        <option></option>
+                                        <option value="Y" selected>Iya</option>
+                                        <option value="N">Tidak</option>
+                                    </select>
+
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="d-flex flex-column mb-7 fv-row">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                        <span class="required">Apakah anda memiliki gangguan pendengaran (menggunakan
+                                            alat bantu dengar/ membutuhkan suara keras bila berbicara dengan orang
+                                            lain)?</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <select class="form-select" data-control="select2"
+                                        data-placeholder="Select an option" name="pendengaran">
+                                        <option></option>
+                                        <option value="Y" selected>Iya</option>
+                                        <option value="N">Tidak</option>
+                                    </select>
+
+                                </div>
+                                <!--end::Input group-->
                             </div>
-                            <!--end::Lain-->
+                            <!--end::Card body-->
+                        </div>
+                        <!--end::Kesehatan-->
+
+                        <!--begin::Lain-->
+                        <div class="card card-flush pt-3 mb-5 mb-lg-10">
+                            <!--begin::Card header-->
+                            <div class="card-header">
+                                <!--begin::Card title-->
+                                <div class="card-title">
+                                    <h2 class="fw-bold">Data Lain</h2>
+                                </div>
+                                <!--begin::Card title-->
+                            </div>
+                            <!--end::Card header-->
+                            <!--begin::Card body-->
+                            <div class="card-body pt-0">
+                                <!--begin::Description-->
+                                {{-- <div class="text-gray-500 fw-semibold fs-5 mb-5">:</div> --}}
+                                <!--end::Description-->
+
+                                <!--end::Heading-->
+                                <!--begin::Input group-->
+                                <div class="d-flex flex-column mb-7 fv-row">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                        <span class="required">Bagaimana tingkat kemandirian anda ?</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <select class="form-select" data-control="select2"
+                                        data-placeholder="Select an option" name="adl">
+                                        <option></option>
+                                        <option value="A" selected>Mandiri (A) : Dapat melakukan aktivitas sendiri
+                                            tanpa bantuan orang lain</option>
+                                        <option value="B">Ketergantungan Ringan (B) : Membutuhkan bantuan orang lain
+                                            dalam melakukan aktivitas tertentu/memakai kursi roda</option>
+                                        <option value="B1">Ketergantungan Sedang (B) : XX</option>
+                                        <option value="C">Ketergantungan Berat (C) : Hanya bisa beraktivitas diatas
+                                            tempat tidur</option>
+                                        <option value="D">Ketergantungan Total (D) : XX</option>
+                                    </select>
+
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="d-flex flex-column mb-7 fv-row">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                        <span class="required">Bagaimana gambaran mental emosional pada diri
+                                            anda?</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <select class="form-select" data-control="select2"
+                                        data-placeholder="Select an option" name="gds">
+                                        <option></option>
+                                        <option value="A" selected>Sudah puas dengan kehidupan, bersemangat,
+                                            merasa bahagia, menyenangkan</option>
+                                        <option value="B">Merasa bosan, lebih senang dirumah, meninggalkan banyak
+                                            kesenangan, cemas, memiliki masalah daya ingat</option>
+                                        <option value="C">Merasa kehidupan hampa, tidak berdaya, tidak berharga,
+                                            tidak ada harapan, keadaan orang lain lebih baik</option>
+                                    </select>
+
+                                </div>
+                                <!--end::Input group-->
+
+                                <!--begin::Actions-->
+                                <button id="kt_docs_formvalidation_text_submit" type="submit" class="btn btn-primary">
+                                    <span class="indicator-label">
+                                        Submit
+                                    </span>
+                                    <span class="indicator-progress">
+                                        Please wait... <span
+                                            class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                    </span>
+                                </button>
+                                <!--end::Actions-->
+
+                            </div>
+                            <!--end::Card body-->
+                        </div>
+                        <!--end::Lain-->
 
                         </form>
                         <!--end::Form-->
@@ -712,12 +685,12 @@
                                             class="fw-bold text-gray-800 text-hover-primary me-2">{{ $dapen->nama }}</a>
                                         <!--end::Name-->
                                         <!--begin::Status-->
-                                        @if ($dapen->category == "Lansia")
-                                            <span class="badge badge-light-danger">{{$dapen->category}}</span>
-                                        @elseif ($dapen->category == "Pra-Lansia")
-                                            <span class="badge badge-light-warning">{{$dapen->category}}</span>
+                                        @if ($dapen->category == 'Lansia')
+                                            <span class="badge badge-light-danger">{{ $dapen->category }}</span>
+                                        @elseif ($dapen->category == 'Pra-Lansia')
+                                            <span class="badge badge-light-warning">{{ $dapen->category }}</span>
                                         @else
-                                            <span class="badge badge-light-success">{{$dapen->category}}</span>
+                                            <span class="badge badge-light-success">{{ $dapen->category }}</span>
                                         @endif
                                         <!--end::Status-->
                                     </div>
@@ -728,15 +701,15 @@
                                         class="fw-semibold text-gray-600 text-hover-primary">{{ $dapen->nik }}
                                     </a>
                                     <!--end::NIK-->
-                                    
+
                                 </div>
 
                                 <div class="mb-3">
                                     <!--begin::Details-->
                                     <div class="d-flex align-items-center mb-1">
                                         <!--begin::Name-->
-                                        <a href="#"
-                                            class="fw-bold text-gray-800 text-hover-primary me-2">Kecamatan :
+                                        <a href="#" class="fw-bold text-gray-800 text-hover-primary me-2">Kecamatan
+                                            :
                                         </a>
                                         <!--end::Name-->
                                     </div>
@@ -752,15 +725,15 @@
                                     <!--begin::Details-->
                                     <div class="d-flex align-items-center mb-1">
                                         <!--begin::Name-->
-                                        <a href="#"
-                                            class="fw-bold text-gray-800 text-hover-primary me-2">Kelurahan :
+                                        <a href="#" class="fw-bold text-gray-800 text-hover-primary me-2">Kelurahan
+                                            :
                                         </a>
                                         <!--end::Name-->
                                     </div>
                                     <!--end::Details-->
                                     <!--begin::Email-->
                                     <a href="#"
-                                        class="fw-semibold text-gray-600 text-hover-primary">{{ $dapen->kelurahan   ->nama }}
+                                        class="fw-semibold text-gray-600 text-hover-primary">{{ $dapen->kelurahan->nama }}
                                     </a>
                                     <!--end::Email-->
                                 </div>
@@ -784,7 +757,6 @@
                                             <span class="fw-semibold text-gray-600">-</span>
                                             <!--end::Price-->
                                         </div>
-                                        
                                     @else
                                         <div class="mb-0">
                                             <!--begin::Plan-->
@@ -857,113 +829,114 @@
         var validator = FormValidation.formValidation(
             form, {
                 fields: {
-                    'tinggi_bdn': {
-                        validators: {
-                            notEmpty: {
-                                message: 'Field is required'
+                            'tinggi_bdn': {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Field is required'
+                                    },
+                                    stringLength: {
+                                        min: 3,
+                                        max: 3,
+                                        message: 'Tinggi harus 3 digit'
+                                    }
+                                }
+                            },
+                            'berat_bdn': {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Field is required'
+                                    },
+                                    stringLength: {
+                                        min: 2,
+                                        max: 3,
+                                        message: 'Nilai minimal 2 digit'
+                                    }
+                                }
+                            },
+                            'lingkar_prt': {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Field is required'
+                                    },
+                                    stringLength: {
+                                        min: 2,
+                                        max: 3,
+                                        message: 'Nilai minimal 2 digit'
+                                    }
+                                }
+                            },
+                            'diastole': {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Field is required'
+                                    },
+                                    stringLength: {
+                                        min: 2,
+                                        max: 3,
+                                        message: 'Nilai minimal 2 digit'
+                                    }
+                                }
+                            },
+                            'sistole': {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Field is required'
+                                    },
+                                    stringLength: {
+                                        min: 2,
+                                        max: 3,
+                                        message: 'Nilai minimal 2 digit'
+                                    }
+                                }
+                            },
+                            'gula_drh': {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Field is required'
+                                    },
+                                    stringLength: {
+                                        min: 3,
+                                        max: 3,
+                                        message: 'Nilai minimal 2 digit'
+                                    }
+                                }
+                            },
+                            'kolesterol': {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Field is required'
+                                    }
+                                },
+                                    stringLength: {
+                                        min: 3,
+                                        max: 3,
+                                        message: 'Nilai minimal 2 digit'
+                                    }
+                            },
+                            'tanggal_kj': {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Field is required'
+                                    }
+                                }
+                            },
+                            'asam_urat': {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Field is required'
+                                    },
+                                    numeric: {
+                                        message: 'The value must be a decimal number'
+                                    }
+                                },
+                                stringLength: {
+                                        min: 3,
+                                        max: 3,
+                                        message: 'Nilai minimal 2 digit'
+                                    }
                             }
-                        }
-                    },
-                    'berat_bdn': {
-                        validators: {
-                            notEmpty: {
-                                message: 'Field is required'
-                            }
-                        }
-                    },
-                    'lingkar_prt': {
-                        validators: {
-                            notEmpty: {
-                                message: 'Field is required'
-                            }
-                        }
-                    },
-                    'diastole': {
-                        validators: {
-                            notEmpty: {
-                                message: 'Field is required'
-                            }
-                        }
-                    },
-                    'sistole': {
-                        validators: {
-                            notEmpty: {
-                                message: 'Field is required'
-                            }
-                        }
-                    },
-                    'gula_drh': {
-                        validators: {
-                            notEmpty: {
-                                message: 'Field is required'
-                            }
-                        }
-                    },
-                    'kolesterol': {
-                        validators: {
-                            notEmpty: {
-                                message: 'Field is required'
-                            }
-                        }
-                    },
-                    'asam_urat': {
-                        validators: {
-                            notEmpty: {
-                                message: 'Field is required'
-                            }
-                        }
-                    },
-                    'merokok': {
-                        validators: {
-                            notEmpty: {
-                                message: 'Field is required'
-                            }
-                        }
-                    },
-                    'ginjal': {
-                        validators: {
-                            notEmpty: {
-                                message: 'Field is required'
-                            }
-                        }
-                    },
-                    'penglihatan': {
-                        validators: {
-                            notEmpty: {
-                                message: 'Field is required'
-                            }
-                        }
-                    },
-                    'pendengaran': {
-                        validators: {
-                            notEmpty: {
-                                message: 'Field is required'
-                            }
-                        }
-                    },
-                    'adl': {
-                        validators: {
-                            notEmpty: {
-                                message: 'Field is required'
-                            }
-                        }
-                    },
-                    'gds': {
-                        validators: {
-                            notEmpty: {
-                                message: 'Field is required'
-                            }
-                        }
-                    },
-                    'tanggal_kj': {
-                        validators: {
-                            notEmpty: {
-                                message: 'Field is required'
-                            }
-                        }
-                    },
-
-                },
+                            
+                        },
 
                 plugins: {
                     trigger: new FormValidation.plugins.Trigger(),

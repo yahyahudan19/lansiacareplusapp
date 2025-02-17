@@ -14,7 +14,7 @@ class Persons extends Model
     protected $fillable = [
         'nik', 'bpjs', 'nama', 'jenis_kelamin', 'tanggal_lahir',
         'alamat', 'rt', 'rw', 'kelurahan_id','telp',
-        'status', 'valid', 'edited_by', 'created_by',
+        'status', 'valid', 'notifikasi','edited_by', 'created_by',
     ];
 
     public function Kunjungan(){

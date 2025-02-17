@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\LaporanExport;
 use App\Models\Indikators;
 use App\Models\Kecamatans;
 use App\Models\Kelurahans;
@@ -13,6 +14,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class LaporansController extends Controller
 {
@@ -371,7 +373,7 @@ class LaporansController extends Controller
     //     }
     // }
 
-    private function calculateCount($indicator, $kelurahan, $startDate, $endDate, $jenisKelamin, $ageMin, $ageMax)
+    public function calculateCount($indicator, $kelurahan, $startDate, $endDate, $jenisKelamin, $ageMin, $ageMax)
     {
         // Abstraksi filter person untuk digunakan di semua case
         $filterPerson = function ($q) use ($kelurahan, $jenisKelamin, $ageMin, $ageMax) {
@@ -472,4 +474,19 @@ class LaporansController extends Controller
                 return 0;
         }
     }
+
+    public function exportExcel(Request $request)
+    {
+        $puskesmas = Puskesmas::where('kode', $request->input('puskesmas'))->first();
+        $dateRange = $request->input('date_range', '');
+
+        // Format nama file
+        $formattedPuskesmas = str_replace(' ', '_', strtolower($puskesmas->nama));
+        $formattedDateRange = str_replace(['/', ' '], '', $dateRange);
+        $fileName = "export_{$formattedPuskesmas}_{$formattedDateRange}.xlsx";
+
+        return Excel::download(new LaporanExport($request->input('puskesmas'), $dateRange), $fileName);
+    }
+
+
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Whatsapp;
+use App\Services\WhatsAppService;
 use Illuminate\Http\Request;
 
 class WhatsappController extends Controller
@@ -12,7 +13,8 @@ class WhatsappController extends Controller
      */
     public function index()
     {
-        //
+        $data_whatsapp = Whatsapp::get();
+        return view('admin.whatsapp.index',compact('data_whatsapp'));
     }
 
     /**
@@ -62,4 +64,40 @@ class WhatsappController extends Controller
     {
         //
     }
+
+    public function WhatsappTestMessages(Request $request)
+    {
+        $request->validate([
+            'no_tujuan' => 'required|string',
+            'pesan' => 'required|string',
+        ]);
+
+        try {
+            $response = WhatsAppService::sendMessage($request->no_tujuan, $request->pesan);
+
+            \Log::info("WhatsApp Test Message Response", ['response' => $response]);
+
+            if ($response === true) {
+                return redirect()->back()
+                    ->with('status', 'success')
+                    ->with('message', 'Pesan berhasil dikirim!');
+            } elseif (is_array($response) && isset($response['status']) && $response['status'] === 400) {
+                return redirect()->back()
+                    ->with('status', 'error')
+                    ->with('message', 'Gagal mengirim pesan: Terjadi kesalahan pada permintaan.');
+            } else {
+                return redirect()->back()
+                    ->with('status', 'error')
+                    ->with('message', 'Gagal mengirim pesan. Silakan coba lagi.');
+            }
+        } catch (\Exception $e) {
+            \Log::error("WhatsApp Test Message Error", ['error' => $e->getMessage()]);
+
+            return redirect()->back()
+                ->with('status', 'error')
+                ->with('message', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
+    }
+
+    
 }

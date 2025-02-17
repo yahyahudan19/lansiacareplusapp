@@ -315,6 +315,7 @@
                                                         <!--end::Input-->
                                                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
                                                     <!--end::Col-->
+
                                                     <!--begin::Col-->
                                                     <div class="col-md-6 fv-row fv-plugins-icon-container">
                                                         <!--begin::Label-->
@@ -327,9 +328,26 @@
                                                             <i class="ki-duotone ki-calendar fs-2"><span class="path1"></span><span class="path2"></span></i>
                                                         </span>
                                                     </div>
-                                                        <!--end::Input-->
+                                                    <!--end::Input-->
+                                                    
                                                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
                                                     <!--end::Col-->
+                                                </div>
+                                                <!--end::Input group-->
+
+                                                <!--begin::Input group-->
+                                                <div class="fv-row mb-7">
+                                                    <!--begin::Label-->
+                                                    {{-- <label class="form-label required">Kirim Notifikasi</label> --}}
+                                                    <span><center>Apakah anda ingin hasil skrining kesehatan dikirimkan melalui nomer HP yang anda berikan?</center></span>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <select name="person_notifikasi" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
+                                                        <option></option>
+                                                        <option value="Y">Iya</option>
+                                                        <option value="N">Tidak</option>
+                                                    </select>
+                                                    <!--end::Input-->
                                                 </div>
                                                 <!--end::Input group-->
 
@@ -378,6 +396,7 @@
                                                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
                                                     <!--end::Col-->
                                                 </div>
+
                                                 <!--begin::Input group-->
                                                 <div class="fv-row mb-7">
                                                     <!--begin::Label-->
@@ -498,6 +517,12 @@
                                                     <a href="/admin/penduduk/edit/{{$person->id}}" class="menu-link px-3">Edit</a>
                                                 </div>
                                                 <!--end::Menu item-->
+                                                 <!--begin::Menu item-->
+                                                <div class="menu-item px-3">
+                                                    <meta name="csrf-token" content="{{ csrf_token() }}">
+                                                    <a href="#" class="menu-link px-3" data-kt-users-table-filter="delete_row">Delete</a>
+                                                </div>
+                                                <!--end::Menu item-->
                                             @elseif(Auth::user()->role == "Dinkes")
                                                 <!--begin::Menu item-->
                                                 <div class="menu-item px-3">
@@ -514,8 +539,13 @@
                                                 <div class="menu-item px-3">
                                                     <a href="javascript:void(0);" class="menu-link px-3" onclick="submitForm('{{ $person->nik }}')">Kunjungan</a>
                                                 </div>
-                                                
-                                                <form id="kunjunganForm" action="/puskesmas/kunjungan/tambah" method="POST" style="display: none;">
+                                                @if (Auth::user()->role == "Puskesmas")
+                                                    <form id="kunjunganForm" action="/puskesmas/kunjungan/tambah" method="POST" style="display: none;">
+                                                 @else
+                                                    <form id="kunjunganForm" action="/kader/kunjungan/tambah" method="POST" style="display: none;">
+                                                    
+                                                @endif
+
                                                     @csrf
                                                     <input type="hidden" id="nikInput" name="nik">
                                                 </form>
@@ -539,12 +569,7 @@
                                                     <!--end::Menu item-->
                                                 @endif
                                             
-                                            <!--begin::Menu item-->
-                                            <div class="menu-item px-3">
-                                                <meta name="csrf-token" content="{{ csrf_token() }}">
-                                                <a href="#" class="menu-link px-3" data-kt-users-table-filter="delete_row">Delete</a>
-                                            </div>
-                                            <!--end::Menu item-->
+                                           
                                             @endif
                                             
                                         </div>
@@ -628,7 +653,16 @@
                             'person_nik': {
                                 validators: {
                                     notEmpty: {
-                                        message: 'Valid NIK is required'
+                                        message: 'NIK is required'
+                                    },
+                                    stringLength: {
+                                        min: 16,
+                                        max: 16,
+                                        message: 'NIK harus 16 digit'
+                                    },
+                                    regexp: {
+                                        regexp: /^[0-9]+$/,
+                                        message: 'NIK harus berupa angka'
                                     }
                                 }
                             },
@@ -671,6 +705,13 @@
                                 validators: {
                                     notEmpty: {
                                         message: 'Valid Kelurahan is required'
+                                    }
+                                }
+                            },
+                            'person_notifikasi': {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Valid Notifikasi is required'
                                     }
                                 }
                             },

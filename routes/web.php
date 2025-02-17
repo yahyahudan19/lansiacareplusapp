@@ -6,6 +6,7 @@ use App\Http\Controllers\PersonsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PuskesmasController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WhatsappController;
 use App\Models\Puskesmas;
 use Illuminate\Support\Facades\Route;
 
@@ -30,8 +31,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/penduduk/cari', [PersonsController::class, 'searchPersons'])->name('persons.search');
     Route::get('/penduduk/find', [PersonsController::class, 'searchPersonsByName'])->name('persons.search_name');
     Route::get('/getPendudukByNIK', [PersonsController::class, 'getPendudukByNIK']);
+    Route::delete('/destroy/penduduk/{id}', [PersonsController::class, 'destroy'])->name('persons.destroy');
 
+    Route::get('/admin/laporan/exportExcel', [LaporansController::class, 'exportExcel'])->name('laporan.exportExcel');
 
+});
+
+Route::middleware(['role:System Administrator,Puskesmas,Kader'])->group(function (){
+    Route::delete('/destroy/kunjungan/{id}', [KunjungansController::class, 'destroy'])->name('kunjungans.destroy');
 });
 
 // System Administrator and Puskesmas Routes ------------------------------------------------------
@@ -39,13 +46,11 @@ Route::middleware(['role:System Administrator,Puskesmas'])->group(function (){
     // Method Users Management Routes ----------------------------------------------------
     Route::post('/admin/store/users', [UserController::class, 'store'])->name('users.store');
     Route::delete('/destroy/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
-    Route::delete('/destroy/penduduk/{id}', [PersonsController::class, 'destroy'])->name('persons.destroy');
     Route::post('/admin/update/profile', [UserController::class, 'update_profile'])->name('user.update_profile');
     Route::post('/admin/update/password', [UserController::class, 'update_password'])->name('user.update_password');
     Route::post('/admin/update/role', [UserController::class, 'update_role'])->name('user.update_role');
     Route::get('/kunjungan/find', [KunjungansController::class, 'searchPersonsByName'])->name('kunjungans.search_name');
     Route::get('/kunjungan/cari', [KunjungansController::class, 'searchKunjungans'])->name('kunjungans.search');
-    Route::delete('/destroy/kunjungan/{id}', [KunjungansController::class, 'destroy'])->name('kunjungans.destroy');
 
 });
 
@@ -92,6 +97,9 @@ Route::middleware(['role:System Administrator'])->group(function (){
 
     Route::get('/admin/puskesmas', [PuskesmasController::class, 'index'])->name('puskesmas.index');
 
+    Route::get('/admin/whatsapp', [WhatsappController::class, 'index'])->name('whatsapp.index');
+    Route::post('/admin/whatsapp/test', [WhatsappController::class, 'WhatsappTestMessages'])->name('whatsapp.test');
+
 
     
 });
@@ -106,7 +114,7 @@ Route::middleware(['role:Dinkes'])->group(function (){
     Route::get('/dinkes/penduduk', [PersonsController::class, 'index'])->name('persons.index');
     Route::get('/dinkes/penduduk/lansia', [PersonsController::class, 'index_lansia'])->name('persons.index_lansia');
     Route::get('/dinkes/penduduk/pra-lansia', [PersonsController::class, 'index_pra_lansia'])->name('persons.index_pra_lansia');
-    Route::delete('/destroy/penduduk/{id}', [PersonsController::class, 'destroy'])->name('persons.destroy');
+    // Route::delete('/destroy/penduduk/{id}', [PersonsController::class, 'destroy'])->name('persons.destroy');
     Route::get('/dinkes/penduduk/{id}', [PersonsController::class, 'detail_view'])->name('persons.detail_view');
     Route::get('/dinkes/penduduk/edit/{id}', [PersonsController::class, 'edit_view'])->name('persons.edit_view');
 
@@ -116,8 +124,6 @@ Route::middleware(['role:Dinkes'])->group(function (){
 
     Route::get('/dinkes/kunjungan', [KunjungansController::class, 'index'])->name('kunjungans.index');
     Route::get('/dinkes/kunjungan/{id}', [KunjungansController::class, 'detail_view'])->name('kunjungans.detail_view');
-
-
 
 
 });
@@ -152,6 +158,16 @@ Route::middleware(['role:Kader'])->group(function (){
         return view('kader.dashboard');
     })->middleware(['auth', 'verified'])->name('kader.dashboard');
 
+    Route::get('/kader/penduduk', [PersonsController::class, 'index'])->name('persons.index');
+    Route::get('/kader/penduduk/lansia', [PersonsController::class, 'index_lansia'])->name('persons.index_lansia');
+    Route::get('/kader/penduduk/pra-lansia', [PersonsController::class, 'index_pra_lansia'])->name('persons.index_pra_lansia');
+    Route::post('/kader/kunjungan/tambah', [KunjungansController::class, 'create_view'])->name('kunjungans.create');
+    Route::post('/kader/kunjungan/store', [KunjungansController::class, 'store'])->name('kunjungans.store');
+
+    Route::get('/kader/kunjungan', [KunjungansController::class, 'index'])->name('kunjungans.index');
+    Route::post('/kader/kunjungan/tambah', [KunjungansController::class, 'create_view'])->name('kunjungans.create');
+    Route::get('/kader/kunjungan/{id}', [KunjungansController::class, 'detail_view'])->name('kunjungans.detail_view');
+    Route::post('/kader/kunjungan/store', [KunjungansController::class, 'store'])->name('kunjungans.store');
     
 });
 
