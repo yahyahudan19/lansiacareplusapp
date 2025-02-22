@@ -9,6 +9,9 @@
 @endsection
 
 @section('content')
+<script>
+    window.location.href = '/kader/kunjungan';
+</script>
 @endsection
 
 @section('plugins-last')

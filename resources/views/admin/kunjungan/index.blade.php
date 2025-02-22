@@ -101,6 +101,7 @@
                     <!--end::Card-->
                 </form>
             </div>
+            @if (in_array(auth()->user()->role, ['System Administrator', 'Puskesmas'])) 
             <!--begin::Card Filter-->
             <div class="card">
                 <div class="card-header border-0 pt-6">
@@ -180,6 +181,7 @@
             </div>
             <!--end::Card Filter-->
             <br>
+            @endif
             <!--begin::Card-->
             <div class="card">
                 <!--begin::Card header-->

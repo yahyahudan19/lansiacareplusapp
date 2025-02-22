@@ -13,7 +13,7 @@
 		<meta property="og:title" content="Lansia Care+ | Aplikasi Lansia Kota Malang" />
 		<meta property="og:url" content="#" />
 		<meta property="og:site_name" content="Lansia Care+ by YH" />
-        <link rel="shortcut icon" href="{{ asset('template/assets/media/logos/favicon.ico')}}" />
+        <link rel="shortcut icon" href="{{ asset('template/assets/media/logos/favicon-new.ico')}}" />
 		<!--begin::Fonts(mandatory for all pages)-->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
 		<!--end::Fonts-->

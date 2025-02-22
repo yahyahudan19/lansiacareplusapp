@@ -95,14 +95,14 @@
 						<img class="theme-dark-show mx-auto mw-100 w-150px w-lg-300px mb-10 mb-lg-20" src="{{ asset('template/assets/media/auth/agency-dark.png')}}" alt="" />
 						<!--end::Image-->
 						<!--begin::Title-->
-						<h1 class="text-gray-800 fs-2qx fw-bold text-center mb-7">Fast, Efficient and Productive</h1>
+						<h1 class="text-gray-800 fs-2qx fw-bold text-center mb-7">Lansia Care+ App</h1>
 						<!--end::Title-->
 						<!--begin::Text-->
-						<div class="text-gray-600 fs-base text-center fw-semibold">In this kind of post, 
-						<a href="#" class="opacity-75-hover text-primary me-1">the blogger</a>introduces a person they’ve interviewed 
+						<div class="text-gray-600 fs-base text-center fw-semibold">Aplikasi Pendataan Lansia Kota Malang , Selamat Menggunakan !s
+						{{-- <a href="#" class="opacity-75-hover text-primary me-1">the blogger</a>introduces a person they’ve interviewed 
 						<br />and provides some background information about 
 						<a href="#" class="opacity-75-hover text-primary me-1">the interviewee</a>and their 
-						<br />work following this is a transcript of the interview.</div>
+						<br />work following this is a transcript of the interview.</div> --}}
 						<!--end::Text-->
 					</div>
 					<!--end::Content-->
@@ -163,7 +163,7 @@
 									</div>
 									<!--end::Submit button-->
 									<!--begin::Sign up-->
-									<div class="text-gray-500 text-center fw-semibold fs-6">Not a Member yet? 
+									<div class="text-gray-500 text-center fw-semibold fs-6">Belum punya akun ? 
 									<a href="#" class="link-primary">Hubungi Kami</a></div>
 									<!--end::Sign up-->
 								</form>

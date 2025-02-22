@@ -186,8 +186,8 @@
                                         <table class="table align-middle table-row-dashed gy-5" id="kt_table_customers_payment">
                                             <thead class="border-bottom border-gray-200 fs-7 fw-bold">
                                                 <tr class="text-start text-muted text-uppercase gs-0">
-                                                    {{-- <th class="min-w-100px">ID Kunjungan.</th>
-                                                    <th>Status</th> --}}
+                                                    <th class="min-w-100px">ID Kunjungan.</th>
+                                                    <th>Status</th>
                                                     {{-- <th>Kelurahan</th> --}}
                                                     <th class="min-w-100px">Tanggal Kunjungan</th>
                                                     <th>Rekomendasi</th>
@@ -196,14 +196,15 @@
                                             <tbody class="fs-6 fw-semibold text-gray-600">
                                                 @foreach ($riwkin as $riw)
                                                 <tr>
-                                                    {{-- <td>
+                                                    <td>
                                                         <a href="#" class="text-gray-600 text-hover-primary mb-1">#{{$riw->id}}</a>
                                                     </td>
                                                     <td>
                                                         <span class="badge badge-light-success">Success</span>
-                                                    </td> --}}
+                                                    </td>
                                                     {{-- <td>{{$riw->person->kelurahan->nama}}</td> --}}
                                                     <td>{{ \Illuminate\Support\Carbon::parse($riw->tanggal_kj)->translatedFormat('d F Y') }}</td>
+                                                    {{-- <td><span class="badge badge-warning">{{ $riwkin_rekomendasi[$riw->id] }}</span></td> --}}
                                                     <td>{{ $riwkin_rekomendasi[$riw->id] }}</td>
                                                 </tr>
                                                 @endforeach
@@ -414,6 +415,19 @@
                                                         </div>
                                                         <!--end::Col-->
                                                     </div>
+                                                    <div class="separator separator-dashed"></div>
+                                                    <div class="d-flex flex-wrap py-5">
+                                                        <!--begin::Col-->
+                                                        <div class="flex-equal me-5">
+                                                           <table class="table table-flush fw-semibold gy-1">
+                                                               <tr>
+                                                                   <td class="text-muted min-w-125px w-125px">Rekomendasi</td>
+                                                                   <td><span class="badge badge-info badge-lg">{{ $riwkin_rekomendasi[$riw->id] }}</span></td>
+                                                               </tr>
+                                                           </table>
+                                                       </div>
+                                                       <!--end::Col-->
+                                                   </div>
                                                 </div>
                                                 <!--end::Body-->
                                             </div>
@@ -518,70 +532,82 @@
                                                         </div>
                                                         <!--end::Details-->
                                                         <div class="separator separator-dashed"></div>
-                                                    <div class="d-flex flex-wrap py-5">
-                                                         <!--begin::Col-->
-                                                         <div class="flex-equal me-5">
-                                                            <table class="table table-flush fw-semibold gy-1">
-                                                                <tr>
-                                                                    <td class="text-muted min-w-125px w-125px">Ginjal</td>
-                                                                    @if ($riw->ginjal == "Y")
-                                                                        <td class="text-gray-800">Iya</td>
-                                                                    @else
-                                                                        <td class="text-gray-800">Tidak</td>
-                                                                    @endif
-                                                                </tr>
-                                                                
-                                                                <tr>
-                                                                    <td class="text-muted min-w-125px w-125px">Penglihatan</td>
-                                                                    @if ($riw->penglihatan == "Y")
-                                                                        <td class="text-gray-800">Iya</td>
-                                                                    @else
-                                                                        <td class="text-gray-800">Tidak</td>
-                                                                    @endif
-                                                                </tr>
-                                                               
-                                                                <tr>
-                                                                    <td class="text-muted min-w-125px w-125px">Pendengaran</td>
-                                                                    @if ($riw->pendengaran == "Y")
-                                                                        <td class="text-gray-800">Iya</td>
-                                                                    @else
-                                                                        <td class="text-gray-800">Tidak</td>
-                                                                    @endif
-                                                                </tr>
+                                                            <div class="d-flex flex-wrap py-5">
+                                                                <!--begin::Col-->
+                                                                <div class="flex-equal me-5">
+                                                                    <table class="table table-flush fw-semibold gy-1">
+                                                                        <tr>
+                                                                            <td class="text-muted min-w-125px w-125px">Ginjal</td>
+                                                                            @if ($riw->ginjal == "Y")
+                                                                                <td class="text-gray-800">Iya</td>
+                                                                            @else
+                                                                                <td class="text-gray-800">Tidak</td>
+                                                                            @endif
+                                                                        </tr>
+                                                                        
+                                                                        <tr>
+                                                                            <td class="text-muted min-w-125px w-125px">Penglihatan</td>
+                                                                            @if ($riw->penglihatan == "Y")
+                                                                                <td class="text-gray-800">Iya</td>
+                                                                            @else
+                                                                                <td class="text-gray-800">Tidak</td>
+                                                                            @endif
+                                                                        </tr>
+                                                                    
+                                                                        <tr>
+                                                                            <td class="text-muted min-w-125px w-125px">Pendengaran</td>
+                                                                            @if ($riw->pendengaran == "Y")
+                                                                                <td class="text-gray-800">Iya</td>
+                                                                            @else
+                                                                                <td class="text-gray-800">Tidak</td>
+                                                                            @endif
+                                                                        </tr>
 
-                                                                <tr>
-                                                                    <td class="text-muted min-w-125px w-125px">Merokok</td>
-                                                                    @if ($riw->ginjal == "Y")
-                                                                        <td class="text-gray-800">Iya</td>
-                                                                    @else
-                                                                        <td class="text-gray-800">Tidak</td>
-                                                                    @endif
-                                                                </tr>
-                                                                
-                                                            </table>
-                                                        </div>
-                                                        <!--end::Col-->
-                                                        <!--begin::Col-->
-                                                        <div class="flex-equal">
-                                                            <table class="table table-flush fw-semibold gy-1">
-                                                                <tr>
-                                                                    <td class="text-muted min-w-125px w-125px">ADL</td>
-                                                                    @if ($riw->adl == "A")
-                                                                        <td class="text-gray-800">Mandiri (A)</td>
-                                                                    @elseif($riw->adl == "B")
-                                                                        <td class="text-gray-800">Ketergantungan (B)</td>
-                                                                    @else
-                                                                        <td class="text-gray-800">Ketergantungan (C)</td>
-                                                                    @endif
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="text-muted min-w-125px w-125px">GDS</td>
-                                                                    <td class="text-gray-800">{{$riw->gds}}</td>
-                                                                </tr>
-                                                            </table>
-                                                        </div>
-                                                        <!--end::Col-->
-                                                    </div>
+                                                                        <tr>
+                                                                            <td class="text-muted min-w-125px w-125px">Merokok</td>
+                                                                            @if ($riw->ginjal == "Y")
+                                                                                <td class="text-gray-800">Iya</td>
+                                                                            @else
+                                                                                <td class="text-gray-800">Tidak</td>
+                                                                            @endif
+                                                                        </tr>
+                                                                        
+                                                                    </table>
+                                                                </div>
+                                                                <!--end::Col-->
+                                                                <!--begin::Col-->
+                                                                <div class="flex-equal">
+                                                                    <table class="table table-flush fw-semibold gy-1">
+                                                                        <tr>
+                                                                            <td class="text-muted min-w-125px w-125px">ADL</td>
+                                                                            @if ($riw->adl == "A")
+                                                                                <td class="text-gray-800">Mandiri (A)</td>
+                                                                            @elseif($riw->adl == "B")
+                                                                                <td class="text-gray-800">Ketergantungan (B)</td>
+                                                                            @else
+                                                                                <td class="text-gray-800">Ketergantungan (C)</td>
+                                                                            @endif
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td class="text-muted min-w-125px w-125px">GDS</td>
+                                                                            <td class="text-gray-800">{{$riw->gds}}</td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </div>
+                                                                <!--end::Col-->
+                                                            </div>
+                                                        <div class="separator separator-dashed"></div>
+                                                            <div class="d-flex flex-wrap py-5">
+                                                                <!--begin::Col-->
+                                                                <div class="flex-equal me-5">
+                                                                <table class="table table-flush fw-semibold gy-1">
+                                                                    <tr>
+                                                                        <td class="text-muted min-w-125px w-125px">Rekomendasi</td>
+                                                                        <td><span class="badge badge-info badge-lg">{{ $riwkin_rekomendasi[$riw->id] }}</span></td>
+                                                                    </tr>
+                                                                </table>
+                                                            </div>
+                                                            <!--end::Col-->
                                                     </div>
                                                     <!--end::Body-->
                                                 </div>
