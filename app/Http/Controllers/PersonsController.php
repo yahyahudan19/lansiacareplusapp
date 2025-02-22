@@ -79,7 +79,6 @@ class PersonsController extends Controller
                 'alamat' => $request->person_alamat,
                 'rt' => $request->person_rt,
                 'rw' => $request->person_rw,
-                'telp' => $request->person_rw,
                 'status' => "Hidup",
                 'valid' => "Y",
                 'notifikasi' => $request->person_notifikasi,
@@ -87,10 +86,17 @@ class PersonsController extends Controller
                 'kelurahan_id' => $request->person_kelurahan,
             ]);
 
-            // Kirim pesan sukses
-            return redirect()->back()
-            ->with('status', 'success')
-            ->with('message', 'Penduduk berhasil ditambahkan !');
+            // Redirect berdasarkan role user
+            $redirectRoute = match (auth()->user()->role) {
+                'Kader' => route('kunjungans.create.kader', ['nik' => $request->person_nik]),
+                'System Administrator' => route('kunjungans.create.admin', ['nik' => $request->person_nik]),
+                'Puskesmas' => route('kunjungans.create.puskesmas', ['nik' => $request->person_nik]),
+                default => route('dashboard.index') // Redirect ke dashboard jika role tidak dikenali
+            };
+
+            return redirect($redirectRoute)
+                ->with('status', 'success')
+                ->with('message', 'Penduduk berhasil ditambahkan, lanjut ke kunjungan!');
 
         } catch (\Exception $e) {
             return redirect()->back()

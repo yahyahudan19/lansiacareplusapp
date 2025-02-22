@@ -274,6 +274,7 @@
                                         <!--end::Close-->
                                     </div>
                                     <!--end::Modal header-->
+                                    
                                     <!--begin::Modal body-->
                                     <div class="modal-body px-5 my-7">
                                         <!--begin::Form-->
@@ -517,7 +518,7 @@
                                                     <a href="/admin/penduduk/edit/{{$person->id}}" class="menu-link px-3">Edit</a>
                                                 </div>
                                                 <!--end::Menu item-->
-                                                 <!--begin::Menu item-->
+                                                <!--begin::Menu item-->
                                                 <div class="menu-item px-3">
                                                     <meta name="csrf-token" content="{{ csrf_token() }}">
                                                     <a href="#" class="menu-link px-3" data-kt-users-table-filter="delete_row">Delete</a>
@@ -529,11 +530,19 @@
                                                     <a href="/dinkes/penduduk/{{$person->id}}" class="menu-link px-3">Detail</a>
                                                 </div>
                                             @else
-                                                <!--begin::Menu item-->
-                                                <div class="menu-item px-3">
-                                                    <a href="/puskesmas/penduduk/{{$person->id}}" class="menu-link px-3">Detail</a>
-                                                </div>
-                                                <!--end::Menu item-->
+                                                @if (Auth::user()->role == "Kader")
+                                                    <!--begin::Menu item-->
+                                                    <div class="menu-item px-3">
+                                                        <a href="/kader/penduduk/{{$person->id}}" class="menu-link px-3">Detail</a>
+                                                    </div>
+                                                    <!--end::Menu item-->
+                                                @else
+                                                    <!--begin::Menu item-->
+                                                    <div class="menu-item px-3">
+                                                        <a href="/puskesmas/penduduk/{{$person->id}}" class="menu-link px-3">Detail</a>
+                                                    </div>
+                                                    <!--end::Menu item-->
+                                                @endif
 
                                                 <!--begin::Menu item-->
                                                 <div class="menu-item px-3">
@@ -541,15 +550,12 @@
                                                 </div>
                                                 @if (Auth::user()->role == "Puskesmas")
                                                     <form id="kunjunganForm" action="/puskesmas/kunjungan/tambah" method="POST" style="display: none;">
-                                                 @else
+                                                @else
                                                     <form id="kunjunganForm" action="/kader/kunjungan/tambah" method="POST" style="display: none;">
-                                                    
                                                 @endif
-
                                                     @csrf
                                                     <input type="hidden" id="nikInput" name="nik">
                                                 </form>
-                                                
                                                 <script>
                                                     function submitForm(nik) {
                                                         document.getElementById('nikInput').value = nik; // Set NIK sesuai baris yang diklik
@@ -559,8 +565,7 @@
                                                 <!--end::Menu item-->
                                             @endif
 
-                                            @if ($person->created_by == Auth::user()->id )
-
+                                            @if ($person->created_by == Auth::user()->id)
                                                 @if (Auth::user()->role == "Dinkes")
                                                     <!--begin::Menu item-->
                                                     <div class="menu-item px-3">
@@ -568,10 +573,7 @@
                                                     </div>
                                                     <!--end::Menu item-->
                                                 @endif
-                                            
-                                           
                                             @endif
-                                            
                                         </div>
                                         <!--end::Menu-->
                                     </td>

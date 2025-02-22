@@ -452,7 +452,7 @@
                                     <!--end::Label-->
                                     <div class="mb-10">
                                         <input class="form-control" placeholder="Pick a date" name="tanggal_kj"
-                                            id="kt_datepicker_1" />
+                                            id="kt_datepicker_1" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"/>
                                     </div>
                                 </div>
                                 <!--end::Input group-->
@@ -681,7 +681,7 @@
                                     <!--begin::Details-->
                                     <div class="d-flex align-items-center mb-1">
                                         <!--begin::Name-->
-                                        <a href="/puskesmas/penduduk/{{ $dapen->id }}"
+                                        <a href="/kader/penduduk/{{ $dapen->id }}"
                                             class="fw-bold text-gray-800 text-hover-primary me-2">{{ $dapen->nama }}</a>
                                         <!--end::Name-->
                                         <!--begin::Status-->
@@ -792,7 +792,7 @@
                                 <!--begin::Actions-->
                                 @if ($dapen->lastKunjungan)
                                     <div class="mb-0">
-                                        <a href="/puskesmas/kunjungan/{{ $dapen->lastKunjungan->id }}"
+                                        <a href="/kader/kunjungan/{{ $dapen->id }}"
                                             class="btn btn-primary btn-sm">Detail Kunjungan</a>
                                     </div>
                                 @endif

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KunjungansController;
 use App\Http\Controllers\LaporansController;
 use App\Http\Controllers\PersonsController;
@@ -39,6 +40,10 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['role:System Administrator,Puskesmas,Kader'])->group(function (){
     Route::delete('/destroy/kunjungan/{id}', [KunjungansController::class, 'destroy'])->name('kunjungans.destroy');
+    Route::get('/kunjungan/find', [KunjungansController::class, 'searchPersonsByName'])->name('kunjungans.search_name');
+    Route::get('/kunjungan/cari', [KunjungansController::class, 'searchKunjungans'])->name('kunjungans.search');
+    Route::post('/admin/penduduk/store', [PersonsController::class, 'store'])->name('persons.store');
+
 });
 
 // System Administrator and Puskesmas Routes ------------------------------------------------------
@@ -49,8 +54,7 @@ Route::middleware(['role:System Administrator,Puskesmas'])->group(function (){
     Route::post('/admin/update/profile', [UserController::class, 'update_profile'])->name('user.update_profile');
     Route::post('/admin/update/password', [UserController::class, 'update_password'])->name('user.update_password');
     Route::post('/admin/update/role', [UserController::class, 'update_role'])->name('user.update_role');
-    Route::get('/kunjungan/find', [KunjungansController::class, 'searchPersonsByName'])->name('kunjungans.search_name');
-    Route::get('/kunjungan/cari', [KunjungansController::class, 'searchKunjungans'])->name('kunjungans.search');
+    
 
 });
 
@@ -66,9 +70,7 @@ Route::middleware(['role:System Administrator'])->group(function (){
     Route::get('/layout', function () {
         return view('components.layout');
     });
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->middleware(['auth', 'verified'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Users Management
     Route::get('/admin/users', [UserController::class, 'index'])->name('users.index');
@@ -80,13 +82,14 @@ Route::middleware(['role:System Administrator'])->group(function (){
     Route::get('/admin/penduduk/lansia', [PersonsController::class, 'index_lansia'])->name('persons.index_lansia');
     Route::get('/admin/penduduk/pra-lansia', [PersonsController::class, 'index_pra_lansia'])->name('persons.index_pra_lansia');
 
-    Route::post('/admin/penduduk/store', [PersonsController::class, 'store'])->name('persons.store');
+    // Route::post('/admin/penduduk/store', [PersonsController::class, 'store'])->name('persons.store');
     Route::get('/admin/penduduk/{id}', [PersonsController::class, 'detail_view'])->name('persons.detail_view');
     Route::get('/admin/penduduk/edit/{id}', [PersonsController::class, 'edit_view'])->name('persons.edit_view');
     Route::post('/admin/penduduk/update/{id}', [PersonsController::class, 'update'])->name('persons.update');
 
     Route::get('/admin/kunjungan', [KunjungansController::class, 'index'])->name('kunjungans.index');
-    Route::post('/admin/kunjungan/tambah', [KunjungansController::class, 'create_view'])->name('kunjungans.create');
+    Route::post('/admin/kunjungan/tambah', [KunjungansController::class, 'create_view'])->name('kunjungans.create.admin');
+    Route::get('/admin/kunjungan/tambah', [KunjungansController::class, 'create_view'])->name('kunjungans.create.admin');
     Route::post('/admin/kunjungan/store', [KunjungansController::class, 'store'])->name('kunjungans.store');
     Route::get('/admin/kunjungan/{id}', [KunjungansController::class, 'detail_view'])->name('kunjungans.detail_view');
     Route::get('/admin/kunjungan/edit/{id}', [KunjungansController::class, 'edit'])->name('kunjungans.edit');
@@ -142,7 +145,8 @@ Route::middleware(['role:Puskesmas'])->group(function (){
     Route::get('/puskesmas/penduduk/{id}', [PersonsController::class, 'detail_view'])->name('persons.detail_view');
 
     Route::get('/puskesmas/kunjungan', [KunjungansController::class, 'index'])->name('kunjungans.index');
-    Route::post('/puskesmas/kunjungan/tambah', [KunjungansController::class, 'create_view'])->name('kunjungans.create');
+    Route::post('/puskesmas/kunjungan/tambah', [KunjungansController::class, 'create_view'])->name('kunjungans.create.puskesmas');
+    Route::get('/puskesmas/kunjungan/tambah', [KunjungansController::class, 'create_view'])->name('kunjungans.create.puskesmas');
     Route::get('/puskesmas/kunjungan/{id}', [KunjungansController::class, 'detail_view'])->name('kunjungans.detail_view');
     Route::post('/puskesmas/kunjungan/store', [KunjungansController::class, 'store'])->name('kunjungans.store');
 
@@ -161,11 +165,11 @@ Route::middleware(['role:Kader'])->group(function (){
     Route::get('/kader/penduduk', [PersonsController::class, 'index'])->name('persons.index');
     Route::get('/kader/penduduk/lansia', [PersonsController::class, 'index_lansia'])->name('persons.index_lansia');
     Route::get('/kader/penduduk/pra-lansia', [PersonsController::class, 'index_pra_lansia'])->name('persons.index_pra_lansia');
-    Route::post('/kader/kunjungan/tambah', [KunjungansController::class, 'create_view'])->name('kunjungans.create');
-    Route::post('/kader/kunjungan/store', [KunjungansController::class, 'store'])->name('kunjungans.store');
+    Route::get('/kader/penduduk/{id}', [PersonsController::class, 'detail_view'])->name('persons.detail_view');
 
     Route::get('/kader/kunjungan', [KunjungansController::class, 'index'])->name('kunjungans.index');
-    Route::post('/kader/kunjungan/tambah', [KunjungansController::class, 'create_view'])->name('kunjungans.create');
+    Route::post('/kader/kunjungan/tambah', [KunjungansController::class, 'create_view'])->name('kunjungans.create.kader');
+    Route::get('/kader/kunjungan/tambah', [KunjungansController::class, 'create_view'])->name('kunjungans.create.kader');
     Route::get('/kader/kunjungan/{id}', [KunjungansController::class, 'detail_view'])->name('kunjungans.detail_view');
     Route::post('/kader/kunjungan/store', [KunjungansController::class, 'store'])->name('kunjungans.store');
     

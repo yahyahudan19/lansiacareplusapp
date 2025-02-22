@@ -568,7 +568,7 @@
                                             </label>
                                             <!--end::Label-->
                                             <div class="mb-10">
-                                                <input class="form-control" placeholder="Pick a date" name="tanggal_kj" id="kt_datepicker_1"/>
+                                                <input class="form-control" placeholder="Pick a date" name="tanggal_kj" id="kt_datepicker_1" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"/>
                                             </div>
                                         </div>
                                         <!--end::Input group-->

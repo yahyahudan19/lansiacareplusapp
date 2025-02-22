@@ -54,29 +54,12 @@
                     <!--end::Page title-->
                     <!--begin::Actions-->
                     <div class="d-flex align-items-center gap-2 gap-lg-3">
-                        @if (Auth::user()->role == "System Administrator")
-                            <!--begin::Button-->
-                            <a href="{{ url()->previous() }}" class="btn btn-success">
-                                <i class="ki-duotone ki-left-square"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
-                                Kembali
-                            </a>
-                            <!--end::Button-->
-                        @elseif(Auth::user()->role == "Puskesmas")
-                            <!--begin::Button-->
-                            <a href="{{ url()->previous() }}" class="btn btn-success">
-                                <i class="ki-duotone ki-left-square"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
-                                Kembali
-                            </a>
-                            <!--end::Button-->
-                        @else
-                            <!--begin::Button-->
-                            <a href="{{ url()->previous() }}" class="btn btn-success">
-                                <i class="ki-duotone ki-left-square"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
-                                Kembali
-                            </a>
-                            <!--end::Button-->
-                        @endif
-                        
+                        <!--begin::Button-->
+                        <a href="{{ url()->previous() }}" class="btn btn-success">
+                            <i class="ki-duotone ki-left-square"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                            Kembali
+                        </a>
+                        <!--end::Button-->
                     </div>
                     <!--end::Actions-->
                 </div>
@@ -203,23 +186,25 @@
                                         <table class="table align-middle table-row-dashed gy-5" id="kt_table_customers_payment">
                                             <thead class="border-bottom border-gray-200 fs-7 fw-bold">
                                                 <tr class="text-start text-muted text-uppercase gs-0">
-                                                    <th class="min-w-100px">ID Kunjungan.</th>
-                                                    <th>Status</th>
-                                                    <th>Kelurahan</th>
+                                                    {{-- <th class="min-w-100px">ID Kunjungan.</th>
+                                                    <th>Status</th> --}}
+                                                    {{-- <th>Kelurahan</th> --}}
                                                     <th class="min-w-100px">Tanggal Kunjungan</th>
+                                                    <th>Rekomendasi</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="fs-6 fw-semibold text-gray-600">
                                                 @foreach ($riwkin as $riw)
                                                 <tr>
-                                                    <td>
+                                                    {{-- <td>
                                                         <a href="#" class="text-gray-600 text-hover-primary mb-1">#{{$riw->id}}</a>
                                                     </td>
                                                     <td>
                                                         <span class="badge badge-light-success">Success</span>
-                                                    </td>
-                                                    <td>{{$riw->person->kelurahan->nama}}</td>
+                                                    </td> --}}
+                                                    {{-- <td>{{$riw->person->kelurahan->nama}}</td> --}}
                                                     <td>{{ \Illuminate\Support\Carbon::parse($riw->tanggal_kj)->translatedFormat('d F Y') }}</td>
+                                                    <td>{{ $riwkin_rekomendasi[$riw->id] }}</td>
                                                 </tr>
                                                 @endforeach
                                             </tbody>

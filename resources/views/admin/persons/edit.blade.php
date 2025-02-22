@@ -230,8 +230,8 @@
                                                     <!--end::Label-->
                                                     <!--begin::Select2-->
                                                     <select class="form-select mb-2" name="notifikasi" data-control="select2" data-placeholder="Select a Notifikasi">
-                                                        <option value="Y" {{ $persons->notifikasi == 'Y' ? 'selected' : '' }}>Iya</option>
-                                                        <option value="N" {{ $persons->notifikasi == 'N' ? 'selected' : '' }}>Tidak</option>
+                                                        <option value="Y">Iya</option>
+                                                        <option value="N">Tidak</option>
                                                     </select>
                                                     <!--end::Select2-->
                                                     <!--begin::Description-->

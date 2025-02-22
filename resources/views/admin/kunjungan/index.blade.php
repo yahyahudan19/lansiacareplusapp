@@ -245,12 +245,18 @@
                                 <!--end::Content-->
                             </div>
                             <!--end::Menu 1-->
-                            <!--end::Filter-->
+                            
+                            <!--begin::Tambah Kunjungan-->
+                            <button type="button" class="btn btn-success me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user">
+                                <i class="ki-outline ki-plus fs-2"></i>Tambah Penduduk
+                            </button>
+
                             @if (in_array(auth()->user()->role, ['System Administrator', 'Puskesmas', 'Kader']))
                                <!--begin::Add user-->
                                 <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_1">
                                 <i class="ki-outline ki-plus fs-2"></i>Tambah Kunjungan</a>
                                 <!--end::Add user--> 
+                              
                             @endif
                             
                         </div>
@@ -411,7 +417,186 @@
                             </div>
                             <!--begin::Modal Search Person-->
                         @endif
-                        
+
+                        <!--begin::Modal - Add Penduduk-->
+                        <div class="modal fade" id="kt_modal_add_user" tabindex="-1" aria-hidden="true">
+                            <!--begin::Modal dialog-->
+                            <div class="modal-dialog modal-dialog-centered mw-650px">
+                                <!--begin::Modal content-->
+                                <div class="modal-content">
+                                    <!--begin::Modal header-->
+                                    <div class="modal-header" id="kt_modal_add_user_header">
+                                        <!--begin::Modal title-->
+                                        <h2 class="fw-bold">Tambah Penduduk </h2>
+                                        <!--end::Modal title-->
+                                        <!--begin::Close-->
+                                        <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-users-modal-action="close">
+                                            <i class="ki-outline ki-cross fs-1"></i>
+                                        </div>
+                                        <!--end::Close-->
+                                    </div>
+                                    <!--end::Modal header-->
+                                    
+                                    <!--begin::Modal body-->
+                                    <div class="modal-body px-5 my-7">
+                                        <!--begin::Form-->
+                                        <form id="kt_modal_add_user_form" class="form" action="/admin/penduduk/store" method="POST">
+                                            @csrf
+                                            <!--begin::Scroll-->
+                                            <div class="d-flex flex-column scroll-y px-5 px-lg-10" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px">
+                                                
+                                                <!--begin::Input group-->
+                                                <div class="fv-row mb-7">
+                                                    <!--begin::Label-->
+                                                    <label class="required fw-semibold fs-6 mb-2">Nama Lengkap</label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="text" name="person_name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Nama Lengkap" value="User Test" />
+                                                    <!--end::Input-->
+                                                </div>
+                                                <!--end::Input group-->
+                                                <!--begin::Input group-->
+                                                <div class="fv-row mb-7">
+                                                    <!--begin::Label-->
+                                                    <label class="required fw-semibold fs-6 mb-2">NIK</label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="text" name="person_nik" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="NIK" value="35730439090000004" />
+                                                    <!--end::Input-->
+                                                </div>
+                                                <!--end::Input group-->
+
+                                                <!--end::begin group-->
+                                                <div class="row g-9 mb-7">
+                                                    <!--begin::Col-->
+                                                    <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                                        <!--begin::Label-->
+                                                        <label class="required fw-semibold fs-6 mb-2">No. Telp</label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <input type="text" name="person_telp" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="No. Telp" value="6281259224380" />
+                                                        <!--end::Input-->
+                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+                                                    <!--end::Col-->
+
+                                                    <!--begin::Col-->
+                                                    <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                                        <!--begin::Label-->
+                                                        <label class="form-label required">Tanggal Lahir</label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <div class="input-group" id="kt_td_picker_date_only" data-td-target-input="nearest" data-td-target-toggle="nearest">
+                                                        <input id="kt_td_picker_date_only_input" type="text" class="form-control" data-td-target="#kt_td_picker_date_only" name="person_tl"/>
+                                                        <span class="input-group-text" data-td-target="#kt_td_picker_date_only" data-td-toggle="datetimepicker">
+                                                            <i class="ki-duotone ki-calendar fs-2"><span class="path1"></span><span class="path2"></span></i>
+                                                        </span>
+                                                    </div>
+                                                    <!--end::Input-->
+                                                    
+                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+                                                    <!--end::Col-->
+                                                </div>
+                                                <!--end::Input group-->
+
+                                                <!--begin::Input group-->
+                                                <div class="fv-row mb-7">
+                                                    <!--begin::Label-->
+                                                    {{-- <label class="form-label required">Kirim Notifikasi</label> --}}
+                                                    <span><center>Apakah anda ingin hasil skrining kesehatan dikirimkan melalui nomer HP yang anda berikan?</center></span>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <select name="person_notifikasi" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
+                                                        <option></option>
+                                                        <option value="Y">Iya</option>
+                                                        <option value="N">Tidak</option>
+                                                    </select>
+                                                    <!--end::Input-->
+                                                </div>
+                                                <!--end::Input group-->
+
+                                              
+                                                <!--begin::Input group-->
+                                                <div class="fv-row mb-7">
+                                                    <!--begin::Label-->
+                                                    <label class="fw-semibold fs-6 mb-2">No. BPJS</label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="text" name="person_bpjs" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="No. BPJS" value="1234561235" />
+                                                    <!--end::Input-->
+                                                </div>
+                                                <!--end::Input group-->
+                                              
+                                                <!--begin::Input group-->
+                                                <div class="fv-row mb-7">
+                                                    <!--begin::Label-->
+                                                    <label class="fw-semibold fs-6 mb-2 required">Alamat Lengkap</label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="text" name="person_alamat" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Alamat" value="Jl. Malang" />
+                                                    <!--end::Input-->
+                                                </div>
+                                                <!--end::Input group-->
+                                                <!--begin::Input group-->
+                                                <div class="row g-9 mb-7">
+                                                    <!--begin::Col-->
+                                                    <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                                        <!--begin::Label-->
+                                                        <label class="required fs-6 fw-semibold mb-2">RT</label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <input class="form-control form-control-solid" placeholder="" name="person_rt" value="01">
+                                                        <!--end::Input-->
+                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+                                                    <!--end::Col-->
+                                                    <!--begin::Col-->
+                                                    <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                                        <!--begin::Label-->
+                                                        <label class="required fs-6 fw-semibold mb-2">RW</label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <input class="form-control form-control-solid" placeholder="" name="person_rw" value="02">
+                                                        <!--end::Input-->
+                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+                                                    <!--end::Col-->
+                                                </div>
+
+                                                <!--begin::Input group-->
+                                                <div class="fv-row mb-7">
+                                                    <!--begin::Label-->
+                                                    <label class="form-label required">Kelurahan</label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <select name="person_kelurahan" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select..." data-allow-clear="true" data-hide-search="false">
+                                                        <option></option>
+                                                        @foreach ($kelurahans as $kel)
+                                                            <option value="{{$kel->id}}">{{$kel->nama}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <!--end::Input-->
+                                                </div>
+                                                <!--end::Input group-->
+                                            </div>
+                                            <!--end::Scroll-->
+                                            <!--begin::Actions-->
+                                            <div class="text-center pt-10">
+                                                <button type="reset" class="btn btn-light me-3" data-kt-users-modal-action="cancel">Discard</button>
+                                                <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
+                                                    <span class="indicator-label">Submit</span>
+                                                    <span class="indicator-progress">Please wait... 
+                                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                                </button>
+                                            </div>
+                                            <!--end::Actions-->
+                                        </form>
+                                        <!--end::Form-->
+                                    </div>
+                                    <!--end::Modal body-->
+                                </div>
+                                <!--end::Modal content-->
+                            </div>
+                            <!--end::Modal dialog-->
+                        </div>
+                        <!--end::Modal - Add Penduduk-->
 
                     </div>
                     <!--end::Card toolbar-->
@@ -572,6 +757,250 @@
     </script>
     <!--end::Filter Kunjungans-->
 
+    <!--begin::Add Person Javascript-->
+    <script>
+        "use strict";
+        // Class definition
+        var KTUsersAddUser = function () {
+            // Shared variables
+            const element = document.getElementById('kt_modal_add_user');
+            const form = element.querySelector('#kt_modal_add_user_form');
+            const modal = new bootstrap.Modal(element);
+
+            // Init add schedule modal
+            var initAddUser = () => {
+
+                // Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
+                var validator = FormValidation.formValidation(
+                    form,
+                    {
+                        fields: {
+                            'person_name': {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Nama Lengkap is required'
+                                    }
+                                }
+                            },
+                            'person_nik': {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'NIK is required'
+                                    },
+                                    stringLength: {
+                                        min: 16,
+                                        max: 16,
+                                        message: 'NIK harus 16 digit'
+                                    },
+                                    regexp: {
+                                        regexp: /^[0-9]+$/,
+                                        message: 'NIK harus berupa angka'
+                                    }
+                                }
+                            },
+                            'person_tl': {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Valid Tanggal Lahir is required'
+                                    }
+                                }
+                            },
+                            'person_alamat': {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Valid Alamat is required'
+                                    }
+                                }
+                            },
+                            'person_telp': {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Valid No. Telp is required'
+                                    }
+                                }
+                            },
+                            'person_rt': {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Valid RT is required'
+                                    }
+                                }
+                            },
+                            'person_rw': {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Valid RW is required'
+                                    }
+                                }
+                            },
+                            'person_kelurahan': {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Valid Kelurahan is required'
+                                    }
+                                }
+                            },
+                            'person_notifikasi': {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Valid Notifikasi is required'
+                                    }
+                                }
+                            },
+                        },
+
+                        plugins: {
+                            trigger: new FormValidation.plugins.Trigger(),
+                            bootstrap: new FormValidation.plugins.Bootstrap5({
+                                rowSelector: '.fv-row',
+                                eleInvalidClass: '',
+                                eleValidClass: ''
+                            })
+                        }
+                    }
+                );
+
+                // Submit button handler
+                const submitButton = element.querySelector('[data-kt-users-modal-action="submit"]');
+                submitButton.addEventListener('click', e => {
+                    e.preventDefault();
+
+                    // Validate form before submit
+                    if (validator) {
+                        validator.validate().then(function (status) {
+                            console.log('validated!');
+
+                            if (status == 'Valid') {
+                                // Show loading indication
+                                submitButton.setAttribute('data-kt-indicator', 'on');
+
+                                // Disable button to avoid multiple click 
+                                submitButton.disabled = true;
+
+                                // Simulate form submission. For more info check the plugin's official documentation: https://sweetalert2.github.io/
+                                setTimeout(function () {
+                                    // Remove loading indication
+                                    submitButton.removeAttribute('data-kt-indicator');
+
+                                    // Enable button
+                                    submitButton.disabled = false;
+
+                                    // Show popup confirmation 
+                                    Swal.fire({
+                                        text: "Form has been successfully submitted!",
+                                        icon: "success",
+                                        buttonsStyling: false,
+                                        confirmButtonText: "Ok, got it!",
+                                        customClass: {
+                                            confirmButton: "btn btn-primary"
+                                        }
+                                    }).then(function (result) {
+                                        if (result.isConfirmed) {
+                                            modal.hide();
+                                        }
+                                    });
+
+                                    form.submit(); // Submit form
+
+                                }, 2000);
+                            } else {
+                                // Show popup warning. For more info check the plugin's official documentation: https://sweetalert2.github.io/
+                                Swal.fire({
+                                    text: "Sorry, looks like there are some errors detected, please try again.",
+                                    icon: "error",
+                                    buttonsStyling: false,
+                                    confirmButtonText: "Ok, got it!",
+                                    customClass: {
+                                        confirmButton: "btn btn-primary"
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+
+                // Cancel button handler
+                const cancelButton = element.querySelector('[data-kt-users-modal-action="cancel"]');
+                cancelButton.addEventListener('click', e => {
+                    e.preventDefault();
+
+                    Swal.fire({
+                        text: "Are you sure you would like to cancel?",
+                        icon: "warning",
+                        showCancelButton: true,
+                        buttonsStyling: false,
+                        confirmButtonText: "Yes, cancel it!",
+                        cancelButtonText: "No, return",
+                        customClass: {
+                            confirmButton: "btn btn-primary",
+                            cancelButton: "btn btn-active-light"
+                        }
+                    }).then(function (result) {
+                        if (result.value) {
+                            form.reset(); // Reset form			
+                            modal.hide();	
+                        } else if (result.dismiss === 'cancel') {
+                            Swal.fire({
+                                text: "Your form has not been cancelled!.",
+                                icon: "error",
+                                buttonsStyling: false,
+                                confirmButtonText: "Ok, got it!",
+                                customClass: {
+                                    confirmButton: "btn btn-primary",
+                                }
+                            });
+                        }
+                    });
+                });
+
+                // Close button handler
+                const closeButton = element.querySelector('[data-kt-users-modal-action="close"]');
+                closeButton.addEventListener('click', e => {
+                    e.preventDefault();
+
+                    Swal.fire({
+                        text: "Are you sure you would like to cancel?",
+                        icon: "warning",
+                        showCancelButton: true,
+                        buttonsStyling: false,
+                        confirmButtonText: "Yes, cancel it!",
+                        cancelButtonText: "No, return",
+                        customClass: {
+                            confirmButton: "btn btn-primary",
+                            cancelButton: "btn btn-active-light"
+                        }
+                    }).then(function (result) {
+                        if (result.value) {
+                            form.reset(); // Reset form			
+                            modal.hide();	
+                        } else if (result.dismiss === 'cancel') {
+                            Swal.fire({
+                                text: "Your form has not been cancelled!.",
+                                icon: "error",
+                                buttonsStyling: false,
+                                confirmButtonText: "Ok, got it!",
+                                customClass: {
+                                    confirmButton: "btn btn-primary",
+                                }
+                            });
+                        }
+                    });
+                });
+            }
+
+            return {
+                // Public functions
+                init: function () {
+                    initAddUser();
+                }
+            };
+        }();
+        // On document ready
+        KTUtil.onDOMContentLoaded(function () {
+            KTUsersAddUser.init();
+        });
+    </script>
+    <!--end::Add Person Javascript-->
 
     <!--begin::Table Kunjungans Javascript-->
     <script>

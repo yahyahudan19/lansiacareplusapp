@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Kecamatans;
 use App\Models\Kelurahans;
 use App\Models\Kunjungans;
+use App\Models\Log;
 use App\Models\Persons;
+use App\Models\Logs;
 use App\Models\Skrinings;
 use App\Services\WhatsAppService;
 use Carbon\Carbon;
@@ -35,15 +37,17 @@ class KunjungansController extends Controller
             ->first();
         // dd($dapen);
         
-        if (auth()->user()->role === 'System Administrator') {
-            return view('admin.kunjungan.create', compact('dapen'));
-        } elseif (auth()->user()->role === 'Puskesmas') {
-            return view('admin.kunjungan.create', compact('dapen'));
-        } elseif (auth()->user()->role === 'Kader') {
-            return view('kader.kunjungan.create', compact('dapen'));
-        } else {
-            abort(403, 'Unauthorized action.');
+        if (!$dapen) {
+            return redirect()->back()->with('status', 'error')->with('message', 'Data penduduk tidak ditemukan.');
         }
+    
+        // Tentukan view berdasarkan role user
+        return match (auth()->user()->role) {
+            'System Administrator' => view('admin.kunjungan.create', compact('dapen')),
+            'Puskesmas' => view('admin.kunjungan.create', compact('dapen')),
+            'Kader' => view('kader.kunjungan.create', compact('dapen')),
+            default => abort(403, 'Unauthorized action.')
+        };
     }
     
 
@@ -54,21 +58,32 @@ class KunjungansController extends Controller
     {
         $dapen = Persons::findOrFail($id);
 
-        $dakun = Kunjungans::where('person_id',$id)->orderBy('tanggal_kj', 'desc')->first();
-        $dakrin = Skrinings::where('kunjungan_id',$dakun->id)->latest()->first();
+        $dakun = Kunjungans::where('person_id', $id)->orderBy('tanggal_kj', 'desc')->first();
+        $dakrin = Skrinings::where('kunjungan_id', $dakun->id)->latest()->first();
 
         $riwkin = Kunjungans::where('person_id', $id)
             ->orderBy('tanggal_kj', 'desc')
             ->get(); // Ambil semua data terlebih dahulu
             
         $riwkin_sliced = $riwkin->slice(1); // Potong elemen pertama
-        // dd($riwkin);
-        $riwkin_jum = Kunjungans::where('person_id',$id)->latest()->count();
+        $riwkin_jum = Kunjungans::where('person_id', $id)->latest()->count();
 
-        // dd($riwkin);
+        // Ambil data skrining untuk seluruh riwayat kunjungan
+        $riwkin_rekomendasi = [];
+        foreach ($riwkin as $riw) {
+            $skrining = Skrinings::where('kunjungan_id', $riw->id)->latest()->first();
+            if ($skrining) {
+                $perlu_rujukan = in_array('Y', [$skrining->ginjal, $skrining->penglihatan, $skrining->pendengaran, $skrining->merokok]);
 
-        return view('admin.kunjungan.detail', compact('dakun','dakrin','riwkin','riwkin_jum','riwkin_sliced','dapen'));
+                $riwkin_rekomendasi[$riw->id] = $perlu_rujukan ? "Silakan Rujuk ke Pustu atau Puskesmas terdekat" : "Tidak Perlu Rujukan";
+            } else {
+                $riwkin_rekomendasi[$riw->id] = "Data Skrining Tidak Tersedia";
+            }
+        }
+
+        return view('admin.kunjungan.detail', compact('dakun', 'dakrin', 'riwkin', 'riwkin_jum', 'riwkin_sliced', 'dapen', 'riwkin_rekomendasi'));
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -121,6 +136,17 @@ class KunjungansController extends Controller
                 'adl' => $request->adl,
                 'gds' => $request->gds,
                 'kunjungan_id' => $kunjungan->id,
+            ]);
+
+            // Simpan data log
+            Log::create([
+                'user_id' => auth()->user()->id,
+                'username' => auth()->user()->username,
+                'email' => auth()->user()->email,
+                'category' => 'create',
+                'activity' => 'create',
+                'details' => 'Menambahkan kunjungan baru untuk person_id: ' . $person->id,
+                
             ]);
 
             if ($person->notifikasi == "Y") {
@@ -274,7 +300,7 @@ class KunjungansController extends Controller
     private function generateWhatsappMessage($person, $indicators, $tanggal)
     {
         $puskesmas = auth()->user()->puskesmas->nama;
-        $message = "Halo, Bapak/Ibu {$person->nama},\n\nHasil Skrining Anda pada tanggal: *{$tanggal}* di Puskesmas : *{$puskesmas}* adalah sebagai berikut:\n\n";
+        $message = "👋 Halo, Bapak/Ibu {$person->nama},\n\n📅 Hasil Skrining Anda pada tanggal: *{$tanggal}* di Puskesmas: *{$puskesmas}* adalah sebagai berikut:\n\n";
         $counter = 1;
 
         foreach ($indicators as $key => $indicator) {
@@ -290,7 +316,7 @@ class KunjungansController extends Controller
             $counter++;
         }
 
-        $message .= "Tetap jaga kesehatan dan lakukan pemeriksaan rutin.\n\nTerima kasih.";
+        $message .= "💪 Tetap jaga kesehatan dan lakukan pemeriksaan rutin untuk hidup yang lebih sehat dan bahagia.\n\nTerima kasih! 😊";
 
         return $message;
     }
