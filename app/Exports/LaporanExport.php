@@ -23,10 +23,12 @@ class LaporanExport implements FromArray, WithHeadings, WithStyles
     protected $startDate;
     protected $endDate;
     protected $laporanController;
+    protected $isAgregat;
 
-    public function __construct($puskesmasId, $dateRange)
+    public function __construct($puskesmasId, $dateRange, $isAgregat = false)
     {
         $this->puskesmasId = $puskesmasId;
+        $this->isAgregat = $isAgregat; // Simpan nilai isAgregat
         $this->laporanController = new LaporansController();
 
         if ($dateRange) {
@@ -39,55 +41,128 @@ class LaporanExport implements FromArray, WithHeadings, WithStyles
         }
     }
 
+    // public function array(): array
+    // {
+    //     $user = Auth::user()->load('puskesmas');
+
+
+    //      // Cek apakah user memiliki akses ke puskesmas yang diminta berdasarkan puskesmas_kd
+    //      if ($user->role === 'Puskesmas') {
+    //         if ($this->puskesmasId != $user->puskesmas->kode) {
+    //             abort(403, 'Anda tidak memiliki akses ke laporan ini.');
+    //         }
+    //     }
+
+    //     $kelurahans = Kelurahans::with('puskesmas')->where('puskesmas_kd', $this->puskesmasId)->get();
+    //     $indicators = Indikators::with('kelompok')->orderBy('kelompok_id')->get();
+        
+    //     $results = [];
+    //     $totals = [];
+
+    //     foreach ($kelurahans as $kelurahan) {
+    //         foreach ($indicators as $indicator) {
+    //             $count = $this->laporanController->calculateCount(
+    //                 $indicator,
+    //                 $kelurahan,
+    //                 $this->startDate,
+    //                 $this->endDate,
+    //                 $indicator->jenis_kelamin,
+    //                 $indicator->age_min,
+    //                 $indicator->age_max,
+    //                 false // Agregat, jadi TRUE
+    //             );
+                
+    //             if ($count === null) {
+    //                 $count = 0;
+    //             }
+
+    //             $results[$kelurahan->nama][$indicator->kelompok->nama][$indicator->nama] = $count;
+                
+    //             if (!isset($totals[$indicator->kelompok->nama][$indicator->nama])) {
+    //                 $totals[$indicator->kelompok->nama][$indicator->nama] = 0;
+    //             }
+    //             $totals[$indicator->kelompok->nama][$indicator->nama] += $count;
+    //         }
+    //     }
+
+    //     $exportData = [];
+    //     $exportData[] = ['Laporan Puskesmas', 'Periode: ' . $this->startDate . ' - ' . $this->endDate];
+
+    //     $header = ['Kelompok', 'Indikator'];
+    //     foreach ($kelurahans as $kelurahan) {
+    //         $header[] = $kelurahan->nama;
+    //     }
+    //     $header[] = 'Total';
+    //     $exportData[] = $header;
+
+    //     foreach ($indicators as $indicator) {
+    //         $kelompokNama = $indicator->kelompok->nama;
+    //         $row = [$kelompokNama, $indicator->nama];
+    //         foreach ($kelurahans as $kelurahan) {
+    //             $value = $results[$kelurahan->nama][$kelompokNama][$indicator->nama] ?? 0;
+    //             $row[] = $value;
+    //         }
+    //         $row[] = $totals[$kelompokNama][$indicator->nama] ?? 0;
+    //         $exportData[] = $row;
+    //     }
+
+    //     return $exportData;
+    // }
     public function array(): array
     {
         $user = Auth::user()->load('puskesmas');
 
-
-         // Cek apakah user memiliki akses ke puskesmas yang diminta berdasarkan puskesmas_kd
-         if ($user->role === 'Puskesmas') {
+        if ($user->role === 'Puskesmas' && !$this->isAgregat) {
             if ($this->puskesmasId != $user->puskesmas->kode) {
                 abort(403, 'Anda tidak memiliki akses ke laporan ini.');
             }
         }
 
-        $kelurahans = Kelurahans::with('puskesmas')->where('puskesmas_kd', $this->puskesmasId)->get();
+        // Jika mode agregat, ambil semua puskesmas
+        if ($this->isAgregat) {
+            $locations = Puskesmas::all();
+        } else {
+            $locations = Kelurahans::where('puskesmas_kd', $this->puskesmasId)->get();
+        }
+
         $indicators = Indikators::with('kelompok')->orderBy('kelompok_id')->get();
-        
         $results = [];
         $totals = [];
 
-        foreach ($kelurahans as $kelurahan) {
+        foreach ($locations as $location) {
             foreach ($indicators as $indicator) {
                 $count = $this->laporanController->calculateCount(
                     $indicator,
-                    $kelurahan,
+                    $location,
                     $this->startDate,
                     $this->endDate,
                     $indicator->jenis_kelamin,
                     $indicator->age_min,
-                    $indicator->age_max
+                    $indicator->age_max,
+                    $this->isAgregat // TRUE jika agregat
                 );
-                
+
                 if ($count === null) {
                     $count = 0;
                 }
 
-                $results[$kelurahan->nama][$indicator->kelompok->nama][$indicator->nama] = $count;
-                
+                $results[$location->nama][$indicator->kelompok->nama][$indicator->nama] = $count;
+
                 if (!isset($totals[$indicator->kelompok->nama][$indicator->nama])) {
                     $totals[$indicator->kelompok->nama][$indicator->nama] = 0;
                 }
                 $totals[$indicator->kelompok->nama][$indicator->nama] += $count;
             }
         }
-
+        
+        // Format data untuk di-export ke Excel
         $exportData = [];
-        $exportData[] = ['Laporan Puskesmas', 'Periode: ' . $this->startDate . ' - ' . $this->endDate];
+        $title = $this->isAgregat ? 'Laporan Agregat Puskesmas' : 'Laporan Puskesmas';
+        $exportData[] = [$title, 'Periode: ' . $this->startDate . ' - ' . $this->endDate];
 
         $header = ['Kelompok', 'Indikator'];
-        foreach ($kelurahans as $kelurahan) {
-            $header[] = $kelurahan->nama;
+        foreach ($locations as $location) {
+            $header[] = $location->nama;
         }
         $header[] = 'Total';
         $exportData[] = $header;
@@ -95,8 +170,8 @@ class LaporanExport implements FromArray, WithHeadings, WithStyles
         foreach ($indicators as $indicator) {
             $kelompokNama = $indicator->kelompok->nama;
             $row = [$kelompokNama, $indicator->nama];
-            foreach ($kelurahans as $kelurahan) {
-                $value = $results[$kelurahan->nama][$kelompokNama][$indicator->nama] ?? 0;
+            foreach ($locations as $location) {
+                $value = $results[$location->nama][$kelompokNama][$indicator->nama] ?? 0;
                 $row[] = $value;
             }
             $row[] = $totals[$kelompokNama][$indicator->nama] ?? 0;
@@ -105,6 +180,7 @@ class LaporanExport implements FromArray, WithHeadings, WithStyles
 
         return $exportData;
     }
+
 
     public function headings(): array
     {

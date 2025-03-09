@@ -97,6 +97,7 @@ Route::middleware(['role:System Administrator'])->group(function (){
     
     
     Route::get('/admin/laporan/puskesmas', [LaporansController::class, 'index'])->name('laporan.index');
+    Route::get('/admin/laporan/agregat', [LaporansController::class, 'agregat'])->name('laporan.agregat');
 
     Route::get('/admin/puskesmas', [PuskesmasController::class, 'index'])->name('puskesmas.index');
 

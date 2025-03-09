@@ -150,7 +150,8 @@ class LaporansController extends Controller
                     $endDate,
                     $indicator->jenis_kelamin,
                     $indicator->age_min,
-                    $indicator->age_max
+                    $indicator->age_max, 
+                    false // Bukan agregat, jadi FALSE
                 );
         
                 // Simpan hasil per kelurahan
@@ -373,11 +374,31 @@ class LaporansController extends Controller
     //     }
     // }
 
-    public function calculateCount($indicator, $kelurahan, $startDate, $endDate, $jenisKelamin, $ageMin, $ageMax)
+    public function calculateCount($indicator, $location, $startDate, $endDate, $jenisKelamin, $ageMin, $ageMax,$isAgregat)
     {
         // Abstraksi filter person untuk digunakan di semua case
-        $filterPerson = function ($q) use ($kelurahan, $jenisKelamin, $ageMin, $ageMax) {
-            $q->where('kelurahan_id', $kelurahan->id);
+        // $filterPerson = function ($q) use ($kelurahan, $jenisKelamin, $ageMin, $ageMax) {
+        //     $q->where('kelurahan_id', $kelurahan->id);
+        //     if ($jenisKelamin === 'L' || $jenisKelamin === 'P') {
+        //         $q->where('jenis_kelamin', $jenisKelamin);
+        //     }
+        //     if (!is_null($ageMin) && !is_null($ageMax)) {
+        //         $q->whereRaw('TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) BETWEEN ? AND ?', [$ageMin, $ageMax]);
+        //     }
+        // };
+
+        // Abstraksi filter person untuk digunakan di semua case
+        $filterPerson = function ($q) use ($location, $jenisKelamin, $ageMin, $ageMax, $isAgregat) {
+            if ($isAgregat) {
+                // Jika agregat, filter berdasarkan puskesmas
+                $q->whereHas('kelurahan', function ($query) use ($location) {
+                    $query->where('puskesmas_kd', $location->kode);
+                });
+            } else {
+                // Jika bukan agregat, filter berdasarkan kelurahan
+                $q->where('kelurahan_id', $location->id);
+            }
+
             if ($jenisKelamin === 'L' || $jenisKelamin === 'P') {
                 $q->where('jenis_kelamin', $jenisKelamin);
             }
@@ -475,18 +496,87 @@ class LaporansController extends Controller
         }
     }
 
+    // public function exportExcel(Request $request)
+    // {
+    //     $puskesmas = Puskesmas::where('kode', $request->input('puskesmas'))->first();
+    //     $dateRange = $request->input('date_range', '');
+
+    //     // Format nama file
+    //     $formattedPuskesmas = str_replace(' ', '_', strtolower($puskesmas->nama));
+    //     $formattedDateRange = str_replace(['/', ' '], '', $dateRange);
+    //     $fileName = "export_{$formattedPuskesmas}_{$formattedDateRange}.xlsx";
+
+    //     return Excel::download(new LaporanExport($request->input('puskesmas'), $dateRange), $fileName);
+    // }
     public function exportExcel(Request $request)
     {
-        $puskesmas = Puskesmas::where('kode', $request->input('puskesmas'))->first();
+        $isAgregat = $request->input('is_agregat', false);
+        $puskesmasId = $isAgregat ? null : $request->input('puskesmas'); // Jika agregat, tidak perlu filter puskesmas
         $dateRange = $request->input('date_range', '');
 
         // Format nama file
-        $formattedPuskesmas = str_replace(' ', '_', strtolower($puskesmas->nama));
         $formattedDateRange = str_replace(['/', ' '], '', $dateRange);
-        $fileName = "export_{$formattedPuskesmas}_{$formattedDateRange}.xlsx";
+        $fileType = $isAgregat ? "agregat" : "puskesmas_{$puskesmasId}";
+        $fileName = "export_{$fileType}_{$formattedDateRange}.xlsx";
 
-        return Excel::download(new LaporanExport($request->input('puskesmas'), $dateRange), $fileName);
+        return Excel::download(new LaporanExport($puskesmasId, $dateRange, $isAgregat), $fileName);
     }
 
+
+
+    public function agregat(Request $request)
+    {
+        $puskesmas = Puskesmas::all();
+
+        // Ambil date range dari request dan format ulang
+        $dateRange = $request->input('date_range', null);
+        if ($dateRange) {
+            $dates = explode(' - ', $dateRange);
+            $startDate = Carbon::createFromFormat('m/d/Y', $dates[0])->format('Y-m-d');
+            $endDate = Carbon::createFromFormat('m/d/Y', $dates[1])->format('Y-m-d');
+        } else {
+            $startDate = null;
+            $endDate = null;
+        }
+
+        // Jika tidak ada filter, tampilkan halaman kosong
+        if (!$dateRange) {
+
+            return view('admin.laporan.agregat', compact('puskesmas'))
+                ->with('message', 'Silakan lakukan filter terlebih dahulu untuk melihat laporan.');
+        }
+
+        // Ambil semua indikator
+        $indicators = Indikators::with('kelompok')->orderBy('kelompok_id')->get();
+
+        $results = [];
+        $totals = [];
+
+        foreach ($puskesmas as $puskesmasItem) {
+            foreach ($indicators as $indicator) {
+                $count = $this->calculateCount(
+                    $indicator,
+                    $puskesmasItem,
+                    $startDate,
+                    $endDate,
+                    $indicator->jenis_kelamin,
+                    $indicator->age_min,
+                    $indicator->age_max, 
+                    true // Agregat, jadi TRUE
+                );
+
+                // Simpan hasil per puskesmas
+                $results[$puskesmasItem->nama][$indicator->kelompok->nama][$indicator->nama] = $count;
+
+                // Hitung total per indikator di semua puskesmas
+                if (!isset($totals[$indicator->kelompok->nama][$indicator->nama])) {
+                    $totals[$indicator->kelompok->nama][$indicator->nama] = 0;
+                }
+                $totals[$indicator->kelompok->nama][$indicator->nama] += $count;
+            }
+        }
+
+        return view('admin.laporan.agregat', compact('results', 'totals', 'puskesmas', 'startDate', 'endDate','indicators'));
+    }
 
 }
