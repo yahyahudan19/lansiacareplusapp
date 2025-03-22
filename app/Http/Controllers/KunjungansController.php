@@ -149,6 +149,18 @@ class KunjungansController extends Controller
                 
             ]);
 
+            // Cek rekomendasi
+            $perlu_rujukan = in_array('Y', [
+                $request->ginjal,
+                $request->penglihatan,
+                $request->pendengaran,  
+                $request->merokok,
+            ]);
+
+            $rekomendasi = $perlu_rujukan
+                ? "Silakan Rujuk ke Pustu atau Puskesmas terdekat"
+                : "Tidak Perlu Rujukan";
+
             if ($person->notifikasi == "Y") {
                 // Hitung indikator
                 $indicators = $this->calculateIndicators($request->all());
@@ -164,15 +176,18 @@ class KunjungansController extends Controller
                 if ($response === true) {
                     return redirect($redirectUrl)
                         ->with('status', 'success')
-                        ->with('message', 'Kunjungan berhasil ditambahkan, pesan berhasil dikirim!');
+                        ->with('message', 'Kunjungan berhasil ditambahkan, pesan berhasil dikirim!')
+                        ->with('rekomendasi', $rekomendasi);
                 } elseif (is_array($response) && isset($response['status']) && $response['status'] === 400) {
                     return redirect($redirectUrl)
                         ->with('status', 'success')
-                        ->with('message', 'Kunjungan berhasil ditambahkan, namun terjadi kesalahan dalam mengirim pesan.');
+                        ->with('message', 'Kunjungan berhasil ditambahkan, namun terjadi kesalahan dalam mengirim pesan.')
+                        ->with('rekomendasi', $rekomendasi);
                 } else {
                     return redirect($redirectUrl)
                         ->with('status', 'success')
-                        ->with('message', 'Kunjungan berhasil ditambahkan, tetapi pesan gagal dikirim.');
+                        ->with('message', 'Kunjungan berhasil ditambahkan, tetapi pesan gagal dikirim.')
+                        ->with('rekomendasi', $rekomendasi);
                 }
             } else {
                 return redirect($redirectUrl)

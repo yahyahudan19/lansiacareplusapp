@@ -101,7 +101,7 @@
                     <!--end::Card-->
                 </form>
             </div>
-            @if (in_array(auth()->user()->role, ['System Administrator', 'Puskesmas'])) 
+            @if (in_array(auth()->user()->role, ['System Administrator', 'Puskesmas','Dinkes'])) 
             <!--begin::Card Filter-->
             <div class="card">
                 <div class="card-header border-0 pt-6">
@@ -117,6 +117,12 @@
                     <!--end::Card title-->
                     <!--begin::Card toolbar-->
                     <div class="card-toolbar">
+                        <div class="alert alert-warning d-flex align-items-center p-2 mb-5">
+                            <i class="ki-outline ki-information fs-2hx text-warning me-4"></i>
+                            <div class="d-flex flex-column">
+                                <span class="text-warning"><strong>Pilih Kecamatan</strong> terlebih dahulu untuk memfilter <strong>Data Kunjungan</strong> yang akan dicari.</span>
+                            </div>
+                        </div>
                         <form action="/kunjungan/cari" method="GET" id="searchForm">
                             {{-- @csrf --}}
                             <!--begin::Toolbar-->
@@ -303,7 +309,7 @@
                                             </div>
                                 
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
                                                 <!--begin::Actions-->
                                                 <button id="kt_docs_formvalidation_text_submit" type="submit" class="btn btn-primary">
                                                     <span class="indicator-label">
@@ -457,14 +463,35 @@
                                                     <!--end::Input-->
                                                 </div>
                                                 <!--end::Input group-->
+
                                                 <!--begin::Input group-->
-                                                <div class="fv-row mb-7">
-                                                    <!--begin::Label-->
-                                                    <label class="required fw-semibold fs-6 mb-2">NIK</label>
-                                                    <!--end::Label-->
-                                                    <!--begin::Input-->
-                                                    <input type="text" name="person_nik" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="NIK" value="35730439090000004" />
+                                                <div class="row g-9 mb-7">
+                                                    <!--begin::Col-->
+                                                    <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                                        <!--begin::Label-->
+                                                        <label class="required fs-6 fw-semibold mb-2">NIK</label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <input class="form-control form-control-solid" name="person_nik" placeholder="3573010101010001">
+                                                        <!--end::Input-->
+                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+                                                    <!--end::Col-->
+                                                    <!--begin::Col-->
+                                                    <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                                        <!--begin::Label-->
+                                                        <label class="required fs-6 fw-semibold mb-2">Jenis Kelamin</label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <!--begin::Input-->
+                                                    <select name="jenis_kelamin" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
+                                                        <option></option>
+                                                        <option value="L">Laki-Laki</option>
+                                                        <option value="P">Perempuan</option>
+                                                    </select>
                                                     <!--end::Input-->
+                                                        <!--end::Input-->
+                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+                                                    <!--end::Col-->
                                                 </div>
                                                 <!--end::Input group-->
 
@@ -581,10 +608,10 @@
                                             <!--end::Scroll-->
                                             <!--begin::Actions-->
                                             <div class="text-center pt-10">
-                                                <button type="reset" class="btn btn-light me-3" data-kt-users-modal-action="cancel">Discard</button>
+                                                <button type="reset" class="btn btn-light me-3" data-kt-users-modal-action="cancel">Batal</button>
                                                 <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
-                                                    <span class="indicator-label">Submit</span>
-                                                    <span class="indicator-progress">Please wait... 
+                                                    <span class="indicator-label">Simpan</span>
+                                                    <span class="indicator-progress">Silahkan Tunggu...
                                                     <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                                                 </button>
                                             </div>
@@ -780,14 +807,14 @@
                             'person_name': {
                                 validators: {
                                     notEmpty: {
-                                        message: 'Nama Lengkap is required'
+                                        message: 'Nama Lengkap Harus diisi'
                                     }
                                 }
                             },
                             'person_nik': {
                                 validators: {
                                     notEmpty: {
-                                        message: 'NIK is required'
+                                        message: 'NIK Harus diisi'
                                     },
                                     stringLength: {
                                         min: 16,
@@ -797,55 +824,75 @@
                                     regexp: {
                                         regexp: /^[0-9]+$/,
                                         message: 'NIK harus berupa angka'
+                                    },
+                                    remote: {
+                                        message: 'NIK sudah terdaftar',
+                                        method: 'POST',
+                                        url: '/check-nik',
+                                        data: function() {
+                                            return {
+                                                nik: form.querySelector('[name="person_nik"]').value,
+                                            };
+                                        },
+                                        headers: {
+                                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // untuk Laravel CSRF
+                                        }
                                     }
                                 }
                             },
                             'person_tl': {
                                 validators: {
                                     notEmpty: {
-                                        message: 'Valid Tanggal Lahir is required'
+                                        message: 'Valid Tanggal Lahir Harus diisi'
+                                    }
+                                }
+                            },
+                            'jenis_kelamin': {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Jenis Kelamin harus diisi'
                                     }
                                 }
                             },
                             'person_alamat': {
                                 validators: {
                                     notEmpty: {
-                                        message: 'Valid Alamat is required'
+                                        message: 'Valid Alamat Harus diisi'
                                     }
                                 }
                             },
                             'person_telp': {
                                 validators: {
                                     notEmpty: {
-                                        message: 'Valid No. Telp is required'
+                                        message: 'Valid No. Telp Harus diisi'
                                     }
                                 }
                             },
                             'person_rt': {
                                 validators: {
                                     notEmpty: {
-                                        message: 'Valid RT is required'
+                                        message: 'Valid RT Harus diisi'
                                     }
                                 }
                             },
                             'person_rw': {
                                 validators: {
                                     notEmpty: {
-                                        message: 'Valid RW is required'
+                                        message: 'Valid RW Harus diisi'
                                     }
                                 }
                             },
                             'person_kelurahan': {
                                 validators: {
                                     notEmpty: {
-                                        message: 'Valid Kelurahan is required'
+                                        message: 'Valid Kelurahan Harus diisi'
                                     }
                                 }
                             },
                             'person_notifikasi': {
                                 validators: {
                                     notEmpty: {
-                                        message: 'Valid Notifikasi is required'
+                                        message: 'Valid Notifikasi Harus diisi'
                                     }
                                 }
                             },
@@ -889,10 +936,10 @@
 
                                     // Show popup confirmation 
                                     Swal.fire({
-                                        text: "Form has been successfully submitted!",
+                                        text: "Form Berhasil disimpan !",
                                         icon: "success",
                                         buttonsStyling: false,
-                                        confirmButtonText: "Ok, got it!",
+                                        confirmButtonText: "Baik",
                                         customClass: {
                                             confirmButton: "btn btn-primary"
                                         }
@@ -908,10 +955,10 @@
                             } else {
                                 // Show popup warning. For more info check the plugin's official documentation: https://sweetalert2.github.io/
                                 Swal.fire({
-                                    text: "Sorry, looks like there are some errors detected, please try again.",
+                                    text: "Maaf, Sepertinya masih ada error .",
                                     icon: "error",
                                     buttonsStyling: false,
-                                    confirmButtonText: "Ok, got it!",
+                                    confirmButtonText: "Baik, coba lagi!",
                                     customClass: {
                                         confirmButton: "btn btn-primary"
                                     }
@@ -927,12 +974,12 @@
                     e.preventDefault();
 
                     Swal.fire({
-                        text: "Are you sure you would like to cancel?",
+                        text: "Yakin tidak jadi ?",
                         icon: "warning",
                         showCancelButton: true,
                         buttonsStyling: false,
-                        confirmButtonText: "Yes, cancel it!",
-                        cancelButtonText: "No, return",
+                        confirmButtonText: "Iya, batalkan saja",
+                        cancelButtonText: "Tidak",
                         customClass: {
                             confirmButton: "btn btn-primary",
                             cancelButton: "btn btn-active-light"
@@ -943,10 +990,10 @@
                             modal.hide();	
                         } else if (result.dismiss === 'cancel') {
                             Swal.fire({
-                                text: "Your form has not been cancelled!.",
+                                text: "form berhasil di batalkan !.",
                                 icon: "error",
                                 buttonsStyling: false,
-                                confirmButtonText: "Ok, got it!",
+                                confirmButtonText: "Baiklah !",
                                 customClass: {
                                     confirmButton: "btn btn-primary",
                                 }
@@ -961,12 +1008,12 @@
                     e.preventDefault();
 
                     Swal.fire({
-                        text: "Are you sure you would like to cancel?",
+                        text: "Yakin dibatalkan ?",
                         icon: "warning",
                         showCancelButton: true,
                         buttonsStyling: false,
-                        confirmButtonText: "Yes, cancel it!",
-                        cancelButtonText: "No, return",
+                        confirmButtonText: "Iya, batalkan saja!",
+                        cancelButtonText: "Tidak",
                         customClass: {
                             confirmButton: "btn btn-primary",
                             cancelButton: "btn btn-active-light"
@@ -977,10 +1024,10 @@
                             modal.hide();	
                         } else if (result.dismiss === 'cancel') {
                             Swal.fire({
-                                text: "Your form has not been cancelled!.",
+                                text: "Form berhasil dibatalkan!.",
                                 icon: "error",
                                 buttonsStyling: false,
-                                confirmButtonText: "Ok, got it!",
+                                confirmButtonText: "baik, terimakasih!",
                                 customClass: {
                                     confirmButton: "btn btn-primary",
                                 }
@@ -1153,12 +1200,12 @@
 
                         // SweetAlert2 pop up
                         Swal.fire({
-                            text: "Are you sure you want to delete " + userName + "?",
+                            text: "Apakah Anda yakin ingin menghapus " + userName + "?",
                             icon: "warning",
                             showCancelButton: true,
                             buttonsStyling: false,
-                            confirmButtonText: "Yes, delete!",
-                            cancelButtonText: "No, cancel",
+                            confirmButtonText: "Ya, hapus!",
+                            cancelButtonText: "Tidak, batalkan",
                             customClass: {
                                 confirmButton: "btn fw-bold btn-danger",
                                 cancelButton: "btn fw-bold btn-active-light-primary"
@@ -1176,10 +1223,10 @@
                                 .then(data => {
                                     if (data.status === 'success') {
                                         Swal.fire({
-                                            text: "You have deleted " + userName + "!",
+                                            text: "Kamu menghapus " + userName + "!",
                                             icon: "success",
                                             buttonsStyling: false,
-                                            confirmButtonText: "Ok, got it!",
+                                            confirmButtonText: "Baiklah !",
                                             customClass: {
                                                 confirmButton: "btn fw-bold btn-primary",
                                             }
@@ -1192,7 +1239,7 @@
                                             text: data.message,
                                             icon: "error",
                                             buttonsStyling: false,
-                                            confirmButtonText: "Ok, got it!",
+                                            confirmButtonText: "Baiklah !",
                                             customClass: {
                                                 confirmButton: "btn fw-bold btn-primary",
                                             }
@@ -1201,10 +1248,10 @@
                                 })
                                 .catch(error => {
                                     Swal.fire({
-                                        text: "An error occurred while deleting the user.",
+                                        text: "Ada error nih ketika hapus.",
                                         icon: "error",
                                         buttonsStyling: false,
-                                        confirmButtonText: "Ok, got it!",
+                                        confirmButtonText: "Baiklah !",
                                         customClass: {
                                             confirmButton: "btn fw-bold btn-primary",
                                         }
@@ -1212,10 +1259,10 @@
                                 });
                             } else if (result.dismiss === 'cancel') {
                                 Swal.fire({
-                                    text: userName + " was not deleted.",
+                                    text: userName + " Tidak terhapus.",
                                     icon: "error",
                                     buttonsStyling: false,
-                                    confirmButtonText: "Ok, got it!",
+                                    confirmButtonText: "Baiklah !",
                                     customClass: {
                                         confirmButton: "btn fw-bold btn-primary",
                                     }
@@ -1253,12 +1300,12 @@
                 deleteSelected.addEventListener('click', function () {
                     // SweetAlert2 pop up --- official docs reference: https://sweetalert2.github.io/
                     Swal.fire({
-                        text: "Are you sure you want to delete selected user?",
+                        text: "Apakah Anda yakin ingin menghapus pengguna yang dipilih?",
                         icon: "warning",
                         showCancelButton: true,
                         buttonsStyling: false,
-                        confirmButtonText: "Yes, delete!",
-                        cancelButtonText: "No, cancel",
+                        confirmButtonText: "Ya, hapus!",
+                        cancelButtonText: "Tidak, batalkan",
                         customClass: {
                             confirmButton: "btn fw-bold btn-danger",
                             cancelButton: "btn fw-bold btn-active-light-primary"
@@ -1266,34 +1313,34 @@
                     }).then(function (result) {
                         if (result.value) {
                             Swal.fire({
-                                text: "You have deleted all selected user!",
+                                text: "Anda telah menghapus semua pengguna yang dipilih!",
                                 icon: "success",
                                 buttonsStyling: false,
-                                confirmButtonText: "Ok, got it!",
+                                confirmButtonText: "Baiklah!",
                                 customClass: {
                                     confirmButton: "btn fw-bold btn-primary",
                                 }
                             }).then(function () {
-                                // Remove all selected customers
+                                // Hapus semua pelanggan yang dipilih
                                 checkboxes.forEach(c => {
                                     if (c.checked) {
                                         datatable.row($(c.closest('tbody tr'))).remove().draw();
                                     }
                                 });
 
-                                // Remove header checked box
+                                // Hapus kotak centang header
                                 const headerCheckbox = table.querySelectorAll('[type="checkbox"]')[0];
                                 headerCheckbox.checked = false;
                             }).then(function () {
-                                toggleToolbars(); // Detect checked checkboxes
-                                initToggleToolbar(); // Re-init toolbar to recalculate checkboxes
+                                toggleToolbars(); // Deteksi kotak centang yang dicentang
+                                initToggleToolbar(); // Inisialisasi ulang toolbar untuk menghitung ulang kotak centang
                             });
                         } else if (result.dismiss === 'cancel') {
                             Swal.fire({
-                                text: "Selected customers was not deleted.",
+                                text: "Pengguna yang dipilih tidak dihapus.",
                                 icon: "error",
                                 buttonsStyling: false,
-                                confirmButtonText: "Ok, got it!",
+                                confirmButtonText: "Baiklah!",
                                 customClass: {
                                     confirmButton: "btn fw-bold btn-primary",
                                 }
@@ -1414,7 +1461,7 @@
                     'nik': {
                         validators: {
                             notEmpty: {
-                                message: 'NIK is required'
+                                message: 'NIK Harus diisi'
                             },
                             stringLength: {
                                 min: 16,
@@ -1477,7 +1524,7 @@
                                         text: "NIK Berhasil ditemukan !",
                                         icon: "success",
                                         buttonsStyling: false,
-                                        confirmButtonText: "Ok, got it!",
+                                        confirmButtonText: "Baiklah!",
                                         customClass: {
                                             confirmButton: "btn btn-primary"
                                         }
@@ -1490,7 +1537,7 @@
                                         text: "NIK Tidak tersedia, silahkan tambahkan di menu Penduduk",
                                         icon: "error",
                                         buttonsStyling: false,
-                                        confirmButtonText: "Ok, got it!",
+                                        confirmButtonText: "Baiklah !",
                                         customClass: {
                                             confirmButton: "btn btn-danger"
                                         }
@@ -1505,7 +1552,7 @@
                                     text: "Terjadi kesalahan, silahkan coba lagi nanti.",
                                     icon: "error",
                                     buttonsStyling: false,
-                                    confirmButtonText: "Ok, got it!",
+                                    confirmButtonText: "Baiklah !",
                                     customClass: {
                                         confirmButton: "btn btn-danger"
                                     }
@@ -1519,79 +1566,63 @@
     </script>
     <!--end::Search Persons Form Javascript-->
     
-    <!--begin:: Page Loader Javascript-->
-    <script>
-        // Toggle
-        const button = document.querySelector("#kt_page_loading_message");
-
-        // Handle toggle click event
-        button.addEventListener("click", function() {
-            // Populate the page loading element dynamically.
-            // Optionally you can skipt this part and place the HTML
-            // code in the body element by refer to the above HTML code tab.
-            const loadingEl = document.createElement("div");
-            document.body.prepend(loadingEl);
-            loadingEl.classList.add("page-loader");
-            loadingEl.classList.add("flex-column");
-            loadingEl.innerHTML = `
-                <span class="spinner-border text-primary" role="status"></span>
-                <span class="text-muted fs-6 fw-semibold mt-5">Sedang Mencari Data...</span>
-            `;
-
-            // Show page loading
-            KTApp.showPageLoading();
-
-            // Hide after 3 seconds
-            setTimeout(function() {
-                KTApp.hidePageLoading();
-                loadingEl.remove();
-            }, 10000);
-        });
-    </script>
-    <!--end:: Page Loader Javascript-->
-
 
     <!-- begin sessions -->
     @if(session('status') && session('message'))
-        <script>
-            let status = "{{ session('status') }}";
-            let message = "{{ session('message') }}";
+    <script>
+        let status = "{{ session('status') }}";
+        let message = "{{ session('message') }}";
+        let rekomendasi = @json(session('rekomendasi'));
 
-            if (status === 'success') {
-                Swal.fire({
-                    text: message,
-                    icon: "success",
-                    buttonsStyling: false,
-                    confirmButtonText: "Ok, got it!",
-                    customClass: {
-                        confirmButton: "btn btn-primary"
-                    }
-                });
-            } 
-            else if (status === 'error') {
-                Swal.fire({
-                    text: message,
-                    icon: "error",
-                    buttonsStyling: false,
-                    confirmButtonText: "Ok, got it!",
-                    customClass: {
-                        confirmButton: "btn btn-primary"
-                    }
-                });
-            }
-            else if (status === 'warning') {
-                Swal.fire({
-                    text: message,
-                    icon: "warning",
-                    buttonsStyling: false,
-                    confirmButtonText: "Ok, got it!",
-                    customClass: {
-                        confirmButton: "btn btn-primary"
-                    }
-                });
-            }
-        </script>
+        if (status === 'success') {
+            Swal.fire({
+                text: message,
+                icon: "success",
+                buttonsStyling: false,
+                confirmButtonText: "Baiklah !",
+                customClass: {
+                    confirmButton: "btn btn-primary"
+                }
+            }).then(() => {
+                if (rekomendasi) {
+                    Swal.fire({
+                        title: 'Rekomendasi Skrining',
+                        text: rekomendasi,
+                        icon: 'info',
+                        buttonsStyling: false,
+                        confirmButtonText: "Mengerti",
+                        customClass: {
+                            confirmButton: "btn btn-info"
+                        }
+                    });
+                }
+            });
+        } 
+        else if (status === 'error') {
+            Swal.fire({
+                text: message,
+                icon: "error",
+                buttonsStyling: false,
+                confirmButtonText: "Baiklah !",
+                customClass: {
+                    confirmButton: "btn btn-primary"
+                }
+            });
+        }
+        else if (status === 'warning') {
+            Swal.fire({
+                text: message,
+                icon: "warning",
+                buttonsStyling: false,
+                confirmButtonText: "Baiklah !",
+                customClass: {
+                    confirmButton: "btn btn-primary"
+                }
+            });
+        }
+    </script>
     @endif
+
     <!-- end sessions -->
 
 @endsection

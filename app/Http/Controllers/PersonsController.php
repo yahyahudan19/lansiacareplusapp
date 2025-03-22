@@ -51,15 +51,13 @@ class PersonsController extends Controller
     {
         // dd($request->all());
 
-        $existingPerson = Persons::where('nik', $request->person_nik)
-        ->orWhere('nama', $request->person_name)
-        ->first();
+        $existingPerson = Persons::where('nik', $request->person_nik)->first();
 
         if ($existingPerson) {
-            // Jika NIK atau nama sudah ada, kembalikan pesan error
+            // Jika NIK sudah ada, kembalikan pesan error
             return redirect()->back()
             ->with('status', 'error')
-            ->with('message', 'Nama dan NIK sudah terdaftar !');
+            ->with('message', 'NIK sudah terdaftar !');
         }
 
         //  data datetime from request
@@ -76,6 +74,7 @@ class PersonsController extends Controller
                 'telp' => $request->person_telp,
                 'tanggal_lahir' => $tanggal_lahir, // Pastikan input dalam format yang benar
                 'bpjs' => $request->person_bpjs,
+                'jenis_kelamin' => $request->jenis_kelamin,
                 'alamat' => $request->person_alamat,
                 'rt' => $request->person_rt,
                 'rw' => $request->person_rw,
@@ -321,6 +320,19 @@ class PersonsController extends Controller
             return response()->json(['status' => 'error']);
         }
     }
+
+    public function checkNik(Request $request)
+    {
+        $nik = $request->input('nik');
+    
+        $exists = Persons::where('nik', $nik)->exists();
+    
+        return response()->json([
+            'valid' => !$exists, // true kalau belum ada, false kalau sudah ada
+        ]);
+    }
+
+
 
 
     

@@ -53,7 +53,7 @@
                             </div>
                             <!--end:Menu item-->
                             <!--begin:Menu item-->
-                            <div class="menu-item">
+                            {{-- <div class="menu-item">
                                 <!--begin:Menu link-->
                                 <a href="/dashboard/puskesmas" class="menu-link {{ Request::is('dashboard/puskesmas') ? 'active' : '' }}">
                                     <span class="menu-bullet">
@@ -62,7 +62,7 @@
                                     <span class="menu-title">Puskesmas</span>
                                 </a>
                                 <!--end:Menu link-->
-                            </div>
+                            </div> --}}
                             <!--end:Menu item-->
                         </div>
                         <!--end:Menu sub-->
@@ -211,12 +211,12 @@
                             </span>
                             <span class="menu-title">Whatsapp</span>
                         </a>
-                        <a href="#" class="menu-link {{ Request::is('admin/log*') ? 'active' : '' }}">
+                        {{-- <a href="#" class="menu-link {{ Request::is('admin/log*') ? 'active' : '' }}">
                             <span class="menu-icon">
                                 <i class="ki-outline ki-questionnaire-tablet fs-2"></i>
                             </span>
                             <span class="menu-title">Log</span>
-                        </a>
+                        </a> --}}
                         <!--end:Menu link-->
                     </div>
                 </div>
@@ -260,7 +260,7 @@
                             </div>
                             <!--end:Menu item-->
                             <!--begin:Menu item-->
-                            <div class="menu-item">
+                            {{-- <div class="menu-item">
                                 <!--begin:Menu link-->
                                 <a href="/puskesmas/dashboard" class="menu-link {{ Request::is('puskesmas/dashboard') ? 'active' : '' }}">
                                     <span class="menu-bullet">
@@ -269,7 +269,7 @@
                                     <span class="menu-title">Puskesmas</span>
                                 </a>
                                 <!--end:Menu link-->
-                            </div>
+                            </div> --}}
                             <!--end:Menu item-->
                         </div>
                         <!--end:Menu sub-->

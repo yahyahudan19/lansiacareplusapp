@@ -444,7 +444,7 @@
                                 <!--end::Input group-->
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
-                                <div class="fv-row mb-5">
+                                {{-- <div class="fv-row mb-5">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center form-label">
                                         <span class="required">Tanggal Kunjungan</span>
@@ -454,7 +454,8 @@
                                         <input class="form-control" placeholder="Pick a date" name="tanggal_kj"
                                             id="kt_datepicker_1" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"/>
                                     </div>
-                                </div>
+                                </div> --}}
+                                <input type="hidden" name="tanggal_kj" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
                                 <!--end::Input group-->
 
                                 {{-- <!--begin::Notice-->
@@ -598,14 +599,11 @@
                                     <select class="form-select" data-control="select2"
                                         data-placeholder="Select an option" name="adl">
                                         <option></option>
-                                        <option value="A" selected>Mandiri (A) : Dapat melakukan aktivitas sendiri
-                                            tanpa bantuan orang lain</option>
-                                        <option value="B">Ketergantungan Ringan (B) : Membutuhkan bantuan orang lain
-                                            dalam melakukan aktivitas tertentu/memakai kursi roda</option>
-                                        <option value="B1">Ketergantungan Sedang (B) : XX</option>
-                                        <option value="C">Ketergantungan Berat (C) : Hanya bisa beraktivitas diatas
-                                            tempat tidur</option>
-                                        <option value="D">Ketergantungan Total (D) : XX</option>
+                                        <option value="A" selected>Mandiri (A) : Dapat melakukan aktivitas sendiri tanpa bantuan orang lain</option>
+                                        <option value="B">Ketergantungan Ringan (B) : Membutuhkan bantuan orang lain dalam melakukan aktivitas tertentu/memakai kursi roda</option>
+                                        <option value="B1">Ketergantungan Sedang (B) : Mengalami gangguan dålam aktifitas sehari-hari sendiri, terutama dalam hal Buang Air Kecil (BAK) dan Buang Air Besar (BAB)</option>
+                                        <option value="C">Ketergantungan Berat (C) : Hanya bisa beraktivitas diatas tempat tidur</option>
+                                        <option value="D">Ketergantungan Total (D) : Sama sekali tidak mampu melakukan aktifitas hidup sehari-hari, sehingga sangat tergantung orang lain</option>
                                     </select>
 
                                 </div>
@@ -828,124 +826,115 @@
         // Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
         var validator = FormValidation.formValidation(
             form, {
-                fields: {
-                            'tinggi_bdn': {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'Field is required'
-                                    },
-                                    stringLength: {
-                                        min: 3,
-                                        max: 3,
-                                        message: 'Tinggi harus 3 digit'
-                                    }
-                                }
-                            },
-                            'berat_bdn': {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'Field is required'
-                                    },
-                                    stringLength: {
-                                        min: 2,
-                                        max: 3,
-                                        message: 'Nilai minimal 2 digit'
-                                    }
-                                }
-                            },
-                            'lingkar_prt': {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'Field is required'
-                                    },
-                                    stringLength: {
-                                        min: 2,
-                                        max: 3,
-                                        message: 'Nilai minimal 2 digit'
-                                    }
-                                }
-                            },
-                            'diastole': {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'Field is required'
-                                    },
-                                    stringLength: {
-                                        min: 2,
-                                        max: 3,
-                                        message: 'Nilai minimal 2 digit'
-                                    }
-                                }
-                            },
-                            'sistole': {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'Field is required'
-                                    },
-                                    stringLength: {
-                                        min: 2,
-                                        max: 3,
-                                        message: 'Nilai minimal 2 digit'
-                                    }
-                                }
-                            },
-                            'gula_drh': {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'Field is required'
-                                    },
-                                    stringLength: {
-                                        min: 3,
-                                        max: 3,
-                                        message: 'Nilai minimal 2 digit'
-                                    }
-                                }
-                            },
-                            'kolesterol': {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'Field is required'
-                                    }
-                                },
-                                    stringLength: {
-                                        min: 3,
-                                        max: 3,
-                                        message: 'Nilai minimal 2 digit'
-                                    }
-                            },
-                            'tanggal_kj': {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'Field is required'
-                                    }
-                                }
-                            },
-                            'asam_urat': {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'Field is required'
-                                    },
-                                    numeric: {
-                                        message: 'The value must be a decimal number'
-                                    }
-                                },
-                                stringLength: {
-                                        min: 3,
-                                        max: 3,
-                                        message: 'Nilai minimal 2 digit'
-                                    }
-                            }
-                            
-                        },
-
-                plugins: {
-                    trigger: new FormValidation.plugins.Trigger(),
-                    bootstrap: new FormValidation.plugins.Bootstrap5({
-                        rowSelector: '.fv-row',
-                        eleInvalidClass: '',
-                        eleValidClass: ''
-                    })
+            fields: {
+                'tinggi_bdn': {
+                validators: {
+                    notEmpty: {
+                    message: 'Harus Diisi !'
+                    },
+                    stringLength: {
+                    min: 3,
+                    max: 3,
+                    message: 'Minimal 100'
+                    }
                 }
+                },
+                'berat_bdn': {
+                validators: {
+                    notEmpty: {
+                    message: 'Harus Diisi !'
+                    },
+                    stringLength: {
+                    min: 2,
+                    max: 3,
+                    message: 'Minimal 30'
+                    }
+                }
+                },
+                'lingkar_prt': {
+                validators: {
+                    notEmpty: {
+                    message: 'Harus Diisi !'
+                    },
+                    stringLength: {
+                    min: 2,
+                    max: 3,
+                    message: 'Minimal 10'
+                    }
+                }
+                },
+                'diastole': {
+                validators: {
+                    notEmpty: {
+                    message: 'Harus Diisi !'
+                    },
+                    stringLength: {
+                    min: 2,
+                    max: 3,
+                    message: 'Minimal 20'
+                    }
+                }
+                },
+                'sistole': {
+                validators: {
+                    notEmpty: {
+                    message: 'Harus Diisi !'
+                    },
+                    stringLength: {
+                    min: 2,
+                    max: 3,
+                    message: 'Minimal 20'
+                    }
+                }
+                },
+                'gula_drh': {
+                validators: {
+                    notEmpty: {
+                    message: 'Harus Diisi !'
+                    },
+                    stringLength: {
+                    min: 2,
+                    max: 3,
+                    message: 'Minimal 20'
+                    }
+                }
+                },
+                'kolesterol': {
+                validators: {
+                    notEmpty: {
+                    message: 'Harus Diisi !'
+                    },
+                    stringLength: {
+                    min: 2,
+                    max: 3,
+                    message: 'Minimal 20'
+                    }
+                }
+                },
+                'asam_urat': {
+                validators: {
+                    notEmpty: {
+                    message: 'Harus Diisi !'
+                    },
+                    numeric: {
+                    message: 'Harus desimal'
+                    },
+                    stringLength: {
+                    min: 3,
+                    max: 3,
+                    message: 'Nilai minimal 2 digit'
+                    }
+                }
+                }
+            },
+            plugins: {
+                trigger: new FormValidation.plugins.Trigger(),
+                bootstrap: new FormValidation.plugins.Bootstrap5({
+                rowSelector: '.fv-row',
+                eleInvalidClass: '',
+                eleValidClass: ''
+                })
+            }
             }
         );
 
@@ -980,7 +969,7 @@
                                 text: "Form has been successfully submitted!",
                                 icon: "success",
                                 buttonsStyling: false,
-                                confirmButtonText: "Ok, got it!",
+                                confirmButtonText: "Baiklah !",
                                 customClass: {
                                     confirmButton: "btn btn-primary"
                                 }
@@ -1002,7 +991,7 @@
     <!--end::datepick Javascript-->
 
     <!-- begin sessions -->
-    @if (session('status') && session('message'))
+    @if(session('status') && session('message'))
         <script>
             let status = "{{ session('status') }}";
             let message = "{{ session('message') }}";
@@ -1012,27 +1001,29 @@
                     text: message,
                     icon: "success",
                     buttonsStyling: false,
-                    confirmButtonText: "Ok, got it!",
+                    confirmButtonText: "Baiklah !",
                     customClass: {
                         confirmButton: "btn btn-primary"
                     }
                 });
-            } else if (status === 'error') {
+            } 
+            else if (status === 'error') {
                 Swal.fire({
                     text: message,
                     icon: "error",
                     buttonsStyling: false,
-                    confirmButtonText: "Ok, got it!",
+                    confirmButtonText: "Baiklah !",
                     customClass: {
                         confirmButton: "btn btn-primary"
                     }
                 });
-            } else if (status === 'warning') {
+            }
+            else if (status === 'warning') {
                 Swal.fire({
                     text: message,
                     icon: "warning",
                     buttonsStyling: false,
-                    confirmButtonText: "Ok, got it!",
+                    confirmButtonText: "Baiklah !",
                     customClass: {
                         confirmButton: "btn btn-primary"
                     }

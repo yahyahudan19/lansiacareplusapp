@@ -561,7 +561,7 @@
                                         <!--end::Input group-->
 
                                         <!--begin::Input group-->
-                                        <div class="fv-row mb-5">
+                                        {{-- <div class="fv-row mb-5">
                                              <!--begin::Label-->
                                              <label class="d-flex align-items-center form-label">
                                                 <span class="required">Tanggal Kunjungan</span>
@@ -570,7 +570,8 @@
                                             <div class="mb-10">
                                                 <input class="form-control" placeholder="Pick a date" name="tanggal_kj" id="kt_datepicker_1" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"/>
                                             </div>
-                                        </div>
+                                        </div> --}}
+                                        <input type="hidden" name="tanggal_kj" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
                                         <!--end::Input group-->
                                         
                                     </div>
@@ -676,9 +677,9 @@
                                                 <option></option>
                                                 <option value="A" selected>Mandiri (A) : Dapat melakukan aktivitas sendiri tanpa bantuan orang lain</option>
                                                 <option value="B">Ketergantungan Ringan (B) : Membutuhkan bantuan orang lain dalam melakukan aktivitas tertentu/memakai kursi roda</option>
-                                                <option value="B1">Ketergantungan Sedang (B) : XX</option>
+                                                <option value="B1">Ketergantungan Sedang (B) : Mengalami gangguan dålam aktifitas sehari-hari sendiri, terutama dalam hal Buang Air Kecil (BAK) dan Buang Air Besar (BAB)</option>
                                                 <option value="C">Ketergantungan Berat (C) : Hanya bisa beraktivitas diatas tempat tidur</option>
-                                                <option value="D">Ketergantungan Total (D) : XX</option>
+                                                <option value="D">Ketergantungan Total (D) : Sama sekali tidak mampu melakukan aktifitas hidup sehari-hari, sehingga sangat tergantung orang lain</option>
                                             </select>
                                             
                                         </div>
@@ -1000,101 +1001,94 @@
                             'tinggi_bdn': {
                                 validators: {
                                     notEmpty: {
-                                        message: 'Field is required'
+                                        message: 'Harus Diisi !'
                                     },
                                     stringLength: {
                                         min: 3,
                                         max: 3,
-                                        message: 'Tinggi harus 3 digit'
+                                        message: 'Minimal 100'
                                     }
                                 }
                             },
                             'berat_bdn': {
                                 validators: {
                                     notEmpty: {
-                                        message: 'Field is required'
+                                        message: 'Harus Diisi !'
                                     },
                                     stringLength: {
                                         min: 2,
                                         max: 3,
-                                        message: 'Nilai minimal 2 digit'
+                                        message: 'Minimal 30'
                                     }
                                 }
                             },
                             'lingkar_prt': {
                                 validators: {
                                     notEmpty: {
-                                        message: 'Field is required'
+                                        message: 'Harus Diisi !'
                                     },
                                     stringLength: {
                                         min: 2,
                                         max: 3,
-                                        message: 'Nilai minimal 2 digit'
+                                        message: 'Minimal 10'
                                     }
                                 }
                             },
                             'diastole': {
                                 validators: {
                                     notEmpty: {
-                                        message: 'Field is required'
+                                        message: 'Harus Diisi !'
                                     },
                                     stringLength: {
                                         min: 2,
                                         max: 3,
-                                        message: 'Nilai minimal 2 digit'
+                                        message: 'Minimal 20'
                                     }
                                 }
                             },
                             'sistole': {
                                 validators: {
                                     notEmpty: {
-                                        message: 'Field is required'
+                                        message: 'Harus Diisi !'
                                     },
                                     stringLength: {
                                         min: 2,
                                         max: 3,
-                                        message: 'Nilai minimal 2 digit'
+                                        message: 'Minimal 20'
                                     }
                                 }
                             },
                             'gula_drh': {
                                 validators: {
                                     notEmpty: {
-                                        message: 'Field is required'
+                                        message: 'Harus Diisi !'
                                     },
                                     stringLength: {
-                                        min: 3,
+                                        min: 2,
                                         max: 3,
-                                        message: 'Nilai minimal 2 digit'
+                                        message: 'Minimal 20'
                                     }
                                 }
                             },
                             'kolesterol': {
                                 validators: {
                                     notEmpty: {
-                                        message: 'Field is required'
+                                        message: 'Harus Diisi !'
                                     }
                                 },
                                     stringLength: {
-                                        min: 3,
+                                        min: 2,
                                         max: 3,
-                                        message: 'Nilai minimal 2 digit'
+                                        message: 'Minimal 20'
                                     }
-                            },
-                            'tanggal_kj': {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'Field is required'
-                                    }
-                                }
                             },
                             'asam_urat': {
                                 validators: {
                                     notEmpty: {
-                                        message: 'Field is required'
+                                        message: 'Harus Diisi !'
                                     },
                                     numeric: {
-                                        message: 'The value must be a decimal number'
+                                        message: 'Harus desimal'
                                     }
                                 },
                                 stringLength: {
@@ -1125,42 +1119,42 @@
                             'merokok': {
                                 validators: {
                                     notEmpty: {
-                                        message: 'Field is required'
+                                        message: 'Harus Diisi !'
                                     }
                                 }
                             },
                             'ginjal': {
                                 validators: {
                                     notEmpty: {
-                                        message: 'Field is required'
+                                        message: 'Harus Diisi !'
                                     }
                                 }
                             },
                             'penglihatan': {
                                 validators: {
                                     notEmpty: {
-                                        message: 'Field is required'
+                                        message: 'Harus Diisi !'
                                     }
                                 }
                             },
                             'pendengaran': {
                                 validators: {
                                     notEmpty: {
-                                        message: 'Field is required'
+                                        message: 'Harus Diisi !'
                                     }
                                 }
                             },
                             'adl': {
                                 validators: {
                                     notEmpty: {
-                                        message: 'Field is required'
+                                        message: 'Harus Diisi !'
                                     }
                                 }
                             },
                             'gds': {
                                 validators: {
                                     notEmpty: {
-                                        message: 'Field is required'
+                                        message: 'Harus Diisi !'
                                     }
                                 }
                             },

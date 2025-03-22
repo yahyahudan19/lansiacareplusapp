@@ -36,6 +36,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/admin/laporan/exportExcel', [LaporansController::class, 'exportExcel'])->name('laporan.exportExcel');
 
+    Route::post('/check-nik', [PersonsController::class, 'checkNik'])->name('person.checkNik');
+
+
 });
 
 Route::middleware(['role:System Administrator,Puskesmas,Kader'])->group(function (){
@@ -125,6 +128,8 @@ Route::middleware(['role:Dinkes'])->group(function (){
     Route::get('/dinkes/puskesmas', [PuskesmasController::class, 'index'])->name('puskesmas.index');
     
     Route::get('/dinkes/laporan/puskesmas', [LaporansController::class, 'index'])->name('dinkes.laporan.index');
+    Route::get('/dinkes/laporan/agregat', [LaporansController::class, 'agregat'])->name('laporan.agregat');
+
 
     Route::get('/dinkes/kunjungan', [KunjungansController::class, 'index'])->name('kunjungans.index');
     Route::get('/dinkes/kunjungan/{id}', [KunjungansController::class, 'detail_view'])->name('kunjungans.detail_view');
