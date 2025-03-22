@@ -98,7 +98,7 @@
 						<h1 class="text-gray-800 fs-2qx fw-bold text-center mb-7">Lansia Care+ App</h1>
 						<!--end::Title-->
 						<!--begin::Text-->
-						<div class="text-gray-600 fs-base text-center fw-semibold">Aplikasi Pendataan Lansia Kota Malang , Selamat Menggunakan !s
+						<div class="text-gray-600 fs-base text-center fw-semibold">Aplikasi Pendataan Lansia Kota Malang , Selamat Menggunakan !
 						{{-- <a href="#" class="opacity-75-hover text-primary me-1">the blogger</a>introduces a person they’ve interviewed 
 						<br />and provides some background information about 
 						<a href="#" class="opacity-75-hover text-primary me-1">the interviewee</a>and their 
@@ -131,13 +131,13 @@
 									<!--begin::Input group=-->
 									<div class="fv-row mb-8">
 										<!--begin::Email-->
-										<input type="text" value="admin@lansiacare.id" name="email" autocomplete="off" class="form-control bg-transparent" />
+										<input type="text" placeholder="Email" name="email" autocomplete="off" class="form-control bg-transparent" />
 										<!--end::Email-->
 									</div>
 									<!--end::Input group=-->
 									<div class="fv-row mb-3">
 										<!--begin::Password-->
-										<input type="password" value="q1w2e3r4" name="password" autocomplete="off" class="form-control bg-transparent" />
+										<input type="password" placeholder="Password" name="password" autocomplete="off" class="form-control bg-transparent" />
 										<!--end::Password-->
 									</div>
 									<!--end::Input group=-->
@@ -171,14 +171,14 @@
 							</div>
 							<!--end::Wrapper-->
 							<!--begin::Footer-->
-							<div class="d-flex flex-stack">
+							{{-- <div class="d-flex flex-stack">
 								<!--begin::Links-->
 								<div class="d-flex fw-semibold text-primary fs-base gap-5">
 									<a href="#" target="_blank">Terms</a>
 									<a href="#" target="_blank">Contact Us</a>
 								</div>
 								<!--end::Links-->
-							</div>
+							</div> --}}
 							<!--end::Footer-->
 						</div>
 						<!--end::Content-->
@@ -271,10 +271,10 @@
 
 									// Show message popup. For more info check the plugin's official documentation: https://sweetalert2.github.io/
 									Swal.fire({
-										text: "You have successfully logged in!",
+										text: "Anda berhasil masuk!",
 										icon: "success",
 										buttonsStyling: false,
-										confirmButtonText: "Ok, got it!",
+										confirmButtonText: "Oke, mengerti!",
 										customClass: {
 											confirmButton: "btn btn-primary"
 										}
@@ -294,10 +294,10 @@
 							} else {
 								// Show error popup. For more info check the plugin's official documentation: https://sweetalert2.github.io/
 								Swal.fire({
-									text: "Sorry, looks like there are some errors detected, please try again.",
+									text: "Maaf, sepertinya ada beberapa kesalahan yang terdeteksi, silakan coba lagi.",
 									icon: "error",
 									buttonsStyling: false,
-									confirmButtonText: "Ok, got it!",
+									confirmButtonText: "Oke, mengerti!",
 									customClass: {
 										confirmButton: "btn btn-primary"
 									}
