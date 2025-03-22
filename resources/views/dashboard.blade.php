@@ -65,6 +65,7 @@
                     </div>
                 </div>
                 <!--end::Col-->
+                @if (Auth::user()->role == 'System Administrator' || Auth::user()->role == 'Dinkes')
                 <!--begin::Col-->
                 <div class="col-md-3 col-xl-3 mb-xxl-10">
                     <div class="card overflow-hidden h-md-50 mb-5 mb-xl-10">
@@ -95,6 +96,9 @@
                     </div>
                 </div>
                 <!--end::Col-->
+                @endif
+
+
             </div>
             <!--end::Row-->
             <!--end::Row-->

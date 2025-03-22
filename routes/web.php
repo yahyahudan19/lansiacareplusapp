@@ -113,9 +113,7 @@ Route::middleware(['role:System Administrator'])->group(function (){
 
 // Dinkes Routes ------------------------------------------------------
 Route::middleware(['role:Dinkes'])->group(function (){
-     Route::get('/dinkes/dashboard', function () {
-        return view('dinkes.dashboard');
-    })->middleware(['auth', 'verified'])->name('dinkes.dashboard');
+    Route::get('/dinkes/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Penduduk Management
     Route::get('/dinkes/penduduk', [PersonsController::class, 'index'])->name('persons.index');
@@ -140,9 +138,8 @@ Route::middleware(['role:Dinkes'])->group(function (){
 // Puskesmas Routes ------------------------------------------------------
 Route::middleware(['role:Puskesmas'])->group(function (){
     
-    Route::get('/puskesmas/dashboard', function () {
-        return view('puskesmas.dashboard');
-    })->middleware(['auth', 'verified'])->name('puskesmas.dashboard');
+    Route::get('/puskesmas/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
     Route::get('/puskesmas/users', [UserController::class, 'index_puskesmas'])->name('users.index_puskesmas');
     Route::get('/puskesmas/users/{id}', [UserController::class, 'detail_view_puskesmas'])->name('users.detail_view_puskesmas');
     Route::get('/puskesmas/penduduk', [PersonsController::class, 'index'])->name('persons.index');
@@ -164,9 +161,8 @@ Route::middleware(['role:Puskesmas'])->group(function (){
 // Kader Routes ------------------------------------------------------
 Route::middleware(['role:Kader'])->group(function (){
     
-    Route::get('/kader/dashboard', function () {
-        return view('kader.dashboard');
-    })->middleware(['auth', 'verified'])->name('kader.dashboard');
+    Route::get('/kader/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
 
     Route::get('/kader/penduduk', [PersonsController::class, 'index'])->name('persons.index');
     Route::get('/kader/penduduk/lansia', [PersonsController::class, 'index_lansia'])->name('persons.index_lansia');

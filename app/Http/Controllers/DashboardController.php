@@ -13,7 +13,14 @@ class DashboardController extends Controller
     public function index()
     {
         $jumlah_penduduk = number_format(Persons::count(), 0, ',', '.');
-        $jumlah_kunjungan = number_format(Kunjungans::count(), 0, ',', '.');
+
+        if (auth()->user()->role === 'Puskesmas' || auth()->user()->role === 'Kader') {
+            $jumlah_kunjungan = number_format(Kunjungans::whereHas('person.kelurahan', function ($query) {
+            $query->where('puskesmas_kd', auth()->user()->puskesmas->kode);
+            })->count(), 0, ',', '.');
+        } else {
+            $jumlah_kunjungan = number_format(Kunjungans::count(), 0, ',', '.');
+        }
         $jumlah_puskesmas = number_format(Puskesmas::where('nama', '!=', 'Dinas Kesehatan Kota Malang')->count(), 0, ',', '.');
         $jumlah_kelurahan = number_format(Kelurahans::count(), 0, ',', '.');
         
