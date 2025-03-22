@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kelurahans;
 use App\Models\Kunjungans;
 use App\Models\Persons;
+use App\Models\Puskesmas;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -12,8 +14,10 @@ class DashboardController extends Controller
     {
         $jumlah_penduduk = number_format(Persons::count(), 0, ',', '.');
         $jumlah_kunjungan = number_format(Kunjungans::count(), 0, ',', '.');
-
-        return view('dashboard', compact('jumlah_penduduk', 'jumlah_kunjungan'));
+        $jumlah_puskesmas = number_format(Puskesmas::where('nama', '!=', 'Dinas Kesehatan Kota Malang')->count(), 0, ',', '.');
+        $jumlah_kelurahan = number_format(Kelurahans::count(), 0, ',', '.');
+        
+        return view('dashboard', compact('jumlah_penduduk', 'jumlah_kunjungan', 'jumlah_puskesmas', 'jumlah_kelurahan'));
 
     }
 }
