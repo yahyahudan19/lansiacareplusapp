@@ -340,7 +340,7 @@
                                                         <label class="required fw-semibold fs-6 mb-2">No. Telp</label>
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
-                                                        <input type="text" name="person_telp" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="No. Telp" value="6281259224380" />
+                                                        <input type="text" name="person_telp" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="No. Telp" />
                                                         <!--end::Input-->
                                                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
                                                     <!--end::Col-->
@@ -387,7 +387,7 @@
                                                     <label class="fw-semibold fs-6 mb-2">No. BPJS</label>
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
-                                                    <input type="text" name="person_bpjs" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="No. BPJS" value="1234561235" />
+                                                    <input type="text" name="person_bpjs" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="No. BPJS" />
                                                     <!--end::Input-->
                                                 </div>
                                                 <!--end::Input group-->
@@ -398,7 +398,7 @@
                                                     <label class="fw-semibold fs-6 mb-2 required">Alamat Lengkap</label>
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
-                                                    <input type="text" name="person_alamat" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Alamat" value="Jl. Malang" />
+                                                    <input type="text" name="person_alamat" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Alamat" />
                                                     <!--end::Input-->
                                                 </div>
                                                 <!--end::Input group-->
@@ -410,7 +410,7 @@
                                                         <label class="required fs-6 fw-semibold mb-2">RT</label>
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
-                                                        <input class="form-control form-control-solid" placeholder="" name="person_rt" value="01">
+                                                        <input class="form-control form-control-solid" placeholder="" name="person_rt" placeholder="01">
                                                         <!--end::Input-->
                                                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
                                                     <!--end::Col-->
@@ -420,7 +420,7 @@
                                                         <label class="required fs-6 fw-semibold mb-2">RW</label>
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
-                                                        <input class="form-control form-control-solid" placeholder="" name="person_rw" value="02">
+                                                        <input class="form-control form-control-solid" placeholder="" name="person_rw" placeholder="02">
                                                         <!--end::Input-->
                                                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
                                                     <!--end::Col-->
