@@ -131,7 +131,7 @@
                                                     <input type="text"
                                                         class="form-control form-control-solid border-0 ps-12"
                                                         data-kt-dialer-control="input" placeholder="Amount"
-                                                        name="tinggi_bdn" value="100" />
+                                                        name="tinggi_bdn" placeholder="100" />
                                                     <!--end::Input control-->
 
                                                     <!--begin::Increase control-->
@@ -179,7 +179,7 @@
                                                 <!--begin::Input control-->
                                                 <input type="text" class="form-control form-control-solid border-0 ps-12"
                                                     data-kt-dialer-control="input" placeholder="Amount" name="berat_bdn"
-                                                    value="30" />
+                                                    placeholder="30" />
                                                 <!--end::Input control-->
 
                                                 <!--begin::Increase control-->
@@ -226,7 +226,7 @@
                                                 <input type="text"
                                                     class="form-control form-control-solid border-0 ps-12"
                                                     data-kt-dialer-control="input" placeholder="Amount"
-                                                    name="lingkar_prt" value="1" />
+                                                    name="lingkar_prt" placeholder="1" />
                                                 <!--end::Input control-->
 
                                                 <!--begin::Increase control-->
@@ -276,7 +276,7 @@
                                                     <input type="text"
                                                         class="form-control form-control-solid border-0 ps-12"
                                                         data-kt-dialer-control="input" placeholder="Amount"
-                                                        name="diastole" value="100" />
+                                                        name="diastole" placeholder="100" />
                                                     <!--end::Input control-->
 
                                                     <!--begin::Increase control-->
@@ -325,7 +325,7 @@
                                                 <input type="text"
                                                     class="form-control form-control-solid border-0 ps-12"
                                                     data-kt-dialer-control="input" placeholder="Amount" name="sistole"
-                                                    value="30" />
+                                                    placeholder="30" />
                                                 <!--end::Input control-->
 
                                                 <!--begin::Increase control-->
@@ -370,7 +370,7 @@
                                         <!--begin::Input control-->
                                         <input type="text" class="form-control form-control-solid border-0 ps-12"
                                             data-kt-dialer-control="input" placeholder="Amount" name="gula_drh"
-                                            value="100" />
+                                            placeholder="100" />
                                         <!--end::Input control-->
 
                                         <!--begin::Increase control-->
@@ -413,7 +413,7 @@
                                         <!--begin::Input control-->
                                         <input type="text" class="form-control form-control-solid border-0 ps-12"
                                             data-kt-dialer-control="input" placeholder="Amount" name="kolesterol"
-                                            value="0" />
+                                            placeholder="0" />
                                         <!--end::Input control-
 
                                                                 <!- begin::Increase control-->
@@ -436,7 +436,7 @@
                                     <!--end::Label-->
 
                                     <!--begin::Input-->
-                                    <input type="text" name="asam_urat" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="" value="00.00" />
+                                    <input type="text" name="asam_urat" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="" placeholder="00.00" />
                                     <!--end::Input-->
                                     <div class="form-text">Ganti tanda koma (,) dengan tanda titik(.) <b>Misalkan 10.7</b></div>
 
