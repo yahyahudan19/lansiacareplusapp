@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\SkriningImport;
 use App\Models\Kecamatans;
 use App\Models\Kelurahans;
 use App\Models\Kunjungans;
@@ -13,6 +14,7 @@ use App\Services\WhatsAppService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Maatwebsite\Excel\Facades\Excel;
 
 class KunjungansController extends Controller
 {
@@ -530,6 +532,19 @@ class KunjungansController extends Controller
         // Cari data Skrining yang berelasi dengan Kunjungan
         $skrining = Skrinings::where('kunjungan_id', $request->id)->first();
         
+    }
+
+    public function import(request $request){
+        $request->validate([
+            'file' => 'required|file|mimes:xlsx,xls',
+        ]);
+
+        try {
+            Excel::import(new SkriningImport, $request->file('file'));
+            return redirect()->back()->with('status', 'success')->with('message', 'Data skrining berhasil diimport.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('status', 'error')->with('message', 'Gagal mengimport file: ' . $e->getMessage());
+        }
     }
         
 }

@@ -258,12 +258,16 @@
                             <button type="button" class="btn btn-success me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user">
                                 <i class="ki-outline ki-plus fs-2"></i>Tambah Penduduk
                             </button>
+                            <button type="button" class="btn btn-warning me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_import">
+                                <i class="ki-solid ki-double-up fs-2"></i>Import Kunjungan
+                            </button>
 
                             @if (in_array(auth()->user()->role, ['System Administrator', 'Puskesmas', 'Kader']))
                                <!--begin::Add user-->
-                                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_1">
-                                <i class="ki-outline ki-plus fs-2"></i>Tambah Kunjungan</a>
-                                <!--end::Add user--> 
+                               <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_1">
+                               <i class="ki-outline ki-plus fs-2"></i>Tambah Kunjungan</a>
+                               <!--end::Add user--> 
+                              
                               
                             @endif
                             
@@ -326,6 +330,40 @@
                                 </div>
                             </div>
                             <!--begin::Modal Search Person-->
+                            <!--begin::Modal Import Kunjungans-->
+                            <div class="modal fade" tabindex="-1" id="kt_modal_import">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <form action="/admin/kunjungan/import" method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="modal-header">
+                                                <h3 class="modal-title">Import Kunjungan</h3>
+
+                                                <!--begin::Close-->
+                                                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                                                    <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                                                </div>
+                                                <!--end::Close-->
+                                            </div>
+
+                                            <div class="modal-body">
+                                                <div class="mb-3">
+                                                    <label for="file" class="form-label">Upload File </label>
+                                                    <input type="file" class="form-control" id="file" name="file" accept=".xlsx,.xls" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">
+                                                    
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end::Modal Import Kunjungans-->
                         @elseif(Auth::user()->role == "Puskesmas")
                             <!--begin::Modal Search Person-->
                             <div class="modal fade" tabindex="-1" id="kt_modal_1">
@@ -861,13 +899,13 @@
                                     }
                                 }
                             },
-                            'person_telp': {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'Valid No. Telp Harus diisi'
-                                    }
-                                }
-                            },
+                            // 'person_telp': {
+                            //     validators: {
+                            //         notEmpty: {
+                            //             message: 'Valid No. Telp Harus diisi'
+                            //         }
+                            //     }
+                            // },
                             'person_rt': {
                                 validators: {
                                     notEmpty: {

@@ -891,10 +891,10 @@
                                 KTUtil.scrollTop();
                             } else {
                                 Swal.fire({
-                                    text: "Sorry, looks like there are some errors detected, please try again.",
+                                    text: "Maaf, ada yang error, cek lagi ya !.",
                                     icon: "error",
                                     buttonsStyling: false,
-                                    confirmButtonText: "Ok, got it!",
+                                    confirmButtonText: "Baik !",
                                     customClass: {
                                         confirmButton: "btn btn-light"
                                     }
@@ -951,10 +951,10 @@
                             }, 2000);
                         } else {
                             Swal.fire({
-                                text: "Sorry, looks like there are some errors detected, please try again.",
+                                text: "Maaf, ada yang error, cek lagi ya !.",
                                 icon: "error",
                                 buttonsStyling: false,
-                                confirmButtonText: "Ok, got it!",
+                                confirmButtonText: "Baik !",
                                 customClass: {
                                     confirmButton: "btn btn-light"
                                 }
@@ -1034,56 +1034,56 @@
                             'tinggi_bdn': {
                                 validators: {
                                     notEmpty: {
-                                        message: 'Field is required'
+                                        message: 'Harus diisi atau dipilih !'
                                     }
                                 }
                             },
                             'berat_bdn': {
                                 validators: {
                                     notEmpty: {
-                                        message: 'Field is required'
+                                        message: 'Harus diisi atau dipilih !'
                                     }
                                 }
                             },
                             'lingkar_prt': {
                                 validators: {
                                     notEmpty: {
-                                        message: 'Field is required'
+                                        message: 'Harus diisi atau dipilih !'
                                     }
                                 }
                             },
                             'diastole': {
                                 validators: {
                                     notEmpty: {
-                                        message: 'Field is required'
+                                        message: 'Harus diisi atau dipilih !'
                                     }
                                 }
                             },
                             'sistole': {
                                 validators: {
                                     notEmpty: {
-                                        message: 'Field is required'
+                                        message: 'Harus diisi atau dipilih !'
                                     }
                                 }
                             },
                             'gula_drh': {
                                 validators: {
                                     notEmpty: {
-                                        message: 'Field is required'
+                                        message: 'Harus diisi atau dipilih !'
                                     }
                                 }
                             },
                             'kolesterol': {
                                 validators: {
                                     notEmpty: {
-                                        message: 'Field is required'
+                                        message: 'Harus diisi atau dipilih !'
                                     }
                                 }
                             },
                             'asam_urat': {
                                 validators: {
                                     notEmpty: {
-                                        message: 'Field is required'
+                                        message: 'Harus diisi atau dipilih !'
                                     }
                                 }
                             }
@@ -1109,42 +1109,42 @@
                             'merokok': {
                                 validators: {
                                     notEmpty: {
-                                        message: 'Field is required'
+                                        message: 'Harus diisi atau dipilih !'
                                     }
                                 }
                             },
                             'ginjal': {
                                 validators: {
                                     notEmpty: {
-                                        message: 'Field is required'
+                                        message: 'Harus diisi atau dipilih !'
                                     }
                                 }
                             },
                             'penglihatan': {
                                 validators: {
                                     notEmpty: {
-                                        message: 'Field is required'
+                                        message: 'Harus diisi atau dipilih !'
                                     }
                                 }
                             },
                             'pendengaran': {
                                 validators: {
                                     notEmpty: {
-                                        message: 'Field is required'
+                                        message: 'Harus diisi atau dipilih !'
                                     }
                                 }
                             },
                             'adl': {
                                 validators: {
                                     notEmpty: {
-                                        message: 'Field is required'
+                                        message: 'Harus diisi atau dipilih !'
                                     }
                                 }
                             },
                             'gds': {
                                 validators: {
                                     notEmpty: {
-                                        message: 'Field is required'
+                                        message: 'Harus diisi atau dipilih !'
                                     }
                                 }
                             },
@@ -1209,7 +1209,7 @@
                     text: message,
                     icon: "success",
                     buttonsStyling: false,
-                    confirmButtonText: "Ok, got it!",
+                    confirmButtonText: "Baik !",
                     customClass: {
                         confirmButton: "btn btn-primary"
                     }
@@ -1220,7 +1220,7 @@
                     text: message,
                     icon: "error",
                     buttonsStyling: false,
-                    confirmButtonText: "Ok, got it!",
+                    confirmButtonText: "Baik !",
                     customClass: {
                         confirmButton: "btn btn-primary"
                     }
@@ -1231,7 +1231,7 @@
                     text: message,
                     icon: "warning",
                     buttonsStyling: false,
-                    confirmButtonText: "Ok, got it!",
+                    confirmButtonText: "Baik !",
                     customClass: {
                         confirmButton: "btn btn-primary"
                     }

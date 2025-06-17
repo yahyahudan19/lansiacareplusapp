@@ -35,6 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/destroy/penduduk/{id}', [PersonsController::class, 'destroy'])->name('persons.destroy');
 
     Route::get('/admin/laporan/exportExcel', [LaporansController::class, 'exportExcel'])->name('laporan.exportExcel');
+    Route::get('/admin/kunjungan/exportExcel', [LaporansController::class, 'exportKunjunganExcel'])->name('kunjungan.exportExcel');
 
     Route::post('/check-nik', [PersonsController::class, 'checkNik'])->name('person.checkNik');
 
@@ -97,6 +98,7 @@ Route::middleware(['role:System Administrator'])->group(function (){
     Route::get('/admin/kunjungan/{id}', [KunjungansController::class, 'detail_view'])->name('kunjungans.detail_view');
     Route::get('/admin/kunjungan/edit/{id}', [KunjungansController::class, 'edit'])->name('kunjungans.edit');
     Route::post('/admin/kunjungan/update/{id}', [KunjungansController::class, 'update'])->name('kunjungans.update');
+    Route::post('/admin/kunjungan/import', [KunjungansController::class, 'import'])->name('kunjungans.import');
     
     
     Route::get('/admin/laporan/puskesmas', [LaporansController::class, 'index'])->name('laporan.index');

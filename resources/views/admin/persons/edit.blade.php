@@ -490,7 +490,7 @@
                                         text: "Form has been successfully submitted!",
                                         icon: "success",
                                         buttonsStyling: false,
-                                        confirmButtonText: "Ok, got it!",
+                                        confirmButtonText: "Baiklah !!",
                                         customClass: {
                                             confirmButton: "btn btn-primary"
                                         }
@@ -509,10 +509,10 @@
                                 }, 2000);
                             } else {
                                 Swal.fire({
-                                    html: "Sorry, looks like there are some errors detected, please try again. <br/><br/>Please note that there may be errors in the <strong>Data Diri</strong> tabs",
+                                    html: "Maaf, sepertinya ada yang error ! <br/><br/>Please note that there may be errors in the <strong>Data Diri</strong> tabs",
                                     icon: "error",
                                     buttonsStyling: false,
-                                    confirmButtonText: "Ok, got it!",
+                                    confirmButtonText: "Baiklah !!",
                                     customClass: {
                                         confirmButton: "btn btn-primary"
                                     }
@@ -570,7 +570,7 @@
                     text: message,
                     icon: "success",
                     buttonsStyling: false,
-                    confirmButtonText: "Ok, got it!",
+                    confirmButtonText: "Baiklah !!",
                     customClass: {
                         confirmButton: "btn btn-primary"
                     }
@@ -581,7 +581,7 @@
                     text: message,
                     icon: "error",
                     buttonsStyling: false,
-                    confirmButtonText: "Ok, got it!",
+                    confirmButtonText: "Baiklah !!",
                     customClass: {
                         confirmButton: "btn btn-primary"
                     }
@@ -592,7 +592,7 @@
                     text: message,
                     icon: "warning",
                     buttonsStyling: false,
-                    confirmButtonText: "Ok, got it!",
+                    confirmButtonText: "Baiklah !!",
                     customClass: {
                         confirmButton: "btn btn-primary"
                     }

@@ -746,7 +746,7 @@
 								text: "Your form has not been cancelled!.",
 								icon: "error",
 								buttonsStyling: false,
-								confirmButtonText: "Ok, got it!",
+								confirmButtonText: "Baiklah !!",
 								customClass: {
 									confirmButton: "btn btn-primary",
 								}
@@ -780,7 +780,7 @@
 								text: "Your form has not been cancelled!.",
 								icon: "error",
 								buttonsStyling: false,
-								confirmButtonText: "Ok, got it!",
+								confirmButtonText: "Baiklah !!",
 								customClass: {
 									confirmButton: "btn btn-primary",
 								}
@@ -814,7 +814,7 @@
 							text: "Form has been successfully submitted!",
 							icon: "success",
 							buttonsStyling: false,
-							confirmButtonText: "Ok, got it!",
+							confirmButtonText: "Baiklah !!",
 							customClass: {
 								confirmButton: "btn btn-primary"
 							}
@@ -908,7 +908,7 @@
 								text: "Your form has not been cancelled!.",
 								icon: "error",
 								buttonsStyling: false,
-								confirmButtonText: "Ok, got it!",
+								confirmButtonText: "Baiklah !!",
 								customClass: {
 									confirmButton: "btn btn-primary",
 								}
@@ -942,7 +942,7 @@
 								text: "Your form has not been cancelled!.",
 								icon: "error",
 								buttonsStyling: false,
-								confirmButtonText: "Ok, got it!",
+								confirmButtonText: "Baiklah !!",
 								customClass: {
 									confirmButton: "btn btn-primary",
 								}
@@ -982,7 +982,7 @@
 										text: "Form has been successfully submitted!",
 										icon: "success",
 										buttonsStyling: false,
-										confirmButtonText: "Ok, got it!",
+										confirmButtonText: "Baiklah !!",
 										customClass: {
 											confirmButton: "btn btn-primary"
 										}
@@ -1111,7 +1111,7 @@
 								text: "Your form has not been cancelled!.",
 								icon: "error",
 								buttonsStyling: false,
-								confirmButtonText: "Ok, got it!",
+								confirmButtonText: "Baiklah !!",
 								customClass: {
 									confirmButton: "btn btn-primary",
 								}
@@ -1145,7 +1145,7 @@
 								text: "Your form has not been cancelled!.",
 								icon: "error",
 								buttonsStyling: false,
-								confirmButtonText: "Ok, got it!",
+								confirmButtonText: "Baiklah !!",
 								customClass: {
 									confirmButton: "btn btn-primary",
 								}
@@ -1185,7 +1185,7 @@
 									// 	text: "Form has been successfully submitted!",
 									// 	icon: "success",
 									// 	buttonsStyling: false,
-									// 	confirmButtonText: "Ok, got it!",
+									// 	confirmButtonText: "Baiklah !!",
 									// 	customClass: {
 									// 		confirmButton: "btn btn-primary"
 									// 	}
@@ -1257,7 +1257,7 @@
 								text: "Your form has not been cancelled!.",
 								icon: "error",
 								buttonsStyling: false,
-								confirmButtonText: "Ok, got it!",
+								confirmButtonText: "Baiklah !!",
 								customClass: {
 									confirmButton: "btn btn-primary",
 								}
@@ -1291,7 +1291,7 @@
 								text: "Your form has not been cancelled!.",
 								icon: "error",
 								buttonsStyling: false,
-								confirmButtonText: "Ok, got it!",
+								confirmButtonText: "Baiklah !!",
 								customClass: {
 									confirmButton: "btn btn-primary",
 								}
@@ -1325,7 +1325,7 @@
 							text: "Form has been successfully submitted!",
 							icon: "success",
 							buttonsStyling: false,
-							confirmButtonText: "Ok, got it!",
+							confirmButtonText: "Baiklah !!",
 							customClass: {
 								confirmButton: "btn btn-primary"
 							}
@@ -1367,7 +1367,7 @@
                     text: message,
                     icon: "success",
                     buttonsStyling: false,
-                    confirmButtonText: "Ok, got it!",
+                    confirmButtonText: "Baiklah !!",
                     customClass: {
                         confirmButton: "btn btn-primary"
                     }
@@ -1378,7 +1378,7 @@
                     text: message,
                     icon: "error",
                     buttonsStyling: false,
-                    confirmButtonText: "Ok, got it!",
+                    confirmButtonText: "Baiklah !!",
                     customClass: {
                         confirmButton: "btn btn-primary"
                     }
@@ -1389,7 +1389,7 @@
                     text: message,
                     icon: "warning",
                     buttonsStyling: false,
-                    confirmButtonText: "Ok, got it!",
+                    confirmButtonText: "Baiklah !!",
                     customClass: {
                         confirmButton: "btn btn-primary"
                     }

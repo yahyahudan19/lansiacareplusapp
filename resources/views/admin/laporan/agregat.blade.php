@@ -60,6 +60,10 @@
                     <!--end::Page title-->
                     <!--begin::Actions-->
                     <div class="d-flex align-items-center gap-2 gap-lg-3">
+                        <button href="#" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#kt_modal_export_kj">
+                            <i class="ki-solid ki-file-sheet"></i>
+                            Export Kunjungan
+                        </button>
                         <button href="#" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#kt_modal_export">
                             <i class="ki-solid ki-file-sheet"></i>
                             Export Laporan
@@ -108,7 +112,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-info">Generate</button>
+                                        <button type="submit" class="btn btn-danger">Generate</button>
                                     </div>
                                 </form>
                             </div>
@@ -162,6 +166,51 @@
                         </div>
                     </div>
                     <!--end::Export Modal-->
+
+                    <!--begin::Export Kunjungan Modal-->
+                    <div class="modal fade" tabindex="-1" id="kt_modal_export_kj">
+                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <div class="modal-content">
+                                <form action="/admin/kunjungan/exportExcel" method="GET">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title">Export Kunjungan</h3>
+                                        <!--begin::Close-->
+                                        <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                                            <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                                        </div>
+                                        <!--end::Close-->
+                                    </div>
+                                    <div class="modal-body">
+                                        <!--begin::Toolbar-->
+                                        <div class="d-flex">
+                                            <div class="row">
+                                                <!--begin::Filter Date-->
+                                                <div class="col-lg-12 mb-5">
+                                                    <label class="fs-6 form-label fw-bold text-gray-900">Tanggal</label>
+                                                    <br>
+                                                    <input class="btn btn-primary me-3" placeholder="Pick date rage"
+                                                        id="kt_datefilter_export_kj" name="date_range" />
+                                                </div>
+                                                <!--end::Filter Date-->
+                                                <!--begin::Cari Button -->
+                                                {{-- <div class="col-lg-6 mb-2">
+                                                    <button type="submit" class="btn btn-success me-3"> <i
+                                                            class="ki-outline ki-search-list fs-2"></i>Generate Laporan</button>
+                                                </div> --}}
+                                                <!--end::Cari Button -->
+                                            </div>
+                                        </div>
+                                        <!--end::Toolbar-->
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Export</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end::Export Kunjungan Modal-->
 
                 </div>
                 <!--end::Toolbar wrapper-->
@@ -463,6 +512,33 @@
     </script>
     <!--end::Filter Agregat Export-->
 
+    <!--begin::Filter Kunjungan Export-->
+    <script>
+        var start = moment().subtract(29, "days");
+        var end = moment();
+
+        function cb(start, end) {
+            $("#kt_datefilter_export_kj").html(start.format("MMMM D, YYYY") + " - " + end.format("MMMM D, YYYY"));
+        }
+
+        $("#kt_datefilter_export_kj").daterangepicker({
+            startDate: start,
+            endDate: end,
+            ranges: {
+                "Hari Ini": [moment(), moment()],
+                "Kemarin": [moment().subtract(1, "days"), moment().subtract(1, "days")],
+                "7 Hari Terakhir": [moment().subtract(6, "days"), moment()],
+                "30 Hari Terakhir": [moment().subtract(29, "days"), moment()],
+                "Bulan Ini": [moment().startOf("month"), moment().endOf("month")],
+                "Bulan Lalu": [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf(
+                    "month")]
+            }
+        }, cb);
+
+        cb(start, end);
+    </script>
+    <!--end::Filter Kunjungan Export-->
+
     <!-- begin sessions -->
     @if (session('status') && session('message'))
         <script>
@@ -474,7 +550,7 @@
                     text: message,
                     icon: "success",
                     buttonsStyling: false,
-                    confirmButtonText: "Ok, got it!",
+                    confirmButtonText: "Baiklah !!",
                     customClass: {
                         confirmButton: "btn btn-primary"
                     }
@@ -484,7 +560,7 @@
                     text: message,
                     icon: "error",
                     buttonsStyling: false,
-                    confirmButtonText: "Ok, got it!",
+                    confirmButtonText: "Baiklah !!",
                     customClass: {
                         confirmButton: "btn btn-primary"
                     }
@@ -494,7 +570,7 @@
                     text: message,
                     icon: "warning",
                     buttonsStyling: false,
-                    confirmButtonText: "Ok, got it!",
+                    confirmButtonText: "Baiklah !!",
                     customClass: {
                         confirmButton: "btn btn-primary"
                     }

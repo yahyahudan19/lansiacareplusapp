@@ -482,7 +482,7 @@
                                         text: "Form has been successfully submitted!",
                                         icon: "success",
                                         buttonsStyling: false,
-                                        confirmButtonText: "Ok, got it!",
+                                        confirmButtonText: "Baiklah !!",
                                         customClass: {
                                             confirmButton: "btn btn-primary"
                                         }
@@ -498,10 +498,10 @@
                             } else {
                                 // Show popup warning. For more info check the plugin's official documentation: https://sweetalert2.github.io/
                                 Swal.fire({
-                                    text: "Sorry, looks like there are some errors detected, please try again.",
+                                    text: "Maaf, sepertinya ada yang error !",
                                     icon: "error",
                                     buttonsStyling: false,
-                                    confirmButtonText: "Ok, got it!",
+                                    confirmButtonText: "Baiklah !!",
                                     customClass: {
                                         confirmButton: "btn btn-primary"
                                     }
@@ -536,7 +536,7 @@
                                 text: "Your form has not been cancelled!.",
                                 icon: "error",
                                 buttonsStyling: false,
-                                confirmButtonText: "Ok, got it!",
+                                confirmButtonText: "Baiklah !!",
                                 customClass: {
                                     confirmButton: "btn btn-primary",
                                 }
@@ -570,7 +570,7 @@
                                 text: "Your form has not been cancelled!.",
                                 icon: "error",
                                 buttonsStyling: false,
-                                confirmButtonText: "Ok, got it!",
+                                confirmButtonText: "Baiklah !!",
                                 customClass: {
                                     confirmButton: "btn btn-primary",
                                 }
@@ -800,7 +800,7 @@
                                             text: "You have deleted " + puskesmasName + "!",
                                             icon: "success",
                                             buttonsStyling: false,
-                                            confirmButtonText: "Ok, got it!",
+                                            confirmButtonText: "Baiklah !!",
                                             customClass: {
                                                 confirmButton: "btn fw-bold btn-primary",
                                             }
@@ -813,7 +813,7 @@
                                             text: data.message,
                                             icon: "error",
                                             buttonsStyling: false,
-                                            confirmButtonText: "Ok, got it!",
+                                            confirmButtonText: "Baiklah !!",
                                             customClass: {
                                                 confirmButton: "btn fw-bold btn-primary",
                                             }
@@ -825,7 +825,7 @@
                                         text: "An error occurred while deleting the user.",
                                         icon: "error",
                                         buttonsStyling: false,
-                                        confirmButtonText: "Ok, got it!",
+                                        confirmButtonText: "Baiklah !!",
                                         customClass: {
                                             confirmButton: "btn fw-bold btn-primary",
                                         }
@@ -836,7 +836,7 @@
                                     text: puskesmasName + " was not deleted.",
                                     icon: "error",
                                     buttonsStyling: false,
-                                    confirmButtonText: "Ok, got it!",
+                                    confirmButtonText: "Baiklah !!",
                                     customClass: {
                                         confirmButton: "btn fw-bold btn-primary",
                                     }
@@ -890,7 +890,7 @@
                                 text: "You have deleted all selected puskesmas!",
                                 icon: "success",
                                 buttonsStyling: false,
-                                confirmButtonText: "Ok, got it!",
+                                confirmButtonText: "Baiklah !!",
                                 customClass: {
                                     confirmButton: "btn fw-bold btn-primary",
                                 }
@@ -914,7 +914,7 @@
                                 text: "Selected puskesmas was not deleted.",
                                 icon: "error",
                                 buttonsStyling: false,
-                                confirmButtonText: "Ok, got it!",
+                                confirmButtonText: "Baiklah !!",
                                 customClass: {
                                     confirmButton: "btn fw-bold btn-primary",
                                 }
@@ -988,7 +988,7 @@
                     text: message,
                     icon: "success",
                     buttonsStyling: false,
-                    confirmButtonText: "Ok, got it!",
+                    confirmButtonText: "Baiklah !!",
                     customClass: {
                         confirmButton: "btn btn-primary"
                     }
@@ -999,7 +999,7 @@
                     text: message,
                     icon: "error",
                     buttonsStyling: false,
-                    confirmButtonText: "Ok, got it!",
+                    confirmButtonText: "Baiklah !!",
                     customClass: {
                         confirmButton: "btn btn-primary"
                     }
@@ -1010,7 +1010,7 @@
                     text: message,
                     icon: "warning",
                     buttonsStyling: false,
-                    confirmButtonText: "Ok, got it!",
+                    confirmButtonText: "Baiklah !!",
                     customClass: {
                         confirmButton: "btn btn-primary"
                     }

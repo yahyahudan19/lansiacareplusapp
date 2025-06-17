@@ -756,7 +756,7 @@
                                     <!--begin::Wrapper-->
                                     <div class="mr-2">
                                         <button type="button" class="btn btn-lg btn-light-primary me-3" data-kt-stepper-action="previous">
-                                        <i class="ki-outline ki-arrow-left fs-4 me-1"></i>Back</button>
+                                        <i class="ki-outline ki-arrow-left fs-4 me-1"></i>Kembali</button>
                                     </div>
                                     <!--end::Wrapper-->
                                     <!--begin::Wrapper-->
@@ -764,10 +764,10 @@
                                         <button type="button" class="btn btn-lg btn-primary me-3" data-kt-stepper-action="submit">
                                             <span class="indicator-label">Submit 
                                             <i class="ki-outline ki-arrow-right fs-3 ms-2 me-0"></i></span>
-                                            <span class="indicator-progress">Please wait... 
+                                            <span class="indicator-progress">Tunggu... 
                                             <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                                         </button>
-                                        <button type="button" class="btn btn-lg btn-primary" data-kt-stepper-action="next">Continue 
+                                        <button type="button" class="btn btn-lg btn-primary" data-kt-stepper-action="next">Lanjutkan 
                                         <i class="ki-outline ki-arrow-right fs-4 ms-1 me-0"></i></button>
                                     </div>
                                     <!--end::Wrapper-->
@@ -858,10 +858,10 @@
                                 KTUtil.scrollTop();
                             } else {
                                 Swal.fire({
-                                    text: "Sorry, looks like there are some errors detected, please try again.",
+                                    text: "Maaf, ada yang error, cek lagi ya.",
                                     icon: "error",
                                     buttonsStyling: false,
-                                    confirmButtonText: "Ok, got it!",
+                                    confirmButtonText: "Baik !",
                                     customClass: {
                                         confirmButton: "btn btn-light"
                                     }
@@ -918,10 +918,10 @@
                             }, 2000);
                         } else {
                             Swal.fire({
-                                text: "Sorry, looks like there are some errors detected, please try again.",
+                                text: "Maaf, ada yang error, cek lagi ya!",
                                 icon: "error",
                                 buttonsStyling: false,
-                                confirmButtonText: "Ok, got it!",
+                                confirmButtonText: "Baik !",
                                 customClass: {
                                     confirmButton: "btn btn-light"
                                 }
@@ -1219,7 +1219,7 @@
                     text: message,
                     icon: "success",
                     buttonsStyling: false,
-                    confirmButtonText: "Ok, got it!",
+                    confirmButtonText: "Baik !",
                     customClass: {
                         confirmButton: "btn btn-primary"
                     }
@@ -1230,7 +1230,7 @@
                     text: message,
                     icon: "error",
                     buttonsStyling: false,
-                    confirmButtonText: "Ok, got it!",
+                    confirmButtonText: "Baik !",
                     customClass: {
                         confirmButton: "btn btn-primary"
                     }
@@ -1241,7 +1241,7 @@
                     text: message,
                     icon: "warning",
                     buttonsStyling: false,
-                    confirmButtonText: "Ok, got it!",
+                    confirmButtonText: "Baik !",
                     customClass: {
                         confirmButton: "btn btn-primary"
                     }

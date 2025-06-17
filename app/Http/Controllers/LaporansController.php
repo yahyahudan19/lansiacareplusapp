@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\KunjunganExport;
 use App\Exports\LaporanExport;
 use App\Models\Indikators;
 use App\Models\Kecamatans;
@@ -15,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Str;
 
 class LaporansController extends Controller
 {
@@ -577,6 +579,23 @@ class LaporansController extends Controller
         }
 
         return view('admin.laporan.agregat', compact('results', 'totals', 'puskesmas', 'startDate', 'endDate','indicators'));
+    }
+
+    public function exportKunjunganExcel(Request $request)
+    {
+        // Ambil dan parsing date_range
+        $range = $request->date_range;
+        if (!$range || !Str::contains($range, ' - ')) {
+            return back()->with('error', 'Format tanggal tidak valid.');
+        }
+
+        [$start, $end] = explode(' - ', $range);
+        $startDate = Carbon::createFromFormat('m/d/Y', trim($start))->startOfDay();
+        $endDate = Carbon::createFromFormat('m/d/Y', trim($end))->endOfDay();
+
+        // Kirim ke Export
+        $filename = 'Data_Kunjungan_' . now()->format('Ymd_His') . '.xlsx';
+        return Excel::download(new KunjunganExport($startDate, $endDate), $filename);
     }
 
 }

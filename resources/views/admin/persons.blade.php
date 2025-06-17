@@ -773,13 +773,13 @@
                                     }
                                 }
                             },
-                            'person_telp': {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'No. Telp harus diisi'
-                                    }
-                                }
-                            },
+                            // 'person_telp': {
+                            //     validators: {
+                            //         notEmpty: {
+                            //             message: 'No. Telp harus diisi'
+                            //         }
+                            //     }
+                            // },
                             'person_rt': {
                                 validators: {
                                     notEmpty: {

@@ -692,12 +692,12 @@
 
                         // SweetAlert2 pop up --- official docs reference: https://sweetalert2.github.io/
                         Swal.fire({
-                            text: "Are you sure you want to delete " + invoiceNumber + "?",
+                            text: "Yakin menghapus data " + invoiceNumber + "?",
                             icon: "warning",
                             showCancelButton: true,
                             buttonsStyling: false,
-                            confirmButtonText: "Yes, delete!",
-                            cancelButtonText: "No, cancel",
+                            confirmButtonText: "Iya, Hapus!",
+                            cancelButtonText: "Tidak, Batalkan",
                             customClass: {
                                 confirmButton: "btn fw-bold btn-danger",
                                 cancelButton: "btn fw-bold btn-active-light-primary"
@@ -705,10 +705,10 @@
                         }).then(function (result) {
                             if (result.value) {
                                 Swal.fire({
-                                    text: "You have deleted " + invoiceNumber + "!.",
+                                    text: "Kamu menghapus data  " + invoiceNumber + "!.",
                                     icon: "success",
                                     buttonsStyling: false,
-                                    confirmButtonText: "Ok, got it!",
+                                    confirmButtonText: "Baik !",
                                     customClass: {
                                         confirmButton: "btn fw-bold btn-primary",
                                     }
@@ -721,10 +721,10 @@
                                 });
                             } else if (result.dismiss === 'cancel') {
                                 Swal.fire({
-                                    text: customerName + " was not deleted.",
+                                    text: customerName + " Tidak terhapus !.",
                                     icon: "error",
                                     buttonsStyling: false,
-                                    confirmButtonText: "Ok, got it!",
+                                    confirmButtonText: "Baik !",
                                     customClass: {
                                         confirmButton: "btn fw-bold btn-primary",
                                     }
@@ -787,7 +787,7 @@
                             icon: "warning",
                             showCancelButton: true,
                             buttonsStyling: false,
-                            confirmButtonText: "Yes, delete it!",
+                            confirmButtonText: "Iya, Hapus !!",
                             cancelButtonText: "No, return",
                             customClass: {
                                 confirmButton: "btn btn-primary",
@@ -802,7 +802,7 @@
                                     text: "Data Skrining tidak Terhapus!.",
                                     icon: "error",
                                     buttonsStyling: false,
-                                    confirmButtonText: "Ok, got it!",
+                                    confirmButtonText: "Baik !",
                                     customClass: {
                                         confirmButton: "btn btn-primary",
                                     }
@@ -839,7 +839,7 @@
                                 text: "Your card was set to primary!.",
                                 icon: "success",
                                 buttonsStyling: false,
-                                confirmButtonText: "Ok, got it!",
+                                confirmButtonText: "Baik !",
                                 customClass: {
                                     confirmButton: "btn btn-primary",
                                 }
@@ -849,7 +849,7 @@
                                 text: "Your card was not set to primary!.",
                                 icon: "error",
                                 buttonsStyling: false,
-                                confirmButtonText: "Ok, got it!",
+                                confirmButtonText: "Baik !",
                                 customClass: {
                                     confirmButton: "btn btn-primary",
                                 }
@@ -903,7 +903,7 @@
                     text: message,
                     icon: "success",
                     buttonsStyling: false,
-                    confirmButtonText: "Ok, got it!",
+                    confirmButtonText: "Baik !",
                     customClass: {
                         confirmButton: "btn btn-primary"
                     }
@@ -914,7 +914,7 @@
                     text: message,
                     icon: "error",
                     buttonsStyling: false,
-                    confirmButtonText: "Ok, got it!",
+                    confirmButtonText: "Baik !",
                     customClass: {
                         confirmButton: "btn btn-primary"
                     }
@@ -925,7 +925,7 @@
                     text: message,
                     icon: "warning",
                     buttonsStyling: false,
-                    confirmButtonText: "Ok, got it!",
+                    confirmButtonText: "Baik !",
                     customClass: {
                         confirmButton: "btn btn-primary"
                     }

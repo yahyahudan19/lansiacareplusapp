@@ -706,6 +706,23 @@
                                     <!--begin::Details-->
                                     <div class="d-flex align-items-center mb-1">
                                         <!--begin::Name-->
+                                        <a href="#" class="fw-bold text-gray-800 text-hover-primary me-2">RT/RW
+                                            :
+                                        </a>
+                                        <!--end::Name-->
+                                    </div>
+                                    <!--end::Details-->
+                                    <!--begin::Email-->
+                                    <a href="#"
+                                        class="fw-semibold text-gray-600 text-hover-primary">
+                                        {{ $dapen->rt ?? '00' }}/{{ $dapen->rw ?? '00' }}
+                                    </a>
+                                    <!--end::Email-->
+                                </div>
+                                <div class="mb-3">
+                                    <!--begin::Details-->
+                                    <div class="d-flex align-items-center mb-1">
+                                        <!--begin::Name-->
                                         <a href="#" class="fw-bold text-gray-800 text-hover-primary me-2">Kecamatan
                                             :
                                         </a>
@@ -734,6 +751,11 @@
                                         class="fw-semibold text-gray-600 text-hover-primary">{{ $dapen->kelurahan->nama }}
                                     </a>
                                     <!--end::Email-->
+                                    
+                                </div>
+                                <div class="mb-3">
+                                    <a href="/kader/penduduk/{{ $dapen->id }}"
+                                        class="btn btn-warning btn-sm" target="_blank">Detail Penduduk</a>
                                 </div>
                                 <!--end::Section-->
 
@@ -741,7 +763,7 @@
                                 <div class="separator separator-dashed mb-7"></div>
                                 <!--end::Seperator-->
                                 <!--begin::Section-->
-                                <div class="mb-7">
+                                <div class="mb-4">
                                     <!--begin::Title-->
                                     <h5 class="mb-3">Terakhir Kunjungan</h5>
                                     <!--end::Title-->
