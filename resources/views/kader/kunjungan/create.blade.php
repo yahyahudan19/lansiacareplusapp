@@ -393,7 +393,7 @@
                                 <div class="fv-row mb-5">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center form-label">
-                                        <span class="required">Kolesterol</span>
+                                        <span>Kolesterol</span>
                                     </label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
@@ -432,29 +432,33 @@
                                 <!--begin::Input group-->
                                 <div class="fv-row mb-5">
                                     <!--begin::Label-->
-                                    <label class="required fw-semibold fs-6 mb-2">Asam Urat</label>
+                                    <label class="fw-semibold fs-6 mb-2">Asam Urat</label>
                                     <!--end::Label-->
 
                                     <!--begin::Input-->
                                     <input type="text" name="asam_urat" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="" placeholder="00.00" />
                                     <!--end::Input-->
-                                    <div class="form-text">Ganti tanda koma (,) dengan tanda titik(.) <b>Misalkan 10.7</b></div>
+                                    <div class="form-text">Ganti tanda koma (,) dengan tanda titik(.) <b>Misalkan 2.7</b></div>
 
                                 </div>
                                 <!--end::Input group-->
-                                <!--end::Input group-->
                                 <!--begin::Input group-->
-                                {{-- <div class="fv-row mb-5">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center form-label">
-                                        <span class="required">Tanggal Kunjungan</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <div class="mb-10">
-                                        <input class="form-control" placeholder="Pick a date" name="tanggal_kj"
-                                            id="kt_datepicker_1" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"/>
-                                    </div>
-                                </div> --}}
+                                        <div class="fv-row mb-5">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center form-label">
+                                                <span class="required">Keterangan</span>
+                                            </label>
+                                            <!--end::Label-->
+                                            <div class="mb-10">
+                                                <select class="form-select" name="keterangan" data-control="select2" data-placeholder="Pilih Keterangan">
+                                                    <option></option>
+                                                    <option value="A" selected>Tidak Ada</option>
+                                                    <option value="B">B</option>
+                                                    <option value="C">C</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <!--end::Input group-->
                                 <input type="hidden" name="tanggal_kj" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
                                 <!--end::Input group-->
 
@@ -507,7 +511,7 @@
                                         data-placeholder="Select an option" name="merokok">
                                         <option></option>
                                         <option value="Y" selected>Iya</option>
-                                        <option value="TSB">Tidak, Sudah Berhenti</option>
+                                        <option value="TSB">Tidak, Sudah Berhenti Kurang dari 1 Tahun</option>
                                         <option value="TPS">Tidak Pernah Sama Sekali</option>
                                     </select>
 
@@ -633,10 +637,10 @@
                                 <!--begin::Actions-->
                                 <button id="kt_docs_formvalidation_text_submit" type="submit" class="btn btn-primary">
                                     <span class="indicator-label">
-                                        Submit
+                                        Simpan
                                     </span>
                                     <span class="indicator-progress">
-                                        Please wait... <span
+                                        Silahkan Tunggu... <span
                                             class="spinner-border spinner-border-sm align-middle ms-2"></span>
                                     </span>
                                 </button>
@@ -706,6 +710,23 @@
                                     <!--begin::Details-->
                                     <div class="d-flex align-items-center mb-1">
                                         <!--begin::Name-->
+                                        <a href="#" class="fw-bold text-gray-800 text-hover-primary me-2">Umur
+                                            :
+                                        </a>
+                                        <!--end::Name-->
+                                    </div>
+                                    <!--end::Details-->
+                                    <!--begin::Email-->
+                                    <a href="#"
+                                        class="fw-semibold text-gray-600 text-hover-primary">
+                                        {{ \Carbon\Carbon::parse($dapen->tanggal_lahir)->age }} Tahun
+                                    </a>
+                                    <!--end::Email-->
+                                </div>
+                                <div class="mb-3">
+                                    <!--begin::Details-->
+                                    <div class="d-flex align-items-center mb-1">
+                                        <!--begin::Name-->
                                         <a href="#" class="fw-bold text-gray-800 text-hover-primary me-2">RT/RW
                                             :
                                         </a>
@@ -755,7 +776,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <a href="/kader/penduduk/{{ $dapen->id }}"
-                                        class="btn btn-warning btn-sm" target="_blank">Detail Penduduk</a>
+                                        class="btn btn-warning btn-sm">Detail Penduduk</a>
                                 </div>
                                 <!--end::Section-->
 
@@ -921,33 +942,33 @@
                     }
                 }
                 },
-                'kolesterol': {
-                validators: {
-                    notEmpty: {
-                    message: 'Harus Diisi !'
-                    },
-                    stringLength: {
-                    min: 2,
-                    max: 3,
-                    message: 'Minimal 20'
-                    }
-                }
-                },
-                'asam_urat': {
-                validators: {
-                    notEmpty: {
-                    message: 'Harus Diisi !'
-                    },
-                    numeric: {
-                    message: 'Harus desimal'
-                    },
-                    stringLength: {
-                    min: 3,
-                    max: 3,
-                    message: 'Nilai minimal 2 digit'
-                    }
-                }
-                }
+                // 'kolesterol': {
+                // validators: {
+                //     notEmpty: {
+                //     message: 'Harus Diisi !'
+                //     },
+                //     stringLength: {
+                //     min: 2,
+                //     max: 3,
+                //     message: 'Minimal 20'
+                //     }
+                // }
+                // },
+                // 'asam_urat': {
+                // validators: {
+                //     notEmpty: {
+                //     message: 'Harus Diisi !'
+                //     },
+                //     numeric: {
+                //     message: 'Harus desimal'
+                //     },
+                //     stringLength: {
+                //     min: 3,
+                //     max: 3,
+                //     message: 'Nilai minimal 1 digit'
+                //     }
+                // }
+                // }
             },
             plugins: {
                 trigger: new FormValidation.plugins.Trigger(),

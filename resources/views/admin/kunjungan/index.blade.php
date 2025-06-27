@@ -80,21 +80,33 @@
                         <!--begin::Card body-->
                         <div class="card-body">
                             <!--begin::Compact form-->
-                            <div class="d-flex align-items-center">
-                                <!--begin::Input group-->
-                                <div class="position-relative w-md-1000px me-md-2">
-                                    <i class="ki-outline ki-magnifier fs-3 text-gray-500 position-absolute top-50 translate-middle ms-6"></i>
-                                    <input type="text" class="form-control form-control-solid ps-10" name="search" value="" placeholder="Cari Nama atau NIK" />
+                            <div class="d-flex flex-column gap-2">
+                                <!--begin::Alert-->
+                                <div class="alert alert-info d-flex align-items-center p-5">
+                                    <i class="ki-outline ki-information fs-2hx text-info me-4"></i>
+                                    <div class="d-flex flex-column">
+                                        <h4 class="mb-1 text-info">Pencarian Data Kunjungan</h4>
+                                        <span>Masukkan nama atau NIK untuk mencari data kunjungan yang sesuai.</span>
+                                    </div>
                                 </div>
-                                <!--end::Input group-->
-                                <!--begin:Action-->
-                                <div class="d-flex align-items-center">
-                                    <button type="submit" class="btn btn-success me-5">Cari</button>
+                                <!--end::Alert-->
+
+                                <!--begin::Search Form-->
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <!--begin::Input group-->
+                                    <div class="position-relative w-md-1000px me-md-2">
+                                        <i class="ki-outline ki-magnifier fs-3 text-gray-500 position-absolute top-50 translate-middle ms-6"></i>
+                                        <input type="text" class="form-control form-control-solid ps-10" name="search" value="" placeholder="Cari Nama atau NIK" />
+                                    </div>
+                                    <!--end::Input group-->
+
+                                    <!--begin::Action-->
+                                    <button type="submit" class="btn btn-success">Cari</button>
+                                    <!--end::Action-->
                                 </div>
-                                <!--end:Action-->
+                                <!--end::Search Form-->
                             </div>
                             <!--end::Compact form-->
-                            
                         </div>
                         <!--end::Card body-->
                     </div>
@@ -117,69 +129,57 @@
                     <!--end::Card title-->
                     <!--begin::Card toolbar-->
                     <div class="card-toolbar">
-                        <div class="alert alert-warning d-flex align-items-center p-2 mb-5">
-                            <i class="ki-outline ki-information fs-2hx text-warning me-4"></i>
-                            <div class="d-flex flex-column">
-                                <span class="text-warning"><strong>Pilih Kecamatan</strong> terlebih dahulu untuk memfilter <strong>Data Kunjungan</strong> yang akan dicari.</span>
-                            </div>
-                        </div>
-                        <form action="/kunjungan/cari" method="GET" id="searchForm">
-                            {{-- @csrf --}}
-                            <!--begin::Toolbar-->
-                            <div class="d-flex">
-                                <div class="row">
-                                    <!--begin::Filter Kecamatan-->
-                                    <div class="col-lg-6 mb-2 ">
-                                        {{-- <div class="w-200px"> --}}
-                                            <label class="fs-6 form-label fw-bold text-gray-900">Kecamatan</label>
-                                            <select class="btn btn-light me-3" data-control="select2" data-placeholder="Pilih Kecamatan" name="kecamatan" id="kecamatan" data-allow-clear="true">
-                                                <option></option>
-                                                @foreach ($kecamatans as $kec)
-                                                    <option value="{{$kec->id}}">{{$kec->nama}}</option>
-                                                @endforeach
-                                            </select>
-                                        {{-- </div> --}}
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="alert alert-warning d-flex align-items-center p-2 mb-5">
+                                    <i class="ki-outline ki-information fs-2hx text-warning me-4"></i>
+                                    <div class="d-flex flex-column">
+                                        <span class="text-warning"><strong>Pilih Kecamatan</strong> terlebih dahulu untuk memfilter <strong>Data Kunjungan</strong> yang akan dicari.</span>
                                     </div>
-                                    <!--end::Filter Kecamatan-->
-                                    
-                                    <!--begin::Filter kelurahan-->
-                                    <div class="col-lg-6 mb-2 ">
-                                        {{-- <div class="w-200px"> --}}
-                                            <label class="fs-6 form-label fw-bold text-gray-900">Kelurahan</label>
-                                            <select class="btn btn-light me-3" data-control="select2" data-placeholder="Pilih Kelurahan" name="kelurahan" id="kelurahan" data-allow-clear="true">
-                                                <option></option>
-                                            </select>
-                                        {{-- </div> --}}
-                                    <!--end::Filter kelurahan-->
-                                    </div>
-                                    <!--begin::Filter kelurahan-->
-                                    <div class="col-lg-6 mb-2 ">
-                                        {{-- <div class="w-200px"> --}}
-                                            <label class="fs-6 form-label fw-bold text-gray-900">Kategori</label>
-                                            <select class="btn btn-light me-3" data-control="select2" data-placeholder="Pilih Kategori" name="kategori" id="kategori">
-                                                <option value="Semua" {{ request()->is('admin/penduduk') ? 'selected' : '' }}>Semua</option>
-                                                <option value="Lansia" {{ request()->is('admin/penduduk/lansia') ? 'selected' : '' }}>Lansia</option>
-                                                <option value="Pra-Lansia" {{ request()->is('admin/penduduk/pra-lansia') ? 'selected' : '' }}>Pra-Lansia</option>
-                                            </select>
-                                        {{-- </div> --}}
-                                    <!--end::Filter kelurahan-->
-                                    </div>
-                                    <!--begin::Filter Date-->
-                                    <div class="col-lg-6 mb-5">
-                                        <label class="fs-6 form-label fw-bold text-gray-900">Tanggal Kunjungan</label>
-                                        <br>
-                                        <input class="btn btn-primary me-3" placeholder="Pick date rage" id="kt_daterangepicker_4" name="date_range"/>
-                                    </div>
-                                    <!--end::Filter Date-->
-                                    <!--begin::Cari Button -->
-                                    <div class="col-lg-6 mb-2">
-                                        <button type="submit" class="btn btn-success me-3" id="kt_page_loading_message"> <i class="ki-outline ki-search-list fs-2" ></i>Cari Kunjungan</button>
-                                    </div>
-                                    <!--end::Cari Button -->
                                 </div>
                             </div>
-                            <!--end::Toolbar-->
-                        </form>
+                            <div class="col-12">
+                                <form action="/kunjungan/cari" method="GET" id="searchForm">
+                                    <div class="d-flex">
+                                        <div class="row">
+                                            <div class="col-lg-6 mb-2">
+                                                <label class="fs-6 form-label fw-bold text-gray-900">Kecamatan</label>
+                                                <select class="btn btn-light me-3" data-control="select2" data-placeholder="Pilih Kecamatan" name="kecamatan" id="kecamatan" data-allow-clear="true">
+                                                    <option></option>
+                                                    @foreach ($kecamatans as $kec)
+                                                        <option value="{{$kec->id}}">{{$kec->nama}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-6 mb-2">
+                                                <label class="fs-6 form-label fw-bold text-gray-900">Kelurahan</label>
+                                                <select class="btn btn-light me-3" data-control="select2" data-placeholder="Pilih Kelurahan" name="kelurahan" id="kelurahan" data-allow-clear="true">
+                                                    <option></option>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-6 mb-2">
+                                                <label class="fs-6 form-label fw-bold text-gray-900">Kategori</label>
+                                                <select class="btn btn-light me-3" data-control="select2" data-placeholder="Pilih Kategori" name="kategori" id="kategori">
+                                                    <option value="Semua" {{ request()->is('admin/penduduk') ? 'selected' : '' }}>Semua</option>
+                                                    <option value="Lansia" {{ request()->is('admin/penduduk/lansia') ? 'selected' : '' }}>Lansia</option>
+                                                    <option value="Pra-Lansia" {{ request()->is('admin/penduduk/pra-lansia') ? 'selected' : '' }}>Pra-Lansia</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-6 mb-5">
+                                                <label class="fs-6 form-label fw-bold text-gray-900">Tanggal Kunjungan</label>
+                                                <br>
+                                                <input class="btn btn-primary me-3" placeholder="Pick date range" id="kt_daterangepicker_4" name="date_range"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 mb-2">
+                                        <button type="submit" class="btn btn-success me-3" id="kt_page_loading_message">
+                                            <i class="ki-outline ki-search-list fs-2"></i>Cari Kunjungan
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                     <!--end::Card toolbar-->
                 </div>
@@ -258,10 +258,11 @@
                             <button type="button" class="btn btn-success me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user">
                                 <i class="ki-outline ki-plus fs-2"></i>Tambah Penduduk
                             </button>
+                            @if (in_array(auth()->user()->role, ['System Administrator', 'Puskesmas']))
                             <button type="button" class="btn btn-warning me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_import">
                                 <i class="ki-solid ki-double-up fs-2"></i>Import Kunjungan
                             </button>
-
+                            @endif
                             @if (in_array(auth()->user()->role, ['System Administrator', 'Puskesmas', 'Kader']))
                                <!--begin::Add user-->
                                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_1">
@@ -281,7 +282,7 @@
                         </div>
                         <!--end::Group actions-->
                         
-                        @if (Auth::user()->role == "System Administrator")
+                        @if (Auth::user()->role == "System Administrator" || Auth::user()->role == "Puskesmas")
                             <!--begin::Modal Search Person-->
                             <div class="modal fade" tabindex="-1" id="kt_modal_1">
                                 <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -351,12 +352,16 @@
                                                     <label for="file" class="form-label">Upload File </label>
                                                     <input type="file" class="form-control" id="file" name="file" accept=".xlsx,.xls" required>
                                                 </div>
+                                                <div class="mb-3">
+                                                    <label for="file" class="form-label">Download Format File</label>
+                                                    <a href="/excel/import-template.xls" class="btn btn-warning btn-sm">Download</a>
+                                                </div>
                                             </div>
 
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
                                                 <button type="submit" class="btn btn-primary">
-                                                    
+                                                    Import
                                                 </button>
                                             </div>
                                         </form>
@@ -538,7 +543,7 @@
                                                     <!--begin::Col-->
                                                     <div class="col-md-6 fv-row fv-plugins-icon-container">
                                                         <!--begin::Label-->
-                                                        <label class="required fw-semibold fs-6 mb-2">No. Telp</label>
+                                                        <label class="fw-semibold fs-6 mb-2">No. Telp</label>
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
                                                         <input type="text" name="person_telp" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="No. Telp"  />

@@ -51,23 +51,13 @@
                         <!--end::Breadcrumb-->
                     </div>
                     <!--end::Page title-->
-                    @if (Auth::user()->role == "System Administrator")
                     <!--begin::Actions-->
                     <div class="d-flex align-items-center gap-2 gap-lg-3">
-                        <a href="/admin/penduduk" class="btn btn-flex btn-success h-40px fs-7 fw-bold" >
+                        <a href="javascript:history.back()" class="btn btn-flex btn-success h-40px fs-7 fw-bold">
                             <i class="ki-duotone ki-left-square"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
                             Kembali</a>
                     </div>
                     <!--end::Actions-->
-                    @else
-                    <!--begin::Actions-->
-                    <div class="d-flex align-items-center gap-2 gap-lg-3">
-                        <a href="/dinkes/penduduk" class="btn btn-flex btn-success h-40px fs-7 fw-bold" >
-                            <i class="ki-duotone ki-left-square"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
-                            Kembali</a>
-                    </div>
-                    <!--end::Actions-->
-                    @endif
                 </div>
                 <!--end::Toolbar wrapper-->
             </div>

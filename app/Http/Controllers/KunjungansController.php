@@ -137,6 +137,7 @@ class KunjungansController extends Controller
                 'merokok' => $request->merokok,
                 'adl' => $request->adl,
                 'gds' => $request->gds,
+                'keterangan' => $request->keterangan,
                 'kunjungan_id' => $kunjungan->id,
             ]);
 
@@ -476,6 +477,7 @@ class KunjungansController extends Controller
                 'merokok' => $request->merokok,
                 'adl' => $request->adl,
                 'gds' => $request->gds,
+                'keterangan' => $request->keterangan,
             ]);
 
              // Kirim pesan sukses
@@ -489,7 +491,6 @@ class KunjungansController extends Controller
             ->with('status', 'error')
             ->with('message', 'Terjadi kesalahan saat mengupdate kunjungan.'. $e->getMessage());
         }
-        
 
     }
 

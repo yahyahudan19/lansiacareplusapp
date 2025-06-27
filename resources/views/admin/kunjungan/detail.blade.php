@@ -55,10 +55,10 @@
                     <!--begin::Actions-->
                     <div class="d-flex align-items-center gap-2 gap-lg-3">
                         <!--begin::Button-->
-                        <a href="{{ url()->previous() }}" class="btn btn-success">
+                        <button onclick="window.history.back();" class="btn btn-success">
                             <i class="ki-duotone ki-left-square"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
                             Kembali
-                        </a>
+                        </button>
                         <!--end::Button-->
                     </div>
                     <!--end::Actions-->

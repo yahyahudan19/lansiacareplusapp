@@ -73,18 +73,29 @@
                         <!--begin::Card body-->
                         <div class="card-body">
                             <!--begin::Compact form-->
-                            <div class="d-flex align-items-center">
+                            <div class="d-flex flex-column gap-2">
+                                <!--begin::Alert-->
+                                <div class="alert alert-info d-flex align-items-center p-5">
+                                    <i class="ki-outline ki-information fs-2hx text-info me-4"></i>
+                                    <div class="d-flex flex-column">
+                                        <h4 class="mb-1 text-info">Pencarian Data Kunjungan</h4>
+                                        <span>Masukkan nama atau NIK untuk mencari data kunjungan yang sesuai.</span>
+                                    </div>
+                                </div>
+                                <!--end::Alert-->
                                 <!--begin::Input group-->
-                                <div class="position-relative w-md-1000px me-md-2">
-                                    <i class="ki-outline ki-magnifier fs-3 text-gray-500 position-absolute top-50 translate-middle ms-6"></i>
-                                    <input type="text" class="form-control form-control-solid ps-10" name="search" value="" placeholder="Cari Nama atau NIK" />
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="position-relative w-md-1000px me-md-2">
+                                        <i class="ki-outline ki-magnifier fs-3 text-gray-500 position-absolute top-50 translate-middle ms-6"></i>
+                                        <input type="text" class="form-control form-control-solid ps-10" name="search" value="" placeholder="Cari Nama atau NIK" />
+                                    </div>
+                                    <!--begin:Action-->
+                                    <div class="d-flex align-items-center">
+                                        <button type="submit" class="btn btn-success me-5">Cari</button>
+                                    </div>
+                                    <!--end:Action-->
                                 </div>
                                 <!--end::Input group-->
-                                <!--begin:Action-->
-                                <div class="d-flex align-items-center">
-                                    <button type="submit" class="btn btn-success me-5">Cari</button>
-                                </div>
-                                <!--end:Action-->
                             </div>
                             <!--end::Compact form-->
                             
@@ -110,69 +121,84 @@
                        
                         <!--begin::Card toolbar-->
                         <div class="card-toolbar">
-                            <div class="alert alert-warning d-flex align-items-center p-2 mb-5">
-                                <i class="ki-outline ki-information fs-2hx text-warning me-4"></i>
-                                <div class="d-flex flex-column">
-                                    <span class="text-warning"><strong>Pilih Kecamatan</strong> terlebih dahulu untuk memfilter <strong>Data Penduduk</strong> yang akan dicari.</span>
-                                </div>
-                            </div>
-                            <form action="/penduduk/cari" method="GET">
-                                {{-- @csrf --}}
-                                <!--begin::Toolbar-->
-                                <div class="d-flex">
-                                    <div class="row">
-                                        <!--begin::Filter Kecamatan-->
-                                        <div class="col-lg-6 mb-2 ">
-                                            {{-- <div class="w-200px"> --}}
-                                                <label class="fs-6 form-label fw-bold text-gray-900">Kecamatan</label>
-                                                <select class="btn btn-light me-3" data-control="select2" data-placeholder="Pilih Kecamatan" name="kecamatan" id="kecamatan" data-allow-clear="true">
-                                                    <option></option>
-                                                    @foreach ($kecamatans as $kec)
-                                                        <option value="{{$kec->id}}">{{$kec->nama}}</option>
-                                                    @endforeach
-                                                </select>
-                                            {{-- </div> --}}
+                            <div class="row">
+                                <!--begin::Alert-->
+                                <div class="col-12 mb-4">
+                                    <div class="alert alert-warning d-flex align-items-center p-2">
+                                        <i class="ki-outline ki-information fs-2hx text-warning me-4"></i>
+                                        <div class="d-flex flex-column">
+                                            <span class="text-warning">
+                                                <strong>Pilih Kecamatan</strong> terlebih dahulu untuk memfilter <strong>Data Penduduk</strong> yang akan dicari.
+                                            </span>
                                         </div>
-                                        <!--end::Filter Kecamatan-->
-                                        
-                                        <!--begin::Filter kelurahan-->
-                                        <div class="col-lg-6 mb-2 ">
-                                            {{-- <div class="w-200px"> --}}
-                                                <label class="fs-6 form-label fw-bold text-gray-900">Kelurahan</label>
-                                                <select class="btn btn-light me-3" data-control="select2" data-placeholder="Pilih Kelurahan" name="kelurahan" id="kelurahan" data-allow-clear="true">
-                                                    <option></option>
-                                                </select>
-                                            {{-- </div> --}}
-                                        <!--end::Filter kelurahan-->
-                                        </div>
-                                        <!--begin::Filter kelurahan-->
-                                        <div class="col-lg-6 mb-2 ">
-                                            {{-- <div class="w-200px"> --}}
-                                                <label class="fs-6 form-label fw-bold text-gray-900">Kategori</label>
-                                                <select class="btn btn-light me-3" data-control="select2" data-placeholder="Pilih Kategori" name="kategori" id="kategori">
-                                                    <option value="Semua" {{ request()->is('admin/penduduk') ? 'selected' : '' }}>Semua</option>
-                                                    <option value="Lansia" {{ request()->is('admin/penduduk/lansia') ? 'selected' : '' }}>Lansia</option>
-                                                    <option value="Pra-Lansia" {{ request()->is('admin/penduduk/pra-lansia') ? 'selected' : '' }}>Pra-Lansia</option>
-                                                </select>
-                                            {{-- </div> --}}
-                                        <!--end::Filter kelurahan-->
-                                        </div>
-                                        <!--begin::Filter Date-->
-                                        <div class="col-lg-6 mb-5">
-                                            <label class="fs-6 form-label fw-bold text-gray-900">Tanggal</label>
-                                            <br>
-                                            <input class="btn btn-primary me-3" placeholder="Pick date rage" id="kt_daterangepicker_4" name="date_range"/>
-                                        </div>
-                                        <!--end::Filter Date-->
-                                        <!--begin::Cari Button -->
-                                        <div class="col-lg-6 mb-2">
-                                            <button type="submit" class="btn btn-success me-3"> <i class="ki-outline ki-search-list fs-2"></i>Cari Penduduk</button>
-                                        </div>
-                                        <!--end::Cari Button -->
                                     </div>
                                 </div>
-                                <!--end::Toolbar-->
-                            </form>
+                                <!--end::Alert-->
+
+                                <!--begin::Form-->
+                                <form action="/penduduk/cari" method="GET" class="col-12">
+                                    <div class="row">
+                                        <!--begin::Filter Kecamatan-->
+                                        <div class="col-lg-6 mb-3">
+                                            <label class="fs-6 form-label fw-bold text-gray-900">Kecamatan</label>
+                                            <select class="form-select" data-control="select2" data-placeholder="Pilih Kecamatan" name="kecamatan" id="kecamatan" data-allow-clear="true" required>
+                                                <option></option>
+                                                @foreach ($kecamatans as $kec)
+                                                    <option value="{{ $kec->id }}" {{ request('kecamatan') == $kec->id ? 'selected' : '' }}>{{ $kec->nama }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <!--end::Filter Kecamatan-->
+
+                                        <!--begin::Filter Kelurahan-->
+                                        <div class="col-lg-6 mb-3">
+                                            <label class="fs-6 form-label fw-bold text-gray-900">Kelurahan</label>
+                                            <select class="form-select" data-control="select2" data-placeholder="Pilih Kelurahan" name="kelurahan" id="kelurahan" data-allow-clear="true" required>
+                                                <option></option>
+                                                @foreach ($kelurahans as $kel)
+                                                    <option value="{{ $kel->id }}" {{ request('kelurahan') == $kel->id ? 'selected' : '' }}>{{ $kel->nama }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <!--end::Filter Kelurahan-->
+
+                                        <!--begin::Filter Kategori-->
+                                        <div class="col-lg-6 mb-3">
+                                            <label class="fs-6 form-label fw-bold text-gray-900">Kategori</label>
+                                            <select class="form-select" data-control="select2" data-placeholder="Pilih Kategori" name="kategori" id="kategori">
+                                                <option value="Semua" {{ request('kategori') == 'Semua' ? 'selected' : '' }}>Semua</option>
+                                                <option value="Lansia" {{ request('kategori') == 'Lansia' ? 'selected' : '' }}>Lansia</option>
+                                                <option value="Pra-Lansia" {{ request('kategori') == 'Pra-Lansia' ? 'selected' : '' }}>Pra-Lansia</option>
+                                            </select>
+                                        </div>
+                                        <!--end::Filter Kategori-->
+
+                                        <!--begin::Filter by Skrining-->
+                                        <div class="col-lg-6 mb-3">
+                                            <label class="fs-6 form-label fw-bold text-gray-900">Status Skrining</label>
+                                            <select class="form-select" data-control="select2" data-placeholder="Pilih Status Skrining" name="status_skrining" id="status_skrining">
+                                                <option value="Semua" {{ request('status_skrining') == 'Semua' ? 'selected' : '' }}>Semua</option>
+                                                <option value="Sudah" {{ request('status_skrining') == 'Sudah' ? 'selected' : '' }}>Sudah</option>
+                                                <option value="Belum" {{ request('status_skrining') == 'Belum' ? 'selected' : '' }}>Belum</option>
+                                            </select>
+                                        </div>
+                                        <!--end::Filter Kategori-->
+
+                                        <!--begin::Cari Button-->
+                                        <div class="col-12 text-end">
+                                            
+                                            <button type="button" id="exportBtn" class="btn btn-warning">
+                                                <i class="ki-outline ki-cloud-download fs-2"></i>Export Penduduk
+                                            </button>
+                                            <button type="submit" class="btn btn-success">
+                                                <i class="ki-outline ki-search-list fs-2"></i>Cari Penduduk
+                                            </button>
+                                        </div>
+                                        <!--end::Cari Button-->
+                                    </div>
+                                </form>
+                                <!--end::Form-->
+                            </div>
                         </div>
                         <!--end::Card toolbar-->
                     </div>
@@ -337,7 +363,7 @@
                                                     <!--begin::Col-->
                                                     <div class="col-md-6 fv-row fv-plugins-icon-container">
                                                         <!--begin::Label-->
-                                                        <label class="required fw-semibold fs-6 mb-2">No. Telp</label>
+                                                        <label class="fw-semibold fs-6 mb-2">No. Telp</label>
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
                                                         <input type="text" name="person_telp" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="No. Telp" />
@@ -484,6 +510,7 @@
                                 <th class="min-w-125px">Kelurahan</th>
                                 <th class="min-w-125px">Kategori</th>
                                 <th class="min-w-125px">Usia</th>
+                                <th class="min-w-125px">Skrining</th>
                                 <th class="text-end min-w-100px">Actions</th>
                             </tr>
                         </thead>
@@ -529,6 +556,13 @@
                                     </td>
                                     <td>
                                         <div class="badge badge-success fw-bold">{{$person->age}} Tahun</div>
+                                    </td>
+                                    <td>
+                                        @if ($person->kunjungan->where('tanggal_kj', '>=', now()->startOfYear())->count() > 0)
+                                            <div class="badge badge-primary fw-bold">Sudah</div>
+                                        @else
+                                            <div class="badge badge-danger fw-bold">Belum</div>
+                                        @endif
                                     </td>
                                     <td class="text-end">
                                         <a href="#" class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions 
@@ -671,6 +705,23 @@
     </script>
     <!-- end pengecekan NIK --> --}}
     <!--end::Custom Javascript-->
+
+    <!--begin::Export Person-->
+    <script>
+        document.getElementById('exportBtn').addEventListener('click', function () {
+            const form = this.closest('form');
+            const originalAction = form.action;
+
+            // Ganti action ke export
+            form.action = "{{ route('persons.export') }}";
+            form.submit();
+
+            // Balikin lagi ke semula supaya tombol 'Cari' tetap kerja
+            form.action = originalAction;
+        });
+    </script>
+    <!--end::Export Person-->
+
 
     <!--begin::Filter Person-->
     <script>

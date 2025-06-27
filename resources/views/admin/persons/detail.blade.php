@@ -75,44 +75,25 @@
                         <!--end:::Tab item-->
                     </ul>
                     <!--end:::Tabs-->
-                    @if (Auth::user()->role == "System Administrator")
-                        <!--begin::Button-->
-                        <a href="/admin/penduduk" class="btn btn-success">
-                            <i class="ki-duotone ki-left-square"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
-                            Kembali
-                        </a>
-                        <!--end::Button-->
-                    @elseif(Auth::user()->role == "Dinkes")
-                        <!--begin::Button-->
-                        <a href="/dinkes/penduduk" class="btn btn-success">
-                            <i class="ki-duotone ki-left-square"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
-                            Kembali
-                        </a>
-                        <!--end::Button-->
-                    @elseif(Auth::user()->role == "Puskesmas")
-                        <!--begin::Button-->
-                        <a href="/puskesmas/penduduk" class="btn btn-success">
-                            <i class="ki-duotone ki-left-square"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
-                            Kembali
-                        </a>
-                        <!--end::Button-->
-                    @else
-                        <!--begin::Button-->
-                        <a href="/kader/penduduk" class="btn btn-success">
-                            <i class="ki-duotone ki-left-square"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
-                            Kembali
-                        </a>
-                        <!--end::Button-->
-                    @endif
+                    <!--begin::Button-->
+                    <a href="javascript:history.back()" class="btn btn-success">
+                        <i class="ki-duotone ki-left-square"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                        Kembali
+                    </a>
+                    <!--end::Button-->
                     
                     {{-- <a href="/admin/penduduk/edit/" class="btn btn-primary btn-sm">Edit Penduduk</a> --}}
                     @if ($persons->created_by == Auth::user()->id)
-                    <!--begin::Button-->
-                    <a href="/admin/penduduk/edit/{{$persons->id}}" class="btn btn-warning">
-                        <i class="ki-duotone ki-notepad-edit"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
-                        Edit Penduduk
-                    </a>
-                    <!--end::Button-->
+                        <!--begin::Button-->
+                        @if (Auth::user()->role == "Kader")
+                            <a href="/kader/penduduk/edit/{{$persons->id}}" class="btn btn-warning">
+                        @else
+                            <a href="/admin/penduduk/edit/{{$persons->id}}" class="btn btn-warning">
+                        @endif
+                            <i class="ki-duotone ki-notepad-edit"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                            Edit Penduduk
+                        </a>
+                        <!--end::Button-->
                     @endif
 
                 </div>

@@ -289,7 +289,7 @@
                                                     <!--end::Decrease control-->
 
                                                     <!--begin::Input control-->
-                                                    <input type="text" class="form-control form-control-solid border-0 ps-12" data-kt-dialer-control="input" placeholder="Amount" name="tinggi_bdn" value="100" />
+                                                    <input type="text" class="form-control form-control-solid border-0 ps-12" data-kt-dialer-control="input" placeholder="Amount" name="tinggi_bdn" />
                                                     <!--end::Input control-->
 
                                                     <!--begin::Increase control-->
@@ -331,7 +331,7 @@
                                                     <!--end::Decrease control-->
 
                                                     <!--begin::Input control-->
-                                                    <input type="text" class="form-control form-control-solid border-0 ps-12" data-kt-dialer-control="input" placeholder="Amount" name="berat_bdn" value="30" />
+                                                    <input type="text" class="form-control form-control-solid border-0 ps-12" data-kt-dialer-control="input" placeholder="Amount" name="berat_bdn"  />
                                                     <!--end::Input control-->
 
                                                     <!--begin::Increase control-->
@@ -371,7 +371,7 @@
                                                     <!--end::Decrease control-->
 
                                                     <!--begin::Input control-->
-                                                    <input type="text" class="form-control form-control-solid border-0 ps-12" data-kt-dialer-control="input" placeholder="Amount" name="lingkar_prt" value="1" />
+                                                    <input type="text" class="form-control form-control-solid border-0 ps-12" data-kt-dialer-control="input" placeholder="Amount" name="lingkar_prt"  />
                                                     <!--end::Input control-->
 
                                                     <!--begin::Increase control-->
@@ -413,7 +413,7 @@
                                                         <!--end::Decrease control-->
 
                                                         <!--begin::Input control-->
-                                                        <input type="text" class="form-control form-control-solid border-0 ps-12" data-kt-dialer-control="input" placeholder="Amount" name="diastole" value="100" />
+                                                        <input type="text" class="form-control form-control-solid border-0 ps-12" data-kt-dialer-control="input" placeholder="Amount" name="diastole"  />
                                                         <!--end::Input control-->
 
                                                         <!--begin::Increase control-->
@@ -455,7 +455,7 @@
                                                     <!--end::Decrease control-->
 
                                                     <!--begin::Input control-->
-                                                    <input type="text" class="form-control form-control-solid border-0 ps-12" data-kt-dialer-control="input" placeholder="Amount" name="sistole" value="30" />
+                                                    <input type="text" class="form-control form-control-solid border-0 ps-12" data-kt-dialer-control="input" placeholder="Amount" name="sistole"  />
                                                     <!--end::Input control-->
 
                                                     <!--begin::Increase control-->
@@ -494,7 +494,7 @@
                                             <!--end::Decrease control-->
 
                                             <!--begin::Input control-->
-                                            <input type="text" class="form-control form-control-solid border-0 ps-12" data-kt-dialer-control="input" placeholder="Amount" name="gula_drh" value="100" />
+                                            <input type="text" class="form-control form-control-solid border-0 ps-12" data-kt-dialer-control="input" placeholder="Amount" name="gula_drh"/>
                                             <!--end::Input control-->
 
                                             <!--begin::Increase control-->
@@ -514,7 +514,7 @@
                                         <div class="fv-row mb-5">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center form-label">
-                                                <span class="required">Kolesterol</span>
+                                                <span>Kolesterol</span>
                                             </label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
@@ -532,7 +532,7 @@
                                             <!--end::Decrease control-->
 
                                             <!--begin::Input control-->
-                                            <input type="text" class="form-control form-control-solid border-0 ps-12" data-kt-dialer-control="input" placeholder="Amount" name="kolesterol" value="0" />
+                                            <input type="text" class="form-control form-control-solid border-0 ps-12" data-kt-dialer-control="input" placeholder="Amount" name="kolesterol"/>
                                             <!--end::Input control-
 
                                             <!- begin::Increase control-->
@@ -549,28 +549,34 @@
                                         <!--begin::Input group-->
                                         <div class="fv-row mb-10">
                                             <!--begin::Label-->
-                                            <label class="required fw-semibold fs-6 mb-2">Asam Urat</label>
+                                            <label class="fw-semibold fs-6 mb-2">Asam Urat</label>
                                             <!--end::Label-->
 
                                             <!--begin::Input-->
-                                            <input type="text" name="asam_urat" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="" value="00.00" />
+                                            <input type="text" name="asam_urat" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="" value="0.00" />
                                             <!--end::Input-->
-                                            <div class="form-text">Ganti tanda koma (,) dengan tanda titik(.) <b>Misalkan 10.7</b></div>
+                                            <div class="form-text">Ganti tanda koma (,) dengan tanda titik(.) <b>Misalkan 2.7</b></div>
 
                                         </div>
                                         <!--end::Input group-->
 
                                         <!--begin::Input group-->
-                                        {{-- <div class="fv-row mb-5">
-                                             <!--begin::Label-->
-                                             <label class="d-flex align-items-center form-label">
-                                                <span class="required">Tanggal Kunjungan</span>
+                                        <div class="fv-row mb-5">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center form-label">
+                                                <span class="required">Keterangan</span>
                                             </label>
                                             <!--end::Label-->
                                             <div class="mb-10">
-                                                <input class="form-control" placeholder="Pick a date" name="tanggal_kj" id="kt_datepicker_1" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"/>
+                                                <select class="form-select" name="keterangan" data-control="select2" data-placeholder="Pilih Keterangan">
+                                                    <option></option>
+                                                    <option value="A" selected>Tidak Ada</option>
+                                                    <option value="B">B</option>
+                                                    <option value="C">C</option>
+                                                </select>
                                             </div>
-                                        </div> --}}
+                                        </div>
+                                        <!--end::Input group-->
                                         <input type="hidden" name="tanggal_kj" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
                                         <!--end::Input group-->
                                         
@@ -604,7 +610,7 @@
                                             <select class="form-select" data-control="select2" data-placeholder="Select an option" name="merokok">
                                                 <option></option>
                                                 <option value="Y" selected>Iya</option>
-                                                <option value="TSB">Tidak, Sudah Berhenti</option>
+                                                <option value="TSB">Tidak, Sudah Berhenti kurang dari 1 Tahun</option>
                                                 <option value="TPS">Tidak Pernah Sama Sekali</option>
                                             </select>
                                             
@@ -762,7 +768,7 @@
                                     <!--begin::Wrapper-->
                                     <div>
                                         <button type="button" class="btn btn-lg btn-primary me-3" data-kt-stepper-action="submit">
-                                            <span class="indicator-label">Submit 
+                                            <span class="indicator-label">Simpan 
                                             <i class="ki-outline ki-arrow-right fs-3 ms-2 me-0"></i></span>
                                             <span class="indicator-progress">Tunggu... 
                                             <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
@@ -1070,33 +1076,33 @@
                                     }
                                 }
                             },
-                            'kolesterol': {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'Harus Diisi !'
-                                    }
-                                },
-                                    stringLength: {
-                                        min: 2,
-                                        max: 3,
-                                        message: 'Minimal 20'
-                                    }
-                            },
-                            'asam_urat': {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'Harus Diisi !'
-                                    },
-                                    numeric: {
-                                        message: 'Harus desimal'
-                                    }
-                                },
-                                stringLength: {
-                                        min: 3,
-                                        max: 3,
-                                        message: 'Nilai minimal 2 digit'
-                                    }
-                            }
+                            // 'kolesterol': {
+                            //     validators: {
+                            //         notEmpty: {
+                            //             message: 'Harus Diisi !'
+                            //         }
+                            //     },
+                            //         stringLength: {
+                            //             min: 2,
+                            //             max: 3,
+                            //             message: 'Minimal 20'
+                            //         }
+                            // },
+                            // 'asam_urat': {
+                            //     validators: {
+                            //         notEmpty: {
+                            //             message: 'Harus Diisi !'
+                            //         },
+                            //         numeric: {
+                            //             message: 'Harus desimal'
+                            //         }
+                            //     },
+                            //     stringLength: {
+                            //             min: 3,
+                            //             max: 3,
+                            //             message: 'Nilai minimal 2 digit'
+                            //         }
+                            // }
                             
                         },
                         plugins: {

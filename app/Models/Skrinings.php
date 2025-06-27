@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Skrinings extends Model
 {
     protected $fillable = [
-        'ginjal', 'penglihatan', 'pendengaran', 'merokok', 'adl', 'gds', 'kunjungan_id'
+        'ginjal', 'penglihatan', 'pendengaran', 'merokok', 'adl', 'gds', 'kunjungan_id','keterangan'
     ];
 
     public function kunjungan(){

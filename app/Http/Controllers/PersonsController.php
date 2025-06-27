@@ -7,6 +7,8 @@ use App\Models\Kelurahans;
 use App\Models\Persons;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Exports\PersonsExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class PersonsController extends Controller
@@ -226,8 +228,6 @@ class PersonsController extends Controller
             $kelurahans = Kelurahans::all();
         }
         
-        
-        
         // Ambil kecamatan_id, kelurahan_id, range date dari request
         $kecamatan_id = $request->input('kecamatan');
         $kelurahan_id = $request->input('kelurahan');
@@ -236,21 +236,11 @@ class PersonsController extends Controller
         // Query dasar
         $query = Persons::query();
 
-        // dd($request->input('kategori'));
-
         // Pengecekan path untuk menentukan filter usia
         if ($request->input('kategori') == "Lansia") {
             $query->whereRaw('TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) >= 60');
         } elseif ($request->input('kategori') == "Pra-Lansia") {
             $query->whereRaw('TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) >= 45 AND TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) < 60');
-        }
-
-        // Filter berdasarkan date range jika ada
-        if ($dateRange) {
-            $dates = explode(' - ', $dateRange);
-            $startDate = date('Y-m-d', strtotime($dates[0]));
-            $endDate = date('Y-m-d', strtotime($dates[1]));
-            $query->whereBetween('created_at', [$startDate, $endDate]);
         }
 
         // Filter berdasarkan kelurahan jika dipilih
@@ -260,7 +250,23 @@ class PersonsController extends Controller
         // Jika hanya kecamatan yang dipilih (tanpa kelurahan)
         elseif ($kecamatan_id) {
             $query->whereHas('kelurahan', function($q) use ($kecamatan_id) {
-                $q->where('kecamatan_id', $kecamatan_id);
+            $q->where('kecamatan_id', $kecamatan_id);
+            });
+        }
+
+        // Tambahkan filter untuk pengecekan skrining di tahun ini
+        $query->with(['Kunjungan' => function ($q) {
+            $q->whereYear('tanggal_kj', Carbon::now()->year);
+        }]);
+
+        // Filter berdasarkan status skrining
+        if ($request->input('status_skrining') == "Sudah") {
+            $query->whereHas('Kunjungan', function ($q) {
+            $q->whereYear('tanggal_kj', Carbon::now()->year);
+            });
+        } elseif ($request->input('status_skrining') == "Belum") {
+            $query->whereDoesntHave('Kunjungan', function ($q) {
+            $q->whereYear('tanggal_kj', Carbon::now()->year);
             });
         }
 
@@ -332,6 +338,11 @@ class PersonsController extends Controller
         ]);
     }
 
+    public function export(Request $request)
+    {
+        $filename = 'data_penduduk_' . now()->format('Ymd_His') . '.xlsx';
+        return Excel::download(new PersonsExport($request), $filename);
+    }
 
 
 

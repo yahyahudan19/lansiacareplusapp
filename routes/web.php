@@ -38,6 +38,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/kunjungan/exportExcel', [LaporansController::class, 'exportKunjunganExcel'])->name('kunjungan.exportExcel');
 
     Route::post('/check-nik', [PersonsController::class, 'checkNik'])->name('person.checkNik');
+    Route::get('/admin/persons/export', [PersonsController::class, 'export'])->name('persons.export');
+
 
 
 });
@@ -47,6 +49,8 @@ Route::middleware(['role:System Administrator,Puskesmas,Kader'])->group(function
     Route::get('/kunjungan/find', [KunjungansController::class, 'searchPersonsByName'])->name('kunjungans.search_name');
     Route::get('/kunjungan/cari', [KunjungansController::class, 'searchKunjungans'])->name('kunjungans.search');
     Route::post('/admin/penduduk/store', [PersonsController::class, 'store'])->name('persons.store');
+    Route::post('/admin/penduduk/update/{id}', [PersonsController::class, 'update'])->name('persons.update');
+
 
 });
 
@@ -58,7 +62,7 @@ Route::middleware(['role:System Administrator,Puskesmas'])->group(function (){
     Route::post('/admin/update/profile', [UserController::class, 'update_profile'])->name('user.update_profile');
     Route::post('/admin/update/password', [UserController::class, 'update_password'])->name('user.update_password');
     Route::post('/admin/update/role', [UserController::class, 'update_role'])->name('user.update_role');
-    
+    Route::post('/admin/kunjungan/import', [KunjungansController::class, 'import'])->name('kunjungans.import');
 
 });
 
@@ -89,7 +93,6 @@ Route::middleware(['role:System Administrator'])->group(function (){
     // Route::post('/admin/penduduk/store', [PersonsController::class, 'store'])->name('persons.store');
     Route::get('/admin/penduduk/{id}', [PersonsController::class, 'detail_view'])->name('persons.detail_view');
     Route::get('/admin/penduduk/edit/{id}', [PersonsController::class, 'edit_view'])->name('persons.edit_view');
-    Route::post('/admin/penduduk/update/{id}', [PersonsController::class, 'update'])->name('persons.update');
 
     Route::get('/admin/kunjungan', [KunjungansController::class, 'index'])->name('kunjungans.index');
     Route::post('/admin/kunjungan/tambah', [KunjungansController::class, 'create_view'])->name('kunjungans.create.admin');
@@ -98,7 +101,6 @@ Route::middleware(['role:System Administrator'])->group(function (){
     Route::get('/admin/kunjungan/{id}', [KunjungansController::class, 'detail_view'])->name('kunjungans.detail_view');
     Route::get('/admin/kunjungan/edit/{id}', [KunjungansController::class, 'edit'])->name('kunjungans.edit');
     Route::post('/admin/kunjungan/update/{id}', [KunjungansController::class, 'update'])->name('kunjungans.update');
-    Route::post('/admin/kunjungan/import', [KunjungansController::class, 'import'])->name('kunjungans.import');
     
     
     Route::get('/admin/laporan/puskesmas', [LaporansController::class, 'index'])->name('laporan.index');
@@ -170,6 +172,8 @@ Route::middleware(['role:Kader'])->group(function (){
     Route::get('/kader/penduduk/lansia', [PersonsController::class, 'index_lansia'])->name('persons.index_lansia');
     Route::get('/kader/penduduk/pra-lansia', [PersonsController::class, 'index_pra_lansia'])->name('persons.index_pra_lansia');
     Route::get('/kader/penduduk/{id}', [PersonsController::class, 'detail_view'])->name('persons.detail_view');
+    Route::get('/kader/penduduk/edit/{id}', [PersonsController::class, 'edit_view'])->name('persons.edit_view');
+
 
     Route::get('/kader/kunjungan', [KunjungansController::class, 'index'])->name('kunjungans.index');
     Route::post('/kader/kunjungan/tambah', [KunjungansController::class, 'create_view'])->name('kunjungans.create.kader');
