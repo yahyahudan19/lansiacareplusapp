@@ -430,7 +430,7 @@ class LaporansController extends Controller
                     $q->whereBetween('tanggal_kj', [$startDate, $endDate])->whereHas('person', $filterPerson);
                 })->count();
 
-            case 4: // GGN ME (Gula Darah Sewaktu/GDS)
+            case 4: // GGN ME
                 return Skrinings::whereHas('kunjungan', function ($q) use ($filterPerson, $startDate, $endDate) {
                     $q->whereBetween('tanggal_kj', [$startDate, $endDate])->whereHas('person', $filterPerson);
                 })->where('gds', $indicator->target_value)->count();
@@ -482,17 +482,17 @@ class LaporansController extends Controller
                         });
                     })
                     ->count();
-            case 10: // GANGGUAN PENGLIHATAN
+            case 12: // GANGGUAN PENGLIHATAN
                 return Skrinings::whereHas('kunjungan', function ($q) use ($filterPerson, $startDate, $endDate) {
                     $q->whereBetween('tanggal_kj', [$startDate, $endDate])->whereHas('person', $filterPerson);
                 })->where('penglihatan', $indicator->target_value)->count();
 
-            case 11: // GANGGUAN PENDENGARAN
+            case 13: // GANGGUAN PENDENGARAN
                 return Skrinings::whereHas('kunjungan', function ($q) use ($filterPerson, $startDate, $endDate) {
                     $q->whereBetween('tanggal_kj', [$startDate, $endDate])->whereHas('person', $filterPerson);
                 })->where('pendengaran', $indicator->target_value)->count();
 
-            case 12: // GANGGUAN GINJAL
+            case 10: // GANGGUAN GINJAL
                 return Skrinings::whereHas('kunjungan', function ($q) use ($filterPerson, $startDate, $endDate) {
                     $q->whereBetween('tanggal_kj', [$startDate, $endDate])->whereHas('person', $filterPerson);
                 })->where('ginjal', $indicator->target_value)->count();
@@ -519,7 +519,7 @@ class LaporansController extends Controller
                     $q->whereBetween('tanggal_kj', [$startDate, $endDate])
                     ->whereHas('person', $filterPerson);
                 })->where('malnutrisi', $indicator->target_value)->count();
-
+                
             default:
                 return 0;
         }
