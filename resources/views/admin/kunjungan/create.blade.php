@@ -570,9 +570,9 @@
                                             <div class="mb-10">
                                                 <select class="form-select" name="keterangan" data-control="select2" data-placeholder="Pilih Keterangan">
                                                     <option></option>
-                                                    <option value="A" selected>Tidak Ada</option>
-                                                    <option value="B">B</option>
-                                                    <option value="C">C</option>
+                                                    <option value="Tidak Ada" selected>Tidak Ada</option>
+                                                    <option value="Tidak ada Bahan Medis Habis Pakai">Tidak ada Bahan Medis Habis Pakai</option>
+                                                    <option value="Belum dilakukan pemeriksaan">Belum dilakukan pemeriksaan</option>
                                                 </select>
                                             </div>
                                         </div>

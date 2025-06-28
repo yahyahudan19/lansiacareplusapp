@@ -291,6 +291,19 @@
                                                     </div>
                                                     <!--end::Toolbar-->
                                                     @endif
+                                                    @if (Auth::user()->role == "Kader")
+                                                    <!--begin::Toolbar-->
+                                                    <div class="d-flex my-3 ms-9">
+                                                        <!--begin::Edit-->
+                                                        <a href="/kader/kunjungan/edit/{{$dakun->id}}" class="btn btn-icon btn-active-light-primary w-30px h-30px me-3">
+                                                            <span data-bs-toggle="tooltip" data-bs-trigger="hover" title="Edit">
+                                                                <i class="ki-outline ki-pencil fs-3"></i>
+                                                            </span>
+                                                        </a>
+                                                        <!--end::Edit-->
+                                                    </div>
+                                                    <!--end::Toolbar-->
+                                                    @endif
                                                 </div>
                                                 <!--end::Header-->
                                                 <!--begin::Body-->
@@ -410,6 +423,37 @@
                                                                 <tr>
                                                                     <td class="text-muted min-w-125px w-125px">GDS</td>
                                                                     <td class="text-gray-800">{{$dakrin->gds}}</td>
+                                                                    
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="text-muted min-w-125px w-125px">Kognitif</td>
+                                                                    <td class="text-gray-800">
+                                                                        @if ($dakrin->kognitif == "Y")
+                                                                            Iya
+                                                                        @else
+                                                                            Tidak
+                                                                        @endif
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="text-muted min-w-125px w-125px">Mobilisasi</td>
+                                                                    <td class="text-gray-800">
+                                                                        @if ($dakrin->mobilisasi == "Y")
+                                                                            Iya
+                                                                        @else
+                                                                            Tidak
+                                                                        @endif
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="text-muted min-w-125px w-125px">Malnutrisi</td>
+                                                                    <td class="text-gray-800">
+                                                                        @if ($dakrin->malnutrisi == "Y")
+                                                                            Iya
+                                                                        @else
+                                                                            Tidak
+                                                                        @endif
+                                                                    </td>
                                                                 </tr>
                                                             </table>
                                                         </div>
@@ -423,6 +467,20 @@
                                                                <tr>
                                                                    <td class="text-muted min-w-125px w-125px">Rekomendasi</td>
                                                                    <td><span class="badge badge-info badge-lg">{{ $riwkin_rekomendasi[$riw->id] }}</span></td>
+                                                               </tr>
+                                                           </table>
+                                                       </div>
+                                                        <div class="flex-equal me-5">
+                                                           <table class="table table-flush fw-semibold gy-1">
+                                                               <tr>
+                                                                   <td class="text-muted min-w-125px w-125px">Keterangan</td>
+                                                                   <td>
+                                                                       @if ($dakun->keterangan)
+                                                                           <span class="badge badge-info badge-lg">{{ $dakun->keterangan }}</span>
+                                                                       @else
+                                                                           <span class="badge badge-info badge-lgx`">Tidak ada keterangan</span>
+                                                                       @endif
+                                                                   </td>
                                                                </tr>
                                                            </table>
                                                        </div>

@@ -138,6 +138,9 @@ class KunjungansController extends Controller
                 'adl' => $request->adl,
                 'gds' => $request->gds,
                 'keterangan' => $request->keterangan,
+                'kognitif' => $request->kognitif,
+                'mobilisasi' => $request->mobilisasi,
+                'malnutrisi' => $request->malnutrisi,
                 'kunjungan_id' => $kunjungan->id,
             ]);
 
@@ -440,8 +443,12 @@ class KunjungansController extends Controller
         $skrining = Skrinings::where('kunjungan_id',$kunjungan->id)->first();
 
         $dapen = Persons::where('id',$kunjungan->person_id)->first();
+        
 
-        return view('admin.kunjungan.edit',compact('dapen','kunjungan','skrining'));
+        return match (auth()->user()->role) {
+            'Kader' => view('kader.kunjungan.edit', compact('dapen', 'kunjungan', 'skrining')),
+            default => view('admin.kunjungan.edit', compact('dapen', 'kunjungan', 'skrining')),
+        };
     }
 
     /**
@@ -478,6 +485,20 @@ class KunjungansController extends Controller
                 'adl' => $request->adl,
                 'gds' => $request->gds,
                 'keterangan' => $request->keterangan,
+                'kognitif' => $request->kognitif,
+                'mobilisasi' => $request->mobilisasi,
+                'malnutrisi' => $request->malnutrisi,
+            ]);
+
+            // Simpan data log
+            Log::create([
+                'user_id' => auth()->user()->id,
+                'username' => auth()->user()->username,
+                'email' => auth()->user()->email,
+                'category' => 'update',
+                'activity' => 'update',
+                'details' => 'Mengupdate kunjungan id_kunjungan : ' . $kunjungan->id,
+                
             ]);
 
              // Kirim pesan sukses

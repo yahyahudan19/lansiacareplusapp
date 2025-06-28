@@ -285,6 +285,7 @@
                 <div class="alert alert-success mb-2" role="alert">
                     Data Laporan Agregat, Periode : <strong>{{ \Illuminate\Support\Carbon::parse($startDate)->translatedFormat('d F Y') }} - {{ \Illuminate\Support\Carbon::parse($endDate)->translatedFormat('d F Y') }}</strong>.
                 </div>
+                
 
                 <div class="card card-flush">
                     <!--begin::Card body-->

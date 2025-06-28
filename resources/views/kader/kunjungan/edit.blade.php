@@ -1,7 +1,7 @@
 @extends('components.layout')
 
 @section('title')
-    Tambah Kunjungan
+    Detail Kunjungan
 @endsection
 
 @section('plugins-head')
@@ -23,7 +23,7 @@
                     <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
                         <!--begin::Title-->
                         <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">
-                            Tambah Kunjungan</h1>
+                            Edit Kunjungan</h1>
                         <!--end::Title-->
                         <!--begin::Breadcrumb-->
                         <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
@@ -79,10 +79,10 @@
                     <div class="flex-lg-row-fluid me-lg-15 order-2 order-lg-1 mb-10 mb-lg-0">
                         <!--begin::Form-->
                         @if (Auth::user()->role == 'Kader')
-                            <form id="kt_docs_formvalidation_text" class="form" action="/kader/kunjungan/store"
+                            <form id="kt_docs_formvalidation_text" class="form" action="/kader/kunjungan/update/{{ $kunjungan->id }}"
                                 autocomplete="off" method="POST">
                             @else
-                                <form id="kt_docs_formvalidation_text" class="form" action="/puskesmas/kunjungan/store"
+                                <form id="kt_docs_formvalidation_text" class="form" action="/puskesmas/kunjungan/update/{{ $kunjungan->id }}""
                                     autocomplete="off" method="POST">
                         @endif
                         @csrf
@@ -131,7 +131,7 @@
                                                     <input type="text"
                                                         class="form-control form-control-solid border-0 ps-12"
                                                         data-kt-dialer-control="input" placeholder="Amount"
-                                                        name="tinggi_bdn" placeholder="100" />
+                                                        name="tinggi_bdn" value="{{ $kunjungan->tinggi_bdn ?? '' }}" />
                                                     <!--end::Input control-->
 
                                                     <!--begin::Increase control-->
@@ -156,9 +156,6 @@
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
                                             <span class="required">Berat Badan (Kg)</span>
-                                            <span class="ms-1" data-bs-toggle="tooltip" title="Enter a card CVV code">
-                                                <i class="ki-outline ki-information-5 text-gray-500 fs-6"></i>
-                                            </span>
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input wrapper-->
@@ -179,7 +176,7 @@
                                                 <!--begin::Input control-->
                                                 <input type="text" class="form-control form-control-solid border-0 ps-12"
                                                     data-kt-dialer-control="input" placeholder="Amount" name="berat_bdn"
-                                                    placeholder="30" />
+                                                    value="{{ $kunjungan->berat_bdn ?? '' }}" />
                                                 <!--end::Input control-->
 
                                                 <!--begin::Increase control-->
@@ -202,9 +199,6 @@
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
                                             <span class="required">Lingkar Perut (cm)</span>
-                                            <span class="ms-1" data-bs-toggle="tooltip" title="Enter a card CVV code">
-                                                <i class="ki-outline ki-information-5 text-gray-500 fs-6"></i>
-                                            </span>
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input wrapper-->
@@ -226,7 +220,7 @@
                                                 <input type="text"
                                                     class="form-control form-control-solid border-0 ps-12"
                                                     data-kt-dialer-control="input" placeholder="Amount"
-                                                    name="lingkar_prt" placeholder="1" />
+                                                    name="lingkar_prt" value="{{ $kunjungan->lingkar_prt ?? '' }}" />
                                                 <!--end::Input control-->
 
                                                 <!--begin::Increase control-->
@@ -240,7 +234,6 @@
                                                 <!--end::Increase control-->
                                             </div>
                                             <!--end::Dialer-->
-
                                         </div>
                                         <!--end::Input wrapper-->
                                     </div>
@@ -276,7 +269,7 @@
                                                     <input type="text"
                                                         class="form-control form-control-solid border-0 ps-12"
                                                         data-kt-dialer-control="input" placeholder="Amount"
-                                                        name="diastole" placeholder="100" />
+                                                        name="diastole" value="{{ $kunjungan->diastole ?? '' }}" />
                                                     <!--end::Input control-->
 
                                                     <!--begin::Increase control-->
@@ -301,9 +294,6 @@
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
                                             <span class="required">Sistole</span>
-                                            <span class="ms-1" data-bs-toggle="tooltip" title="Enter a card CVV code">
-                                                <i class="ki-outline ki-information-5 text-gray-500 fs-6"></i>
-                                            </span>
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input wrapper-->
@@ -325,7 +315,7 @@
                                                 <input type="text"
                                                     class="form-control form-control-solid border-0 ps-12"
                                                     data-kt-dialer-control="input" placeholder="Amount" name="sistole"
-                                                    placeholder="30" />
+                                                    value="{{ $kunjungan->sistole ?? '' }}" />
                                                 <!--end::Input control-->
 
                                                 <!--begin::Increase control-->
@@ -370,7 +360,7 @@
                                         <!--begin::Input control-->
                                         <input type="text" class="form-control form-control-solid border-0 ps-12"
                                             data-kt-dialer-control="input" placeholder="Amount" name="gula_drh"
-                                            placeholder="100" />
+                                            value="{{ $kunjungan->gula_drh ?? '' }}" />
                                         <!--end::Input control-->
 
                                         <!--begin::Increase control-->
@@ -413,10 +403,10 @@
                                         <!--begin::Input control-->
                                         <input type="text" class="form-control form-control-solid border-0 ps-12"
                                             data-kt-dialer-control="input" placeholder="Amount" name="kolesterol"
-                                            placeholder="0" />
-                                        <!--end::Input control-
+                                            value="{{ $kunjungan->kolesterol ?? '' }}" />
+                                        <!--end::Input control-->
 
-                                                                <!- begin::Increase control-->
+                                        <!--begin::Increase control-->
                                         <button type="button"
                                             class="btn btn-icon btn-active-color-gray-700 position-absolute translate-middle-y top-50 end-0"
                                             data-kt-dialer-control="increase">
@@ -436,48 +426,32 @@
                                     <!--end::Label-->
 
                                     <!--begin::Input-->
-                                    <input type="text" name="asam_urat" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="" placeholder="00.00" />
+                                    <input type="text" name="asam_urat" class="form-control form-control-solid mb-3 mb-lg-0" 
+                                        value="{{ $kunjungan->asam_urat ?? '' }}" />
                                     <!--end::Input-->
                                     <div class="form-text">Ganti tanda koma (,) dengan tanda titik(.) <b>Misalkan 2.7</b></div>
 
                                 </div>
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
-                                        <div class="fv-row mb-5">
-                                            <!--begin::Label-->
-                                            <label class="d-flex align-items-center form-label">
-                                                <span class="required">Keterangan</span>
-                                            </label>
-                                            <!--end::Label-->
-                                            <div class="mb-10">
-                                                <select class="form-select" name="keterangan" data-control="select2" data-placeholder="Pilih Keterangan">
-                                                    <option></option>
-                                                    <option value="Tidak Ada" selected>Tidak Ada</option>
-                                                    <option value="Tidak ada Bahan Medis Habis Pakai">Tidak ada Bahan Medis Habis Pakai</option>
-                                                    <option value="Belum dilakukan pemeriksaan">Belum dilakukan pemeriksaan</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <!--end::Input group-->
+                                <div class="fv-row mb-5">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center form-label">
+                                        <span class="required">Keterangan</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <div class="mb-10">
+                                        <select class="form-select" name="keterangan" data-control="select2" data-placeholder="Pilih Keterangan">
+                                            <option></option>
+                                            <option value="Tidak Ada" {{ $skrining->keterangan == 'Tidak Ada' ? 'selected' : '' }}>Tidak Ada</option>
+                                            <option value="Tidak ada Bahan Medis Habis Pakai" {{ $skrining->keterangan == 'Tidak ada Bahan Medis Habis Pakai' ? 'selected' : '' }}>Tidak ada Bahan Medis Habis Pakai</option>
+                                            <option value="Belum dilakukan pemeriksaan" {{ $skrining->keterangan == 'Belum dilakukan pemeriksaan' ? 'selected' : '' }}>Belum dilakukan pemeriksaan</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!--end::Input group-->
                                 <input type="hidden" name="tanggal_kj" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
                                 <!--end::Input group-->
-
-                                {{-- <!--begin::Notice-->
-                                    <div class="notice d-flex bg-light-primary rounded border-primary border border-dashed rounded-3 p-6">
-                                        <!--begin::Wrapper-->
-                                        <div class="d-flex flex-stack flex-grow-1">
-                                            <!--begin::Content-->
-                                            <div class="fw-semibold">
-                                                <h4 class="text-gray-900 fw-bold">This is a very important privacy notice!</h4>
-                                                <div class="fs-6 text-gray-700">Writing headlines for blog posts is much science and probably cool audience. 
-                                                <a href="#" class="fw-bold">Learn more</a>.</div>
-                                            </div>
-                                            <!--end::Content-->
-                                        </div>
-                                        <!--end::Wrapper-->
-                                    </div>
-                                    <!--end::Notice--> --}}
-
                             </div>
                             <!--end::Card body-->
                         </div>
@@ -499,61 +473,38 @@
                             <!--end::Card header-->
                             <!--begin::Card body-->
                             <div class="card-body pt-0">
-                                <!--begin::Description-->
-                                {{-- <div class="text-gray-500 fw-semibold fs-5 mb-5">:</div> --}}
-                                <!--end::Description-->
                                 <input type="text" name="nik" value="{{ $dapen->nik }}" hidden>
                                 <!--begin::Input group-->
                                 <div class="d-flex flex-column mb-7 fv-row">
-                                    <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
                                         <span class="required">Apakah anda merokok ?</span>
                                     </label>
-                                    <!--end::Label-->
-                                    <select class="form-select" data-control="select2"
-                                        data-placeholder="Select an option" name="merokok">
-                                        <option></option>
-                                        <option value="Y" selected>Iya</option>
-                                        <option value="TSB">Tidak, Sudah Berhenti Kurang dari 1 Tahun</option>
-                                        <option value="TPS">Tidak Pernah Sama Sekali</option>
+                                    <select class="form-select" data-control="select2" name="merokok">
+                                        <option value="Y" {{ $skrining->merokok == 'Y' ? 'selected' : '' }}>Iya</option>
+                                        <option value="TSB" {{ $skrining->merokok == 'TSB' ? 'selected' : '' }}>Tidak, Sudah Berhenti Kurang dari 1 Tahun</option>
+                                        <option value="TPS" {{ $skrining->merokok == 'TPS' ? 'selected' : '' }}>Tidak Pernah Sama Sekali</option>
                                     </select>
-
                                 </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
                                 <div class="d-flex flex-column mb-7 fv-row">
-                                    <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                        <span class="required">Apakah anda memiliki riwayat atau sedang mengalami
-                                            gangguan ginjal ?</span>
+                                        <span class="required">Apakah anda memiliki riwayat atau sedang mengalami gangguan ginjal ?</span>
                                     </label>
-                                    <!--end::Label-->
-                                    <select class="form-select" data-control="select2"
-                                        data-placeholder="Select an option" name="ginjal">
-                                        <option></option>
-                                        <option value="Y" selected>Iya</option>
-                                        <option value="N">Tidak</option>
+                                    <select class="form-select" data-control="select2" name="ginjal">
+                                        <option value="Y" {{ $skrining->ginjal == 'Y' ? 'selected' : '' }}>Iya</option>
+                                        <option value="N" {{ $skrining->ginjal == 'N' ? 'selected' : '' }}>Tidak</option>
                                     </select>
-
                                 </div>
-                                <!--end::Input group-->
-                                 <!--begin::Input group-->
                                 <div class="d-flex flex-column mb-7 fv-row">
-                                    <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
                                         <span class="required">Bagaimana tingkat kemandirian anda ?</span>
                                     </label>
-                                    <!--end::Label-->
-                                    <select class="form-select" data-control="select2"
-                                        data-placeholder="Select an option" name="adl">
-                                        <option></option>
-                                        <option value="A" selected>Mandiri (A) : Dapat melakukan aktivitas sendiri tanpa bantuan orang lain</option>
-                                        <option value="B">Ketergantungan Ringan (B) : Membutuhkan bantuan orang lain dalam melakukan aktivitas tertentu/memakai kursi roda</option>
-                                        <option value="B1">Ketergantungan Sedang (B) : Mengalami gangguan dålam aktifitas sehari-hari sendiri, terutama dalam hal Buang Air Kecil (BAK) dan Buang Air Besar (BAB)</option>
-                                        <option value="C">Ketergantungan Berat (C) : Hanya bisa beraktivitas diatas tempat tidur</option>
-                                        <option value="D">Ketergantungan Total (D) : Sama sekali tidak mampu melakukan aktifitas hidup sehari-hari, sehingga sangat tergantung orang lain</option>
+                                    <select class="form-select" data-control="select2" name="adl">
+                                        <option value="A" {{ $skrining->adl == 'A' ? 'selected' : '' }}>Mandiri (A) : Dapat melakukan aktivitas sendiri tanpa bantuan orang lain</option>
+                                        <option value="B" {{ $skrining->adl == 'B' ? 'selected' : '' }}>Ketergantungan Ringan (B) : Membutuhkan bantuan orang lain dalam melakukan aktivitas tertentu/memakai kursi roda</option>
+                                        <option value="B1" {{ $skrining->adl == 'B1' ? 'selected' : '' }}>Ketergantungan Sedang (B) : Mengalami gangguan dalam aktifitas sehari-hari sendiri, terutama dalam hal Buang Air Kecil (BAK) dan Buang Air Besar (BAB)</option>
+                                        <option value="C" {{ $skrining->adl == 'C' ? 'selected' : '' }}>Ketergantungan Berat (C) : Hanya bisa beraktivitas diatas tempat tidur</option>
+                                        <option value="D" {{ $skrining->adl == 'D' ? 'selected' : '' }}>Ketergantungan Total (D) : Sama sekali tidak mampu melakukan aktifitas hidup sehari-hari, sehingga sangat tergantung orang lain</option>
                                     </select>
-
                                 </div>
                             </div>
                             <!--end::Card body-->
@@ -568,129 +519,69 @@
                                 <div class="card-title">
                                     <h3 class="fw-bold">Skilas (Skrining Lansia Sederhana )</h3>
                                 </div>
-                                <!--begin::Card title-->
                             </div>
-                           
                             <!--end::Card header-->
                             <!--begin::Card body-->
                             <div class="card-body pt-0">
-                                <!--begin::Description-->
-                                {{-- <div class="text-gray-500 fw-semibold fs-5 mb-5">:</div> --}}
-                                <!--end::Description-->
-
-                                <!--end::Heading-->
-                            <!--begin::Input group-->
-                            <div class="d-flex flex-column mb-7 fv-row">
-                                <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                    <span class="required">Apakah terdapat penurunan kognitif?</span>
-                                </label>
-                                <!--end::Label-->
-                                <select class="form-select" data-control="select2" data-placeholder="Select an option" name="kognitif">
-                                    <option value="Y">Ya</option>
-                                    <option value="N">Tidak</option>
-                                </select>
-                            </div>
-                            <!--end::Input group-->
-
-                            <!--begin::Input group-->
-                            <div class="d-flex flex-column mb-7 fv-row">
-                                <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                    <span class="required">Apakah terdapat penurunan Mobilisasi (Tes berdiri dari kursi)?</span>
-                                </label>
-                                <!--end::Label-->
-                                <select class="form-select" data-control="select2" data-placeholder="Select an option" name="mobilisasi">
-                                    <option value="Y">Ya</option>
-                                    <option value="N">Tidak</option>
-                                </select>
-                            </div>
-                            <!--end::Input group-->
-
-                            <!--begin::Input group-->
-                            <div class="d-flex flex-column mb-7 fv-row">
-                                <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                    <span class="required">Apakah terdapat Malnutrisi?</span>
-                                </label>
-                                <!--end::Label-->
-                                <select class="form-select" data-control="select2" data-placeholder="Select an option" name="malnutrisi">
-                                    <option value="Y">Ya</option>
-                                    <option value="N">Tidak</option>
-                                </select>
-                            </div>
-                            <!--end::Input group-->
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
                                 <div class="d-flex flex-column mb-7 fv-row">
-                                    <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                        <span class="required">Apakah anda memiliki gangguan penglihatan (menggunakan
-                                            kacamata/tidak jelas ketika melihat benda jauh atau dekat/ tidak jelas
-                                            ketika membaca tanpa kacamata)?</span>
+                                        <span class="required">Apakah terdapat penurunan kognitif?</span>
                                     </label>
-                                    <!--end::Label-->
-                                    <select class="form-select" data-control="select2"
-                                        data-placeholder="Select an option" name="penglihatan">
-                                        <option></option>
-                                        <option value="Y" selected>Iya</option>
-                                        <option value="N">Tidak</option>
+                                    <select class="form-select" data-control="select2" name="kognitif">
+                                        <option value="Y" {{ $skrining->kognitif == 'Y' ? 'selected' : '' }}>Ya</option>
+                                        <option value="N" {{ $skrining->kognitif == 'N' ? 'selected' : '' }}>Tidak</option>
                                     </select>
-
                                 </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
                                 <div class="d-flex flex-column mb-7 fv-row">
-                                    <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                        <span class="required">Apakah anda memiliki gangguan pendengaran (menggunakan
-                                            alat bantu dengar/ membutuhkan suara keras bila berbicara dengan orang
-                                            lain)?</span>
+                                        <span class="required">Apakah terdapat penurunan Mobilisasi (Tes berdiri dari kursi)?</span>
                                     </label>
-                                    <!--end::Label-->
-                                    <select class="form-select" data-control="select2"
-                                        data-placeholder="Select an option" name="pendengaran">
-                                        <option></option>
-                                        <option value="Y" selected>Iya</option>
-                                        <option value="N">Tidak</option>
+                                    <select class="form-select" data-control="select2" name="mobilisasi">
+                                        <option value="Y" {{ $skrining->mobilisasi == 'Y' ? 'selected' : '' }}>Ya</option>
+                                        <option value="N" {{ $skrining->mobilisasi == 'N' ? 'selected' : '' }}>Tidak</option>
                                     </select>
-
                                 </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
                                 <div class="d-flex flex-column mb-7 fv-row">
-                                    <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                        <span class="required">Bagaimana gambaran mental emosional pada diri
-                                            anda?</span>
+                                        <span class="required">Apakah terdapat Malnutrisi?</span>
                                     </label>
-                                    <!--end::Label-->
-                                    <select class="form-select" data-control="select2"
-                                        data-placeholder="Select an option" name="gds">
-                                        <option></option>
-                                        <option value="A" selected>Sudah puas dengan kehidupan, bersemangat,
-                                            merasa bahagia, menyenangkan</option>
-                                        <option value="B">Merasa bosan, lebih senang dirumah, meninggalkan banyak
-                                            kesenangan, cemas, memiliki masalah daya ingat</option>
-                                        <option value="C">Merasa kehidupan hampa, tidak berdaya, tidak berharga,
-                                            tidak ada harapan, keadaan orang lain lebih baik</option>
+                                    <select class="form-select" data-control="select2" name="malnutrisi">
+                                        <option value="Y" {{ $skrining->malnutrisi == 'Y' ? 'selected' : '' }}>Ya</option>
+                                        <option value="N" {{ $skrining->malnutrisi == 'N' ? 'selected' : '' }}>Tidak</option>
                                     </select>
-
                                 </div>
-                                <!--end::Input group-->
-
-                                <!--begin::Actions-->
+                                <div class="d-flex flex-column mb-7 fv-row">
+                                    <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                        <span class="required">Apakah anda memiliki gangguan penglihatan (menggunakan kacamata/tidak jelas ketika melihat benda jauh atau dekat/ tidak jelas ketika membaca tanpa kacamata)?</span>
+                                    </label>
+                                    <select class="form-select" data-control="select2" name="penglihatan">
+                                        <option value="Y" {{ $skrining->penglihatan == 'Y' ? 'selected' : '' }}>Iya</option>
+                                        <option value="N" {{ $skrining->penglihatan == 'N' ? 'selected' : '' }}>Tidak</option>
+                                    </select>
+                                </div>
+                                <div class="d-flex flex-column mb-7 fv-row">
+                                    <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                        <span class="required">Apakah anda memiliki gangguan pendengaran (menggunakan alat bantu dengar/ membutuhkan suara keras bila berbicara dengan orang lain)?</span>
+                                    </label>
+                                    <select class="form-select" data-control="select2" name="pendengaran">
+                                        <option value="Y" {{ $skrining->pendengaran == 'Y' ? 'selected' : '' }}>Iya</option>
+                                        <option value="N" {{ $skrining->pendengaran == 'N' ? 'selected' : '' }}>Tidak</option>
+                                    </select>
+                                </div>
+                                <div class="d-flex flex-column mb-7 fv-row">
+                                    <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                        <span class="required">Bagaimana gambaran mental emosional pada diri anda?</span>
+                                    </label>
+                                    <select class="form-select" data-control="select2" name="gds">
+                                        <option value="A" {{ $skrining->gds == 'A' ? 'selected' : '' }}>Sudah puas dengan kehidupan, bersemangat, merasa bahagia, menyenangkan</option>
+                                        <option value="B" {{ $skrining->gds == 'B' ? 'selected' : '' }}>Merasa bosan, lebih senang dirumah, meninggalkan banyak kesenangan, cemas, memiliki masalah daya ingat</option>
+                                        <option value="C" {{ $skrining->gds == 'C' ? 'selected' : '' }}>Merasa kehidupan hampa, tidak berdaya, tidak berharga, tidak ada harapan, keadaan orang lain lebih baik</option>
+                                    </select>
+                                </div>
                                 <button id="kt_docs_formvalidation_text_submit" type="submit" class="btn btn-primary">
-                                    <span class="indicator-label">
-                                        Simpan
-                                    </span>
-                                    <span class="indicator-progress">
-                                        Silahkan Tunggu... <span
-                                            class="spinner-border spinner-border-sm align-middle ms-2"></span>
-                                    </span>
+                                    <span class="indicator-label">Simpan</span>
+                                    <span class="indicator-progress">Silahkan Tunggu... <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                                 </button>
-                                <!--end::Actions-->
-
                             </div>
                             <!--end::Card body-->
                         </div>

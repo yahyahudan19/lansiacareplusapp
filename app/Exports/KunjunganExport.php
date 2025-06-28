@@ -57,14 +57,34 @@ class KunjunganExport implements FromCollection, WithHeadings, WithEvents,WithCo
                     'GangguanPenglihatan' => $skrinings->penglihatan === 'Y' ? 'Ya' : ($skrinings->penglihatan === 'N' ? 'Tidak' : ''),
                     'GangguanPendengaran' => $skrinings->pendengaran === 'Y' ? 'Ya' : ($skrinings->pendengaran === 'N' ? 'Tidak' : ''),
                     'ADL' => match ($skrinings->adl ?? '') {
-                        'A' => 'Mandiri (A)',
-                        'B' => 'Ketergantungan Ringan (B)',
-                        'B1' => 'Ketergantungan Sedang (B)',
-                        'C' => 'Ketergantungan Berat (C)',
-                        'D' => 'Ketergantungan Total (D)',
-                        default => '',
+                        'A' => 'Mandiri (A) : Dapat melakukan aktivitas sendiri tanpa bantuan orang lain',
+                        'B' => 'Ketergantungan Ringan (B) : Membutuhkan bantuan orang lain dalam melakukan aktivitas tertentu/memakai kursi roda',
+                        'B1' => 'Ketergantungan Sedang (B) : Mengalami gangguan dalam aktivitas sehari-hari sendiri, terutama dalam hal Buang Air Kecil (BAK) dan Buang Air Besar (BAB)',
+                        'C' => 'Ketergantungan Berat (C) : Hanya bisa beraktivitas di atas tempat tidur',
+                        'D' => 'Ketergantungan Total (D) : Sama sekali tidak mampu melakukan aktivitas hidup sehari-hari, sehingga sangat tergantung orang lain',
+                        default => 'Tidak Ada Data',
                     },
-                    'GDS' => $skrinings->gds === 'A' ? 'A : Normal' : ($skrinings->gds ?? ''),
+                    'GDS' => match ($skrinings->gds ?? '') {
+                        'A' => 'Sudah puas dengan kehidupan, bersemangat, merasa bahagia, menyenangkan',
+                        'B' => 'Merasa bosan, lebih senang dirumah, meninggalkan banyak kesenangan, cemas, memiliki masalah daya ingat',
+                        'C' => 'Merasa kehidupan hampa, tidak berdaya, tidak berharga, tidak ada harapan, keadaan orang lain lebih baik',
+                        default => 'Tidak Ada Data',
+                    },
+                    'Merokok' => match ($skrinings->merokok ?? '') {
+                        'Y' => 'Iya',
+                        'TSB' => 'Tidak, Sudah Berhenti kurang dari 1 Tahun',
+                        'TPS' => 'Tidak Pernah Sama Sekali',
+                        default => 'Tidak Ada Data',
+                    },
+                    'Kognitif' => $skrinings->kognitif === 'Y' ? 'Ya' : ($skrinings->kognitif === 'N' ? 'Tidak' : 'Tidak Ada Data'),
+                    'Mobilisasi' => $skrinings->mobilisasi === 'Y' ? 'Ya' : ($skrinings->mobilisasi === 'N' ? 'Tidak' : 'Tidak Ada Data'),
+                    'Malnutrisi' => $skrinings->malnutrisi === 'Y' ? 'Ya' : ($skrinings->malnutrisi === 'N' ? 'Tidak' : 'Tidak Ada Data'),
+                    'keterangan' => match ($skrinings->keterangan ?? '') {
+                        'Tidak Ada' => 'Tidak Ada',
+                        'Tidak ada Bahan Medis Habis Pakai' => 'Tidak ada Bahan Medis Habis Pakai',
+                        'Belum dilakukan pemeriksaan' => 'Belum dilakukan pemeriksaan',
+                        default => 'Tidak Ada Data',
+                    },
                     'Timestamp' => $kunjungan->created_at->format('Y-m-d H:i:s'),
                     'Status' => $person->status,
                 ];
@@ -77,7 +97,8 @@ class KunjunganExport implements FromCollection, WithHeadings, WithEvents,WithCo
             'NO', 'NAMALENGKAP', 'ALAMAT', 'RW', 'KELURAHAN', 'KECAMATAN', 'NIK', 'NoBPJS', 'NoTelpHP',
             'JenisKelamin', 'TglLahir', 'Usia', 'BeratBadan', 'TinggiBadan', 'LingkarPerut', 'Sistole',
             'Diastole', 'GulaDarah', 'Kolesterol', 'AsamUrat', 'Ginjal', 'GangguanPenglihatan',
-            'GangguanPendengaran', 'ADL', 'GDS', 'Timestamp', 'Status',
+            'GangguanPendengaran', 'ADL', 'GDS', 'Merokok', 'Kognitif', 'Mobilisasi', 'Malnutrisi',
+            'keterangan','Timestamp', 'Status',
         ];
     }
 

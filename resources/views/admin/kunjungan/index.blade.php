@@ -207,7 +207,7 @@
                         <!--begin::Toolbar-->
                         <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
                             
-                            <!--begin::Filter-->
+                            {{-- <!--begin::Filter-->
                             <button type="button" class="btn btn-light-primary me-3" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
                             <i class="ki-outline ki-filter fs-2"></i>Filter</button>
                             <!--begin::Menu 1-->
@@ -252,7 +252,7 @@
                                 </div>
                                 <!--end::Content-->
                             </div>
-                            <!--end::Menu 1-->
+                            <!--end::Menu 1--> --}}
                             
                             <!--begin::Tambah Kunjungan-->
                             <button type="button" class="btn btn-success me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user">
@@ -354,7 +354,7 @@
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="file" class="form-label">Download Format File</label>
-                                                    <a href="/excel/import-template.xls" class="btn btn-warning btn-sm">Download</a>
+                                                    <a href="/excel/import-template.xlsx" class="btn btn-warning btn-sm">Download</a>
                                                 </div>
                                             </div>
 
@@ -538,63 +538,68 @@
                                                 </div>
                                                 <!--end::Input group-->
 
-                                                <!--end::begin group-->
+                                                <!--begin::Input group-->
                                                 <div class="row g-9 mb-7">
                                                     <!--begin::Col-->
                                                     <div class="col-md-6 fv-row fv-plugins-icon-container">
                                                         <!--begin::Label-->
-                                                        <label class="fw-semibold fs-6 mb-2">No. Telp</label>
+                                                        <label class="form-label required">Tanggal Lahir</label>
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
-                                                        <input type="text" name="person_telp" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="No. Telp"  />
+                                                        <div class="input-group" id="kt_td_picker_date_only" data-td-target-input="nearest" data-td-target-toggle="nearest">
+                                                            <input id="kt_td_picker_date_only_input" type="text" class="form-control" data-td-target="#kt_td_picker_date_only" name="person_tl"/>
+                                                            <span class="input-group-text" data-td-target="#kt_td_picker_date_only" data-td-toggle="datetimepicker">
+                                                                <i class="ki-duotone ki-calendar fs-2"><span class="path1"></span><span class="path2"></span></i>
+                                                            </span>
+                                                        </div>
                                                         <!--end::Input-->
-                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+                                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                                    </div>
                                                     <!--end::Col-->
 
                                                     <!--begin::Col-->
                                                     <div class="col-md-6 fv-row fv-plugins-icon-container">
                                                         <!--begin::Label-->
-                                                        <label class="form-label required">Tanggal Lahir</label>
-                                                    <!--end::Label-->
-                                                    <!--begin::Input-->
-                                                    <div class="input-group" id="kt_td_picker_date_only" data-td-target-input="nearest" data-td-target-toggle="nearest">
-                                                        <input id="kt_td_picker_date_only_input" type="text" class="form-control" data-td-target="#kt_td_picker_date_only" name="person_tl"/>
-                                                        <span class="input-group-text" data-td-target="#kt_td_picker_date_only" data-td-toggle="datetimepicker">
-                                                            <i class="ki-duotone ki-calendar fs-2"><span class="path1"></span><span class="path2"></span></i>
-                                                        </span>
+                                                        <label class="fw-semibold fs-6 mb-2">No. BPJS</label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <input type="text" name="person_bpjs" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="No. BPJS" />
+                                                        <!--end::Input-->
+                                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                     </div>
-                                                    <!--end::Input-->
-                                                    
-                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
                                                     <!--end::Col-->
                                                 </div>
                                                 <!--end::Input group-->
 
                                                 <!--begin::Input group-->
-                                                <div class="fv-row mb-7">
-                                                    <!--begin::Label-->
-                                                    {{-- <label class="form-label required">Kirim Notifikasi</label> --}}
-                                                    <span><center>Apakah anda ingin hasil skrining kesehatan dikirimkan melalui nomer HP yang anda berikan?</center></span>
-                                                    <!--end::Label-->
-                                                    <!--begin::Input-->
-                                                    <select name="person_notifikasi" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
-                                                        <option></option>
-                                                        <option value="Y">Iya</option>
-                                                        <option value="N">Tidak</option>
-                                                    </select>
-                                                    <!--end::Input-->
-                                                </div>
-                                                <!--end::Input group-->
+                                                <div class="row g-9 mb-7">
+                                                    <!--begin::Col-->
+                                                    <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                                        <!--begin::Label-->
+                                                        <label class="form-label required">Hasil Skrining</label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <select name="person_notifikasi" id="person_notifikasi" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
+                                                            <option></option>
+                                                            <option value="Y">Iya</option>
+                                                            <option value="N">Tidak</option>
+                                                        </select>
+                                                        <!--end::Input-->
+                                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                                    </div>
+                                                    <!--end::Col-->
 
-                                              
-                                                <!--begin::Input group-->
-                                                <div class="fv-row mb-7">
-                                                    <!--begin::Label-->
-                                                    <label class="fw-semibold fs-6 mb-2">No. BPJS</label>
-                                                    <!--end::Label-->
-                                                    <!--begin::Input-->
-                                                    <input type="text" name="person_bpjs" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="No. BPJS"  />
-                                                    <!--end::Input-->
+                                                    <!--begin::Col-->
+                                                    <div class="col-md-6 fv-row fv-plugins-icon-container" id="telp_container" style="display: none;">
+                                                        <!--begin::Label-->
+                                                        <label class="fw-semibold fs-6 mb-2">No. Telp</label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <input type="text" name="person_telp" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="No. Telp" />
+                                                        <!--end::Input-->
+                                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                                    </div>
+                                                    <!--end::Col-->
                                                 </div>
                                                 <!--end::Input group-->
                                               
@@ -638,7 +643,7 @@
                                                     <label class="form-label required">Kelurahan</label>
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
-                                                    <select name="person_kelurahan" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select..." data-allow-clear="true" data-hide-search="false">
+                                                    <select name="person_kelurahan" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
                                                         <option></option>
                                                         @foreach ($kelurahans as $kel)
                                                             <option value="{{$kel->id}}">{{$kel->nama}}</option>
@@ -799,10 +804,27 @@
     <!--begin::Vendors Javascript(used for this page only)-->
     <script src="{{ asset('template/assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
 
-    <!--end::Vendors Javascript-->
-    
     <!--end::Custom Javascript-->
 
+    <!--begin::No. Telp Function-->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const notifikasiSelect = $('#person_notifikasi');
+            const telpContainer = document.getElementById('telp_container');
+
+            if (notifikasiSelect.length && telpContainer) {
+                notifikasiSelect.on('change', function () {
+                    if (this.value === 'Y') {
+                        telpContainer.style.display = 'block';
+                    } else {
+                        telpContainer.style.display = 'none';
+                    }
+                });
+            }
+        });
+    </script>
+
+    <!--end::No. Telp Function-->
     <!--begin::Filter Kunjungans-->
     <script>
         var start = moment().subtract(29, "days");
@@ -1202,27 +1224,6 @@
                 });
             }
 
-            // Reset Filter
-            var handleResetForm = () => {
-                // Select reset button
-                const resetButton = document.querySelector('[data-kt-user-table-filter="reset"]');
-
-                // Reset datatable
-                resetButton.addEventListener('click', function () {
-                    // Select filter options
-                    const filterForm = document.querySelector('[data-kt-user-table-filter="form"]');
-                    const selectOptions = filterForm.querySelectorAll('select');
-
-                    // Reset select2 values -- more info: https://select2.org/programmatic-control/add-select-clear-items
-                    selectOptions.forEach(select => {
-                        $(select).val('').trigger('change');
-                    });
-
-                    // Reset datatable --- official docs reference: https://datatables.net/reference/api/search()
-                    datatable.search('').draw();
-                });
-            }
-
 
             // Delete user
             var handleDeleteRows = () => {
@@ -1431,7 +1432,6 @@
                     initUserTable();
                     initToggleToolbar();
                     handleSearchDatatable();
-                    handleResetForm();
                     handleDeleteRows();
                     handleFilterDatatable();
 

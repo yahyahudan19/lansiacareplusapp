@@ -155,6 +155,8 @@ class LaporansController extends Controller
                     $indicator->age_max, 
                     false // Bukan agregat, jadi FALSE
                 );
+
+              
         
                 // Simpan hasil per kelurahan
                 $results[$kelurahan->nama][$indicator->kelompok->nama][$indicator->nama] = $count;
@@ -164,6 +166,7 @@ class LaporansController extends Controller
                     $totals[$indicator->kelompok->nama][$indicator->nama] = 0;
                 }
                 $totals[$indicator->kelompok->nama][$indicator->nama] += $count;
+                
             }
         }
 
@@ -409,6 +412,7 @@ class LaporansController extends Controller
             }
         };
 
+
         // Gunakan switch-case untuk perhitungan berdasarkan kelompok
         switch ($indicator->kelompok_id) {
             case 1: // DILAYANI (D)
@@ -492,10 +496,34 @@ class LaporansController extends Controller
                 return Skrinings::whereHas('kunjungan', function ($q) use ($filterPerson, $startDate, $endDate) {
                     $q->whereBetween('tanggal_kj', [$startDate, $endDate])->whereHas('person', $filterPerson);
                 })->where('ginjal', $indicator->target_value)->count();
+            case 14: // MEROKOK
+                return Skrinings::whereHas('kunjungan', function ($q) use ($filterPerson, $startDate, $endDate) {
+                    $q->whereBetween('tanggal_kj', [$startDate, $endDate])
+                    ->whereHas('person', $filterPerson);
+                })->where('merokok', $indicator->target_value)->count();
+
+            case 15: // KOGNITIF
+                return Skrinings::whereHas('kunjungan', function ($q) use ($filterPerson, $startDate, $endDate) {
+                    $q->whereBetween('tanggal_kj', [$startDate, $endDate])
+                    ->whereHas('person', $filterPerson);
+                })->where('kognitif', $indicator->target_value)->count();
+
+            case 16: // MOBILISASI
+                return Skrinings::whereHas('kunjungan', function ($q) use ($filterPerson, $startDate, $endDate) {
+                    $q->whereBetween('tanggal_kj', [$startDate, $endDate])
+                    ->whereHas('person', $filterPerson);
+                })->where('mobilisasi', $indicator->target_value)->count();
+
+            case 17: // MALNUTRISI
+                return Skrinings::whereHas('kunjungan', function ($q) use ($filterPerson, $startDate, $endDate) {
+                    $q->whereBetween('tanggal_kj', [$startDate, $endDate])
+                    ->whereHas('person', $filterPerson);
+                })->where('malnutrisi', $indicator->target_value)->count();
 
             default:
                 return 0;
         }
+        
     }
 
     // public function exportExcel(Request $request)
@@ -577,6 +605,7 @@ class LaporansController extends Controller
                 $totals[$indicator->kelompok->nama][$indicator->nama] += $count;
             }
         }
+        
 
         return view('admin.laporan.agregat', compact('results', 'totals', 'puskesmas', 'startDate', 'endDate','indicators'));
     }

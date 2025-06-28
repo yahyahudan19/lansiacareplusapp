@@ -180,6 +180,10 @@ Route::middleware(['role:Kader'])->group(function (){
     Route::get('/kader/kunjungan/tambah', [KunjungansController::class, 'create_view'])->name('kunjungans.create.kader');
     Route::get('/kader/kunjungan/{id}', [KunjungansController::class, 'detail_view'])->name('kunjungans.detail_view');
     Route::post('/kader/kunjungan/store', [KunjungansController::class, 'store'])->name('kunjungans.store');
+    Route::get('/kader/kunjungan/edit/{id}', [KunjungansController::class, 'edit'])->name('kunjungans.edit');
+    Route::post('/kader/kunjungan/update/{id}', [KunjungansController::class, 'update'])->name('kunjungans.update');
+
+
     
 });
 

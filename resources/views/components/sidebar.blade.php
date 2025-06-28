@@ -211,12 +211,12 @@
                             </span>
                             <span class="menu-title">Whatsapp</span>
                         </a>
-                        {{-- <a href="#" class="menu-link {{ Request::is('admin/log*') ? 'active' : '' }}">
+                        <a href="#" class="menu-link {{ Request::is('admin/log*') ? 'active' : '' }}">
                             <span class="menu-icon">
                                 <i class="ki-outline ki-questionnaire-tablet fs-2"></i>
                             </span>
                             <span class="menu-title">Log</span>
-                        </a> --}}
+                        </a>
                         <!--end:Menu link-->
                     </div>
                 </div>

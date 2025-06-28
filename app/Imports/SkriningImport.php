@@ -36,7 +36,7 @@ class SkriningImport implements ToCollection, WithHeadingRow
                         'tanggal_lahir' => $row['tgllahir'],
                         'bpjs' => $row['nobpjs'] ?? null,
                         'alamat' => $row['alamat'],
-                        'rt' => null, // RT kosong
+                        'rt' => $row['rt'], // RT kosong
                         'rw' => $row['rw'] ?? null,
                         'status' => $row['status'],
                         'valid' => 'Y',

@@ -593,6 +593,23 @@
                                            </div>
                                        </div>
                                        <!--end::Input group-->
+                                       <!--begin::Input group-->
+                                        <div class="fv-row mb-5">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center form-label">
+                                                <span class="required">Keterangan</span>
+                                            </label>
+                                            <!--end::Label-->
+                                            <div class="mb-10">
+                                                <select class="form-select" name="keterangan" data-control="select2" data-placeholder="Pilih Keterangan">
+                                                    <option></option>
+                                                    <option value="Tidak Ada" {{ $skrining->keterangan == 'Tidak Ada' ? 'selected' : '' }}>Tidak Ada</option>
+                                                    <option value="Tidak ada Bahan Medis Habis Pakai" {{ $skrining->keterangan == 'Tidak ada Bahan Medis Habis Pakai' ? 'selected' : '' }}>Tidak ada Bahan Medis Habis Pakai</option>
+                                                    <option value="Belum dilakukan pemeriksaan" {{ $skrining->keterangan == 'Belum dilakukan pemeriksaan' ? 'selected' : '' }}>Belum dilakukan pemeriksaan</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <!--end::Input group-->
                                         
                                     </div>
                                     <!--end::Wrapper-->
