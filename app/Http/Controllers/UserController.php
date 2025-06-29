@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Log;
 use App\Models\Puskesmas;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -67,6 +68,16 @@ class UserController extends Controller
                 'password' => Hash::make($request->user_password),
             ]);
 
+            // Simpan data log
+            Log::create([
+                'user_id' => auth()->user()->id,
+                'username' => auth()->user()->username,
+                'email' => auth()->user()->email,
+                'category' => 'create',
+                'activity' => 'create',
+                'details' => 'Menambahkan user baru dengan ID: ' . $user->id,
+            ]);
+
             session()->flash('status', 'success');
             session()->flash('message', 'User berhasil disimpan!');
 
@@ -95,6 +106,16 @@ class UserController extends Controller
 
             $user->delete();
 
+            // Simpan data log
+            Log::create([
+                'user_id' => auth()->user()->id,
+                'username' => auth()->user()->username,
+                'email' => auth()->user()->email,
+                'category' => 'delete',
+                'activity' => 'delete',
+                'details' => 'Menghapus user dengan ID: ' . $user->id,
+            ]);
+
             return response()->json([
                 'status' => 'success', 
                 'success' => true,
@@ -120,6 +141,16 @@ class UserController extends Controller
                 'name' => $request->name,
                 'username' => $request->username,
                 'puskesmas_id' => $request->puskesmas_id,
+            ]);
+
+            // Simpan data log
+            Log::create([
+                'user_id' => auth()->user()->id,
+                'username' => auth()->user()->username,
+                'email' => auth()->user()->email,
+                'category' => 'update',
+                'activity' => 'update',
+                'details' => 'Memperbarui profil user dengan ID: ' . $user->id,
             ]);
 
             // Kirim pesan sukses

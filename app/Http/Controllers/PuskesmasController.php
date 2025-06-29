@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kelurahans;
+use App\Models\Log;
 use App\Models\Puskesmas;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -49,10 +50,20 @@ class PuskesmasController extends Controller
         try {
             // Simpan data ke database
             Puskesmas::create([
-            'nama' => $request->puskesmas_name,
-            'kode' => $request->puskesmas_kode,
-            'jenis' => $request->puskesmas_jenis,
-            'alamat' => $request->puskesmas_alamat,
+                'nama' => $request->puskesmas_name,
+                'kode' => $request->puskesmas_kode,
+                'jenis' => $request->puskesmas_jenis,
+                'alamat' => $request->puskesmas_alamat,
+            ]);
+
+            // Simpan data log
+            Log::create([
+                'user_id' => auth()->user()->id,
+                'username' => auth()->user()->username,
+                'email' => auth()->user()->email,
+                'category' => 'create',
+                'activity' => 'create',
+                'details' => 'Menambahkan data Puskesmas dengan kode: ' . $request->puskesmas_kode,
             ]);
 
             // Kirim pesan sukses
@@ -106,6 +117,15 @@ class PuskesmasController extends Controller
                 'alamat' => $request->puskesmas_alamat,
             ]);
 
+            // Simpan data log
+            Log::create([
+                'user_id' => auth()->user()->id,
+                'username' => auth()->user()->username,
+                'email' => auth()->user()->email,
+                'category' => 'update',
+                'activity' => 'update',
+                'details' => 'Memperbarui data Puskesmas dengan ID: ' . $puskesmas->id,
+            ]);
             // Redirect dengan pesan sukses
             return redirect()->back()
             ->with('status', 'success')

@@ -8,6 +8,7 @@ use App\Models\Persons;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Exports\PersonsExport;
+use App\Models\Log;
 use Maatwebsite\Excel\Facades\Excel;
 
 
@@ -85,6 +86,16 @@ class PersonsController extends Controller
                 'notifikasi' => $request->person_notifikasi,
                 'created_by' => auth()->user()->id,
                 'kelurahan_id' => $request->person_kelurahan,
+            ]);
+
+            // Simpan data log
+            Log::create([
+                'user_id' => auth()->user()->id,
+                'username' => auth()->user()->username,
+                'email' => auth()->user()->email,
+                'category' => 'create',
+                'activity' => 'create',
+                'details' => 'Menambahkan data penduduk baru dengan NIK: ' . $request->person_nik,
             ]);
 
             // Redirect berdasarkan role user
@@ -174,6 +185,16 @@ class PersonsController extends Controller
                 'valid' => "Y",
 
             ]);
+
+            // Simpan data log
+            Log::create([
+                'user_id' => auth()->user()->id,
+                'username' => auth()->user()->username,
+                'email' => auth()->user()->email,
+                'category' => 'update',
+                'activity' => 'update',
+                'details' => 'Mengupdate data penduduk dengan ID: ' . $person->id,
+            ]);
             // Kirim pesan sukses
             return redirect()->back()
             ->with('status', 'success')
@@ -199,6 +220,16 @@ class PersonsController extends Controller
 
             $persons->delete();
 
+            // Simpan data log
+            Log::create([
+                'user_id' => auth()->user()->id,
+                'username' => auth()->user()->username,
+                'email' => auth()->user()->email,
+                'category' => 'delete',
+                'activity' => 'delete',
+                'details' => 'Menghapus data penduduk dengan ID: ' . $persons->id,
+            ]);
+            
             return response()->json([
                 'status' => 'success', 
                 'success' => true,

@@ -8,6 +8,7 @@ use App\Models\Indikators;
 use App\Models\Kecamatans;
 use App\Models\Kelurahans;
 use App\Models\Kunjungans;
+use App\Models\Log;
 use App\Models\Persons;
 use App\Models\Puskesmas;
 use App\Models\Skrinings;
@@ -156,8 +157,6 @@ class LaporansController extends Controller
                     false // Bukan agregat, jadi FALSE
                 );
 
-              
-        
                 // Simpan hasil per kelurahan
                 $results[$kelurahan->nama][$indicator->kelompok->nama][$indicator->nama] = $count;
         
@@ -169,6 +168,16 @@ class LaporansController extends Controller
                 
             }
         }
+
+        // Simpan data log
+        Log::create([
+            'user_id' => auth()->user()->id,
+            'username' => auth()->user()->username,
+            'email' => auth()->user()->email,
+            'category' => 'laporan',
+            'activity' => 'generate',
+            'details' => 'Laporan berhasil dibuat untuk Puskesmas ID: ' . $puskesmasId . ', Rentang Tanggal: ' . $startDate . ' hingga ' . $endDate,
+        ]);
 
         // return response()->json($totals);
         return view('admin.laporan.index', compact('results', 'totals', 'kelurahans', 'puskesmasId', 'indicators', 'puskesmas','startDate','endDate'));

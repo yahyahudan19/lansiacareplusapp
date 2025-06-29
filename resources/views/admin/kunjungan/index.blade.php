@@ -570,13 +570,13 @@
                                                     <!--end::Col-->
                                                 </div>
                                                 <!--end::Input group-->
-
+                                                <span><center>Apakah anda ingin hasil skrining kesehatan dikirimkan melalui nomer HP yang anda berikan?</center></span>
                                                 <!--begin::Input group-->
                                                 <div class="row g-9 mb-7">
                                                     <!--begin::Col-->
                                                     <div class="col-md-6 fv-row fv-plugins-icon-container">
                                                         <!--begin::Label-->
-                                                        <label class="form-label required">Hasil Skrining</label>
+                                                        <label class="form-label required">Kirim Hasil Skrining</label>
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
                                                         <select name="person_notifikasi" id="person_notifikasi" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">

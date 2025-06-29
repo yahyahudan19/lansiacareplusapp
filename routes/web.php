@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KunjungansController;
 use App\Http\Controllers\LaporansController;
+use App\Http\Controllers\LogController;
 use App\Http\Controllers\PersonsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PuskesmasController;
@@ -110,6 +111,11 @@ Route::middleware(['role:System Administrator'])->group(function (){
 
     Route::get('/admin/whatsapp', [WhatsappController::class, 'index'])->name('whatsapp.index');
     Route::post('/admin/whatsapp/test', [WhatsappController::class, 'WhatsappTestMessages'])->name('whatsapp.test');
+    
+    Route::get('/admin/log', [LogController::class, 'index'])->name('log.index');
+    Route::get('/admin/log/data', [LogController::class, 'data'])->name('log.data'); // tambahan untuk AJAX
+
+
 
 
     

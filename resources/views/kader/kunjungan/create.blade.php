@@ -551,7 +551,7 @@
                                         <option value="B">Ketergantungan Ringan (B) : Membutuhkan bantuan orang lain dalam melakukan aktivitas tertentu/memakai kursi roda</option>
                                         <option value="B1">Ketergantungan Sedang (B) : Mengalami gangguan dålam aktifitas sehari-hari sendiri, terutama dalam hal Buang Air Kecil (BAK) dan Buang Air Besar (BAB)</option>
                                         <option value="C">Ketergantungan Berat (C) : Hanya bisa beraktivitas diatas tempat tidur</option>
-                                        <option value="D">Ketergantungan Total (D) : Sama sekali tidak mampu melakukan aktifitas hidup sehari-hari, sehingga sangat tergantung orang lain</option>
+                                        <option value="D">Ketergantungan Total (C) : Sama sekali tidak mampu melakukan aktifitas hidup sehari-hari, sehingga sangat tergantung orang lain</option>
                                     </select>
 
                                 </div>

@@ -535,6 +535,16 @@ class KunjungansController extends Controller
             // Hapus data Kunjungan
             $kunjungan->delete();
 
+            // Simpan data log
+            Log::create([
+                'user_id' => auth()->user()->id,
+                'username' => auth()->user()->username,
+                'email' => auth()->user()->email,
+                'category' => 'delete',
+                'activity' => 'delete',
+                'details' => 'Menghapus kunjungan dengan id_kunjungan: ' . $kunjungan->id,
+            ]);
+
             // Kirim pesan sukses
             return response()->json([
                 'status' => 'success', 

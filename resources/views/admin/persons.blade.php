@@ -322,7 +322,7 @@
                                                     <label class="required fw-semibold fs-6 mb-2">Nama Lengkap</label>
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
-                                                    <input type="text" name="person_name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Nama Lengkap" />
+                                                    <input type="text" name="person_name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Nama Lengkap"/>
                                                     <!--end::Input-->
                                                 </div>
                                                 <!--end::Input group-->
@@ -358,63 +358,68 @@
                                                 </div>
                                                 <!--end::Input group-->
 
-                                                <!--end::begin group-->
+                                                <!--begin::Input group-->
                                                 <div class="row g-9 mb-7">
                                                     <!--begin::Col-->
                                                     <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                                        <!--begin::Label-->
+                                                        <label class="form-label required">Tanggal Lahir</label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <div class="input-group" id="kt_td_picker_date_only" data-td-target-input="nearest" data-td-target-toggle="nearest">
+                                                            <input id="kt_td_picker_date_only_input" type="text" class="form-control" data-td-target="#kt_td_picker_date_only" name="person_tl"/>
+                                                            <span class="input-group-text" data-td-target="#kt_td_picker_date_only" data-td-toggle="datetimepicker">
+                                                                <i class="ki-duotone ki-calendar fs-2"><span class="path1"></span><span class="path2"></span></i>
+                                                            </span>
+                                                        </div>
+                                                        <!--end::Input-->
+                                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                                    </div>
+                                                    <!--end::Col-->
+
+                                                    <!--begin::Col-->
+                                                    <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                                        <!--begin::Label-->
+                                                        <label class="fw-semibold fs-6 mb-2">No. BPJS</label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <input type="text" name="person_bpjs" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="No. BPJS" />
+                                                        <!--end::Input-->
+                                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                                    </div>
+                                                    <!--end::Col-->
+                                                </div>
+                                                <!--end::Input group-->
+                                                <span><center>Apakah anda ingin hasil skrining kesehatan dikirimkan melalui nomer HP yang anda berikan?</center></span>
+                                                <!--begin::Input group-->
+                                                <div class="row g-9 mb-7">
+                                                    <!--begin::Col-->
+                                                    <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                                        <!--begin::Label-->
+                                                        <label class="form-label required">Kirim Hasil Skrining</label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <select name="person_notifikasi" id="person_notifikasi" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
+                                                            <option></option>
+                                                            <option value="Y">Iya</option>
+                                                            <option value="N">Tidak</option>
+                                                        </select>
+                                                        <!--end::Input-->
+                                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                                    </div>
+                                                    <!--end::Col-->
+
+                                                    <!--begin::Col-->
+                                                    <div class="col-md-6 fv-row fv-plugins-icon-container" id="telp_container" style="display: none;">
                                                         <!--begin::Label-->
                                                         <label class="fw-semibold fs-6 mb-2">No. Telp</label>
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
                                                         <input type="text" name="person_telp" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="No. Telp" />
                                                         <!--end::Input-->
-                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
-                                                    <!--end::Col-->
-
-                                                    <!--begin::Col-->
-                                                    <div class="col-md-6 fv-row fv-plugins-icon-container">
-                                                        <!--begin::Label-->
-                                                        <label class="form-label required">Tanggal Lahir</label>
-                                                    <!--end::Label-->
-                                                    <!--begin::Input-->
-                                                    <div class="input-group" id="kt_td_picker_date_only" data-td-target-input="nearest" data-td-target-toggle="nearest">
-                                                        <input id="kt_td_picker_date_only_input" type="text" class="form-control" data-td-target="#kt_td_picker_date_only" name="person_tl"/>
-                                                        <span class="input-group-text" data-td-target="#kt_td_picker_date_only" data-td-toggle="datetimepicker">
-                                                            <i class="ki-duotone ki-calendar fs-2"><span class="path1"></span><span class="path2"></span></i>
-                                                        </span>
+                                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                     </div>
-                                                    <!--end::Input-->
-                                                    
-                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
                                                     <!--end::Col-->
-                                                </div>
-                                                <!--end::Input group-->
-
-                                                <!--begin::Input group-->
-                                                <div class="fv-row mb-7">
-                                                    <!--begin::Label-->
-                                                    {{-- <label class="form-label required">Kirim Notifikasi</label> --}}
-                                                    <span><center>Apakah anda ingin hasil skrining kesehatan dikirimkan melalui nomer HP yang anda berikan?</center></span>
-                                                    <!--end::Label-->
-                                                    <!--begin::Input-->
-                                                    <select name="person_notifikasi" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
-                                                        <option></option>
-                                                        <option value="Y">Iya</option>
-                                                        <option value="N">Tidak</option>
-                                                    </select>
-                                                    <!--end::Input-->
-                                                </div>
-                                                <!--end::Input group-->
-
-                                              
-                                                <!--begin::Input group-->
-                                                <div class="fv-row mb-7">
-                                                    <!--begin::Label-->
-                                                    <label class="fw-semibold fs-6 mb-2">No. BPJS</label>
-                                                    <!--end::Label-->
-                                                    <!--begin::Input-->
-                                                    <input type="text" name="person_bpjs" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="No. BPJS" />
-                                                    <!--end::Input-->
                                                 </div>
                                                 <!--end::Input group-->
                                               
@@ -424,7 +429,7 @@
                                                     <label class="fw-semibold fs-6 mb-2 required">Alamat Lengkap</label>
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
-                                                    <input type="text" name="person_alamat" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Alamat" />
+                                                    <input type="text" name="person_alamat" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Alamat"  />
                                                     <!--end::Input-->
                                                 </div>
                                                 <!--end::Input group-->
@@ -436,7 +441,7 @@
                                                         <label class="required fs-6 fw-semibold mb-2">RT</label>
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
-                                                        <input class="form-control form-control-solid" placeholder="" name="person_rt" placeholder="01">
+                                                        <input class="form-control form-control-solid" placeholder="" name="person_rt" >
                                                         <!--end::Input-->
                                                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
                                                     <!--end::Col-->
@@ -446,7 +451,7 @@
                                                         <label class="required fs-6 fw-semibold mb-2">RW</label>
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
-                                                        <input class="form-control form-control-solid" placeholder="" name="person_rw" placeholder="02">
+                                                        <input class="form-control form-control-solid" placeholder="" name="person_rw" >
                                                         <!--end::Input-->
                                                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
                                                     <!--end::Col-->
@@ -458,7 +463,7 @@
                                                     <label class="form-label required">Kelurahan</label>
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
-                                                    <select name="person_kelurahan" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select..." data-allow-clear="true" data-hide-search="false">
+                                                    <select name="person_kelurahan" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
                                                         <option></option>
                                                         @foreach ($kelurahans as $kel)
                                                             <option value="{{$kel->id}}">{{$kel->nama}}</option>
@@ -705,6 +710,25 @@
     </script>
     <!-- end pengecekan NIK --> --}}
     <!--end::Custom Javascript-->
+
+    <!--begin::No. Telp Function-->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const notifikasiSelect = $('#person_notifikasi');
+            const telpContainer = document.getElementById('telp_container');
+
+            if (notifikasiSelect.length && telpContainer) {
+                notifikasiSelect.on('change', function () {
+                    if (this.value === 'Y') {
+                        telpContainer.style.display = 'block';
+                    } else {
+                        telpContainer.style.display = 'none';
+                    }
+                });
+            }
+        });
+    </script>
+    <!--end::No. Telp Function-->
 
     <!--begin::Export Person-->
     <script>

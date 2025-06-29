@@ -610,7 +610,7 @@
                                             <select class="form-select" data-control="select2" data-placeholder="Select an option" name="merokok">
                                                 <option></option>
                                                 <option value="Y" selected>Iya</option>
-                                                <option value="TSB">Tidak, Sudah Berhenti kurang dari 1 Tahun</option>
+                                                <option value="TSB">Tidak, Sudah Berhenti Lebih dari 1 Tahun</option>
                                                 <option value="TPS">Tidak Pernah Sama Sekali</option>
                                             </select>
                                             
