@@ -131,7 +131,7 @@
                                                     <input type="text"
                                                         class="form-control form-control-solid border-0 ps-12"
                                                         data-kt-dialer-control="input" placeholder="Amount"
-                                                        name="tinggi_bdn" placeholder="100" />
+                                                        name="tinggi_bdn" placeholder="135" />
                                                     <!--end::Input control-->
 
                                                     <!--begin::Increase control-->
@@ -385,7 +385,7 @@
                                     <!--end::Dialer-->
                                     <!--end::Input-->
                                     <!--begin::Hint-->
-                                    <div class="form-text">Sewaktu Puasa atau Tidak Puasa</div>
+                                    <div class="form-text">Sewaktu Puasa atau Acak</div>
                                     <!--end::Hint-->
                                 </div>
                                 <!--end::Input group-->
@@ -446,13 +446,13 @@
                                         <div class="fv-row mb-5">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center form-label">
-                                                <span class="required">Keterangan</span>
+                                                <span class="required">Alasan Kolesterol dan atau asam urat tidak diisi</span>
                                             </label>
                                             <!--end::Label-->
                                             <div class="mb-10">
                                                 <select class="form-select" name="keterangan" data-control="select2" data-placeholder="Pilih Keterangan">
                                                     <option></option>
-                                                    <option value="Tidak Ada" selected>Tidak Ada</option>
+                                                    <option value="Tidak Ada" selected>-</option>
                                                     <option value="Tidak ada Bahan Medis Habis Pakai">Tidak ada Bahan Medis Habis Pakai</option>
                                                     <option value="Belum dilakukan pemeriksaan">Belum dilakukan pemeriksaan</option>
                                                 </select>
@@ -492,10 +492,7 @@
                                     <h2 class="fw-bold">Data Kesehatan</h2>
                                 </div>
                                 <!--begin::Card title-->
-                            </div>
-                             <div class="card-body pt-0">
-                                <div class="text">Berdasarkan aktifitas kegiatan sehari hari (AKS)</div>
-                            </div>
+                            </div>                            
                             <!--end::Card header-->
                             <!--begin::Card body-->
                             <div class="card-body pt-0">
@@ -513,8 +510,8 @@
                                     <select class="form-select" data-control="select2"
                                         data-placeholder="Select an option" name="merokok">
                                         <option></option>
-                                        <option value="Y" selected>Iya</option>
-                                        <option value="TSB">Tidak, Sudah Berhenti Kurang dari 1 Tahun</option>
+                                        <option value="Y">Iya</option>
+                                        <option value="TSB" selected>Tidak, Sudah Berhenti Lebih dari 1 Tahun</option>
                                         <option value="TPS">Tidak Pernah Sama Sekali</option>
                                     </select>
 
@@ -531,17 +528,15 @@
                                     <select class="form-select" data-control="select2"
                                         data-placeholder="Select an option" name="ginjal">
                                         <option></option>
-                                        <option value="Y" selected>Iya</option>
-                                        <option value="N">Tidak</option>
+                                        <option value="Y">Iya</option>
+                                        <option value="N" selected>Tidak</option>
                                     </select>
-
                                 </div>
-                                <!--end::Input group-->
-                                 <!--begin::Input group-->
+                                
                                 <div class="d-flex flex-column mb-7 fv-row">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                        <span class="required">Bagaimana tingkat kemandirian anda ?</span>
+                                        <span class="required">Berdasarkan aktifitas kegiatan sehari hari (AKS), Bagaimana tingkat kemandirian anda ?</span>
                                     </label>
                                     <!--end::Label-->
                                     <select class="form-select" data-control="select2"
@@ -553,8 +548,28 @@
                                         <option value="C">Ketergantungan Berat (C) : Hanya bisa beraktivitas diatas tempat tidur</option>
                                         <option value="D">Ketergantungan Total (C) : Sama sekali tidak mampu melakukan aktifitas hidup sehari-hari, sehingga sangat tergantung orang lain</option>
                                     </select>
+                                </div>
+                                <!--begin::Input group-->
+                                <div class="d-flex flex-column mb-7 fv-row">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                        <span class="required">Gambaran Depresi pada diri
+                                            anda?</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <select class="form-select" data-control="select2"
+                                        data-placeholder="Select an option" name="gds">
+                                        <option></option>
+                                        <option value="A" selected>Sudah puas dengan kehidupan, bersemangat,
+                                            merasa bahagia, menyenangkan</option>
+                                        <option value="B">Merasa bosan, lebih senang dirumah, meninggalkan banyak
+                                            kesenangan, cemas, memiliki masalah daya ingat</option>
+                                        <option value="C">Merasa kehidupan hampa, tidak berdaya, tidak berharga,
+                                            tidak ada harapan, keadaan orang lain lebih baik</option>
+                                    </select>
 
                                 </div>
+                                <!--end::Input group-->
                             </div>
                             <!--end::Card body-->
                         </div>
@@ -565,9 +580,9 @@
                             <!--begin::Card header-->
                             <div class="card-header">
                                 <!--begin::Card title-->
-                                <div class="card-title">
-                                    <h3 class="fw-bold">Skilas (Skrining Lansia Sederhana )</h3>
-                                </div>
+                                <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                    <span>Skilas (Skrining Lansia Sederhana )</span>
+                                </label>
                                 <!--begin::Card title-->
                             </div>
                            
@@ -588,7 +603,7 @@
                                 <!--end::Label-->
                                 <select class="form-select" data-control="select2" data-placeholder="Select an option" name="kognitif">
                                     <option value="Y">Ya</option>
-                                    <option value="N">Tidak</option>
+                                    <option value="N" selected>Tidak</option>
                                 </select>
                             </div>
                             <!--end::Input group-->
@@ -602,7 +617,7 @@
                                 <!--end::Label-->
                                 <select class="form-select" data-control="select2" data-placeholder="Select an option" name="mobilisasi">
                                     <option value="Y">Ya</option>
-                                    <option value="N">Tidak</option>
+                                    <option value="N" selected>Tidak</option>
                                 </select>
                             </div>
                             <!--end::Input group-->
@@ -616,7 +631,7 @@
                                 <!--end::Label-->
                                 <select class="form-select" data-control="select2" data-placeholder="Select an option" name="malnutrisi">
                                     <option value="Y">Ya</option>
-                                    <option value="N">Tidak</option>
+                                    <option value="N" selected>Tidak</option>
                                 </select>
                             </div>
                             <!--end::Input group-->
@@ -634,7 +649,7 @@
                                         data-placeholder="Select an option" name="penglihatan">
                                         <option></option>
                                         <option value="Y" selected>Iya</option>
-                                        <option value="N">Tidak</option>
+                                        <option value="N" selected>Tidak</option>
                                     </select>
 
                                 </div>
@@ -651,34 +666,13 @@
                                     <select class="form-select" data-control="select2"
                                         data-placeholder="Select an option" name="pendengaran">
                                         <option></option>
-                                        <option value="Y" selected>Iya</option>
-                                        <option value="N">Tidak</option>
+                                        <option value="Y">Iya</option>
+                                        <option value="N" selected>Tidak</option>
                                     </select>
 
                                 </div>
                                 <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <div class="d-flex flex-column mb-7 fv-row">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                        <span class="required">Bagaimana gambaran mental emosional pada diri
-                                            anda?</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <select class="form-select" data-control="select2"
-                                        data-placeholder="Select an option" name="gds">
-                                        <option></option>
-                                        <option value="A" selected>Sudah puas dengan kehidupan, bersemangat,
-                                            merasa bahagia, menyenangkan</option>
-                                        <option value="B">Merasa bosan, lebih senang dirumah, meninggalkan banyak
-                                            kesenangan, cemas, memiliki masalah daya ingat</option>
-                                        <option value="C">Merasa kehidupan hampa, tidak berdaya, tidak berharga,
-                                            tidak ada harapan, keadaan orang lain lebih baik</option>
-                                    </select>
-
-                                </div>
-                                <!--end::Input group-->
-
+                                
                                 <!--begin::Actions-->
                                 <button id="kt_docs_formvalidation_text_submit" type="submit" class="btn btn-primary">
                                     <span class="indicator-label">
@@ -916,16 +910,21 @@
             form, {
             fields: {
                 'tinggi_bdn': {
-                validators: {
-                    notEmpty: {
-                    message: 'Harus Diisi !'
-                    },
-                    stringLength: {
-                    min: 3,
-                    max: 3,
-                    message: 'Minimal 100'
+                    validators: {
+                        notEmpty: {
+                            message: 'Harus Diisi !'
+                        },
+                        stringLength: {
+                            min: 3,
+                            max: 3,
+                            message: 'Minimal 135, maksimal 190'
+                        },
+                        between: {
+                            min: 135,
+                            max: 190,
+                            message: 'Nilai harus antara 135 dan 190'
+                        }
                     }
-                }
                 },
                 'berat_bdn': {
                 validators: {
@@ -935,7 +934,12 @@
                     stringLength: {
                     min: 2,
                     max: 3,
-                    message: 'Minimal 30'
+                    message: 'Minimal 30, Maksimal 120'
+                    },
+                    between: {
+                        min: 30,
+                        max: 120,
+                        message: 'Nilai harus antara 30 dan 120'
                     }
                 }
                 },
@@ -948,6 +952,11 @@
                     min: 2,
                     max: 3,
                     message: 'Minimal 10'
+                    },
+                    between: {
+                        min: 10,
+                        max: 200,
+                        message: 'Nilai harus antara 10 dan 200'
                     }
                 }
                 },
@@ -959,7 +968,12 @@
                     stringLength: {
                     min: 2,
                     max: 3,
-                    message: 'Minimal 20'
+                    message: 'Minimal 50, Maksimal 120'
+                    },
+                    between: {
+                        min: 50,
+                        max: 120,
+                        message: 'Nilai harus antara 50 dan 120'
                     }
                 }
                 },
@@ -971,7 +985,12 @@
                     stringLength: {
                     min: 2,
                     max: 3,
-                    message: 'Minimal 20'
+                    message: 'Minimal 70, Maksimal 230'
+                    },
+                    between: {
+                        min: 70,
+                        max: 230,
+                        message: 'Nilai harus antara 70 dan 230'
                     }
                 }
                 },
@@ -983,7 +1002,12 @@
                     stringLength: {
                     min: 2,
                     max: 3,
-                    message: 'Minimal 20'
+                    message: 'Minimal 50, Maksimal 600'
+                    },
+                    between: {
+                        min: 50,
+                        max: 600,
+                        message: 'Nilai harus antara 50 dan 600'
                     }
                 }
                 },

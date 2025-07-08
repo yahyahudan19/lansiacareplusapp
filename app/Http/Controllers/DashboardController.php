@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kecamatans;
 use App\Models\Kelurahans;
 use App\Models\Kunjungans;
 use App\Models\Persons;
@@ -23,8 +24,10 @@ class DashboardController extends Controller
         }
         $jumlah_puskesmas = number_format(Puskesmas::where('nama', '!=', 'Dinas Kesehatan Kota Malang')->count(), 0, ',', '.');
         $jumlah_kelurahan = number_format(Kelurahans::count(), 0, ',', '.');
+        $kecamatans = Kecamatans::all();
+        $kelurahans = Kelurahans::all();
         
-        return view('dashboard', compact('jumlah_penduduk', 'jumlah_kunjungan', 'jumlah_puskesmas', 'jumlah_kelurahan'));
+        return view('dashboard', compact('jumlah_penduduk', 'jumlah_kunjungan', 'jumlah_puskesmas', 'jumlah_kelurahan', 'kecamatans', 'kelurahans'));
 
     }
 }

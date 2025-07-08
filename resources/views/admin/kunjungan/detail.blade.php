@@ -276,15 +276,13 @@
                                                     <!--begin::Toolbar-->
                                                     <div class="d-flex my-3 ms-9">
                                                         <!--begin::Edit-->
-                                                        <a href="/admin/kunjungan/edit/{{$dakun->id}}" class="btn btn-icon btn-active-light-primary w-30px h-30px me-3">
-                                                            <span data-bs-toggle="tooltip" data-bs-trigger="hover" title="Edit">
-                                                                <i class="ki-outline ki-pencil fs-3"></i>
-                                                            </span>
+                                                        <a href="/admin/kunjungan/edit/{{$dakun->id}}" class="btn btn-icon btn-light-primary btn-sm me-2">
+                                                            <i class="ki-outline ki-pencil fs-6"></i>
                                                         </a>
                                                         <!--end::Edit-->
                                                         <!--begin::Delete-->
-                                                        <a href="#" class="btn btn-icon btn-active-light-primary w-30px h-30px me-3" data-bs-toggle="tooltip" title="Delete" data-kt-customer-payment-method="delete">
-                                                            <i class="ki-outline ki-trash fs-3"></i>
+                                                        <a href="#" class="btn btn-icon btn-light-danger btn-sm" data-kt-customer-payment-method="delete">
+                                                            <i class="ki-outline ki-trash fs-6"></i>
                                                         </a>
                                                         <!--end::Delete-->
                                                         
@@ -295,10 +293,8 @@
                                                     <!--begin::Toolbar-->
                                                     <div class="d-flex my-3 ms-9">
                                                         <!--begin::Edit-->
-                                                        <a href="/kader/kunjungan/edit/{{$dakun->id}}" class="btn btn-icon btn-active-light-primary w-30px h-30px me-3">
-                                                            <span data-bs-toggle="tooltip" data-bs-trigger="hover" title="Edit">
-                                                                <i class="ki-outline ki-pencil fs-3"></i>
-                                                            </span>
+                                                        <a href="/kaderd/kunjungan/edit/{{$dakun->id}}" class="btn btn-icon btn-light-primary btn-sm me-2">
+                                                            <i class="ki-outline ki-pencil fs-6"></i>
                                                         </a>
                                                         <!--end::Edit-->
                                                     </div>
@@ -315,21 +311,23 @@
                                                             <table class="table table-flush fw-semibold gy-1">
                                                                 <tr>
                                                                     <td class="text-muted min-w-125px w-125px">Tinggi Badan</td>
-                                                                    <td class="text-gray-800">{{$dakun->tinggi_bdn}} cm</td>
+                                                                    <td class="text-gray-800">{{$dakun->tinggi_bdn ?? '-' }} cm</td>
                                                                 </tr>
-                                                                
                                                                 <tr>
-                                                                    <td class="text-muted min-w-125px w-125px">Lingkar Perut</td>
-                                                                    <td class="text-gray-800">{{$dakun->lingkar_prt}} cm</td>
+                                                                    <td class="text-muted min-w-125px w-125px">Berat Badan</td>
+                                                                    <td class="text-gray-800">{{$dakun->berat_bdn ?? '-' }} Kg</td>
                                                                 </tr>
-                                                               
+                                                               <tr>
+                                                                    <td class="text-muted min-w-125px w-125px">Lingkar Perut</td>
+                                                                    <td class="text-gray-800">{{$dakun->lingkar_prt ?? '-' }} cm</td>
+                                                                </tr>
                                                                 <tr>
                                                                     <td class="text-muted min-w-125px w-125px">Diastole</td>
-                                                                    <td class="text-gray-800">{{$dakun->diastole}}</td>
+                                                                    <td class="text-gray-800">{{$dakun->diastole ?? '-' }}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td class="text-muted min-w-125px w-125px">Asam Urat</td>
-                                                                    <td class="text-gray-800">{{$dakun->asam_urat}}</td>
+                                                                    <td class="text-muted min-w-125px w-125px">Sistole</td>
+                                                                    <td class="text-gray-800">{{$dakun->sistole ?? '-' }}</td>
                                                                 </tr>
                                                             </table>
                                                         </div>
@@ -338,26 +336,21 @@
                                                         <div class="flex-equal">
                                                             <table class="table table-flush fw-semibold gy-1">
                                                                 <tr>
-                                                                    <td class="text-muted min-w-125px w-125px">Berat Badan</td>
-                                                                    <td class="text-gray-800">{{$dakun->berat_bdn}} Kg</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="text-muted min-w-125px w-125px">Sistole</td>
-                                                                    <td class="text-gray-800">{{$dakun->sistole}}</td>
-                                                                </tr>
-                                                                <tr>
                                                                     <td class="text-muted min-w-125px w-125px">Gula Darah</td>
                                                                     <td class="text-gray-800">
-                                                                        <a href="#" class="text-gray-900 text-hover-primary">{{$dakun->gula_drh}}</a>
+                                                                        <a href="#" class="text-gray-900 text-hover-primary">{{$dakun->gula_drh ?? '-'}}</a>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="text-muted min-w-125px w-125px">Kolesterol</td>
                                                                     <td class="text-gray-800">
-                                                                        <a href="#" class="text-gray-900 text-hover-primary">{{$dakun->kolesterol}}</a>
+                                                                        <a href="#" class="text-gray-900 text-hover-primary">{{$dakun->kolesterol ?? '-'}}</a>
                                                                     </td>
                                                                 </tr>
-                                                               
+                                                                <tr>
+                                                                    <td class="text-muted min-w-125px w-125px">Asam Urat</td>
+                                                                    <td class="text-gray-800">{{$dakun->asam_urat ?? '-'}}</td>
+                                                                </tr>
                                                             </table>
                                                         </div>
                                                         <!--end::Col-->
@@ -369,33 +362,6 @@
                                                          <div class="flex-equal me-5">
                                                             <table class="table table-flush fw-semibold gy-1">
                                                                 <tr>
-                                                                    <td class="text-muted min-w-125px w-125px">Ginjal</td>
-                                                                    @if ($dakrin->ginjal == "Y")
-                                                                        <td class="text-gray-800">Iya</td>
-                                                                    @else
-                                                                        <td class="text-gray-800">Tidak</td>
-                                                                    @endif
-                                                                </tr>
-                                                                
-                                                                <tr>
-                                                                    <td class="text-muted min-w-125px w-125px">Penglihatan</td>
-                                                                    @if ($dakrin->penglihatan == "Y")
-                                                                        <td class="text-gray-800">Iya</td>
-                                                                    @else
-                                                                        <td class="text-gray-800">Tidak</td>
-                                                                    @endif
-                                                                </tr>
-                                                               
-                                                                <tr>
-                                                                    <td class="text-muted min-w-125px w-125px">Pendengaran</td>
-                                                                    @if ($dakrin->pendengaran == "Y")
-                                                                        <td class="text-gray-800">Iya</td>
-                                                                    @else
-                                                                        <td class="text-gray-800">Tidak</td>
-                                                                    @endif
-                                                                </tr>
-
-                                                                <tr>
                                                                     <td class="text-muted min-w-125px w-125px">Merokok</td>
                                                                     @if ($dakrin->ginjal == "Y")
                                                                         <td class="text-gray-800">Iya</td>
@@ -403,13 +369,14 @@
                                                                         <td class="text-gray-800">Tidak</td>
                                                                     @endif
                                                                 </tr>
-                                                                
-                                                            </table>
-                                                        </div>
-                                                        <!--end::Col-->
-                                                        <!--begin::Col-->
-                                                        <div class="flex-equal">
-                                                            <table class="table table-flush fw-semibold gy-1">
+                                                                <tr>
+                                                                    <td class="text-muted min-w-125px w-125px">Ginjal</td>
+                                                                    @if ($dakrin->ginjal == "Y")
+                                                                        <td class="text-gray-800">Iya</td>
+                                                                    @else
+                                                                        <td class="text-gray-800">Tidak</td>
+                                                                    @endif
+                                                                </tr>
                                                                 <tr>
                                                                     <td class="text-muted min-w-125px w-125px">ADL</td>
                                                                     @if ($dakrin->adl == "A")
@@ -420,11 +387,16 @@
                                                                         <td class="text-gray-800">Ketergantungan (C)</td>
                                                                     @endif
                                                                 </tr>
-                                                                <tr>
-                                                                    <td class="text-muted min-w-125px w-125px">GDS</td>
+                                                                 <tr>
+                                                                    <td class="text-muted min-w-125px w-125px">Depresi</td>
                                                                     <td class="text-gray-800">{{$dakrin->gds}}</td>
-                                                                    
                                                                 </tr>
+                                                            </table>
+                                                        </div>
+                                                        <!--end::Col-->
+                                                        <!--begin::Col-->
+                                                        <div class="flex-equal">
+                                                            <table class="table table-flush fw-semibold gy-1">
                                                                 <tr>
                                                                     <td class="text-muted min-w-125px w-125px">Kognitif</td>
                                                                     <td class="text-gray-800">
@@ -455,6 +427,22 @@
                                                                         @endif
                                                                     </td>
                                                                 </tr>
+                                                                <tr>
+                                                                    <td class="text-muted min-w-125px w-125px">Penglihatan</td>
+                                                                    @if ($dakrin->penglihatan == "Y")
+                                                                        <td class="text-gray-800">Iya</td>
+                                                                    @else
+                                                                        <td class="text-gray-800">Tidak</td>
+                                                                    @endif
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="text-muted min-w-125px w-125px">Pendengaran</td>
+                                                                    @if ($dakrin->pendengaran == "Y")
+                                                                        <td class="text-gray-800">Iya</td>
+                                                                    @else
+                                                                        <td class="text-gray-800">Tidak</td>
+                                                                    @endif
+                                                                </tr>
                                                             </table>
                                                         </div>
                                                         <!--end::Col-->
@@ -466,19 +454,25 @@
                                                            <table class="table table-flush fw-semibold gy-1">
                                                                <tr>
                                                                    <td class="text-muted min-w-125px w-125px">Rekomendasi</td>
-                                                                   <td><span class="badge badge-info badge-lg">{{ $riwkin_rekomendasi[$riw->id] }}</span></td>
+                                                                   <td>
+                                                                       @if ($riwkin_rekomendasi[$riw->id] == "Silakan Rujuk ke Pustu atau Puskesmas terdekat")
+                                                                           <span class="badge badge-danger badge-lg">{{ $riwkin_rekomendasi[$riw->id] }}</span>
+                                                                       @else
+                                                                           <span class="badge badge-primary badge-lg">{{ $riwkin_rekomendasi[$riw->id] }}</span>
+                                                                       @endif
+                                                                   </td>
                                                                </tr>
                                                            </table>
                                                        </div>
                                                         <div class="flex-equal me-5">
                                                            <table class="table table-flush fw-semibold gy-1">
                                                                <tr>
-                                                                   <td class="text-muted min-w-125px w-125px">Keterangan</td>
+                                                                   <td class="text-muted min-w-125px w-125px">Alasan </td>
                                                                    <td>
                                                                        @if ($dakun->keterangan)
                                                                            <span class="badge badge-info badge-lg">{{ $dakun->keterangan }}</span>
                                                                        @else
-                                                                           <span class="badge badge-info badge-lgx`">Tidak ada keterangan</span>
+                                                                           <span class="badge badge-info badge-lgx`">Tidak ada Alasan</span>
                                                                        @endif
                                                                    </td>
                                                                </tr>
@@ -522,7 +516,7 @@
                                                             <!--begin::Toolbar-->
                                                             <div class="d-flex my-3 ms-9">
                                                                 <!--begin::Edit-->
-                                                                <a href="/admin/kunjungan/edit/{{$riw->id}}" class="btn btn-icon btn-active-light-primary w-30px h-30px me-3" >
+                                                                <a href="/admin/kunjungan/edit/{{$riw->id}}" class="btn btn-icon btn-light-primary w-30px h-30px me-3" >
                                                                     <span data-bs-toggle="tooltip" data-bs-trigger="hover" title="Edit">
                                                                         <i class="ki-outline ki-pencil fs-3"></i>
                                                                     </span>

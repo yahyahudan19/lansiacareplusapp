@@ -32,76 +32,241 @@
     <div id="kt_app_content" class="app-content flex-column-fluid">
         <!--begin::Content container-->
         <div id="kt_app_content_container" class="app-container container-fluid">
-            <!--begin::Row-->
+            <h1 class="text-center mb-5">Selamat Datang,{{ Auth::user()->name }}</h1>
             <!--begin::Row-->
             <div class="row g-12 g-xl-10">
-                <!--begin::Col-->
-                <div class="col-md-3 col-xl-3 mb-xxl-10">
-                    <div class="card overflow-hidden h-md-50 mb-5 mb-xl-10">
-                        <div class="card-body d-flex justify-content-between flex-column px-0 pb-0">
-                            <div class="mb-4 px-9">
-                                <div class="d-flex align-items-center mb-2">
-                                    <span class="fs-2hx fw-bold text-gray-800 me-2 lh-1">{{$jumlah_penduduk}}</span>
-                                </div>
-                                <span class="fs-6 fw-semibold text-gray-500">Total Penduduk</span>
-                            </div>
-                            <div id="kt_card_widget_8_chart" class="min-h-auto" style="height: 125px"></div>
-                        </div>
-                    </div>
+                <!--begin::Button-->
+                <div class="col-md-3 col-xl-3 mb-3 mb-md-0 mb-xxl-10">
+                    <a href="#" class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user">
+                        <i class="fas fa-user-plus me-2"></i> Tambah Data Penduduk
+                    </a>
                 </div>
-                <!--end::Col-->
-                <!--begin::Col-->
-                <div class="col-md-3 col-xl-3 mb-xxl-10">
-                    <div class="card overflow-hidden h-md-50 mb-5 mb-xl-10">
-                        <div class="card-body d-flex justify-content-between flex-column px-0 pb-0">
-                            <div class="mb-4 px-9">
-                                <div class="d-flex align-items-center mb-2">
-                                    <span class="fs-2hx fw-bold text-gray-800 me-2 lh-1">{{$jumlah_kunjungan}}</span>
-                                </div>
-                                <span class="fs-6 fw-semibold text-gray-500">Total Kunjungan</span>
-                            </div>
-                            <div id="kt_card_widget_9_chart" class="min-h-auto" style="height: 125px"></div>
-                        </div>
-                    </div>
+                <!--end::Button-->
+                <!--begin::Button-->
+                <div class="col-md-3 col-xl-3 mb-3 mb-md-0 mb-xxl-10">
+                    <a href="#" class="btn btn-success d-flex align-items-center">
+                        <i class="fas fa-calendar-plus me-2"></i> Tambah Kunjungan
+                    </a>
                 </div>
-                <!--end::Col-->
-                @if (Auth::user()->role == 'System Administrator' || Auth::user()->role == 'Dinkes')
-                <!--begin::Col-->
-                <div class="col-md-3 col-xl-3 mb-xxl-10">
-                    <div class="card overflow-hidden h-md-50 mb-5 mb-xl-10">
-                        <div class="card-body d-flex justify-content-between flex-column px-0 pb-0">
-                            <div class="mb-4 px-9">
-                                <div class="d-flex align-items-center mb-2">
-                                    <span class="fs-2hx fw-bold text-gray-800 me-2 lh-1">{{$jumlah_puskesmas}}</span>
-                                </div>
-                                <span class="fs-6 fw-semibold text-gray-500">Jumlah Puskesmas</span>
-                            </div>
-                            <div id="kt_card_widget_9_chart" class="min-h-auto" style="height: 125px"></div>
-                        </div>
-                    </div>
-                </div>
-                <!--end::Col-->
-                <!--begin::Col-->
-                <div class="col-md-3 col-xl-3 mb-xxl-10">
-                    <div class="card overflow-hidden h-md-50 mb-5 mb-xl-10">
-                        <div class="card-body d-flex justify-content-between flex-column px-0 pb-0">
-                            <div class="mb-4 px-9">
-                                <div class="d-flex align-items-center mb-2">
-                                    <span class="fs-2hx fw-bold text-gray-800 me-2 lh-1">{{$jumlah_kelurahan}}</span>
-                                </div>
-                                <span class="fs-6 fw-semibold text-gray-500">Jumlah Kelurahan</span>
-                            </div>
-                            <div id="kt_card_widget_9_chart" class="min-h-auto" style="height: 125px"></div>
-                        </div>
-                    </div>
-                </div>
-                <!--end::Col-->
-                @endif
-
-
+                <!--end::Button-->
             </div>
             <!--end::Row-->
-            <!--end::Row-->
+            <!--begin::Modal - Add Penduduk-->
+            <div class="modal fade" id="kt_modal_add_user" tabindex="-1" aria-hidden="true">
+                <!--begin::Modal dialog-->
+                <div class="modal-dialog modal-dialog-centered mw-650px">
+                    <!--begin::Modal content-->
+                    <div class="modal-content">
+                        <!--begin::Modal header-->
+                        <div class="modal-header" id="kt_modal_add_user_header">
+                            <!--begin::Modal title-->
+                            <h2 class="fw-bold">Tambah Penduduk </h2>
+                            <!--end::Modal title-->
+                            <!--begin::Close-->
+                            <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-users-modal-action="close">
+                                <i class="ki-outline ki-cross fs-1"></i>
+                            </div>
+                            <!--end::Close-->
+                        </div>
+                        <!--end::Modal header-->
+                        
+                        <!--begin::Modal body-->
+                        <div class="modal-body px-5 my-7">
+                            <!--begin::Form-->
+                            <form id="kt_modal_add_user_form" class="form" action="/admin/penduduk/store" method="POST">
+                                @csrf
+                                <!--begin::Scroll-->
+                                <div class="d-flex flex-column scroll-y px-5 px-lg-10" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px">
+                                    
+                                    <!--begin::Input group-->
+                                    <div class="fv-row mb-7">
+                                        <!--begin::Label-->
+                                        <label class="required fw-semibold fs-6 mb-2">Nama Lengkap</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input type="text" name="person_name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Nama Lengkap"/>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Input group-->
+
+                                    <!--begin::Input group-->
+                                    <div class="row g-9 mb-7">
+                                        <!--begin::Col-->
+                                        <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                            <!--begin::Label-->
+                                            <label class="required fs-6 fw-semibold mb-2">NIK</label>
+                                            <!--end::Label-->
+                                            <!--begin::Input-->
+                                            <input class="form-control form-control-solid" name="person_nik" placeholder="3573010101010001">
+                                            <!--end::Input-->
+                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+                                        <!--end::Col-->
+                                        <!--begin::Col-->
+                                        <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                            <!--begin::Label-->
+                                            <label class="required fs-6 fw-semibold mb-2">Jenis Kelamin</label>
+                                            <!--end::Label-->
+                                            <!--begin::Input-->
+                                            <!--begin::Input-->
+                                        <select name="jenis_kelamin" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
+                                            <option></option>
+                                            <option value="L">Laki-Laki</option>
+                                            <option value="P">Perempuan</option>
+                                        </select>
+                                        <!--end::Input-->
+                                            <!--end::Input-->
+                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+                                        <!--end::Col-->
+                                    </div>
+                                    <!--end::Input group-->
+
+                                    <!--begin::Input group-->
+                                    <div class="row g-9 mb-7">
+                                        <!--begin::Col-->
+                                        <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                            <!--begin::Label-->
+                                            <label class="form-label required">Tanggal Lahir</label>
+                                            <!--end::Label-->
+                                            <!--begin::Input-->
+                                            <div class="input-group" id="kt_td_picker_date_only" data-td-target-input="nearest" data-td-target-toggle="nearest">
+                                                <input id="kt_td_picker_date_only_input" type="text" class="form-control" data-td-target="#kt_td_picker_date_only" name="person_tl"/>
+                                                <span class="input-group-text" data-td-target="#kt_td_picker_date_only" data-td-toggle="datetimepicker">
+                                                    <i class="ki-duotone ki-calendar fs-2"><span class="path1"></span><span class="path2"></span></i>
+                                                </span>
+                                            </div>
+                                            <!--end::Input-->
+                                            <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                        </div>
+                                        <!--end::Col-->
+
+                                        <!--begin::Col-->
+                                        <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                            <!--begin::Label-->
+                                            <label class="fw-semibold fs-6 mb-2">No. BPJS</label>
+                                            <!--end::Label-->
+                                            <!--begin::Input-->
+                                            <input type="text" name="person_bpjs" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="No. BPJS" />
+                                            <!--end::Input-->
+                                            <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                        </div>
+                                        <!--end::Col-->
+                                    </div>
+                                    <!--end::Input group-->
+                                    <span><center>Apakah anda ingin hasil skrining kesehatan dikirimkan melalui nomer HP yang anda berikan?</center></span>
+                                    <!--begin::Input group-->
+                                    <div class="row g-9 mb-7">
+                                        <!--begin::Col-->
+                                        <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                            <!--begin::Label-->
+                                            <label class="form-label required">Kirim Hasil Skrining</label>
+                                            <!--end::Label-->
+                                            <!--begin::Input-->
+                                            <select name="person_notifikasi" id="person_notifikasi" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
+                                                <option></option>
+                                                <option value="Y">Iya</option>
+                                                <option value="N">Tidak</option>
+                                            </select>
+                                            <!--end::Input-->
+                                            <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                        </div>
+                                        <!--end::Col-->
+
+                                        <!--begin::Col-->
+                                        <div class="col-md-6 fv-row fv-plugins-icon-container" id="telp_container" style="display: none;">
+                                            <!--begin::Label-->
+                                            <label class="fw-semibold fs-6 mb-2">No. Telp</label>
+                                            <!--end::Label-->
+                                            <!--begin::Input-->
+                                            <input type="text" name="person_telp" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="No. Telp" />
+                                            <!--end::Input-->
+                                            <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                        </div>
+                                        <!--end::Col-->
+                                    </div>
+                                    <!--end::Input group-->
+                                    
+                                    <!--begin::Input group-->
+                                    <div class="fv-row mb-7">
+                                        <!--begin::Label-->
+                                        <label class="fw-semibold fs-6 mb-2 required">Alamat Lengkap</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input type="text" name="person_alamat" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Alamat"  />
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Input group-->
+                                    <!--begin::Input group-->
+                                    <div class="row g-9 mb-7">
+                                        <!--begin::Col-->
+                                        <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                            <!--begin::Label-->
+                                            <label class="required fs-6 fw-semibold mb-2">RT</label>
+                                            <!--end::Label-->
+                                            <!--begin::Input-->
+                                            <input class="form-control form-control-solid" placeholder="" name="person_rt" >
+                                            <!--end::Input-->
+                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+                                        <!--end::Col-->
+                                        <!--begin::Col-->
+                                        <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                            <!--begin::Label-->
+                                            <label class="required fs-6 fw-semibold mb-2">RW</label>
+                                            <!--end::Label-->
+                                            <!--begin::Input-->
+                                            <input class="form-control form-control-solid" placeholder="" name="person_rw" >
+                                            <!--end::Input-->
+                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+                                        <!--end::Col-->
+                                    </div>
+                                    <!--begin::Input group-->
+                                    <div class="fv-row mb-7">
+                                        <!--begin::Label-->
+                                        <label class="form-label required">Kecamatan</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <select name="kecamatan" id="kecamatan" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
+                                            <option></option>
+                                            @foreach ($kecamatans as $kec)
+                                                <option value="{{$kec->id}}">{{$kec->nama}}</option>
+                                            @endforeach
+                                        </select>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Input group-->
+                                    <!--begin::Input group-->
+                                    <div class="fv-row mb-7">
+                                        <!--begin::Label-->
+                                        <label class="form-label required">Kelurahan</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <select name="person_kelurahan" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
+                                            <option></option>
+                                        </select>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Input group-->
+                                </div>
+                                <!--end::Scroll-->
+                                <!--begin::Actions-->
+                                <div class="text-center pt-10">
+                                    <button type="reset" class="btn btn-light me-3" data-kt-users-modal-action="cancel">Batal</button>
+                                    <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
+                                        <span class="indicator-label">Simpan</span>
+                                        <span class="indicator-progress">Silahkan Tunggu...
+                                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                    </button>
+                                </div>
+                                <!--end::Actions-->
+                            </form>
+                            <!--end::Form-->
+                        </div>
+                        <!--end::Modal body-->
+                    </div>
+                    <!--end::Modal content-->
+                </div>
+                <!--end::Modal dialog-->
+            </div>
+            <!--end::Modal - Add Penduduk-->
         </div>
         <!--end::Content container-->
     </div>
@@ -111,5 +276,211 @@
 @endsection
 
 @section('plugins-last')
+<!--begin::datepick Javascript-->
+<script>
+    new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_date_only"), {
+        display: {
+            viewMode: "calendar",
+            components: {
+                decades: true,
+                year: true,
+                month: true,
+                date: true,
+            }
+        }
+    });
+</script>
+<!--end::datepick Javascript-->
+<!--begin::Add Person Javascript-->
+<script>
+    "use strict";
+    var KTUsersAddUser = function () {
+        const element = document.getElementById('kt_modal_add_user');
+        const form = element.querySelector('#kt_modal_add_user_form');
+        const modal = new bootstrap.Modal(element);
+
+        var initAddUser = () => {
+            // VALIDASI FORM
+            var validator = FormValidation.formValidation(
+                form,
+                {
+                    fields: {
+                        'person_name': { validators: { notEmpty: { message: 'Nama Lengkap Harus diisi' } } },
+                        'person_nik': {
+                            validators: {
+                                notEmpty: { message: 'NIK Harus diisi' },
+                                stringLength: {
+                                    min: 16,
+                                    max: 16,
+                                    message: 'NIK harus 16 digit'
+                                },
+                                regexp: {
+                                    regexp: /^[0-9]+$/,
+                                    message: 'NIK harus berupa angka'
+                                },
+                                remote: {
+                                    message: 'NIK sudah terdaftar',
+                                    method: 'POST',
+                                    url: '/check-nik',
+                                    data: function () {
+                                        return {
+                                            nik: form.querySelector('[name="person_nik"]').value,
+                                        };
+                                    },
+                                    headers: {
+                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                    }
+                                }
+                            }
+                        },
+                        'person_tl': { validators: { notEmpty: { message: 'Valid Tanggal Lahir Harus diisi' } } },
+                        'jenis_kelamin': { validators: { notEmpty: { message: 'Jenis Kelamin harus diisi' } } },
+                        'person_alamat': { validators: { notEmpty: { message: 'Valid Alamat Harus diisi' } } },
+                        'person_rt': { validators: { notEmpty: { message: 'Valid RT Harus diisi' } } },
+                        'person_rw': { validators: { notEmpty: { message: 'Valid RW Harus diisi' } } },
+                        'person_kelurahan': { validators: { notEmpty: { message: 'Valid Kelurahan Harus diisi' } } },
+                        'person_notifikasi': { validators: { notEmpty: { message: 'Valid Notifikasi Harus diisi' } } },
+                    },
+                    plugins: {
+                        trigger: new FormValidation.plugins.Trigger(),
+                        bootstrap: new FormValidation.plugins.Bootstrap5({
+                            rowSelector: '.fv-row',
+                            eleInvalidClass: '',
+                            eleValidClass: ''
+                        })
+                    }
+                }
+            );
+
+            // AJAX: Ganti Kelurahan saat Kecamatan berubah
+            $(document).ready(function () {
+                const kecSelect = $('select[name="kecamatan"]');
+                const kelSelect = $('select[name="person_kelurahan"]');
+
+                kecSelect.on('change', function () {
+                    console.log('Change event triggered');
+
+                    const kecamatanId = $(this).val();
+                    kelSelect.html('<option value="">Loading...</option>');
+
+                    if (kecamatanId) {
+                        fetch(`/get-kelurahan-by-kecamatan/${kecamatanId}`)
+                            .then(res => res.json())
+                            .then(data => {
+                                kelSelect.html('<option value="">Pilih Kelurahan...</option>');
+                                data.forEach(kel => {
+                                    kelSelect.append(`<option value="${kel.id}">${kel.nama}</option>`);
+                                });
+                                kelSelect.trigger('change'); // trigger Select2 refresh
+                            });
+                    } else {
+                        kelSelect.html('<option value="">Pilih Kelurahan...</option>');
+                        kelSelect.trigger('change');
+                    }
+                });
+            });
+
+            // SUBMIT
+            const submitButton = element.querySelector('[data-kt-users-modal-action="submit"]');
+            submitButton.addEventListener('click', e => {
+                e.preventDefault();
+                if (validator) {
+                    validator.validate().then(function (status) {
+                        if (status == 'Valid') {
+                            submitButton.setAttribute('data-kt-indicator', 'on');
+                            submitButton.disabled = true;
+
+                            setTimeout(function () {
+                                submitButton.removeAttribute('data-kt-indicator');
+                                submitButton.disabled = false;
+                                Swal.fire({
+                                    text: "Form Berhasil disimpan !",
+                                    icon: "success",
+                                    buttonsStyling: false,
+                                    confirmButtonText: "Baik",
+                                    customClass: {
+                                        confirmButton: "btn btn-primary"
+                                    }
+                                }).then(function (result) {
+                                    if (result.isConfirmed) {
+                                        modal.hide();
+                                    }
+                                });
+
+                                form.submit();
+
+                            }, 2000);
+                        } else {
+                            Swal.fire({
+                                text: "Maaf, Sepertinya masih ada error .",
+                                icon: "error",
+                                buttonsStyling: false,
+                                confirmButtonText: "Baik, coba lagi!",
+                                customClass: {
+                                    confirmButton: "btn btn-primary"
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+
+            // CANCEL & CLOSE
+            const cancelButton = element.querySelector('[data-kt-users-modal-action="cancel"]');
+            cancelButton.addEventListener('click', e => {
+                e.preventDefault();
+                Swal.fire({
+                    text: "Yakin tidak jadi ?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Iya, batalkan saja",
+                    cancelButtonText: "Tidak",
+                    customClass: {
+                        confirmButton: "btn btn-primary",
+                        cancelButton: "btn btn-active-light"
+                    }
+                }).then(function (result) {
+                    if (result.value) {
+                        form.reset();
+                        modal.hide();
+                    }
+                });
+            });
+
+            const closeButton = element.querySelector('[data-kt-users-modal-action="close"]');
+            closeButton.addEventListener('click', e => {
+                e.preventDefault();
+                Swal.fire({
+                    text: "Yakin dibatalkan ?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Iya, batalkan saja!",
+                    cancelButtonText: "Tidak",
+                    customClass: {
+                        confirmButton: "btn btn-primary",
+                        cancelButton: "btn btn-active-light"
+                    }
+                }).then(function (result) {
+                    if (result.value) {
+                        form.reset();
+                        modal.hide();
+                    }
+                });
+            });
+        }
+
+        return {
+            init: function () {
+                initAddUser();
+            }
+        };
+    }();
+
+    KTUtil.onDOMContentLoaded(function () {
+        KTUsersAddUser.init();
+    });
+</script>
+
+<!--end::Add Person Javascript-->
 
 @endsection

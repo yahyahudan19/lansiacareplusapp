@@ -437,7 +437,7 @@
                                 <div class="fv-row mb-5">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center form-label">
-                                        <span class="required">Keterangan</span>
+                                        <span class="required">Alasan</span>
                                     </label>
                                     <!--end::Label-->
                                     <div class="mb-10">

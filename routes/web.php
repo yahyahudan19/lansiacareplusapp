@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KelurahansController;
 use App\Http\Controllers\KunjungansController;
 use App\Http\Controllers\LaporansController;
 use App\Http\Controllers\LogController;
@@ -41,7 +42,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/check-nik', [PersonsController::class, 'checkNik'])->name('person.checkNik');
     Route::get('/admin/persons/export', [PersonsController::class, 'export'])->name('persons.export');
 
-
+    Route::get('/get-kelurahan-by-kecamatan/{id}', [KelurahansController::class, 'getByKecamatan']);
 
 });
 
@@ -114,10 +115,6 @@ Route::middleware(['role:System Administrator'])->group(function (){
     
     Route::get('/admin/log', [LogController::class, 'index'])->name('log.index');
     Route::get('/admin/log/data', [LogController::class, 'data'])->name('log.data'); // tambahan untuk AJAX
-
-
-
-
     
 });
 

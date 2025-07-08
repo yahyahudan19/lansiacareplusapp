@@ -62,4 +62,14 @@ class KelurahansController extends Controller
     {
         //
     }
+
+    public function getByKecamatan($id)
+    {
+        $kelurahans = Kelurahans::where('kecamatan_id', $id)
+            ->orderBy('nama', 'asc')
+            ->get(['id', 'nama']);
+
+        return response()->json($kelurahans);
+    }
+
 }

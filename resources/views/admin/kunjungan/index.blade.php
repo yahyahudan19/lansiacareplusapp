@@ -73,6 +73,7 @@
     <div id="kt_app_content" class="app-content flex-column-fluid">
         <!--begin::Content container-->
         <div id="kt_app_content_container" class="app-container container-fluid">
+            @if (in_array(auth()->user()->role, ['System Administrator', 'Puskesmas','Dinkes'])) 
             <div>
                 <form action="/kunjungan/find" method="GET">
                     <!--begin::Card-->
@@ -113,7 +114,6 @@
                     <!--end::Card-->
                 </form>
             </div>
-            @if (in_array(auth()->user()->role, ['System Administrator', 'Puskesmas','Dinkes'])) 
             <!--begin::Card Filter-->
             <div class="card">
                 <div class="card-header border-0 pt-6">
@@ -174,7 +174,7 @@
                                     </div>
                                     <div class="col-lg-6 mb-2">
                                         <button type="submit" class="btn btn-success me-3" id="kt_page_loading_message">
-                                            <i class="ki-outline ki-search-list fs-2"></i>Cari Kunjungan
+                                            <i class="ki-outline ki-search-list fs-2"></i>Cari Kunjungan   
                                         </button>
                                     </div>
                                 </form>
@@ -197,7 +197,7 @@
                         <!--begin::Search-->
                         <div class="d-flex align-items-center position-relative my-1">
                             <i class="ki-outline ki-magnifier fs-3 position-absolute ms-5"></i>
-                            <input type="text" data-kt-user-table-filter="search" class="form-control form-control-solid w-250px ps-13" placeholder="Cari Kunjungan" />
+                            <input type="text" data-kt-user-table-filter="search" class="form-control form-control-solid w-250px ps-13" placeholder="Cari Kunjungan Hari ini" />
                         </div>
                         <!--end::Search-->
                     </div>
@@ -255,9 +255,9 @@
                             <!--end::Menu 1--> --}}
                             
                             <!--begin::Tambah Kunjungan-->
-                            <button type="button" class="btn btn-success me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user">
+                            {{-- <button type="button" class="btn btn-success me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user">
                                 <i class="ki-outline ki-plus fs-2"></i>Tambah Penduduk
-                            </button>
+                            </button> --}}
                             @if (in_array(auth()->user()->role, ['System Administrator', 'Puskesmas']))
                             <button type="button" class="btn btn-warning me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_import">
                                 <i class="ki-solid ki-double-up fs-2"></i>Import Kunjungan
@@ -268,8 +268,6 @@
                                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_1">
                                <i class="ki-outline ki-plus fs-2"></i>Tambah Kunjungan</a>
                                <!--end::Add user--> 
-                              
-                              
                             @endif
                             
                         </div>
@@ -695,7 +693,7 @@
                                 <th class="min-w-125px">Kelurahan</th>
                                 <th class="min-w-125px">Kategori</th>
                                 <th class="min-w-125px">Usia</th>
-                                <th class="text-end min-w-100px">Actions</th>
+                                <th class="text-end min-w-100px">Aksi</th>
                             </tr>
                         </thead>
                         <tbody class="text-gray-600 fw-semibold">

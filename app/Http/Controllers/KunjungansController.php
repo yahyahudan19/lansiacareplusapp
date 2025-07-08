@@ -24,7 +24,7 @@ class KunjungansController extends Controller
     public function index()
     {   $kecamatans = Kecamatans::all();
         $kelurahans = Kelurahans::all();
-        $data_kunjungans = Kunjungans::orderBy('tanggal_kj', 'desc')->latest()->take(10)->get();
+        $data_kunjungans = Kunjungans::whereDate('tanggal_kj', Carbon::today())->orderBy('tanggal_kj', 'desc')->get();
 
         return view('admin.kunjungan.index',compact('data_kunjungans','kecamatans','kelurahans'));
     }

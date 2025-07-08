@@ -122,7 +122,7 @@
                                     <!--begin::Heading-->
 									<div class="text-center mb-11">
 										<!--begin::Title-->
-										<h1 class="text-gray-900 fw-bolder mb-3">Sign In</h1>
+										<h1 class="text-gray-900 fw-bolder mb-3">Masuk</h1>
 										<!--end::Title-->
 										<!--begin::Subtitle-->
 										<div class="text-gray-500 fw-semibold fs-6">Aplikasi Lansia Care+</div>
@@ -135,17 +135,21 @@
 										<!--end::Email-->
 									</div>
 									<!--end::Input group=-->
-									<div class="fv-row mb-3">
+									<div class="fv-row mb-3 position-relative">
 										<!--begin::Password-->
-										<input type="password" placeholder="Password" name="password" autocomplete="off" class="form-control bg-transparent" />
+										<input type="password" placeholder="Password" name="password" autocomplete="off" class="form-control bg-transparent" id="password-input" />
 										<!--end::Password-->
+										<span class="position-absolute top-50 end-0 translate-middle-y me-3 cursor-pointer" onclick="togglePasswordVisibility()">
+											<i class="bi bi-eye-slash" id="password-icon"></i>
+										</span>
 									</div>
+									
 									<!--end::Input group=-->
 									<!--begin::Wrapper-->
 									<div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8">
 										<div></div>
 										<!--begin::Link-->
-										<a href="#" class="link-primary">Forgot Password ?</a>
+										{{-- <a href="#" class="link-primary">Forgot Password ?</a> --}}
 										<!--end::Link-->
 									</div>
 									<!--end::Wrapper-->
@@ -153,18 +157,18 @@
 									<div class="d-grid mb-10">
 										<button type="submit" id="kt_sign_in_submit" class="btn btn-primary">
 											<!--begin::Indicator label-->
-											<span class="indicator-label">Sign In</span>
+											<span class="indicator-label">Masuk</span>
 											<!--end::Indicator label-->
 											<!--begin::Indicator progress-->
-											<span class="indicator-progress">Please wait... 
+											<span class="indicator-progress">Silahkan Tunggu... 
 											<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
 											<!--end::Indicator progress-->
 										</button>
 									</div>
 									<!--end::Submit button-->
 									<!--begin::Sign up-->
-									<div class="text-gray-500 text-center fw-semibold fs-6">Belum punya akun ? 
-									<a href="#" class="link-primary">Hubungi Kami</a></div>
+									{{-- <div class="text-gray-500 text-center fw-semibold fs-6">Belum punya akun ? 
+									<a href="#" class="link-primary">Hubungi Kami</a></div> --}}
 									<!--end::Sign up-->
 								</form>
 								<!--end::Form-->
@@ -218,17 +222,17 @@
 									validators: {
 										regexp: {
 											regexp: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-											message: 'The value is not a valid email address',
+											message: 'Nilai ini bukan alamat email yang valid',
 										},
 										notEmpty: {
-											message: 'Email address is required'
+											message: 'Alamat email wajib diisi'
 										}
 									}
 								},
 								'password': {
 									validators: {
 										notEmpty: {
-											message: 'The password is required'
+											message: 'Kata sandi wajib diisi'
 										}
 									}
 								}
@@ -329,10 +333,10 @@
 
 										// Show message popup. For more info check the plugin's official documentation: https://sweetalert2.github.io/
 										Swal.fire({
-											text: "You have successfully logged in!",
+											text: "Anda berhasil masuk!",
 											icon: "success",
 											buttonsStyling: false,
-											confirmButtonText: "Ok, got it!",
+											confirmButtonText: "Oke, mengerti!",
 											customClass: {
 												confirmButton: "btn btn-primary"
 											}
@@ -346,10 +350,10 @@
 									} else {
 										// Show error popup. For more info check the plugin's official documentation: https://sweetalert2.github.io/
 										Swal.fire({
-											text: "Sorry, the email or password is incorrect, please try again.",
+											text: "Maaf, email atau kata sandi salah, silakan coba lagi.",
 											icon: "error",
 											buttonsStyling: false,
-											confirmButtonText: "Ok, got it!",
+											confirmButtonText: "Oke, mengerti!",
 											customClass: {
 												confirmButton: "btn btn-primary"
 											}
@@ -357,10 +361,10 @@
 									}
 								}).catch(function (error) {
 									Swal.fire({
-										text: "Sorry, looks like there are some errors detected, please try again.",
+										text: "Maaf, sepertinya ada beberapa kesalahan yang terdeteksi, silakan coba lagi.",
 										icon: "error",
 										buttonsStyling: false,
-										confirmButtonText: "Ok, got it!",
+										confirmButtonText: "Oke, mengerti!",
 										customClass: {
 											confirmButton: "btn btn-primary"
 										}
@@ -375,10 +379,10 @@
 							} else {
 								// Show error popup. For more info check the plugin's official documentation: https://sweetalert2.github.io/
 								Swal.fire({
-									text: "Sorry, looks like there are some errors detected, please try again.",
+									text: "Maaf, sepertinya ada beberapa kesalahan yang terdeteksi, silakan coba lagi.",
 									icon: "error",
 									buttonsStyling: false,
-									confirmButtonText: "Ok, got it!",
+									confirmButtonText: "Oke, mengerti!",
 									customClass: {
 										confirmButton: "btn btn-primary"
 									}
@@ -422,6 +426,21 @@
 
 		</script>
 		<!--end::Custom Javascript-->
+		<script>
+			function togglePasswordVisibility() {
+				const passwordInput = document.getElementById('password-input');
+				const passwordIcon = document.getElementById('password-icon');
+				if (passwordInput.type === 'password') {
+					passwordInput.type = 'text';
+					passwordIcon.classList.remove('bi-eye-slash');
+					passwordIcon.classList.add('bi-eye');
+				} else {
+					passwordInput.type = 'password';
+					passwordIcon.classList.remove('bi-eye');
+					passwordIcon.classList.add('bi-eye-slash');
+				}
+			}
+		</script>
 		<!--end::Javascript-->
 	</body>
 	<!--end::Body-->
