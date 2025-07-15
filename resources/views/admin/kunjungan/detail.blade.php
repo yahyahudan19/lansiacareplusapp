@@ -363,7 +363,7 @@
                                                             <table class="table table-flush fw-semibold gy-1">
                                                                 <tr>
                                                                     <td class="text-muted min-w-125px w-125px">Merokok</td>
-                                                                    @if ($dakrin->ginjal == "Y")
+                                                                    @if ($dakrin->merokok == "Y")
                                                                         <td class="text-gray-800">Iya</td>
                                                                     @else
                                                                         <td class="text-gray-800">Tidak</td>
