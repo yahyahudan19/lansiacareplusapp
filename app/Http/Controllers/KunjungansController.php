@@ -58,6 +58,7 @@ class KunjungansController extends Controller
      */
     public function detail_view($id)
     {
+        
         $dapen = Persons::findOrFail($id);
 
         $dakun = Kunjungans::where('person_id', $id)->orderBy('tanggal_kj', 'desc')->first();
@@ -184,7 +185,7 @@ class KunjungansController extends Controller
                 $message = $this->generateWhatsappMessage($person, $indicators, Carbon::parse($request->tanggal_kj)->translatedFormat('d F Y'));
             
                 // Kirim notifikasi WhatsApp melalui service
-                // $response = WhatsAppService::sendMessage($person->telp, $message);
+                $response = WhatsAppService::sendMessage($person->telp, $message);
                 
                 $response = false; // Simulate a failed response
             
