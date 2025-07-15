@@ -580,35 +580,25 @@
                     </div>
                     <!--end::Heading-->
                     <!--begin:Menu item-->
-                    {{-- <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion">
+                    <div class="menu-item menu-accordion">
                         <!--begin:Menu link-->
-                        <span class="menu-link">
+                        {{-- <a href="/kader/penduduk" class="menu-link {{ Request::is('kader/penduduk') ? 'active' : '' }}">
                             <span class="menu-icon">
-                                <i class="ki-outline ki-home-2 fs-2"></i>
+                                <i class="ki-outline ki-people fs-2"></i>
+                            </span>
+                            <span class="menu-title">Penduduk</span>
+                        </a> --}}
+                        <a href="/dashboard" class="menu-link {{ Request::is('kader/dashboard*') || Request::is('dashboard*') ? 'active' : '' }}">
+                            <span class="menu-icon">
+                                <i class="ki-outline ki-home fs-2"></i>
                             </span>
                             <span class="menu-title">Dashboard</span>
-                            <span class="menu-arrow"></span>
-                        </span>
+                        </a>
                         <!--end:Menu link-->
-                        <!--begin:Menu sub-->
-                        <div class="menu-sub menu-sub-accordion">
-                            <!--begin:Menu item-->
-                            <div class="menu-item">
-                                <!--begin:Menu link-->
-                                <a href="/kader/dashboard" class="menu-link {{ Request::is('kader/dashboard') ? 'active' : '' }}" >
-                                    <span class="menu-bullet">
-                                        <span class="bullet bullet-dot"></span>
-                                    </span>
-                                    <span class="menu-title">Umum</span>
-                                </a>
-                                <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
-                        </div>
-                        <!--end:Menu sub-->
-                    </div> --}}
-                      <!--begin:Menu item-->
-                      <div class="menu-item menu-accordion">
+                    </div>
+                    <!--end:Menu item-->
+                    <!--begin:Menu item-->
+                    <div class="menu-item menu-accordion">
                         <!--begin:Menu link-->
                         {{-- <a href="/kader/penduduk" class="menu-link {{ Request::is('kader/penduduk') ? 'active' : '' }}">
                             <span class="menu-icon">

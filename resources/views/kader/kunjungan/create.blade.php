@@ -252,53 +252,6 @@
                                     <!--begin::Col-->
                                     <div class="col-md-6 fv-row">
                                         <!--begin::Label-->
-                                        <label class="required fs-6 fw-semibold form-label mb-2">Diastole</label>
-                                        <!--end::Label-->
-                                        <!--begin::Row-->
-                                        <div class="row fv-row">
-                                            <!--begin::Col-->
-                                            <div class="col-12">
-                                                <!--begin::Dialer-->
-                                                <div class="position-relative" data-kt-dialer="true"
-                                                    data-kt-dialer-min="0" data-kt-dialer-max="300"
-                                                    data-kt-dialer-step="1">
-
-                                                    <!--begin::Decrease control-->
-                                                    <button type="button"
-                                                        class="btn btn-icon btn-active-color-gray-700 position-absolute translate-middle-y top-50 start-0"
-                                                        data-kt-dialer-control="decrease">
-                                                        <i class="ki-duotone ki-minus-square fs-2"><span
-                                                                class="path1"></span><span class="path2"></span></i>
-                                                    </button>
-                                                    <!--end::Decrease control-->
-
-                                                    <!--begin::Input control-->
-                                                    <input type="text"
-                                                        class="form-control form-control-solid border-0 ps-12"
-                                                        data-kt-dialer-control="input" placeholder="Amount"
-                                                        name="diastole" placeholder="100" />
-                                                    <!--end::Input control-->
-
-                                                    <!--begin::Increase control-->
-                                                    <button type="button"
-                                                        class="btn btn-icon btn-active-color-gray-700 position-absolute translate-middle-y top-50 end-0"
-                                                        data-kt-dialer-control="increase">
-                                                        <i class="ki-duotone ki-plus-square fs-2"><span
-                                                                class="path1"></span><span class="path2"></span><span
-                                                                class="path3"></span></i>
-                                                    </button>
-                                                    <!--end::Increase control-->
-                                                </div>
-                                                <!--end::Dialer-->
-                                            </div>
-                                            <!--end::Col-->
-                                        </div>
-                                        <!--end::Row-->
-                                    </div>
-                                    <!--end::Col-->
-                                    <!--begin::Col-->
-                                    <div class="col-md-6 fv-row">
-                                        <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
                                             <span class="required">Sistole</span>
                                             <span class="ms-1" data-bs-toggle="tooltip" title="Enter a card CVV code">
@@ -343,7 +296,54 @@
                                         <!--end::Input wrapper-->
                                     </div>
                                     <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="required fs-6 fw-semibold form-label mb-2">Diastole</label>
+                                        <!--end::Label-->
+                                        <!--begin::Row-->
+                                        <div class="row fv-row">
+                                            <!--begin::Col-->
+                                            <div class="col-12">
+                                                <!--begin::Dialer-->
+                                                <div class="position-relative" data-kt-dialer="true"
+                                                    data-kt-dialer-min="0" data-kt-dialer-max="300"
+                                                    data-kt-dialer-step="1">
 
+                                                    <!--begin::Decrease control-->
+                                                    <button type="button"
+                                                        class="btn btn-icon btn-active-color-gray-700 position-absolute translate-middle-y top-50 start-0"
+                                                        data-kt-dialer-control="decrease">
+                                                        <i class="ki-duotone ki-minus-square fs-2"><span
+                                                                class="path1"></span><span class="path2"></span></i>
+                                                    </button>
+                                                    <!--end::Decrease control-->
+
+                                                    <!--begin::Input control-->
+                                                    <input type="text"
+                                                        class="form-control form-control-solid border-0 ps-12"
+                                                        data-kt-dialer-control="input" placeholder="Amount"
+                                                        name="diastole" placeholder="100" />
+                                                    <!--end::Input control-->
+
+                                                    <!--begin::Increase control-->
+                                                    <button type="button"
+                                                        class="btn btn-icon btn-active-color-gray-700 position-absolute translate-middle-y top-50 end-0"
+                                                        data-kt-dialer-control="increase">
+                                                        <i class="ki-duotone ki-plus-square fs-2"><span
+                                                                class="path1"></span><span class="path2"></span><span
+                                                                class="path3"></span></i>
+                                                    </button>
+                                                    <!--end::Increase control-->
+                                                </div>
+                                                <!--end::Dialer-->
+                                            </div>
+                                            <!--end::Col-->
+                                        </div>
+                                        <!--end::Row-->
+                                    </div>
+                                    <!--end::Col-->
+                                    
                                 </div>
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
@@ -385,7 +385,7 @@
                                     <!--end::Dialer-->
                                     <!--end::Input-->
                                     <!--begin::Hint-->
-                                    <div class="form-text">Sewaktu Puasa atau Acak</div>
+                                    <div class="form-text">Sewaktu atau Acak</div>
                                     <!--end::Hint-->
                                 </div>
                                 <!--end::Input group-->
@@ -553,8 +553,7 @@
                                 <div class="d-flex flex-column mb-7 fv-row">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                        <span class="required">Gambaran Depresi pada diri
-                                            anda?</span>
+                                        <span class="required">Bagaimana Gambaran Mental Emosional pada diri anda?</span>
                                     </label>
                                     <!--end::Label-->
                                     <select class="form-select" data-control="select2"
@@ -669,10 +668,49 @@
                                         <option value="Y">Iya</option>
                                         <option value="N" selected>Tidak</option>
                                     </select>
-
                                 </div>
                                 <!--end::Input group-->
-                                
+                                <!--begin::Input group-->
+                                <div class="d-flex flex-column mb-7 fv-row">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                        <span class="required">Apakah terdapat gejala depresi?</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <select class="form-select" data-control="select2" data-placeholder="Select an option" name="depresi">
+                                        <option value="Y">Iya</option>
+                                        <option value="N" selected>Tidak</option>
+                                    </select>
+                                </div>
+                                <!--end::Input group-->
+
+                                <!--begin::Input group-->
+                                <div class="d-flex flex-column mb-7 fv-row">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                        <span class="required">Apakah anda bersedia hasil skrining ini dikirimkan ke no HP anda?</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <select id="select-kirim-hasil" class="form-select" data-placeholder="Select an option" name="kirim_hasil">
+                                        <option value="Y">Ya</option>
+                                        <option value="N" selected>Tidak</option>
+                                    </select>
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class=""  id="input-telp-group"  style="display: none;">
+                                    <div class="d-flex flex-column mb-7 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                            <span class="required">Nomor Telp</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <input type="text" name="telp" class="form-control form-control-solid mb-3 mb-lg-0" 
+                                            value="{{ $dapen->telp ?? '' }}" placeholder="Masukkan Nomor Telp" />
+                                    </div>
+                                <!--end::Input group-->
+                                </div>
+
                                 <!--begin::Actions-->
                                 <button id="kt_docs_formvalidation_text_submit" type="submit" class="btn btn-primary">
                                     <span class="indicator-label">
@@ -899,6 +937,29 @@
     <script src="{{ asset('template/assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <!--end::Vendors Javascript-->
 
+    
+    <!--begin::No. Telp Function-->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const kirimHasilSelect = document.getElementById('select-kirim-hasil');
+            const telpGroup = document.getElementById('input-telp-group');
+
+            if (kirimHasilSelect && telpGroup) {
+                kirimHasilSelect.addEventListener('change', function () {
+                    if (this.value === 'Y') {
+                        console.log('User memilih untuk mengirim hasil.');
+                        telpGroup.style.display = 'block';
+                    } else if (this.value === 'N') {
+                        console.log('User memilih untuk tidak mengirim hasil.');
+                        telpGroup.style.display = 'none';
+                    } else {
+                        console.log('User belum memilih opsi.');
+                    }
+                });
+            }
+        });
+    </script>
+    <!--end::No. Telp Function-->
 
     <!--begin::Form Kunjungan Javascript-->
     <script>

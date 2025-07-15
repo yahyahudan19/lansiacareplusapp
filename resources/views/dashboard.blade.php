@@ -44,13 +44,14 @@
                 <!--end::Button-->
                 <!--begin::Button-->
                 <div class="col-md-3 col-xl-3 mb-3 mb-md-0 mb-xxl-10">
-                    <a href="#" class="btn btn-success d-flex align-items-center">
+                    <a href="#" class="btn btn-success d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#kt_modal_1">
                         <i class="fas fa-calendar-plus me-2"></i> Tambah Kunjungan
                     </a>
                 </div>
                 <!--end::Button-->
             </div>
             <!--end::Row-->
+
             <!--begin::Modal - Add Penduduk-->
             <div class="modal fade" id="kt_modal_add_user" tabindex="-1" aria-hidden="true">
                 <!--begin::Modal dialog-->
@@ -267,6 +268,55 @@
                 <!--end::Modal dialog-->
             </div>
             <!--end::Modal - Add Penduduk-->
+
+            <!--begin::Modal Search Person-->
+            <div class="modal fade" tabindex="-1" id="kt_modal_1">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <form id="kt_docs_formvalidation_text" class="form" action="/kader/kunjungan/tambah" autocomplete="off" method="POST">
+                            @csrf
+                            <div class="modal-header">
+                                <h3 class="modal-title">Cari Data Penduduk</h3>
+                
+                                <!--begin::Close-->
+                                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                                    <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                                </div>
+                                <!--end::Close-->
+                            </div>
+                
+                            <div class="modal-body">
+                                <!--begin::Input group-->
+                                <div class="fv-row mb-10">
+                                    <!--begin::Label-->
+                                    <center><label class="required fw-semibold fs-6 mb-2 ">Masukkan NIK untuk Menambahkan Data Kunjungan !</label></center>
+                                    <!--end::Label-->
+
+                                    <!--begin::Input-->
+                                    <input type="text" name="nik" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="" value="" />
+                                    <!--end::Input-->
+                                </div>
+                                <!--end::Input group-->
+                            </div>
+                
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                <!--begin::Actions-->
+                                <button id="kt_docs_formvalidation_text_submit" type="submit" class="btn btn-primary">
+                                    <span class="indicator-label">
+                                        Cari Penduduk
+                                    </span>
+                                    <span class="indicator-progress">
+                                        Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                    </span>
+                                </button>
+                                <!--end::Actions-->
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--begin::Modal Search Person-->
         </div>
         <!--end::Content container-->
     </div>
@@ -291,6 +341,26 @@
     });
 </script>
 <!--end::datepick Javascript-->
+
+<!--begin::No. Telp Function-->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const notifikasiSelect = $('#person_notifikasi');
+        const telpContainer = document.getElementById('telp_container');
+
+        if (notifikasiSelect.length && telpContainer) {
+            notifikasiSelect.on('change', function () {
+                if (this.value === 'Y') {
+                    telpContainer.style.display = 'block';
+                } else {
+                    telpContainer.style.display = 'none';
+                }
+            });
+        }
+    });
+</script>
+<!--end::No. Telp Function-->
+
 <!--begin::Add Person Javascript-->
 <script>
     "use strict";
@@ -480,7 +550,124 @@
         KTUsersAddUser.init();
     });
 </script>
-
 <!--end::Add Person Javascript-->
+
+<!--begin::Add Kunjungan Form Javascript-->
+<script>
+    // Define form element
+    const form = document.getElementById('kt_docs_formvalidation_text');
+
+    // Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
+    var validator = FormValidation.formValidation(
+        form,
+        {
+            fields: {
+                'nik': {
+                    validators: {
+                        notEmpty: {
+                            message: 'NIK Harus diisi'
+                        },
+                        stringLength: {
+                            min: 16,
+                            max: 16,
+                            message: 'NIK harus 16 digit'
+                        },
+                        regexp: {
+                            regexp: /^[0-9]+$/,
+                            message: 'NIK harus berupa angka'
+                        }
+                    }
+                },
+            },
+
+            plugins: {
+                trigger: new FormValidation.plugins.Trigger(),
+                bootstrap: new FormValidation.plugins.Bootstrap5({
+                    rowSelector: '.fv-row',
+                    eleInvalidClass: '',
+                    eleValidClass: ''
+                })
+            }
+        }
+    );
+
+    // Submit button handler
+    const submitButton = document.getElementById('kt_docs_formvalidation_text_submit');
+    submitButton.addEventListener('click', function (e) {
+        // Prevent default button action
+        e.preventDefault();
+
+        // Validate form before submit
+        if (validator) {
+            validator.validate().then(function (status) {
+                console.log('validated!');
+
+                if (status == 'Valid') {
+                    let nik = document.querySelector('input[name="nik"]').value;
+
+                    // Show loading indication
+                    submitButton.setAttribute('data-kt-indicator', 'on');
+
+                    // Disable button to avoid multiple click
+                    submitButton.disabled = true;
+
+                    // AJAX request to check NIK
+                    $.ajax({
+                        url: '/getPendudukByNIK',
+                        type: 'GET',
+                        data: { nik: nik },
+                        success: function(response) {
+                            // Remove loading indication
+                            submitButton.removeAttribute('data-kt-indicator');
+                            // Enable button
+                            submitButton.disabled = false;
+
+                            if (response.status === 'success') {
+                                // NIK found
+                                Swal.fire({
+                                    text: "NIK Berhasil ditemukan !",
+                                    icon: "success",
+                                    buttonsStyling: false,
+                                    confirmButtonText: "Baiklah!",
+                                    customClass: {
+                                        confirmButton: "btn btn-primary"
+                                    }
+                                }).then(function () {
+                                    form.submit(); // Submit form
+                                });
+                            } else {
+                                // NIK not found
+                                Swal.fire({
+                                    text: "NIK Tidak tersedia, silahkan tambahkan di menu Penduduk",
+                                    icon: "error",
+                                    buttonsStyling: false,
+                                    confirmButtonText: "Baiklah !",
+                                    customClass: {
+                                        confirmButton: "btn btn-danger"
+                                    }
+                                });
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            // Handle error
+                            submitButton.removeAttribute('data-kt-indicator');
+                            submitButton.disabled = false;
+                            Swal.fire({
+                                text: "Terjadi kesalahan, silahkan coba lagi nanti.",
+                                icon: "error",
+                                buttonsStyling: false,
+                                confirmButtonText: "Baiklah !",
+                                customClass: {
+                                    confirmButton: "btn btn-danger"
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+</script>
+<!--end::Add Kunjungan Form Javascript-->
 
 @endsection

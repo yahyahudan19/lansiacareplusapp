@@ -51,7 +51,7 @@
 	<!--begin::Head-->
 	<head>
         <base href="../../../" />
-        <title>Login Page | Lansia Care+ Kota Malang</title>
+        <title>Login Page | SIM Lansia</title>
         <meta charset="utf-8" />
         <meta name="description" content="Aplikasi untuk manajemen pendataan masyarakat lansia dan pra-lansia di Kota Malang" />
         <meta name="keywords" content="Kota Malang, Lansia, Pra-Lansia, Peduli, Kesehatan" />
@@ -95,7 +95,7 @@
 						<img class="theme-dark-show mx-auto mw-100 w-150px w-lg-300px mb-10 mb-lg-20" src="{{ asset('template/assets/media/auth/agency-dark.png')}}" alt="" />
 						<!--end::Image-->
 						<!--begin::Title-->
-						<h1 class="text-gray-800 fs-2qx fw-bold text-center mb-7">Lansia Care+ App</h1>
+						<h1 class="text-gray-800 fs-2qx fw-bold text-center mb-7">SIM Lansia</h1>
 						<!--end::Title-->
 						<!--begin::Text-->
 						<div class="text-gray-600 fs-base text-center fw-semibold">Aplikasi Pendataan Lansia Kota Malang , Selamat Menggunakan !
@@ -125,7 +125,7 @@
 										<h1 class="text-gray-900 fw-bolder mb-3">Masuk</h1>
 										<!--end::Title-->
 										<!--begin::Subtitle-->
-										<div class="text-gray-500 fw-semibold fs-6">Aplikasi Lansia Care+</div>
+										<div class="text-gray-500 fw-semibold fs-6">Aplikasi SIM Lansia</div>
 										<!--end::Subtitle=-->
 									</div>
 									<!--begin::Input group=-->

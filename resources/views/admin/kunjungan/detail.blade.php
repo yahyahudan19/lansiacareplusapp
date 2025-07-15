@@ -293,8 +293,8 @@
                                                     <!--begin::Toolbar-->
                                                     <div class="d-flex my-3 ms-9">
                                                         <!--begin::Edit-->
-                                                        <a href="/kaderd/kunjungan/edit/{{$dakun->id}}" class="btn btn-icon btn-light-primary btn-sm me-2">
-                                                            <i class="ki-outline ki-pencil fs-6"></i>
+                                                        <a href="/kader/kunjungan/edit/{{$dakun->id}}" class="btn btn-light-primary btn-sm me-2">
+                                                            <i class="ki-outline ki-pencil fs-6"></i> Edit
                                                         </a>
                                                         <!--end::Edit-->
                                                     </div>
@@ -438,6 +438,14 @@
                                                                 <tr>
                                                                     <td class="text-muted min-w-125px w-125px">Pendengaran</td>
                                                                     @if ($dakrin->pendengaran == "Y")
+                                                                        <td class="text-gray-800">Iya</td>
+                                                                    @else
+                                                                        <td class="text-gray-800">Tidak</td>
+                                                                    @endif
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="text-muted min-w-125px w-125px">Depresi</td>
+                                                                    @if ($dakrin->depresi == "Y")
                                                                         <td class="text-gray-800">Iya</td>
                                                                     @else
                                                                         <td class="text-gray-800">Tidak</td>

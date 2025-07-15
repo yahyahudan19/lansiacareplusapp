@@ -141,6 +141,7 @@ class KunjungansController extends Controller
                 'kognitif' => $request->kognitif,
                 'mobilisasi' => $request->mobilisasi,
                 'malnutrisi' => $request->malnutrisi,
+                'depresi' => $request->depresi,
                 'kunjungan_id' => $kunjungan->id,
             ]);
 
@@ -154,6 +155,14 @@ class KunjungansController extends Controller
                 'details' => 'Menambahkan kunjungan baru untuk person_id: ' . $person->id,
                 
             ]);
+
+            // Update data Persons
+            if ($request->has('telp') || $request->has('kirim_hasil')) {
+                $person->update([
+                    'telp' => $request->telp ?? $person->telp,
+                    'notifikasi' => $request->kirim_hasil ?? $person->notifikasi,
+                ]);
+            }
 
             // Cek rekomendasi
             $perlu_rujukan = in_array('Y', [
@@ -488,6 +497,7 @@ class KunjungansController extends Controller
                 'kognitif' => $request->kognitif,
                 'mobilisasi' => $request->mobilisasi,
                 'malnutrisi' => $request->malnutrisi,
+                'depresi' => $request->depresi,
             ]);
 
             // Simpan data log
