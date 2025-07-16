@@ -368,10 +368,14 @@ class PersonsController extends Controller
             // Cek apakah sudah melakukan kunjungan di tahun ini
             $hasVisitedThisYear = $person->Kunjungan()->whereYear('tanggal_kj', Carbon::now()->year)->exists();
 
+            // Ambil data kunjungan di tahun ini jika ada
+            $visitData = $person->Kunjungan()->whereYear('tanggal_kj', Carbon::now()->year)->get();
+
             return response()->json([
                 'status' => 'success',
                 'data' => $person,
-                'hasVisitedThisYear' => $hasVisitedThisYear
+                'hasVisitedThisYear' => $hasVisitedThisYear,
+                'visitData' => $visitData
             ]);
         } else {
             return response()->json(['status' => 'error']);

@@ -1549,7 +1549,7 @@
                         // Disable button to avoid multiple click
                         submitButton.disabled = true;
     
-                        // AJAX request to check NIK
+                       // AJAX request to check NIK
                         $.ajax({
                             url: '/getPendudukByNIK',
                             type: 'GET',
@@ -1559,12 +1559,12 @@
                                 submitButton.removeAttribute('data-kt-indicator');
                                 // Enable button
                                 submitButton.disabled = false;
-    
                                 if (response.status === 'success') {
                                     if (response.hasVisitedThisYear) {
                                         // NIK found but already visited this year
+                                        const visitDate = response.visitData[0]?.tanggal_kj || 'tanggal tidak diketahui';
                                         Swal.fire({
-                                            text: "Penduduk dengan NIK ini sudah melakukan kunjungan di tahun ini.",
+                                            text: `Penduduk dengan NIK : ${response.data.nik} sudah melakukan kunjungan di tahun ini pada tanggal ${new Date(visitDate).toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' })}.`,
                                             icon: "warning",
                                             buttonsStyling: false,
                                             confirmButtonText: "Baiklah!",
@@ -1575,7 +1575,7 @@
                                     } else {
                                         // NIK found and not visited this year
                                         Swal.fire({
-                                            text: "NIK Berhasil ditemukan! Penduduk belum melakukan kunjungan di tahun ini.",
+                                            text: `NIK Berhasil ditemukan! Penduduk (${response.data.nama}) belum melakukan kunjungan di tahun ini.`,
                                             icon: "success",
                                             buttonsStyling: false,
                                             confirmButtonText: "Baiklah!",
