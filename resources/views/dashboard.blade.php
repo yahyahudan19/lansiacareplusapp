@@ -623,25 +623,38 @@
                             submitButton.disabled = false;
 
                             if (response.status === 'success') {
-                                // NIK found
-                                Swal.fire({
-                                    text: "NIK Berhasil ditemukan !",
-                                    icon: "success",
-                                    buttonsStyling: false,
-                                    confirmButtonText: "Baiklah!",
-                                    customClass: {
-                                        confirmButton: "btn btn-primary"
-                                    }
-                                }).then(function () {
-                                    form.submit(); // Submit form
-                                });
+                                if (response.hasVisitedThisYear) {
+                                    // NIK found but already visited this year
+                                    Swal.fire({
+                                        text: "Penduduk dengan NIK ini sudah melakukan kunjungan di tahun ini.",
+                                        icon: "warning",
+                                        buttonsStyling: false,
+                                        confirmButtonText: "Baiklah!",
+                                        customClass: {
+                                            confirmButton: "btn btn-warning"
+                                        }
+                                    });
+                                } else {
+                                    // NIK found and not visited this year
+                                    Swal.fire({
+                                        text: "NIK Berhasil ditemukan! Penduduk belum melakukan kunjungan di tahun ini.",
+                                        icon: "success",
+                                        buttonsStyling: false,
+                                        confirmButtonText: "Baiklah!",
+                                        customClass: {
+                                            confirmButton: "btn btn-primary"
+                                        }
+                                    }).then(function () {
+                                        form.submit(); // Submit form
+                                    });
+                                }
                             } else {
                                 // NIK not found
                                 Swal.fire({
                                     text: "NIK Tidak tersedia, silahkan tambahkan di menu Penduduk",
                                     icon: "error",
                                     buttonsStyling: false,
-                                    confirmButtonText: "Baiklah !",
+                                    confirmButtonText: "Baiklah!",
                                     customClass: {
                                         confirmButton: "btn btn-danger"
                                     }

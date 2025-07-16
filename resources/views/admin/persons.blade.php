@@ -460,14 +460,26 @@
                                                 <!--begin::Input group-->
                                                 <div class="fv-row mb-7">
                                                     <!--begin::Label-->
+                                                    <label class="form-label required">Kecamatan</label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <select name="kecamatan" id="kecamatan" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
+                                                        <option></option>
+                                                        @foreach ($kecamatans as $kec)
+                                                            <option value="{{$kec->id}}">{{$kec->nama}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <!--end::Input-->
+                                                </div>
+                                                <!--end::Input group-->
+                                                <!--begin::Input group-->
+                                                <div class="fv-row mb-7">
+                                                    <!--begin::Label-->
                                                     <label class="form-label required">Kelurahan</label>
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
                                                     <select name="person_kelurahan" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
                                                         <option></option>
-                                                        @foreach ($kelurahans as $kel)
-                                                            <option value="{{$kel->id}}">{{$kel->nama}}</option>
-                                                        @endforeach
                                                     </select>
                                                     <!--end::Input-->
                                                 </div>
@@ -895,6 +907,34 @@
                         }
                     }
                 );
+
+                // AJAX: Ganti Kelurahan saat Kecamatan berubah
+                $(document).ready(function () {
+                    const kecSelect = $('select[name="kecamatan"]');
+                    const kelSelect = $('select[name="person_kelurahan"]');
+
+                    kecSelect.on('change', function () {
+                        console.log('Change event triggered');
+
+                        const kecamatanId = $(this).val();
+                        kelSelect.html('<option value="">Loading...</option>');
+
+                        if (kecamatanId) {
+                            fetch(`/get-kelurahan-by-kecamatan/${kecamatanId}`)
+                                .then(res => res.json())
+                                .then(data => {
+                                    kelSelect.html('<option value="">Pilih Kelurahan...</option>');
+                                    data.forEach(kel => {
+                                        kelSelect.append(`<option value="${kel.id}">${kel.nama}</option>`);
+                                    });
+                                    kelSelect.trigger('change'); // trigger Select2 refresh
+                                });
+                        } else {
+                            kelSelect.html('<option value="">Pilih Kelurahan...</option>');
+                            kelSelect.trigger('change');
+                        }
+                    });
+                });
 
                 // Submit button handler
                 const submitButton = element.querySelector('[data-kt-users-modal-action="submit"]');

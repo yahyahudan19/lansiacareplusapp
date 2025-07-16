@@ -156,7 +156,6 @@ class PersonsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($request->all());
         // Temukan data persons berdasarkan ID
         $person = Persons::findOrFail($id);
 
@@ -195,12 +194,26 @@ class PersonsController extends Controller
                 'activity' => 'update',
                 'details' => 'Mengupdate data penduduk dengan ID: ' . $person->id,
             ]);
+
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Penduduk berhasil diupdate!'
+                ]);
+            }
             // Kirim pesan sukses
             return redirect()->back()
             ->with('status', 'success')
             ->with('message', 'Penduduk berhasil diupdate !');
 
         } catch (\Exception $e) {
+            
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Terjadi kesalahan: ' . $e->getMessage()
+                ], 500);
+            }
             return redirect()->back()
             ->with('status', 'error')
             ->with('message', 'Terjadi kesalahan saat mengupdate penduduk.'. $e->getMessage());
@@ -352,7 +365,14 @@ class PersonsController extends Controller
         $person = Persons::where('nik', $nik)->first();
 
         if ($person) {
-            return response()->json(['status' => 'success', 'data' => $person]);
+            // Cek apakah sudah melakukan kunjungan di tahun ini
+            $hasVisitedThisYear = $person->Kunjungan()->whereYear('tanggal_kj', Carbon::now()->year)->exists();
+
+            return response()->json([
+                'status' => 'success',
+                'data' => $person,
+                'hasVisitedThisYear' => $hasVisitedThisYear
+            ]);
         } else {
             return response()->json(['status' => 'error']);
         }

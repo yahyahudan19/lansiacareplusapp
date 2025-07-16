@@ -474,29 +474,43 @@
                                 submitButton.disabled = true;
 
                                 setTimeout(function () {
-                                    submitButton.removeAttribute('data-kt-indicator');
+                                submitButton.removeAttribute('data-kt-indicator');
 
-                                    Swal.fire({
-                                        text: "Form has been successfully submitted!",
-                                        icon: "success",
-                                        buttonsStyling: false,
-                                        confirmButtonText: "Baiklah !!",
-                                        customClass: {
-                                            confirmButton: "btn btn-primary"
-                                        }
-                                    }).then(function (result) {
-                                        if (result.isConfirmed) {
-                                            // Enable submit button after loading
+                                    $.ajax({
+                                        url: form.action,
+                                        method: 'POST',
+                                        data: $(form).serialize(),
+                                        success: function (response) {
+                                            Swal.fire({
+                                                text: "Data berhasil disimpan!",
+                                                icon: "success",
+                                                buttonsStyling: false,
+                                                confirmButtonText: "Baiklah !!",
+                                                customClass: {
+                                                    confirmButton: "btn btn-primary"
+                                                }
+                                            }).then(function () {
+                                                // Redirect ke halaman asal jika perlu
+                                                // window.location = form.getAttribute("data-kt-redirect");
+                                            });
+                                        },
+                                        error: function (xhr) {
                                             submitButton.disabled = false;
+                                            submitButton.removeAttribute('data-kt-indicator');
 
-                                            // Redirect to Penduduk list page
-                                            window.location = form.getAttribute("data-kt-redirect");
+                                            Swal.fire({
+                                                html: "Terjadi kesalahan saat menyimpan data.<br>Silakan cek kembali input atau coba lagi.",
+                                                icon: "error",
+                                                buttonsStyling: false,
+                                                confirmButtonText: "OK",
+                                                customClass: {
+                                                    confirmButton: "btn btn-primary"
+                                                }
+                                            });
                                         }
                                     });
+                                }, 200); // <-- boleh kamu kecilkan delay-nya kalau mau lebih cepat
 
-                                    form.submit(); // Submit form
-
-                                }, 2000);
                             } else {
                                 Swal.fire({
                                     html: "Maaf, sepertinya ada yang error ! <br/><br/>Please note that there may be errors in the <strong>Data Diri</strong> tabs",
