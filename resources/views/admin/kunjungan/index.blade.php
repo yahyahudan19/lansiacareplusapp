@@ -474,7 +474,7 @@
                                             </div>
                                 
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
                                                 <!--begin::Actions-->
                                                 <button id="kt_docs_formvalidation_text_submit" type="submit" class="btn btn-primary">
                                                     <span class="indicator-label">
