@@ -31,11 +31,11 @@ class PersonsExport implements FromCollection, WithHeadings, WithMapping, WithCo
             $query->whereRaw('TIMESTAMPDIFF(YEAR, tanggal_lahir, ?) >= 45 AND TIMESTAMPDIFF(YEAR, tanggal_lahir, ?) < 60', [Carbon::now()->toDateString(), Carbon::now()->toDateString()]);
         }
 
-        if ($this->request->kelurahan) {
-            $query->where('kelurahan_id', $this->request->kelurahan);
-        } elseif ($this->request->kecamatan) {
+        if ($this->request->kelurahan_filter) {
+            $query->where('kelurahan_id', $this->request->kelurahan_filter);
+        } elseif ($this->request->kecamatan_filter) {
             $query->whereHas('kelurahan', function ($q) {
-                $q->where('kecamatan_id', $this->request->kecamatan);
+                $q->where('kecamatan_id', $this->request->kecamatan_filter);
             });
         }
 
@@ -49,7 +49,7 @@ class PersonsExport implements FromCollection, WithHeadings, WithMapping, WithCo
             });
         }
 
-        return $query->with('kelurahan', 'kelurahan.kecamatan')->get();
+        return $query->with('kelurahan', 'kelurahan.kecamatan')->get(); // Batasi jumlah data yang diambil untuk performa
     }
 
     public function map($person): array

@@ -70,6 +70,11 @@ class SkriningImport implements ToCollection, WithHeadingRow
                     'merokok' => $row['merokok'] ?? 'N',
                     'adl' => $row['adl'] ?? null,
                     'gds' => $row['gds'] ?? null,
+                    'kognitif' => $row['kognitif'] ?? null,
+                    'mobilisasi' => $row['mobilisasi'] ?? null,
+                    'malnutrisi' => $row['malnutrisi'] ?? null,
+                    'depresi' => $row['depresi'] ?? null,
+                    'keterangan' => $row['keterangan'] ?? null,
                     'kunjungan_id' => $kunjungan->id,
                 ]);
             }

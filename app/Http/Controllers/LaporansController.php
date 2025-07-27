@@ -528,7 +528,13 @@ class LaporansController extends Controller
                     $q->whereBetween('tanggal_kj', [$startDate, $endDate])
                     ->whereHas('person', $filterPerson);
                 })->where('malnutrisi', $indicator->target_value)->count();
-                
+
+            case 18: // DEPRESI
+                return Skrinings::whereHas('kunjungan', function ($q) use ($filterPerson, $startDate, $endDate) {
+                    $q->whereBetween('tanggal_kj', [$startDate, $endDate])
+                    ->whereHas('person', $filterPerson);
+                })->where('depresi', $indicator->target_value)->count();
+
             default:
                 return 0;
         }

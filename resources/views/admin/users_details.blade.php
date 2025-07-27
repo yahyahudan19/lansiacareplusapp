@@ -243,7 +243,7 @@
                                 </div>
                                 <!--end::Card-->
                                 <!--begin::Card-->
-                                <div class="card pt-4 mb-6 mb-xl-9">
+                                {{-- <div class="card pt-4 mb-6 mb-xl-9">
                                     <!--begin::Card header-->
                                     <div class="card-header border-0">
                                         <!--begin::Card title-->
@@ -311,7 +311,7 @@
                                         <!--end::Disclaimer-->
                                     </div>
                                     <!--end::Card body-->
-                                </div>
+                                </div> --}}
                                 <!--end::Card-->
                             </div>
                             <!--end:::Tab pane-->

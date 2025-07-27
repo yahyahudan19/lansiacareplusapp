@@ -147,7 +147,7 @@
                                                 <select class="btn btn-light me-3" data-control="select2" data-placeholder="Pilih Kecamatan" name="kecamatan" id="kecamatan" data-allow-clear="true">
                                                     <option></option>
                                                     @foreach ($kecamatans as $kec)
-                                                        <option value="{{$kec->id}}">{{$kec->nama}}</option>
+                                                        <option value="{{$kec->id}}" {{ request('kecamatan') == $kec->id ? 'selected' : '' }}>{{$kec->nama}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -155,20 +155,25 @@
                                                 <label class="fs-6 form-label fw-bold text-gray-900">Kelurahan</label>
                                                 <select class="btn btn-light me-3" data-control="select2" data-placeholder="Pilih Kelurahan" name="kelurahan" id="kelurahan" data-allow-clear="true">
                                                     <option></option>
+                                                    @if (request('kelurahan'))
+                                                        @foreach ($kelurahans as $kel)
+                                                            <option value="{{$kel->id}}" {{ request('kelurahan') == $kel->id ? 'selected' : '' }}>{{$kel->nama}}</option>
+                                                        @endforeach
+                                                    @endif
                                                 </select>
                                             </div>
                                             <div class="col-lg-6 mb-2">
                                                 <label class="fs-6 form-label fw-bold text-gray-900">Kategori</label>
                                                 <select class="btn btn-light me-3" data-control="select2" data-placeholder="Pilih Kategori" name="kategori" id="kategori">
-                                                    <option value="Semua" {{ request()->is('admin/penduduk') ? 'selected' : '' }}>Semua</option>
-                                                    <option value="Lansia" {{ request()->is('admin/penduduk/lansia') ? 'selected' : '' }}>Lansia</option>
-                                                    <option value="Pra-Lansia" {{ request()->is('admin/penduduk/pra-lansia') ? 'selected' : '' }}>Pra-Lansia</option>
+                                                    <option value="Semua" {{ request('kategori') == 'Semua' ? 'selected' : '' }}>Semua</option>
+                                                    <option value="Lansia" {{ request('kategori') == 'Lansia' ? 'selected' : '' }}>Lansia</option>
+                                                    <option value="Pra-Lansia" {{ request('kategori') == 'Pra-Lansia' ? 'selected' : '' }}>Pra-Lansia</option>
                                                 </select>
                                             </div>
                                             <div class="col-lg-6 mb-5">
                                                 <label class="fs-6 form-label fw-bold text-gray-900">Tanggal Kunjungan</label>
                                                 <br>
-                                                <input class="btn btn-primary me-3" placeholder="Pick date range" id="kt_daterangepicker_4" name="date_range"/>
+                                                <input class="btn btn-primary me-3" placeholder="Pick date range" id="kt_daterangepicker_4" name="date_range" value="{{ request('date_range') }}"/>
                                             </div>
                                         </div>
                                     </div>
@@ -176,6 +181,23 @@
                                         <button type="submit" class="btn btn-success me-3" id="kt_page_loading_message">
                                             <i class="ki-outline ki-search-list fs-2"></i>Cari Kunjungan   
                                         </button>
+                                        @if (auth()->user()->role == 'System Administrator')
+                                            <a href="/admin/kunjungan" class="btn btn-danger me-3">
+                                                <i class="ki-outline ki-reload fs-2"></i><i class="ki-outline ki-trash fs-2"></i> Reset Filter   
+                                            </a>
+                                        @elseif (auth()->user()->role == 'Dinkes')
+                                            <a href="/dinkes/kunjungan" class="btn btn-danger me-3">
+                                                <i class="ki-outline ki-reload fs-2"></i><i class="ki-outline ki-trash fs-2"></i> Reset Filter   
+                                            </a>
+                                        @elseif (auth()->user()->role == 'Puskesmas')
+                                            <a href="/puskesmas/kunjungan" class="btn btn-danger me-3">
+                                                <i class="ki-outline ki-reload fs-2"></i><i class="ki-outline ki-trash fs-2"></i> Reset Filter   
+                                            </a>
+                                        @elseif (auth()->user()->role == 'Kader')
+                                            <a href="/kader/kunjungan" class="btn btn-danger me-3">
+                                                <i class="ki-outline ki-reload fs-2"></i><i class="ki-outline ki-trash fs-2"></i> Reset Filter   
+                                            </a>
+                                        @endif
                                     </div>
                                 </form>
                             </div>

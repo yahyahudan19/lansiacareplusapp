@@ -33,6 +33,8 @@
         <!--begin::Content container-->
         <div id="kt_app_content_container" class="app-container container-fluid">
             <h1 class="text-center mb-5">Selamat Datang,{{ Auth::user()->name }}</h1>
+
+            @if(Auth::user()->role == 'kader')
             <!--begin::Row-->
             <div class="row g-12 g-xl-10">
                 <!--begin::Button-->
@@ -317,6 +319,8 @@
                 </div>
             </div>
             <!--begin::Modal Search Person-->
+            @endif
+
         </div>
         <!--end::Content container-->
     </div>

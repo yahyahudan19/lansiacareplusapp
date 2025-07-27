@@ -141,10 +141,10 @@
                                         <!--begin::Filter Kecamatan-->
                                         <div class="col-lg-6 mb-3">
                                             <label class="fs-6 form-label fw-bold text-gray-900">Kecamatan</label>
-                                            <select class="form-select" data-control="select2" data-placeholder="Pilih Kecamatan" name="kecamatan" id="kecamatan" data-allow-clear="true" required>
+                                            <select class="form-select" data-control="select2" data-placeholder="Pilih Kecamatan" name="kecamatan_filter" id="kecamatan_filter" data-allow-clear="true" required>
                                                 <option></option>
                                                 @foreach ($kecamatans as $kec)
-                                                    <option value="{{ $kec->id }}" {{ request('kecamatan') == $kec->id ? 'selected' : '' }}>{{ $kec->nama }}</option>
+                                                    <option value="{{ $kec->id }}" {{ request('kecamatan_filter') == $kec->id ? 'selected' : '' }}>{{ $kec->nama }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -153,10 +153,10 @@
                                         <!--begin::Filter Kelurahan-->
                                         <div class="col-lg-6 mb-3">
                                             <label class="fs-6 form-label fw-bold text-gray-900">Kelurahan</label>
-                                            <select class="form-select" data-control="select2" data-placeholder="Pilih Kelurahan" name="kelurahan" id="kelurahan" data-allow-clear="true" required>
+                                            <select class="form-select" data-control="select2" data-placeholder="Pilih Kelurahan" name="kelurahan_filter" id="kelurahan_filter" data-allow-clear="true" required>
                                                 <option></option>
                                                 @foreach ($kelurahans as $kel)
-                                                    <option value="{{ $kel->id }}" {{ request('kelurahan') == $kel->id ? 'selected' : '' }}>{{ $kel->nama }}</option>
+                                                    <option value="{{ $kel->id }}" {{ request('kelurahan_filter') == $kel->id ? 'selected' : '' }}>{{ $kel->nama }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -670,6 +670,7 @@
     </div>
     <!--end::Content-->
 </div>
+
 @endsection
 
 @section('plugins-last')
@@ -1433,7 +1434,7 @@
     <!--begin::Ajax Kelurahans Javascript-->
     <script>
         $(document).ready(function() {
-            $('#kecamatan').change(function() {
+            $('#kecamatan_filter').change(function() {
                 var kecamatanID = $(this).val();
                 // console.log("Kecamatan terpilih: " + kecamatanID); // Log kecamatan yang dipilih
                 if (kecamatanID) {
@@ -1443,16 +1444,16 @@
                         dataType: "json",
                         success: function(data) {
                             console.log("Data kelurahan:", data); // Log data kelurahan yang diterima
-                            $('#kelurahan').empty();
-                            $('#kelurahan').append('<option></option>');
+                            $('#kelurahan_filter').empty();
+                            $('#kelurahan_filter').append('<option></option>');
                             $.each(data, function(key, value) {
-                                $('#kelurahan').append('<option value="' + key + '">' + value + '</option>');
+                                $('#kelurahan_filter').append('<option value="' + key + '">' + value + '</option>');
                             });
                         }
                     });
                 } else {
-                    $('#kelurahan').empty();
-                    $('#kelurahan').append('<option></option>');
+                    $('#kelurahan_filter').empty();
+                    $('#kelurahan_filter').append('<option></option>');
                 }
             });
         });

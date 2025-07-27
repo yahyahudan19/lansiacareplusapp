@@ -273,8 +273,8 @@ class PersonsController extends Controller
         }
         
         // Ambil kecamatan_id, kelurahan_id, range date dari request
-        $kecamatan_id = $request->input('kecamatan');
-        $kelurahan_id = $request->input('kelurahan');
+        $kecamatan_id = $request->input('kecamatan_filter');
+        $kelurahan_id = $request->input('kelurahan_filter');
         $dateRange = $request->input('date_range');
 
         // Query dasar
@@ -305,17 +305,17 @@ class PersonsController extends Controller
 
         // Filter berdasarkan status skrining
         if ($request->input('status_skrining') == "Sudah") {
-            $query->whereHas('Kunjungan', function ($q) {
-            $q->whereYear('tanggal_kj', Carbon::now()->year);
+            $query->whereHas('kunjungan', function ($q) {
+                $q->whereYear('tanggal_kj', now()->year);
             });
         } elseif ($request->input('status_skrining') == "Belum") {
-            $query->whereDoesntHave('Kunjungan', function ($q) {
-            $q->whereYear('tanggal_kj', Carbon::now()->year);
+            $query->whereDoesntHave('kunjungan', function ($q) {
+                $q->whereYear('tanggal_kj', now()->year);
             });
         }
 
         // Eksekusi query
-        $data_person = $query->get();
+        $data_person = $query->paginate(1000);
 
         return view('admin.persons', compact('data_person', 'kecamatans', 'kelurahans'));
     }
@@ -395,8 +395,15 @@ class PersonsController extends Controller
 
     public function export(Request $request)
     {
-        $filename = 'data_penduduk_' . now()->format('Ymd_His') . '.xlsx';
-        return Excel::download(new PersonsExport($request), $filename);
+        try {
+            $filename = 'data_penduduk_' . now()->format('Ymd_His') . '.xlsx';
+            return Excel::download(new PersonsExport($request), $filename);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Terjadi kesalahan saat mengekspor data: ' . $e->getMessage()
+            ], 500);
+        }
     }
 
 
