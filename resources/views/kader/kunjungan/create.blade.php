@@ -156,9 +156,6 @@
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
                                             <span class="required">Berat Badan (Kg)</span>
-                                            <span class="ms-1" data-bs-toggle="tooltip" title="Enter a card CVV code">
-                                                <i class="ki-outline ki-information-5 text-gray-500 fs-6"></i>
-                                            </span>
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input wrapper-->
@@ -202,9 +199,7 @@
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
                                             <span class="required">Lingkar Perut (cm)</span>
-                                            <span class="ms-1" data-bs-toggle="tooltip" title="Enter a card CVV code">
-                                                <i class="ki-outline ki-information-5 text-gray-500 fs-6"></i>
-                                            </span>
+                                            
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input wrapper-->
@@ -254,9 +249,7 @@
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
                                             <span class="required">Sistole</span>
-                                            <span class="ms-1" data-bs-toggle="tooltip" title="Enter a card CVV code">
-                                                <i class="ki-outline ki-information-5 text-gray-500 fs-6"></i>
-                                            </span>
+                                            
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input wrapper-->
@@ -446,7 +439,7 @@
                                         <div class="fv-row mb-5">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center form-label">
-                                                <span class="required">Alasan Kolesterol dan atau asam urat tidak diisi</span>
+                                                <span>Alasan Kolesterol dan atau asam urat tidak diisi</span>
                                             </label>
                                             <!--end::Label-->
                                             <div class="mb-10">
@@ -511,8 +504,8 @@
                                         data-placeholder="Select an option" name="merokok">
                                         <option></option>
                                         <option value="Y">Iya</option>
-                                        <option value="TSB" selected>Tidak, Sudah Berhenti Lebih dari 1 Tahun</option>
-                                        <option value="TPS">Tidak Pernah Sama Sekali</option>
+                                        <option value="TSB">Tidak, Sudah Berhenti Lebih dari 1 Tahun</option>
+                                        <option value="TPS"selected>Tidak Pernah Sama Sekali</option>
                                     </select>
 
                                 </div>
@@ -634,7 +627,6 @@
                                 </select>
                             </div>
                             <!--end::Input group-->
-                                <!--end::Input group-->
                                 <!--begin::Input group-->
                                 <div class="d-flex flex-column mb-7 fv-row">
                                     <!--begin::Label-->

@@ -198,7 +198,7 @@
                                                     <!--end::Input-->
                                                     <!--begin::CVV icon-->
                                                     <div class="position-absolute translate-middle-y top-50 end-0 me-3">
-                                                        <i class="ki-outline ki-credit-cart fs-2hx"></i>
+                                                        <i class="ki-outline ki-information-5 fs-2hx"></i>
                                                     </div>
                                                     <!--end::CVV icon-->
                                                 </div>
@@ -310,9 +310,7 @@
                                                 <!--begin::Label-->
                                                 <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
                                                     <span class="required">Berat Badan (Kg)</span>
-                                                    <span class="ms-1" data-bs-toggle="tooltip" title="Enter a card CVV code">
-                                                        <i class="ki-outline ki-information-5 text-gray-500 fs-6"></i>
-                                                    </span>
+                                                    
                                                 </label>
                                                 <!--end::Label-->
                                                 <!--begin::Input wrapper-->
@@ -350,9 +348,6 @@
                                                 <!--begin::Label-->
                                                 <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
                                                     <span class="required">Lingkar Perut (cm)</span>
-                                                    <span class="ms-1" data-bs-toggle="tooltip" title="Enter a card CVV code">
-                                                        <i class="ki-outline ki-information-5 text-gray-500 fs-6"></i>
-                                                    </span>
                                                 </label>
                                                 <!--end::Label-->
                                                 <!--begin::Input wrapper-->
@@ -393,6 +388,46 @@
                                             <!--begin::Col-->
                                             <div class="col-md-6 fv-row">
                                                 <!--begin::Label-->
+                                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                                    <span class="required">Sistole</span>
+                                                    <span class="ms-1" >
+                                                        <i class="ki-outline ki-information-5 text-gray-500 fs-6"></i>
+                                                    </span>
+                                                </label>
+                                                <!--end::Label-->
+                                                <!--begin::Input wrapper-->
+                                                <div class="position-relative">
+                                                    <!--begin::Dialer-->
+                                                    <div class="position-relative"
+                                                    data-kt-dialer="true"
+                                                    data-kt-dialer-min="0"
+                                                    data-kt-dialer-max="200"
+                                                    data-kt-dialer-step="1">
+
+                                                    <!--begin::Decrease control-->
+                                                    <button type="button" class="btn btn-icon btn-active-color-gray-700 position-absolute translate-middle-y top-50 start-0" data-kt-dialer-control="decrease">
+                                                        <i class="ki-duotone ki-minus-square fs-2"><span class="path1"></span><span class="path2"></span></i>
+                                                    </button>
+                                                    <!--end::Decrease control-->
+
+                                                    <!--begin::Input control-->
+                                                    <input type="text" class="form-control form-control-solid border-0 ps-12" data-kt-dialer-control="input" placeholder="Amount" name="sistole"  />
+                                                    <!--end::Input control-->
+
+                                                    <!--begin::Increase control-->
+                                                    <button type="button" class="btn btn-icon btn-active-color-gray-700 position-absolute translate-middle-y top-50 end-0" data-kt-dialer-control="increase">
+                                                        <i class="ki-duotone ki-plus-square fs-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                                                    </button>
+                                                    <!--end::Increase control-->
+                                                    </div>
+                                                    <!--end::Dialer-->
+                                                </div>
+                                                <!--end::Input wrapper-->
+                                            </div>
+                                            <!--end::Col-->
+                                            <!--begin::Col-->
+                                            <div class="col-md-6 fv-row">
+                                                <!--begin::Label-->
                                                 <label class="required fs-6 fw-semibold form-label mb-2">Diastole</label>
                                                 <!--end::Label-->
                                                 <!--begin::Row-->
@@ -429,47 +464,6 @@
                                                 <!--end::Row-->
                                             </div>
                                             <!--end::Col-->
-                                            <!--begin::Col-->
-                                            <div class="col-md-6 fv-row">
-                                                <!--begin::Label-->
-                                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                                    <span class="required">Sistole</span>
-                                                    <span class="ms-1" data-bs-toggle="tooltip" title="Enter a card CVV code">
-                                                        <i class="ki-outline ki-information-5 text-gray-500 fs-6"></i>
-                                                    </span>
-                                                </label>
-                                                <!--end::Label-->
-                                                <!--begin::Input wrapper-->
-                                                <div class="position-relative">
-                                                    <!--begin::Dialer-->
-                                                    <div class="position-relative"
-                                                    data-kt-dialer="true"
-                                                    data-kt-dialer-min="0"
-                                                    data-kt-dialer-max="200"
-                                                    data-kt-dialer-step="1">
-
-                                                    <!--begin::Decrease control-->
-                                                    <button type="button" class="btn btn-icon btn-active-color-gray-700 position-absolute translate-middle-y top-50 start-0" data-kt-dialer-control="decrease">
-                                                        <i class="ki-duotone ki-minus-square fs-2"><span class="path1"></span><span class="path2"></span></i>
-                                                    </button>
-                                                    <!--end::Decrease control-->
-
-                                                    <!--begin::Input control-->
-                                                    <input type="text" class="form-control form-control-solid border-0 ps-12" data-kt-dialer-control="input" placeholder="Amount" name="sistole"  />
-                                                    <!--end::Input control-->
-
-                                                    <!--begin::Increase control-->
-                                                    <button type="button" class="btn btn-icon btn-active-color-gray-700 position-absolute translate-middle-y top-50 end-0" data-kt-dialer-control="increase">
-                                                        <i class="ki-duotone ki-plus-square fs-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                                                    </button>
-                                                    <!--end::Increase control-->
-                                                    </div>
-                                                    <!--end::Dialer-->
-                                                </div>
-                                                <!--end::Input wrapper-->
-                                            </div>
-                                            <!--end::Col-->
-                                           
                                         </div>
                                         <!--end::Input group-->
                                         <!--begin::Input group-->
@@ -506,7 +500,7 @@
                                             <!--end::Dialer-->
                                             <!--end::Input-->
                                             <!--begin::Hint-->
-                                            <div class="form-text">Sewaktu Puasa atau Tidak Puasa</div>
+                                            <div class="form-text">Sewaktu atau Acak</div>
                                             <!--end::Hint-->
                                         </div>
                                         <!--end::Input group-->
@@ -564,7 +558,7 @@
                                         <div class="fv-row mb-5">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center form-label">
-                                                <span class="required">Keterangan</span>
+                                                <span>Alasan Kolesterol dan atau asam urat tidak diisi</span>
                                             </label>
                                             <!--end::Label-->
                                             <div class="mb-10">
@@ -609,9 +603,9 @@
                                             <!--end::Label-->
                                             <select class="form-select" data-control="select2" data-placeholder="Select an option" name="merokok">
                                                 <option></option>
-                                                <option value="Y" selected>Iya</option>
+                                                <option value="Y">Iya</option>
                                                 <option value="TSB">Tidak, Sudah Berhenti Lebih dari 1 Tahun</option>
-                                                <option value="TPS">Tidak Pernah Sama Sekali</option>
+                                                <option value="TPS" selected>Tidak Pernah Sama Sekali</option>
                                             </select>
                                             
                                         </div>
@@ -625,58 +619,17 @@
                                             <!--end::Label-->
                                             <select class="form-select" data-control="select2" data-placeholder="Select an option" name="ginjal">
                                                 <option></option>
-                                                <option value="Y" selected>Iya</option>
-                                                <option value="N">Tidak</option>
+                                                <option value="Y" >Iya</option>
+                                                <option value="N" selected>Tidak</option>
                                             </select>
                                             
                                         </div>
                                         <!--end::Input group-->
-                                        <!--begin::Input group-->
+                                         <!--begin::Input group-->
                                         <div class="d-flex flex-column mb-7 fv-row">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                                <span class="required">Apakah anda memiliki gangguan penglihatan (menggunakan kacamata/tidak jelas ketika melihat benda jauh atau dekat/ tidak jelas ketika membaca tanpa kacamata)?</span>
-                                            </label>
-                                            <!--end::Label-->
-                                            <select class="form-select" data-control="select2" data-placeholder="Select an option" name="penglihatan">
-                                                <option></option>
-                                                <option value="Y" selected>Iya</option>
-                                                <option value="N">Tidak</option>
-                                            </select>
-                                            
-                                        </div>
-                                        <!--end::Input group-->
-                                        <!--begin::Input group-->
-                                        <div class="d-flex flex-column mb-7 fv-row">
-                                            <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                                <span class="required">Apakah anda memiliki gangguan pendengaran (menggunakan alat bantu dengar/ membutuhkan suara keras bila berbicara dengan orang lain)?</span>
-                                            </label>
-                                            <!--end::Label-->
-                                            <select class="form-select" data-control="select2" data-placeholder="Select an option" name="pendengaran">
-                                                <option></option>
-                                                <option value="Y" selected>Iya</option>
-                                                <option value="N">Tidak</option>
-                                            </select>
-                                            
-                                        </div>
-                                        <!--end::Input group-->
-                                        <!--begin::Heading-->
-                                        <div class="pb-10 pb-lg-15">
-                                            <!--begin::Title-->
-                                            <h2 class="fw-bold text-gray-900">Data lain</h2>
-                                            <!--end::Title-->
-                                            <!--begin::Notice-->
-                                            <div class="text-muted fw-semibold fs-6">Diisi sesuai dengan kondisi
-                                            <a href="#" class="text-primary fw-bold">Saat Ini</a>.</div>
-                                            <!--end::Notice-->
-                                        </div>
-                                        <!--end::Heading-->
-                                        <!--begin::Input group-->
-                                        <div class="d-flex flex-column mb-7 fv-row">
-                                            <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                                <span class="required">Bagaimana tingkat kemandirian anda ?</span>
+                                                <span class="required">Berdasarkan aktifitas kegiatan sehari hari (AKS), Bagaimana tingkat kemandirian anda ?</span>
                                             </label>
                                             <!--end::Label-->
                                             <select class="form-select" data-control="select2" data-placeholder="Select an option" name="adl">
@@ -706,6 +659,130 @@
                                             
                                         </div>
                                         <!--end::Input group-->
+                                        
+                                        <!--begin::Heading-->
+                                        <div class="pb-10 pb-lg-15">
+                                            <!--begin::Title-->
+                                            <h2 class="fw-bold text-gray-900">Skilas</h2>
+                                            <!--end::Title-->
+                                            <!--begin::Notice-->
+                                            <div class="text-muted fw-semibold fs-6">Skrining Lansia Sederhana
+                                                {{-- <a href="#" class="text-primary fw-bold">Saat Ini</a>. --}}
+                                            </div>
+                                            <!--end::Notice-->
+                                        </div>
+                                        <!--end::Heading-->
+                                        <!--begin::Input group-->
+                                        <div class="d-flex flex-column mb-7 fv-row">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                                <span class="required">Apakah terdapat penurunan kognitif?</span>
+                                            </label>
+                                            <!--end::Label-->
+                                            <select class="form-select" data-control="select2" data-placeholder="Select an option" name="kognitif">
+                                                <option value="Y">Ya</option>
+                                                <option value="N" selected>Tidak</option>
+                                            </select>
+                                        </div>
+                                        <!--end::Input group-->
+
+                                        <!--begin::Input group-->
+                                        <div class="d-flex flex-column mb-7 fv-row">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                                <span class="required">Apakah terdapat penurunan Mobilisasi (Tes berdiri dari kursi)?</span>
+                                            </label>
+                                            <!--end::Label-->
+                                            <select class="form-select" data-control="select2" data-placeholder="Select an option" name="mobilisasi">
+                                                <option value="Y">Ya</option>
+                                                <option value="N" selected>Tidak</option>
+                                            </select>
+                                        </div>
+                                        <!--end::Input group-->
+
+                                        <!--begin::Input group-->
+                                        <div class="d-flex flex-column mb-7 fv-row">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                                <span class="required">Apakah terdapat Malnutrisi?</span>
+                                            </label>
+                                            <!--end::Label-->
+                                            <select class="form-select" data-control="select2" data-placeholder="Select an option" name="malnutrisi">
+                                                <option value="Y">Ya</option>
+                                                <option value="N" selected>Tidak</option>
+                                            </select>
+                                        </div>
+                                        <!--end::Input group-->
+                                       <!--begin::Input group-->
+                                        <div class="d-flex flex-column mb-7 fv-row">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                                <span class="required">Apakah anda memiliki gangguan penglihatan (menggunakan kacamata/tidak jelas ketika melihat benda jauh atau dekat/ tidak jelas ketika membaca tanpa kacamata)?</span>
+                                            </label>
+                                            <!--end::Label-->
+                                            <select class="form-select" data-control="select2" data-placeholder="Select an option" name="penglihatan">
+                                                <option></option>
+                                                <option value="Y" >Iya</option>
+                                                <option value="N"selected>Tidak</option>
+                                            </select>
+                                            
+                                        </div>
+                                        <!--end::Input group-->
+                                        <!--begin::Input group-->
+                                        <div class="d-flex flex-column mb-7 fv-row">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                                <span class="required">Apakah anda memiliki gangguan pendengaran (menggunakan alat bantu dengar/ membutuhkan suara keras bila berbicara dengan orang lain)?</span>
+                                            </label>
+                                            <!--end::Label-->
+                                            <select class="form-select" data-control="select2" data-placeholder="Select an option" name="pendengaran">
+                                                <option></option>
+                                                <option value="Y" >Iya</option>
+                                                <option value="N" selected>Tidak</option>
+                                            </select>
+                                            
+                                        </div>
+                                        <!--end::Input group-->
+                                        <!--begin::Input group-->
+                                        <div class="d-flex flex-column mb-7 fv-row">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                                <span class="required">Apakah terdapat gejala depresi?</span>
+                                            </label>
+                                            <!--end::Label-->
+                                            <select class="form-select" data-control="select2" data-placeholder="Select an option" name="depresi">
+                                                <option value="Y">Iya</option>
+                                                <option value="N" selected>Tidak</option>
+                                            </select>
+                                        </div>
+                                        <!--end::Input group-->
+
+                                        <!--begin::Input group-->
+                                        <div class="d-flex flex-column mb-7 fv-row">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                                <span class="required">Apakah anda bersedia hasil skrining ini dikirimkan ke no HP anda?</span>
+                                            </label>
+                                            <!--end::Label-->
+                                            <select id="select-kirim-hasil" class="form-select" data-placeholder="Select an option" name="kirim_hasil">
+                                                <option value="Y">Ya</option>
+                                                <option value="N" selected>Tidak</option>
+                                            </select>
+                                        </div>
+                                        <!--end::Input group-->
+                                        <!--begin::Input group-->
+                                        <div class=""  id="input-telp-group"  style="display: none;">
+                                            <div class="d-flex flex-column mb-7 fv-row">
+                                                <!--begin::Label-->
+                                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                                    <span class="required">Nomor Telp</span>
+                                                </label>
+                                                <!--end::Label-->
+                                                <input type="text" name="telp" class="form-control form-control-solid mb-3 mb-lg-0" 
+                                                    value="{{ $dapen->telp ?? '' }}" placeholder="Masukkan Nomor Telp" />
+                                            </div>
+                                        <!--end::Input group-->
+                                        </div>
                                     </div>
                                     <!--end::Wrapper-->
                                 </div>
@@ -718,39 +795,24 @@
                                         <!--begin::Heading-->
                                         <div class="pb-8 pb-lg-10">
                                             <!--begin::Title-->
-                                            <h2 class="fw-bold text-gray-900">Your Are Done!</h2>
+                                            <h2 class="fw-bold text-gray-900">Proses Selesai!</h2>
                                             <!--end::Title-->
                                             <!--begin::Notice-->
-                                            <div class="text-muted fw-semibold fs-6">If you need more info, please 
-                                            <a href="#" class="link-primary fw-bold">Sign In</a>.</div>
+                                            <div class="text-muted fw-semibold fs-6">Data kunjungan berhasil ditambahkan. Jika Anda ingin menambahkan kunjungan baru, silakan klik tombol di bawah ini.</div>
                                             <!--end::Notice-->
                                         </div>
                                         <!--end::Heading-->
                                         <!--begin::Body-->
                                         <div class="mb-0">
                                             <!--begin::Text-->
-                                            <div class="fs-6 text-gray-600 mb-5">Writing headlines for blog posts is as much an art as it is a science and probably warrants its own post, but for all advise is with what works for your great & amazing audience.</div>
+                                            <div class="fs-6 text-gray-600 mb-5">Terima kasih telah melengkapi data kunjungan. Anda dapat kembali ke halaman utama atau menambahkan data kunjungan lainnya.</div>
                                             <!--end::Text-->
-                                            <!--begin::Alert-->
-                                            <!--begin::Notice-->
-                                            <div class="notice d-flex bg-light-warning rounded border-warning border border-dashed p-6">
-                                                <!--begin::Icon-->
-                                                <i class="ki-outline ki-information fs-2tx text-warning me-4"></i>
-                                                <!--end::Icon-->
-                                                <!--begin::Wrapper-->
-                                                <div class="d-flex flex-stack flex-grow-1">
-                                                    <!--begin::Content-->
-                                                    <div class="fw-semibold">
-                                                        <h4 class="text-gray-900 fw-bold">We need your attention!</h4>
-                                                        <div class="fs-6 text-gray-700">To start using great tools, please, 
-                                                        <a href="utilities/wizards/vertical.html" class="fw-bold">Create Team Platform</a></div>
-                                                    </div>
-                                                    <!--end::Content-->
-                                                </div>
-                                                <!--end::Wrapper-->
+                                            <!--begin::Actions-->
+                                            <div class="d-flex justify-content-center">
+                                                {{-- <a href="{{ route('admin.kunjungan.create') }}" class="btn btn-primary me-3">Tambah Kunjungan Baru</a>
+                                                <a href="{{ route('admin.kunjungan.index') }}" class="btn btn-light">Kembali ke Daftar Kunjungan</a> --}}
                                             </div>
-                                            <!--end::Notice-->
-                                            <!--end::Alert-->
+                                            <!--end::Actions-->
                                         </div>
                                         <!--end::Body-->
                                     </div>
@@ -800,7 +862,28 @@
     <script src="{{ asset('template/assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
     <!--end::Vendors Javascript-->
 
+     <!--begin::No. Telp Function-->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const kirimHasilSelect = document.getElementById('select-kirim-hasil');
+            const telpGroup = document.getElementById('input-telp-group');
 
+            if (kirimHasilSelect && telpGroup) {
+                kirimHasilSelect.addEventListener('change', function () {
+                    if (this.value === 'Y') {
+                        console.log('User memilih untuk mengirim hasil.');
+                        telpGroup.style.display = 'block';
+                    } else if (this.value === 'N') {
+                        console.log('User memilih untuk tidak mengirim hasil.');
+                        telpGroup.style.display = 'none';
+                    } else {
+                        console.log('User belum memilih opsi.');
+                    }
+                });
+            }
+        });
+    </script>
+    <!--end::No. Telp Function-->
     <!--begin::datepick Javascript-->
     <script>
         $("#kt_datepicker_1").flatpickr();
@@ -1012,69 +1095,99 @@
                                     stringLength: {
                                         min: 3,
                                         max: 3,
-                                        message: 'Minimal 100'
+                                        message: 'Minimal 135, maksimal 190'
+                                    },
+                                    between: {
+                                        min: 135,
+                                        max: 190,
+                                        message: 'Nilai harus antara 135 dan 190'
                                     }
                                 }
                             },
                             'berat_bdn': {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'Harus Diisi !'
-                                    },
-                                    stringLength: {
-                                        min: 2,
-                                        max: 3,
-                                        message: 'Minimal 30'
-                                    }
+                            validators: {
+                                notEmpty: {
+                                message: 'Harus Diisi !'
+                                },
+                                stringLength: {
+                                min: 2,
+                                max: 3,
+                                message: 'Minimal 30, Maksimal 120'
+                                },
+                                between: {
+                                    min: 30,
+                                    max: 120,
+                                    message: 'Nilai harus antara 30 dan 120'
                                 }
+                            }
                             },
                             'lingkar_prt': {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'Harus Diisi !'
-                                    },
-                                    stringLength: {
-                                        min: 2,
-                                        max: 3,
-                                        message: 'Minimal 10'
-                                    }
+                            validators: {
+                                notEmpty: {
+                                message: 'Harus Diisi !'
+                                },
+                                stringLength: {
+                                min: 2,
+                                max: 3,
+                                message: 'Minimal 10'
+                                },
+                                between: {
+                                    min: 10,
+                                    max: 200,
+                                    message: 'Nilai harus antara 10 dan 200'
                                 }
+                            }
                             },
                             'diastole': {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'Harus Diisi !'
-                                    },
-                                    stringLength: {
-                                        min: 2,
-                                        max: 3,
-                                        message: 'Minimal 20'
-                                    }
+                            validators: {
+                                notEmpty: {
+                                message: 'Harus Diisi !'
+                                },
+                                stringLength: {
+                                min: 2,
+                                max: 3,
+                                message: 'Minimal 50, Maksimal 120'
+                                },
+                                between: {
+                                    min: 50,
+                                    max: 120,
+                                    message: 'Nilai harus antara 50 dan 120'
                                 }
+                            }
                             },
                             'sistole': {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'Harus Diisi !'
-                                    },
-                                    stringLength: {
-                                        min: 2,
-                                        max: 3,
-                                        message: 'Minimal 20'
-                                    }
+                            validators: {
+                                notEmpty: {
+                                message: 'Harus Diisi !'
+                                },
+                                stringLength: {
+                                min: 2,
+                                max: 3,
+                                message: 'Minimal 70, Maksimal 230'
+                                },
+                                between: {
+                                    min: 70,
+                                    max: 230,
+                                    message: 'Nilai harus antara 70 dan 230'
                                 }
+                            }
                             },
                             'gula_drh': {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'Harus Diisi !'
-                                    },
-                                    stringLength: {
-                                        min: 2,
-                                        max: 3,
-                                        message: 'Minimal 20'
-                                    }
+                            validators: {
+                                notEmpty: {
+                                message: 'Harus Diisi !'
+                                },
+                                stringLength: {
+                                min: 2,
+                                max: 3,
+                                message: 'Minimal 50, Maksimal 600'
+                                },
+                                between: {
+                                    min: 50,
+                                    max: 600,
+                                    message: 'Nilai harus antara 50 dan 600'
                                 }
+                            }
                             },
                             // 'kolesterol': {
                             //     validators: {

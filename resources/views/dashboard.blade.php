@@ -34,7 +34,7 @@
         <div id="kt_app_content_container" class="app-container container-fluid">
             <h1 class="text-center mb-5">Selamat Datang,{{ Auth::user()->name }}</h1>
 
-            @if(Auth::user()->role == 'kader')
+            @if(Auth::user()->role == 'Kader')
             <!--begin::Row-->
             <div class="row g-12 g-xl-10">
                 <!--begin::Button-->
@@ -302,7 +302,7 @@
                             </div>
                 
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
                                 <!--begin::Actions-->
                                 <button id="kt_docs_formvalidation_text_submit" type="submit" class="btn btn-primary">
                                     <span class="indicator-label">

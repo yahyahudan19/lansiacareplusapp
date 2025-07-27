@@ -210,7 +210,8 @@ class KunjungansController extends Controller
             } else {
                 return redirect($redirectUrl)
                     ->with('status', 'success')
-                    ->with('message', 'Kunjungan berhasil ditambahkan');
+                    ->with('message', 'Kunjungan berhasil ditambahkan')
+                    ->with('rekomendasi', $rekomendasi);
             }
             
 

@@ -307,7 +307,11 @@
                             <div class="modal fade" tabindex="-1" id="kt_modal_1">
                                 <div class="modal-dialog modal-dialog-centered modal-lg">
                                     <div class="modal-content">
-                                        <form id="kt_docs_formvalidation_text" class="form" action="/admin/kunjungan/tambah" autocomplete="off" method="POST">
+                                        @if (Auth::user()->role == "Puskesmas")
+                                            <form id="kt_docs_formvalidation_text" class="form" action="/puskesmas/kunjungan/tambah" autocomplete="off" method="POST">
+                                        @else
+                                            <form id="kt_docs_formvalidation_text" class="form" action="/admin/kunjungan/tambah" autocomplete="off" method="POST">
+                                        @endif
                                             @csrf
                                             <div class="modal-header">
                                                 <h3 class="modal-title">Cari Data Penduduk</h3>
@@ -379,7 +383,7 @@
                                             </div>
 
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
                                                 <button type="submit" class="btn btn-primary">
                                                     Import
                                                 </button>
