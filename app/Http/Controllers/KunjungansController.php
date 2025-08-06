@@ -182,12 +182,12 @@ class KunjungansController extends Controller
                 $indicators = $this->calculateIndicators($request->all());
             
                 // Buat pesan WhatsApp
-                $message = $this->generateWhatsappMessage($person, $indicators, Carbon::parse($request->tanggal_kj)->translatedFormat('d F Y'));
-            
+                $message = $this->generateWhatsappMessage($person, $indicators, Carbon::parse($request->tanggal_kj)->translatedFormat('d F Y'), $rekomendasi);
+
                 // Kirim notifikasi WhatsApp melalui service
-                // $response = WhatsAppService::sendMessage($person->telp, $message);
+                $response = WhatsAppService::sendMessage($person->telp, $message);
                 
-                $response = false; // Simulate a failed response
+                // $response = false; // Simulate a failed response
             
                 \Log::info("WhatsApp Notification Response", ['response' => $response]);
             
@@ -331,10 +331,10 @@ class KunjungansController extends Controller
     }
 
 
-    private function generateWhatsappMessage($person, $indicators, $tanggal)
+    private function generateWhatsappMessage($person, $indicators, $tanggal, $rekomendasi)
     {
         $puskesmas = auth()->user()->puskesmas->nama;
-        $message = "👋 Halo, Bapak/Ibu {$person->nama},\n\n📅 Hasil Skrining Anda pada tanggal: *{$tanggal}* di Puskesmas: *{$puskesmas}* adalah sebagai berikut:\n\n";
+        $message = "👋 Salam Sehat,\n\n📅 Hasil Skrining Anda pada tanggal: *{$tanggal}* di Puskesmas: *{$puskesmas}* adalah sebagai berikut:\n\n";
         $counter = 1;
 
         foreach ($indicators as $key => $indicator) {
@@ -349,8 +349,9 @@ class KunjungansController extends Controller
             $message .= "\n";
             $counter++;
         }
-
-        $message .= "💪 Tetap jaga kesehatan dan lakukan pemeriksaan rutin untuk hidup yang lebih sehat dan bahagia.\n\nTerima kasih! 😊";
+        $message .= "📌 *Rekomendasi*: {$rekomendasi}\n\n";
+        $message .= "💪 Tetap jaga kesehatan dan lakukan pemeriksaan rutin untuk hidup yang lebih sehat dan bahagia.\n\n";
+        $message .= "Pesan ini dikirim otomatis oleh sistem, mohon tidak membalas.\n\nTerima kasih! 😊";
 
         return $message;
     }
@@ -578,17 +579,24 @@ class KunjungansController extends Controller
         
     }
 
-    public function import(request $request){
+    public function import(Request $request)
+    {
         $request->validate([
             'file' => 'required|file|mimes:xlsx,xls',
         ]);
 
         try {
-            Excel::import(new SkriningImport, $request->file('file'));
-            return redirect()->back()->with('status', 'success')->with('message', 'Data skrining berhasil diimport.');
+            $importer = new SkriningImport();
+            Excel::import($importer, $request->file('file'));
+
+            $success = $importer->getSuccessCount();
+            $failed = $importer->getFailedCount();
+
+            return redirect()->back()->with('status', 'success')->with('message', "Import selesai. Berhasil: $success, Gagal: $failed.");
         } catch (\Exception $e) {
             return redirect()->back()->with('status', 'error')->with('message', 'Gagal mengimport file: ' . $e->getMessage());
         }
     }
+
         
 }
