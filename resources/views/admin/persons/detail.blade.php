@@ -161,12 +161,23 @@
                                         <tr>
                                             <td class="text-muted">
                                                 <div class="d-flex align-items-center">
-                                                <i class="ki-outline ki-plus-square fs-2 me-2"></i>BPJS</div>
+                                                <i class="ki-outline ki-notification fs-2 me-2"></i>Notifikasi</div>
                                             </td>
-                                            @if ($persons->bpjs == NULL)
+                                            @if ($persons->notifikasi == 'Y')
+                                                <td class="fw-bold text-end">Ya</td>
+                                            @else
+                                                <td class="fw-bold text-end">Tidak</td>
+                                            @endif
+                                        </tr>
+                                        <tr>
+                                            <td class="text-muted">
+                                                <div class="d-flex align-items-center">
+                                                <i class="ki-outline ki-plus-square fs-2 me-2"></i>Tempat Periksa</div>
+                                            </td>
+                                            @if ($persons->tempat_periksa == NULL)
                                                 <td class="fw-bold text-end">Tidak Ada Data</td>
                                             @else
-                                                <td class="fw-bold text-end">{{$persons->bpjs}}</td>
+                                                <td class="fw-bold text-end">{{$persons->tempat_periksa}}</td>
                                             @endif
                                         </tr>
                                     </tbody>

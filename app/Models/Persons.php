@@ -13,7 +13,7 @@ class Persons extends Model
 
     protected $fillable = [
         'nik', 'bpjs', 'nama', 'jenis_kelamin', 'tanggal_lahir',
-        'alamat', 'rt', 'rw', 'kelurahan_id','telp',
+        'alamat', 'rt', 'rw', 'kelurahan_id','telp','tempat_periksa',
         'status', 'valid', 'notifikasi','edited_by', 'created_by',
     ];
 

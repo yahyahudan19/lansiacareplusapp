@@ -200,7 +200,7 @@
                                                 </div>
                                                 <!--end::Input group-->
                                                 <!--begin::Input group-->
-                                                <div class="fv-row w-100 flex-md-root">
+                                                {{-- <div class="fv-row w-100 flex-md-root">
                                                     <!--begin::Label-->
                                                     <label class="form-label">BPJS</label>
                                                     <!--end::Label-->
@@ -209,14 +209,15 @@
 
                                                     <!--end::Input-->
                                                     <!--begin::Description-->
-                                                    {{-- <div class="text-muted fs-7">Set the product tax class.</div> --}}
+                                                    <div class="text-muted fs-7">Set the product tax class.</div>
                                                     <!--end::Description-->
-                                                </div>
+                                                </div> --}}
+                                                
                                                 <!--end::Input group-->
                                                 <!--begin::Input group-->
                                                 <div class="fv-row w-100 flex-md-root">
                                                     <!--begin::Label-->
-                                                    <label class="required form-label">Notifikasi</label>
+                                                    <label class="required form-label">Apakah anda bersedia hasil skrining ini dikirimkan ke No HP Anda?</label>
                                                     <!--end::Label-->
                                                     <!--begin::Select2-->
                                                     <select class="form-select mb-2" name="notifikasi" data-control="select2" data-placeholder="Select a Notifikasi">
@@ -231,7 +232,24 @@
                                                 <!--end::Input group-->
                                             </div>
                                             <!--end::Input group-->
-
+                                            <!--begin::Input group-->
+                                            <div class="mb-5 fv-row">
+                                                <!--begin::Label-->
+                                                <label class="required form-label">Kemana anda akan pergi berobat, jika memerlukan pemeriksaan lebih lanjut?</label>
+                                                <!--end::Label-->
+                                                <!--begin::Input-->
+                                                <select name="person_periksa" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Pilih..." data-allow-clear="true" data-hide-search="true">
+                                                    <option value="Puskesmas" {{ $persons->tempat_periksa == 'Puskesmas' ? 'selected' : '' }}>Puskesmas</option>
+                                                    <option value="Klinik" {{ $persons->tempat_periksa == 'Klinik' ? 'selected' : '' }}>Klinik</option>
+                                                    <option value="Praktik Dokter" {{ $persons->tempat_periksa == 'Praktik Dokter' ? 'selected' : '' }}>Praktik Dokter</option>
+                                                    <option value="RS Tipe D" {{ $persons->tempat_periksa == 'RS Tipe D' ? 'selected' : '' }}>RS Tipe D</option>
+                                                </select>
+                                                <!--end::Input-->
+                                                <!--begin::Description-->
+                                                {{-- <div class="text-muted fs-7">A product name is required and recommended to be unique.</div> --}}
+                                                <!--end::Description-->
+                                            </div>
+                                            <!--end::Input group-->
                                             <!--begin::Input group-->
                                             <div class="mb-5 fv-row">
                                                 <!--begin::Label-->
@@ -245,6 +263,7 @@
                                                 <!--end::Description-->
                                             </div>
                                             <!--end::Input group-->
+                                            
 
                                             <!--begin::Input group-->
                                             <div class="d-flex flex-wrap gap-5 mb-5">
@@ -403,13 +422,13 @@
                                     }
                                 }
                             },
-                            'telp': {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'No. Telp is required'
-                                    }
-                                }
-                            },
+                            //'telp': {
+                            //    validators: {
+                            //        notEmpty: {
+                            //            message: 'No. Telp is required'
+                            //        }
+                            //    }
+                            //},
                             'status': {
                                 validators: {
                                     notEmpty: {

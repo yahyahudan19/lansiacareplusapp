@@ -36,11 +36,12 @@ class SkriningImport implements ToCollection, WithHeadingRow
                         'tanggal_lahir' => $row['tgllahir'],
                         'bpjs' => $row['nobpjs'] ?? null,
                         'alamat' => $row['alamat'],
-                        'rt' => $row['rt'], // RT kosong
+                        'rt' => $row['rt'] ?? null,
                         'rw' => $row['rw'] ?? null,
                         'status' => $row['status'],
                         'valid' => 'Y',
                         'notifikasi' => 'N',
+                        'tempat_periksa' => $row['tempatperiksa'] ?? null,
                         'created_by' => Auth::id() ?? 1, // default user id jika import via artisan
                         'kelurahan_id' => $kelurahan->id,
                         'jenis_kelamin' => $row['jeniskelamin'],

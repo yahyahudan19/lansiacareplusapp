@@ -377,13 +377,65 @@
                                                     </div>
                                                     <!--end::Col-->
 
-                                                    <!--begin::Col-->
+                                                    {{-- <!--begin::Col-->
                                                     <div class="col-md-6 fv-row fv-plugins-icon-container">
                                                         <!--begin::Label-->
                                                         <label class="fw-semibold fs-6 mb-2">No. BPJS</label>
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
                                                         <input type="text" name="person_bpjs" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="No. BPJS" />
+                                                        <!--end::Input-->
+                                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                                    </div> --}}
+                                                    <!--end::Col-->
+
+                                                    {{-- <!--begin::Col-->
+                                                    <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                                        <!--begin::Label-->
+                                                        <label class="fw-semibold fs-6 mb-2">Kemana anda akan pergi berobat, jika memerlukan pemeriksaan lebih lanjut?</label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <select name="person_periksa" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Pilih..." data-allow-clear="true" data-hide-search="false">
+                                                            <option></option>
+                                                            <option value="Puskesmas">Puskesmas</option>
+                                                            <option value="Klinik">Klinik</option>
+                                                            <option value="Praktik Dokter">Praktik Dokter</option>
+                                                            <option value="RS Tipe D">RS Tipe D</option>
+                                                        </select>
+                                                        <!--end::Input-->
+                                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                                    </div>
+                                                    <!--end::Col--> --}}
+                                                </div>
+                                                <span><center>Kemana anda akan pergi berobat, jika memerlukan pemeriksaan lebih lanjut?</center></span>
+                                                <br>
+                                                <!--begin::Input group-->
+                                                <div class="row g-9 mb-7">
+                                                    {{-- <!--begin::Col-->
+                                                    <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                                        <!--begin::Label-->
+                                                        <label class="fw-semibold fs-6 mb-2">No. BPJS</label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <input type="text" name="person_bpjs" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="No. BPJS" />
+                                                        <!--end::Input-->
+                                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                                    </div> --}}
+                                                    <!--end::Col-->
+
+                                                    <!--begin::Col-->
+                                                    <div class="col-md-12 fv-row fv-plugins-icon-container">
+                                                        <!--begin::Label-->
+                                                        {{-- <label class="fw-semibold fs-6 mb-2">Pilih Salah Satu</label> --}}
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <select name="person_periksa" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Pilih..." data-allow-clear="true" data-hide-search="true">
+                                                            <option></option>
+                                                            <option value="Puskesmas">Puskesmas</option>
+                                                            <option value="Klinik">Klinik</option>
+                                                            <option value="Praktik Dokter">Praktik Dokter</option>
+                                                            <option value="RS Tipe D">RS Tipe D</option>
+                                                        </select>
                                                         <!--end::Input-->
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                     </div>
