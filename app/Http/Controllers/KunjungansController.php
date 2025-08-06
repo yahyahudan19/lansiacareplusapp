@@ -168,9 +168,13 @@ class KunjungansController extends Controller
             // Cek rekomendasi
             $perlu_rujukan = in_array('Y', [
                 $request->ginjal,
+                $request->kognitif,
+                $request->malnutrisi,
+                $request->mobilisasi,
                 $request->penglihatan,
                 $request->pendengaran,  
                 $request->merokok,
+                $request->depresi,
             ]);
 
             $rekomendasi = $perlu_rujukan
