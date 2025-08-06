@@ -338,7 +338,7 @@ class KunjungansController extends Controller
     private function generateWhatsappMessage($person, $indicators, $tanggal, $rekomendasi)
     {
         $puskesmas = auth()->user()->puskesmas->nama;
-        $message = "👋 Salam Sehat {$person->nama},\n\n📅 Hasil Skrining Anda pada tanggal: *{$tanggal}* di Puskesmas: *{$puskesmas}* adalah sebagai berikut:\n\n";
+        $message = "👋 Salam Sehat Bapak/Ibu {$person->nama},\n\n📅 Hasil Skrining Anda pada tanggal: *{$tanggal}* di Puskesmas: *{$puskesmas}* adalah sebagai berikut:\n\n";
         $counter = 1;
 
         foreach ($indicators as $key => $indicator) {
