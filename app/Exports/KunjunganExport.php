@@ -26,70 +26,68 @@ class KunjunganExport implements FromCollection, WithHeadings, WithEvents,WithCo
     public function collection()
     {
         return Kunjungans::with(['person.kelurahan.kecamatan', 'skrinings'])
-            ->whereBetween('created_at', [$this->startDate, $this->endDate])
+            ->whereBetween('tanggal_kj', [$this->startDate, $this->endDate])
             ->get()
+            ->values() // reset key biar $index berurutan
             ->map(function ($kunjungan, $index) {
-                $person = $kunjungan->person;
-                $skrinings = $kunjungan->skrinings->first();
+                $p  = $kunjungan->person;
+                $sk = $kunjungan->skrinings->first();
+                $yn = fn($v) => $v === 'Y' ? 'Ya' : ($v === 'N' ? 'Tidak' : 'Tidak Ada Data');
 
                 return [
-                    'NO' => $index + 1,
-                    'NAMALENGKAP' => $person->nama,
-                    'ALAMAT' => $person->alamat,
-                    'RW' => $person->rw,
-                    'KELURAHAN' => $person->kelurahan->nama ?? '',
-                    'KECAMATAN' => $person->kelurahan->kecamatan->nama ?? '',
-                    'NIK' => $person->nik,
-                    'NoBPJS' => $person->bpjs,
-                    'NoTelpHP' => $person->telp,
-                    'JenisKelamin' => $person->jenis_kelamin,
-                    'TglLahir' => $person->tanggal_lahir,
-                    'Usia' => Carbon::parse($person->tanggal_lahir)->age,
-                    'BeratBadan' => $kunjungan->berat_bdn,
-                    'TinggiBadan' => $kunjungan->tinggi_bdn,
-                    'LingkarPerut' => $kunjungan->lingkar_prt,
-                    'Sistole' => $kunjungan->sistole,
-                    'Diastole' => $kunjungan->diastole,
-                    'GulaDarah' => $kunjungan->gula_drh,
-                    'Kolesterol' => $kunjungan->kolesterol,
-                    'AsamUrat' => $kunjungan->asam_urat,
-                    'Ginjal' => $skrinings->ginjal === 'Y' ? 'Ya' : ($skrinings->ginjal === 'N' ? 'Tidak' : ''),
-                    'GangguanPenglihatan' => $skrinings->penglihatan === 'Y' ? 'Ya' : ($skrinings->penglihatan === 'N' ? 'Tidak' : ''),
-                    'GangguanPendengaran' => $skrinings->pendengaran === 'Y' ? 'Ya' : ($skrinings->pendengaran === 'N' ? 'Tidak' : ''),
-                    'ADL' => match ($skrinings->adl ?? '') {
+                    'NO'               => $index + 1,
+                    'NAMALENGKAP'      => $p->nama,
+                    'ALAMAT'           => $p->alamat,
+                    'RW'               => $p->rw,
+                    'KELURAHAN'        => $p->kelurahan->nama ?? '',
+                    'KECAMATAN'        => $p->kelurahan->kecamatan->nama ?? '',
+                    'NIK'              => (string) $p->nik,   // tetap simpan sebagai string; format TEXT di columnFormats
+                    'NoBPJS'           => (string) $p->bpjs,
+                    'NoTelpHP'         => (string) $p->telp,
+                    'JenisKelamin'     => $p->jenis_kelamin,
+                    'TglLahir'         => Carbon::parse($p->tanggal_lahir)->format('Y-m-d'),
+                    'Usia'             => Carbon::parse($p->tanggal_lahir)->diffInYears($kunjungan->tanggal_kj ?? now()),
+                    'BeratBadan'       => $kunjungan->berat_bdn,
+                    'TinggiBadan'      => $kunjungan->tinggi_bdn,
+                    'LingkarPerut'     => $kunjungan->lingkar_prt,
+                    'Sistole'          => $kunjungan->sistole,
+                    'Diastole'         => $kunjungan->diastole,
+                    'GulaDarah'        => $kunjungan->gula_drh,
+                    'Kolesterol'       => $kunjungan->kolesterol,
+                    'AsamUrat'         => $kunjungan->asam_urat,
+                    'Ginjal'           => $sk ? $yn($sk->ginjal) : 'Tidak Ada Data',
+                    'GangguanPenglihatan' => $sk ? $yn($sk->penglihatan) : 'Tidak Ada Data',
+                    'GangguanPendengaran' => $sk ? $yn($sk->pendengaran) : 'Tidak Ada Data',
+                    'ADL' => match ($sk->adl ?? '') {
                         'A' => 'Mandiri (A) : Dapat melakukan aktivitas sendiri tanpa bantuan orang lain',
                         'B' => 'Ketergantungan Ringan (B) : Membutuhkan bantuan orang lain dalam melakukan aktivitas tertentu/memakai kursi roda',
-                        'B1' => 'Ketergantungan Sedang (B) : Mengalami gangguan dalam aktivitas sehari-hari sendiri, terutama dalam hal Buang Air Kecil (BAK) dan Buang Air Besar (BAB)',
+                        'B1'=> 'Ketergantungan Sedang (B) : Mengalami gangguan dalam aktivitas sehari-hari sendiri, terutama dalam hal BAK/BAB',
                         'C' => 'Ketergantungan Berat (C) : Hanya bisa beraktivitas di atas tempat tidur',
-                        'D' => 'Ketergantungan Total (D) : Sama sekali tidak mampu melakukan aktivitas hidup sehari-hari, sehingga sangat tergantung orang lain',
+                        'D' => 'Ketergantungan Total (D) : Sama sekali tidak mampu melakukan aktivitas harian',
                         default => 'Tidak Ada Data',
                     },
-                    'GDS' => match ($skrinings->gds ?? '') {
+                    'GDS' => match ($sk->gds ?? '') {
                         'A' => 'Sudah puas dengan kehidupan, bersemangat, merasa bahagia, menyenangkan',
-                        'B' => 'Merasa bosan, lebih senang dirumah, meninggalkan banyak kesenangan, cemas, memiliki masalah daya ingat',
-                        'C' => 'Merasa kehidupan hampa, tidak berdaya, tidak berharga, tidak ada harapan, keadaan orang lain lebih baik',
+                        'B' => 'Merasa bosan, lebih senang di rumah, meninggalkan kesenangan, cemas, masalah daya ingat',
+                        'C' => 'Merasa kehidupan hampa, tidak berdaya, tidak berharga, tidak ada harapan',
                         default => 'Tidak Ada Data',
                     },
-                    'Merokok' => match ($skrinings->merokok ?? '') {
-                        'Y' => 'Iya',
-                        'TSB' => 'Tidak, Sudah Berhenti kurang dari 1 Tahun',
+                    'Merokok'    => match ($sk->merokok ?? '') {
+                        'Y'   => 'Iya',
+                        'TSB' => 'Tidak, Sudah Berhenti < 1 Tahun',
                         'TPS' => 'Tidak Pernah Sama Sekali',
                         default => 'Tidak Ada Data',
                     },
-                    'Kognitif' => $skrinings->kognitif === 'Y' ? 'Ya' : ($skrinings->kognitif === 'N' ? 'Tidak' : 'Tidak Ada Data'),
-                    'Mobilisasi' => $skrinings->mobilisasi === 'Y' ? 'Ya' : ($skrinings->mobilisasi === 'N' ? 'Tidak' : 'Tidak Ada Data'),
-                    'Malnutrisi' => $skrinings->malnutrisi === 'Y' ? 'Ya' : ($skrinings->malnutrisi === 'N' ? 'Tidak' : 'Tidak Ada Data'),
-                    'keterangan' => match ($skrinings->keterangan ?? '') {
-                        'Tidak Ada' => 'Tidak Ada',
-                        'Tidak ada Bahan Medis Habis Pakai' => 'Tidak ada Bahan Medis Habis Pakai',
-                        'Belum dilakukan pemeriksaan' => 'Belum dilakukan pemeriksaan',
-                        default => 'Tidak Ada Data',
-                    },
-                    'Timestamp' => $kunjungan->created_at->format('Y-m-d H:i:s'),
-                    'Status' => $person->status,
+                    'Kognitif'   => $sk ? $yn($sk->kognitif)   : 'Tidak Ada Data',
+                    'Mobilisasi' => $sk ? $yn($sk->mobilisasi) : 'Tidak Ada Data',
+                    'Malnutrisi' => $sk ? $yn($sk->malnutrisi) : 'Tidak Ada Data',
+                    'keterangan' => $sk->keterangan ?? 'Tidak Ada Data',
+                    'Timestamp'  => Carbon::parse($kunjungan->created_at)->format('Y-m-d H:i:s'),
+                    'Status'     => $p->status,
                 ];
             });
     }
+
 
     public function headings(): array
     {

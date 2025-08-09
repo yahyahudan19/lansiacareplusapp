@@ -21,7 +21,7 @@ class PersonsController extends Controller
     {
         $kecamatans = Kecamatans::all();
         $kelurahans = Kelurahans::all();
-        $data_person = Persons::latest()->take(10)->get();
+        $data_person = Persons::latest()->take(100)->get();
         // $data_person = Persons::get()->all();
         return view('admin.persons', compact('data_person','kecamatans','kelurahans'));
     }
@@ -29,7 +29,7 @@ class PersonsController extends Controller
     {
         $kecamatans = Kecamatans::all();
         $kelurahans = Kelurahans::all();
-        $data_person = Persons::where('tanggal_lahir', '<=', Carbon::now()->subYears(60))->latest()->take(10)->get();
+        $data_person = Persons::where('tanggal_lahir', '<=', Carbon::now()->subYears(60))->latest()->take(100)->get();
         // $data_person = Persons::get()->all();
         return view('admin.persons', compact('data_person','kecamatans','kelurahans'));
     }
@@ -42,7 +42,7 @@ class PersonsController extends Controller
         $data_person = Persons::whereBetween('tanggal_lahir', [
             Carbon::now()->subYears(59),  // Maximum 59 years old
             Carbon::now()->subYears(45)   // Minimum 45 years old
-        ])->latest()->take(10)->get();
+        ])->latest()->take(100)->get();
 
         return view('admin.persons', compact('data_person', 'kecamatans', 'kelurahans'));
     }

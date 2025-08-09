@@ -189,9 +189,9 @@ class KunjungansController extends Controller
                 $message = $this->generateWhatsappMessage($person, $indicators, Carbon::parse($request->tanggal_kj)->translatedFormat('d F Y'), $rekomendasi);
 
                 // Kirim notifikasi WhatsApp melalui service
-                $response = WhatsAppService::sendMessage($person->telp, $message);
+                // $response = WhatsAppService::sendMessage($person->telp, $message);
                 
-                // $response = false; // Simulate a failed response
+                $response = false; // Simulate a failed response
             
                 \Log::info("WhatsApp Notification Response", ['response' => $response]);
             

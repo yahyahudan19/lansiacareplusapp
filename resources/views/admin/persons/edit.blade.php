@@ -222,7 +222,7 @@
                                                     <!--begin::Select2-->
                                                     <select class="form-select mb-2" name="notifikasi" data-control="select2" data-placeholder="Select a Notifikasi">
                                                         <option value="Y">Iya</option>
-                                                        <option value="N">Tidak</option>
+                                                        <option value="N" selected>Tidak</option>
                                                     </select>
                                                     <!--end::Select2-->
                                                     <!--begin::Description-->

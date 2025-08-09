@@ -53,7 +53,6 @@ Route::middleware(['role:System Administrator,Puskesmas,Kader'])->group(function
     Route::post('/admin/penduduk/store', [PersonsController::class, 'store'])->name('persons.store');
     Route::post('/admin/penduduk/update/{id}', [PersonsController::class, 'update'])->name('persons.update');
 
-
 });
 
 // System Administrator and Puskesmas Routes ------------------------------------------------------
