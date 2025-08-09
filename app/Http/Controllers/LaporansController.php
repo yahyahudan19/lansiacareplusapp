@@ -99,148 +99,148 @@ class LaporansController extends Controller
     }
 
 
-    public function calculateCount($indicator, $location, $startDate, $endDate, $jenisKelamin, $ageMin, $ageMax,$isAgregat)
-    {
+    // public function calculateCount($indicator, $location, $startDate, $endDate, $jenisKelamin, $ageMin, $ageMax,$isAgregat)
+    // {
 
-        // Abstraksi filter person untuk digunakan di semua case
-        $filterPerson = function ($q) use ($location, $jenisKelamin, $ageMin, $ageMax, $isAgregat) {
-            if ($isAgregat) {
-                // Jika agregat, filter berdasarkan puskesmas
-                $q->whereHas('kelurahan', function ($query) use ($location) {
-                    $query->where('puskesmas_kd', $location->kode);
-                });
-            } else {
-                // Jika bukan agregat, filter berdasarkan kelurahan
-                $q->where('kelurahan_id', $location->id);
-            }
+    //     // Abstraksi filter person untuk digunakan di semua case
+    //     $filterPerson = function ($q) use ($location, $jenisKelamin, $ageMin, $ageMax, $isAgregat) {
+    //         if ($isAgregat) {
+    //             // Jika agregat, filter berdasarkan puskesmas
+    //             $q->whereHas('kelurahan', function ($query) use ($location) {
+    //                 $query->where('puskesmas_kd', $location->kode);
+    //             });
+    //         } else {
+    //             // Jika bukan agregat, filter berdasarkan kelurahan
+    //             $q->where('kelurahan_id', $location->id);
+    //         }
 
-            if ($jenisKelamin === 'L' || $jenisKelamin === 'P') {
-                $q->where('jenis_kelamin', $jenisKelamin);
-            }
-            if (!is_null($ageMin) && !is_null($ageMax)) {
-                $q->whereRaw('TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) BETWEEN ? AND ?', [$ageMin, $ageMax]);
-            }
-        };
+    //         if ($jenisKelamin === 'L' || $jenisKelamin === 'P') {
+    //             $q->where('jenis_kelamin', $jenisKelamin);
+    //         }
+    //         if (!is_null($ageMin) && !is_null($ageMax)) {
+    //             $q->whereRaw('TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) BETWEEN ? AND ?', [$ageMin, $ageMax]);
+    //         }
+    //     };
 
 
-        // Gunakan switch-case untuk perhitungan berdasarkan kelompok
-        switch ($indicator->kelompok_id) {
-            case 1: // DILAYANI (D)
-                return Kunjungans::whereBetween('tanggal_kj', [$startDate, $endDate])
-                    ->whereHas('person', $filterPerson)
-                    ->count();
+    //     // Gunakan switch-case untuk perhitungan berdasarkan kelompok
+    //     switch ($indicator->kelompok_id) {
+    //         case 1: // DILAYANI (D)
+    //             return Kunjungans::whereBetween('tanggal_kj', [$startDate, $endDate])
+    //                 ->whereHas('person', $filterPerson)
+    //                 ->count();
 
-            case 2: // MANDIRI
-                return Skrinings::whereHas('kunjungan', function ($q) use ($filterPerson, $startDate, $endDate) {
-                    $q->whereBetween('tanggal_kj', [$startDate, $endDate])->whereHas('person', $filterPerson);
-                })->where('adl', $indicator->target_value)->count();
+    //         case 2: // MANDIRI
+    //             return Skrinings::whereHas('kunjungan', function ($q) use ($filterPerson, $startDate, $endDate) {
+    //                 $q->whereBetween('tanggal_kj', [$startDate, $endDate])->whereHas('person', $filterPerson);
+    //             })->where('adl', $indicator->target_value)->count();
 
-            case 3: // SCREENING
-                return Skrinings::whereHas('kunjungan', function ($q) use ($filterPerson, $startDate, $endDate) {
-                    $q->whereBetween('tanggal_kj', [$startDate, $endDate])->whereHas('person', $filterPerson);
-                })->count();
+    //         case 3: // SCREENING
+    //             return Skrinings::whereHas('kunjungan', function ($q) use ($filterPerson, $startDate, $endDate) {
+    //                 $q->whereBetween('tanggal_kj', [$startDate, $endDate])->whereHas('person', $filterPerson);
+    //             })->count();
 
-            case 4: // GGN ME
-                return Skrinings::whereHas('kunjungan', function ($q) use ($filterPerson, $startDate, $endDate) {
-                    $q->whereBetween('tanggal_kj', [$startDate, $endDate])->whereHas('person', $filterPerson);
-                })->where('gds', $indicator->target_value)->count();
+    //         case 4: // GGN ME
+    //             return Skrinings::whereHas('kunjungan', function ($q) use ($filterPerson, $startDate, $endDate) {
+    //                 $q->whereBetween('tanggal_kj', [$startDate, $endDate])->whereHas('person', $filterPerson);
+    //             })->where('gds', $indicator->target_value)->count();
 
-            case 5: // IMT (Indeks Massa Tubuh)
-                return Kunjungans::whereBetween('tanggal_kj', [$startDate, $endDate])
-                    ->whereHas('person', $filterPerson)
-                    ->where(function ($q) use ($indicator) {
-                        $q->whereRaw('berat_bdn / (tinggi_bdn * tinggi_bdn / 10000) >= 25')
-                            ->when($indicator->target_value === 'LEBIH', function ($q) {
-                                return $q->whereRaw('berat_bdn / (tinggi_bdn * tinggi_bdn / 10000) > 25');
-                            })
-                            ->when($indicator->target_value === 'NORMAL', function ($q) {
-                                return $q->whereRaw('berat_bdn / (tinggi_bdn * tinggi_bdn / 10000) BETWEEN 18.5 AND 24.9');
-                            })
-                            ->when($indicator->target_value === 'KURANG', function ($q) {
-                                return $q->whereRaw('berat_bdn / (tinggi_bdn * tinggi_bdn / 10000) < 18.5');
-                            });
-                    })
-                    ->count();
+    //         case 5: // IMT (Indeks Massa Tubuh)
+    //             return Kunjungans::whereBetween('tanggal_kj', [$startDate, $endDate])
+    //                 ->whereHas('person', $filterPerson)
+    //                 ->where(function ($q) use ($indicator) {
+    //                     $q->whereRaw('berat_bdn / (tinggi_bdn * tinggi_bdn / 10000) >= 25')
+    //                         ->when($indicator->target_value === 'LEBIH', function ($q) {
+    //                             return $q->whereRaw('berat_bdn / (tinggi_bdn * tinggi_bdn / 10000) > 25');
+    //                         })
+    //                         ->when($indicator->target_value === 'NORMAL', function ($q) {
+    //                             return $q->whereRaw('berat_bdn / (tinggi_bdn * tinggi_bdn / 10000) BETWEEN 18.5 AND 24.9');
+    //                         })
+    //                         ->when($indicator->target_value === 'KURANG', function ($q) {
+    //                             return $q->whereRaw('berat_bdn / (tinggi_bdn * tinggi_bdn / 10000) < 18.5');
+    //                         });
+    //                 })
+    //                 ->count();
 
-            case 6: // HIPERTENSI
-                return Kunjungans::whereBetween('tanggal_kj', [$startDate, $endDate])
-                    ->whereHas('person', $filterPerson)
-                    ->where('sistole', '>=', 140)
-                    ->where('diastole', '>=', 90)
-                    ->count();
+    //         case 6: // HIPERTENSI
+    //             return Kunjungans::whereBetween('tanggal_kj', [$startDate, $endDate])
+    //                 ->whereHas('person', $filterPerson)
+    //                 ->where('sistole', '>=', 140)
+    //                 ->where('diastole', '>=', 90)
+    //                 ->count();
 
-            case 7: // KOLESTEROL TINGGI
-                return Kunjungans::whereBetween('tanggal_kj', [$startDate, $endDate])
-                    ->whereHas('person', $filterPerson)
-                    ->where('kolesterol', '>', 200)
-                    ->count();
+    //         case 7: // KOLESTEROL TINGGI
+    //             return Kunjungans::whereBetween('tanggal_kj', [$startDate, $endDate])
+    //                 ->whereHas('person', $filterPerson)
+    //                 ->where('kolesterol', '>', 200)
+    //                 ->count();
 
-            case 8: // DIABETES MELITUS (Gula Darah > 200)
-                return Kunjungans::whereBetween('tanggal_kj', [$startDate, $endDate])
-                    ->whereHas('person', $filterPerson)
-                    ->where('gula_drh', '>', 200)
-                    ->count();
+    //         case 8: // DIABETES MELITUS (Gula Darah > 200)
+    //             return Kunjungans::whereBetween('tanggal_kj', [$startDate, $endDate])
+    //                 ->whereHas('person', $filterPerson)
+    //                 ->where('gula_drh', '>', 200)
+    //                 ->count();
 
-            case 9: // ASAM URAT TINGGI (Laki-laki >7, Perempuan >6)
-                return Kunjungans::whereBetween('tanggal_kj', [$startDate, $endDate])
-                    ->whereHas('person', $filterPerson)
-                    ->whereHas('person', function ($q) {
-                        $q->where(function ($query) {
-                            $query->where('jenis_kelamin', 'L')->where('asam_urat', '>', 7);
-                        })->orWhere(function ($query) {
-                            $query->where('jenis_kelamin', 'P')->where('asam_urat', '>', 6);
-                        });
-                    })
-                    ->count();
-            case 12: // GANGGUAN PENGLIHATAN
-                return Skrinings::whereHas('kunjungan', function ($q) use ($filterPerson, $startDate, $endDate) {
-                    $q->whereBetween('tanggal_kj', [$startDate, $endDate])->whereHas('person', $filterPerson);
-                })->where('penglihatan', $indicator->target_value)->count();
+    //         case 9: // ASAM URAT TINGGI (Laki-laki >7, Perempuan >6)
+    //             return Kunjungans::whereBetween('tanggal_kj', [$startDate, $endDate])
+    //                 ->whereHas('person', $filterPerson)
+    //                 ->whereHas('person', function ($q) {
+    //                     $q->where(function ($query) {
+    //                         $query->where('jenis_kelamin', 'L')->where('asam_urat', '>', 7);
+    //                     })->orWhere(function ($query) {
+    //                         $query->where('jenis_kelamin', 'P')->where('asam_urat', '>', 6);
+    //                     });
+    //                 })
+    //                 ->count();
+    //         case 12: // GANGGUAN PENGLIHATAN
+    //             return Skrinings::whereHas('kunjungan', function ($q) use ($filterPerson, $startDate, $endDate) {
+    //                 $q->whereBetween('tanggal_kj', [$startDate, $endDate])->whereHas('person', $filterPerson);
+    //             })->where('penglihatan', $indicator->target_value)->count();
 
-            case 13: // GANGGUAN PENDENGARAN
-                return Skrinings::whereHas('kunjungan', function ($q) use ($filterPerson, $startDate, $endDate) {
-                    $q->whereBetween('tanggal_kj', [$startDate, $endDate])->whereHas('person', $filterPerson);
-                })->where('pendengaran', $indicator->target_value)->count();
+    //         case 13: // GANGGUAN PENDENGARAN
+    //             return Skrinings::whereHas('kunjungan', function ($q) use ($filterPerson, $startDate, $endDate) {
+    //                 $q->whereBetween('tanggal_kj', [$startDate, $endDate])->whereHas('person', $filterPerson);
+    //             })->where('pendengaran', $indicator->target_value)->count();
 
-            case 10: // GANGGUAN GINJAL
-                return Skrinings::whereHas('kunjungan', function ($q) use ($filterPerson, $startDate, $endDate) {
-                    $q->whereBetween('tanggal_kj', [$startDate, $endDate])->whereHas('person', $filterPerson);
-                })->where('ginjal', $indicator->target_value)->count();
-            case 14: // MEROKOK
-                return Skrinings::whereHas('kunjungan', function ($q) use ($filterPerson, $startDate, $endDate) {
-                    $q->whereBetween('tanggal_kj', [$startDate, $endDate])
-                    ->whereHas('person', $filterPerson);
-                })->where('merokok', $indicator->target_value)->count();
+    //         case 10: // GANGGUAN GINJAL
+    //             return Skrinings::whereHas('kunjungan', function ($q) use ($filterPerson, $startDate, $endDate) {
+    //                 $q->whereBetween('tanggal_kj', [$startDate, $endDate])->whereHas('person', $filterPerson);
+    //             })->where('ginjal', $indicator->target_value)->count();
+    //         case 14: // MEROKOK
+    //             return Skrinings::whereHas('kunjungan', function ($q) use ($filterPerson, $startDate, $endDate) {
+    //                 $q->whereBetween('tanggal_kj', [$startDate, $endDate])
+    //                 ->whereHas('person', $filterPerson);
+    //             })->where('merokok', $indicator->target_value)->count();
 
-            case 15: // KOGNITIF
-                return Skrinings::whereHas('kunjungan', function ($q) use ($filterPerson, $startDate, $endDate) {
-                    $q->whereBetween('tanggal_kj', [$startDate, $endDate])
-                    ->whereHas('person', $filterPerson);
-                })->where('kognitif', $indicator->target_value)->count();
+    //         case 15: // KOGNITIF
+    //             return Skrinings::whereHas('kunjungan', function ($q) use ($filterPerson, $startDate, $endDate) {
+    //                 $q->whereBetween('tanggal_kj', [$startDate, $endDate])
+    //                 ->whereHas('person', $filterPerson);
+    //             })->where('kognitif', $indicator->target_value)->count();
 
-            case 16: // MOBILISASI
-                return Skrinings::whereHas('kunjungan', function ($q) use ($filterPerson, $startDate, $endDate) {
-                    $q->whereBetween('tanggal_kj', [$startDate, $endDate])
-                    ->whereHas('person', $filterPerson);
-                })->where('mobilisasi', $indicator->target_value)->count();
+    //         case 16: // MOBILISASI
+    //             return Skrinings::whereHas('kunjungan', function ($q) use ($filterPerson, $startDate, $endDate) {
+    //                 $q->whereBetween('tanggal_kj', [$startDate, $endDate])
+    //                 ->whereHas('person', $filterPerson);
+    //             })->where('mobilisasi', $indicator->target_value)->count();
 
-            case 17: // MALNUTRISI
-                return Skrinings::whereHas('kunjungan', function ($q) use ($filterPerson, $startDate, $endDate) {
-                    $q->whereBetween('tanggal_kj', [$startDate, $endDate])
-                    ->whereHas('person', $filterPerson);
-                })->where('malnutrisi', $indicator->target_value)->count();
+    //         case 17: // MALNUTRISI
+    //             return Skrinings::whereHas('kunjungan', function ($q) use ($filterPerson, $startDate, $endDate) {
+    //                 $q->whereBetween('tanggal_kj', [$startDate, $endDate])
+    //                 ->whereHas('person', $filterPerson);
+    //             })->where('malnutrisi', $indicator->target_value)->count();
 
-            case 18: // DEPRESI
-                return Skrinings::whereHas('kunjungan', function ($q) use ($filterPerson, $startDate, $endDate) {
-                    $q->whereBetween('tanggal_kj', [$startDate, $endDate])
-                    ->whereHas('person', $filterPerson);
-                })->where('depresi', $indicator->target_value)->count();
+    //         case 18: // DEPRESI
+    //             return Skrinings::whereHas('kunjungan', function ($q) use ($filterPerson, $startDate, $endDate) {
+    //                 $q->whereBetween('tanggal_kj', [$startDate, $endDate])
+    //                 ->whereHas('person', $filterPerson);
+    //             })->where('depresi', $indicator->target_value)->count();
 
-            default:
-                return 0;
-        }
+    //         default:
+    //             return 0;
+    //     }
         
-    }
+    // }
 
     private function buildCaseColumn($indicator): string
     {
