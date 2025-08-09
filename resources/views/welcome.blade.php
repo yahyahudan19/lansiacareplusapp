@@ -2,16 +2,16 @@
 <html lang="en">
 	<!--begin::Head-->
 	<head>
-		<title>Lansia Care+ | Aplikasi Lansia Kota Malang</title>
+		<title>SIM Lansia | Aplikasi Lansia Kota Malang</title>
 		<meta charset="utf-8" />
 		<meta name="description" content="Aplikasi untuk manajemen pendataan masyarakat lansia dan pra-lansia di Kota Malang" />
 		<meta name="keywords" content="Kota Malang, Lansia, Pra-Lansia, Peduli, Kesehatan" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta property="og:locale" content="id_ID" />
 		<meta property="og:type" content="article" />
-		<meta property="og:title" content="Lansia Care+ | Aplikasi Lansia Kota Malang" />
+		<meta property="og:title" content="SIM Lansia | Aplikasi Lansia Kota Malang" />
 		<meta property="og:url" content="#" />
-		<meta property="og:site_name" content="Lansia Care+ by YH" />
+		<meta property="og:site_name" content="SIM Lansia by YH" />
 		{{-- <link rel="canonical" href="http://preview.keenthemes.comlanding.html" /> --}}
 		<link rel="shortcut icon" href="{{ asset('template/assets/media/logos/favicon.ico')}}" />
 		<!--begin::Fonts(mandatory for all pages)-->
@@ -113,7 +113,7 @@
 							<h1 class="text-white lh-base fw-bold fs-2x fs-lg-3x mb-15">Pendataan Lansia Kota Malang  
 							<br />dengan 
 							<span style="background: linear-gradient(to right, #12CE5D 0%, #FFD80C 100%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;">
-								<span id="kt_landing_hero_text">Lansia Care+ App</span>
+								<span id="kt_landing_hero_text">SIM Lansia App</span>
 							</span></h1>
 							<!--end::Title-->
 							<!--begin::Action-->
@@ -868,7 +868,7 @@
 								</a>
 								<!--end::Logo image-->
 								<!--begin::Logo image-->
-								<span class="mx-5 fs-6 fw-semibold text-gray-600 pt-1" href="#">&copy; 2024 Lansia Care+ App.</span>
+								<span class="mx-5 fs-6 fw-semibold text-gray-600 pt-1" href="#">&copy; 2024 SIM Lansia App.</span>
 								<!--end::Logo image-->
 							</div>
 							<!--end::Copyright-->
